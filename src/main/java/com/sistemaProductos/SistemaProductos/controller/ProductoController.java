@@ -2,6 +2,7 @@ package com.sistemaProductos.SistemaProductos.controller;
 
 import java.util.List;
 
+import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +40,11 @@ public class ProductoController {
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Producto> findById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(this.productoService.findById(id),HttpStatus.OK);
+		Producto prod = this.productoService.findById(id); 
+		if(prod == null){
+			throw new ModelNotFoundException("El cliente no fue encontrado");
+		}
+		return new ResponseEntity<>(prod,HttpStatus.OK);
 	}
 	
 	@GetMapping
@@ -49,6 +54,9 @@ public class ProductoController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable Integer id) {
+		if(this.productoService.findById(id) == null){
+			throw new ModelNotFoundException("El cliente que desea eliminar no existe");
+		}
 		this.productoService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
