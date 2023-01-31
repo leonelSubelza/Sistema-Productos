@@ -1,0 +1,25 @@
+.contenedor-pantalla-productos{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  border: 2px solid red;
+}
+
+.tabla-productos{
+  padding: auto 5px;
+}
+
+td, th{
+    padding: 8px 15px;
+}
+
+/*Cada 3 elementos se repetira esta secuencia de colores*/
+.contenedor-tabla-items tr:nth-child(2n + 1){
+    background-color: #bababa;
+}
+.contenedor-tabla-items tr:nth-child(2n + 2){
+    background-color: #fff;
+}

@@ -6,6 +6,7 @@ import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,13 +19,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sistemaProductos.SistemaProductos.model.Producto;
 import com.sistemaProductos.SistemaProductos.service.IProductoService;
 
+@CrossOrigin("*")
+//@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/productos")
 public class ProductoController {
 
 	@Autowired
 	private IProductoService productoService;
-	
+		
 	//Se agrega responseEntity para manejar los codigos de error al crear un nuevo producto
 	@PostMapping
 	public ResponseEntity<Producto> create(@RequestBody Producto producto) {
