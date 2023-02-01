@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { estadosProductos } from "../../service/EstadosProductos";
+import { crearProductos } from "../../service/GestionProductos";
 import "../../styles/VentanaEmergenteGestionProductos.css";
 
 export default function VentanaEmergenteGestionProductos({mostrarVentana,cerrarVentana}) {
@@ -9,6 +10,9 @@ export default function VentanaEmergenteGestionProductos({mostrarVentana,cerrarV
 
   const agregarProducto = (e) => {
     e.preventDefault();
+    if(nombre === '' || precio === '0' || tipo === 'Sin seleccionar'){
+        return cerrarVentana(false);
+    }
     const prod = {
       id: 0,
       nombre: nombre,
@@ -16,7 +20,7 @@ export default function VentanaEmergenteGestionProductos({mostrarVentana,cerrarV
       precio: precio,
     };
     console.log(prod);
-    return cerrarVentana(false);
+    crearProductos(prod,'POST').then(() => cerrarVentana(false));
   };
 
   return (

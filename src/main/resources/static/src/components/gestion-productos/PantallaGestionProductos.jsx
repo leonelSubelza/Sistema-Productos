@@ -1,32 +1,44 @@
 import { useEffect, useState } from "react";
 import "../../styles/PantallaGestionProductos.css";
-import { URL } from "../../service/Configuracion";
 import VentanaEmergenteGestionProductos from "./VentanaEmergenteGestionProductos.jsx";
+import { cargarProductos,borrarProductos } from "../../service/GestionProductos";
 
 export default function PantallaGestionProductos() {
   const [productos, setProductos] = useState([]);
 
   const [showVentanaAgregar,setShowVentanaAgregar] = useState(false)
 
-  const cargarProductos = async () => {
-    const request = await fetch(URL + "/productos", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-      },
+  const actualizarTabla = () => {
+        
+    cargarProductos().then(response => {
+      setProductos(response);
+      console.log('cargando');
+      setShowVentanaAgregar(false);
     });
+  }
 
-    let prod = await request.json();
-    console.log(prod);
+  const borrarProducto=(id)=>{
+    for(let i=0; i<productos.length; i++){
+      if(productos[i].id === id){
+        borrarProductos(id).then(async ()=>{
+          console.log('cargando');
+          cargarProductosTabla();
+        })
+        return
+      }
+    }
 
-    setProductos(prod);
-  };
+  }
+
+  function cargarProductosTabla(){
+    cargarProductos().then(response => setProductos(response));
+  }
 
   useEffect(() => {
     //ARREGLAR QUE SE CONSUME LA API INFINITAMENTE
-    cargarProductos();
+    cargarProductosTabla();
+    
+    ;
   }, []);
 
   return (
@@ -58,17 +70,19 @@ export default function PantallaGestionProductos() {
                     ➕
                   </button>
                   <button className="btn btn-modificar">✏️</button>
-                  <button className="btn btn-danger">🗑️</button>
+                  <button className="btn btn-danger"
+                  onClick={() => borrarProducto(prod.id)}
+                  >🗑️</button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-      <VentanaEmergenteGestionProductos mostrarVentana={showVentanaAgregar} cerrarVentana={() => setShowVentanaAgregar(false)}/>
+      <VentanaEmergenteGestionProductos mostrarVentana={showVentanaAgregar} cerrarVentana={()=> actualizarTabla()}/>
     </>
   );
 }
-{
+
   /* lapiz: &#128393;*/
-}
+
