@@ -1,11 +1,6 @@
 package com.sistemaProductos.SistemaProductos.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table( name = "producto")
@@ -18,8 +13,9 @@ public class Producto {
 	@Column(name = "nombre", nullable = false, length = 150)
 	private String nombre;
 	
-	@Column(name = "descripcion", length = 150)
-	private String descripcion;
+	@Column(name = "tipo", length = 150)
+	@Enumerated(value = EnumType.STRING)
+	private TipoProducto tipo;
 	
 	@Column(name = "precio", nullable = false, length = 150)
 	private String precio;
@@ -48,11 +44,11 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public TipoProducto getTipo() {
+		return tipo;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setTipo(TipoProducto tipo) {
+		this.tipo = tipo;
 	}
 }

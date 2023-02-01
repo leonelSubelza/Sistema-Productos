@@ -1,0 +1,65 @@
+.formulario-ventana-emergente-gestion-productos{
+    position: fixed;
+    display:flex;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #111111bd;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .6s;
+    display: none;
+}
+
+.formulario-ventana-emergente-gestion-productos-active{
+    opacity: 1;
+    pointer-events: unset;
+    transition: opacity .6s;
+    display: flex;
+}
+
+.formulario-grupo{
+
+}
+
+.formulario-ventana-emergente-gestion-productos{
+    position: fixed;
+    left: 25%;
+    top: 10%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    margin: auto;
+    min-width: 25%;
+    width: 50%;
+  
+    height: 80%;
+    
+    background-color: #fff;
+    word-wrap: break-word;
+    padding: 10px;
+    border-radius: 5px;
+    border:2px solid black;
+    z-index: 1;
+}
+
+
+.formulario-inputs{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    height: 60%;
+    border: 1px solid red;
+}
+
+.formulario-inputs input, btn-agregar-producto fieldset{
+    margin: 0 auto;
+}
+
+.formulario-inputs, .btn-agregar-producto{
+    margin: auto;
+}
+

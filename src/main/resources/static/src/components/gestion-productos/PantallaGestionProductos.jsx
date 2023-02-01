@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import "../../styles/PantallaGestionProductos.css";
-import GestionProductosMenu from "./GestionProductosMenu.jsx";
-import ItemTablaProducto from "./ItemTablaProducto";
+import { URL } from "../../service/Configuracion";
+import VentanaEmergenteGestionProductos from "./VentanaEmergenteGestionProductos.jsx";
 
 export default function PantallaGestionProductos() {
   const [productos, setProductos] = useState([]);
 
+  const [showVentanaAgregar,setShowVentanaAgregar] = useState(false)
+
   const cargarProductos = async () => {
-    const request = await fetch("http://localhost:8080/productos", {
+    const request = await fetch(URL + "/productos", {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -18,19 +20,17 @@ export default function PantallaGestionProductos() {
 
     let prod = await request.json();
     console.log(prod);
-    
-    setProductos(prod)
-  };
 
+    setProductos(prod);
+  };
 
   useEffect(() => {
     //ARREGLAR QUE SE CONSUME LA API INFINITAMENTE
     cargarProductos();
-},[])
+  }, []);
 
   return (
     <>
-      <GestionProductosMenu />
       <div className="contenedor-pantalla-productos">
         <table className="tabla-productos">
           <thead>
@@ -44,33 +44,31 @@ export default function PantallaGestionProductos() {
           </thead>
 
           <tbody className="contenedor-tabla-items">
-          {productos.map((prod,index) => 
-          /*
-            <ItemTablaProducto 
-            key={prod.id}
-            id={prod.id}
-            nombre={prod.nombre}
-            tipo={prod.descripcion}
-            precio={prod.precio}            
-            />
-          */
-          <tr key={prod.id}>
-          <td>{prod.id}</td>
-          <td>{prod.nombre}</td>
-          <td>{prod.descripcion}</td>
-          <td>{prod.precio}</td>
-          <td className="elemento contenedor-botones">
-            <button className="btn btn-modificar">➕</button>
-            <button className="btn btn-modificar">✏️{/*&#128393;*/}</button>
-            <button className="btn btn-danger">🗑️</button>
-          </td>
-        </tr>
-          
-          )}
-          
+            {productos.map((prod, index) => (
+              <tr key={prod.id}>
+                <td>{prod.id}</td>
+                <td>{prod.nombre}</td>
+                <td>{prod.tipo}</td>
+                <td>{prod.precio}</td>
+                <td className="elemento contenedor-botones">
+                  <button
+                    className="btn btn-modificar"
+                    onClick={() => setShowVentanaAgregar(true)}
+                  >
+                    ➕
+                  </button>
+                  <button className="btn btn-modificar">✏️</button>
+                  <button className="btn btn-danger">🗑️</button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
+      <VentanaEmergenteGestionProductos mostrarVentana={showVentanaAgregar} cerrarVentana={() => setShowVentanaAgregar(false)}/>
     </>
   );
+}
+{
+  /* lapiz: &#128393;*/
 }
