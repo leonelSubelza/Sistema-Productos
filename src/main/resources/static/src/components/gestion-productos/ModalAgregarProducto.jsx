@@ -11,12 +11,17 @@ import {
   FormGroup,
   ModalFooter,
 } from "reactstrap";
+import SpinnerLoading from "./SpinnerLoading";
 
 
 export default function ModalAgregarProducto({mostrarVentana, cerrarVentana}) {
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("");
   const [precio, setPrecio] = useState("");
+
+  //Spinner
+  const [showSpinner,setShowSpinner] = useState(false);
+  const [mensajeSpinner, setMensajeSpinner] = useState('')
 
   const vaciarCampos = ()=>{
     setNombre('');
@@ -27,7 +32,7 @@ export default function ModalAgregarProducto({mostrarVentana, cerrarVentana}) {
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
   const cerrarModal = (debeAct)=>{
     vaciarCampos();
-    return cerrarVentana(debeAct)
+    return cerrarVentana(debeAct);
   }
 
   const agregarProducto = (e) => {
@@ -43,10 +48,16 @@ export default function ModalAgregarProducto({mostrarVentana, cerrarVentana}) {
       precio: precio,
     };
     console.log(prod);
-    crearProductos(prod,'POST').then(() => cerrarModal(true));
+    setMensajeSpinner('Guardando en DB');
+    setShowSpinner(true);
+    crearProductos(prod,'POST').then(() => {
+      setShowSpinner(false);
+      cerrarModal(true);
+    });
   };
 
   return (
+    <>
     <Modal isOpen={mostrarVentana}>
     <ModalHeader>
      <div><h3>Insertar Producto</h3></div>
@@ -120,5 +131,7 @@ export default function ModalAgregarProducto({mostrarVentana, cerrarVentana}) {
       </Button>
     </ModalFooter>
   </Modal>
+  <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner}/>
+  </>
   );
 }

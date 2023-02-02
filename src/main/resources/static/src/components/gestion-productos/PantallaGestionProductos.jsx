@@ -9,10 +9,15 @@ import {
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Table, Button, Container } from "reactstrap";
 import ModalAgregarProducto from "./ModalAgregarProducto";
+import SpinnerLoading from "./SpinnerLoading";
 
 export default function PantallaGestionProductos() {
   const [productos, setProductos] = useState([]);
   const [showVentanaAgregar, setShowVentanaAgregar] = useState(false);
+
+  //Spinner
+  const [showSpinner,setShowSpinner] = useState(false);
+  const [mensajeSpinner, setMensajeSpinner] = useState('')
 
   const manejarModalAgregar = (debeAct)=>{
     if(debeAct){
@@ -22,19 +27,25 @@ export default function PantallaGestionProductos() {
   }
 
   const actualizarTabla = () => {
+    setMensajeSpinner('Actualizando Tabla');
+    setShowSpinner(true);
     cargarProductos().then((response) => {
-      setProductos(response);
-      console.log("cargando");
+      setProductos(response);      
       setShowVentanaAgregar(false);
+      setShowSpinner(false);
     });
+
   };
 
   const borrarProducto = (id) => {
+    setMensajeSpinner('Borrando de DB');
+    setShowSpinner(true);
     for (let i = 0; i < productos.length; i++) {
       if (productos[i].id === id) {
         borrarProductos(id).then(async () => {
-          console.log("cargando");
+          setShowSpinner(false);
           cargarProductosTabla();
+          
         });
         return;
       }
@@ -42,7 +53,12 @@ export default function PantallaGestionProductos() {
   };
 
   function cargarProductosTabla() {
-    cargarProductos().then((response) => setProductos(response));
+    setMensajeSpinner('Actualizando Tabla');
+    setShowSpinner(true);
+    cargarProductos().then((response) => {
+      setShowSpinner(false);
+      setProductos(response);
+    });
   }
 
   useEffect(() => {
@@ -79,7 +95,7 @@ export default function PantallaGestionProductos() {
                 <td>{prod.precio}</td>
                 <td>
                   <Button color="primary">Editar</Button>{" "}
-                  <Button color="danger">Eliminar</Button>
+                  <Button color="danger" onClick={() => borrarProducto(prod.id)}>Eliminar</Button>
                 </td>
               </tr>
             ))}
@@ -87,6 +103,7 @@ export default function PantallaGestionProductos() {
         </Table>
       </Container>
       <ModalAgregarProducto mostrarVentana={showVentanaAgregar} cerrarVentana={(res)=>manejarModalAgregar(res)}/>
+      <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner}/>
     </>
   );
 }
