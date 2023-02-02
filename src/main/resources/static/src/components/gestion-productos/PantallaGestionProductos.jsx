@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-//import "../../styles/PantallaGestionProductos.css";
-//import VentanaEmergenteGestionProductos from "./VentanaEmergenteGestionProductos.jsx";
 import {
   cargarProductos,
   borrarProductos,
@@ -13,64 +11,52 @@ import SpinnerLoading from "./SpinnerLoading";
 
 export default function PantallaGestionProductos() {
   const [productos, setProductos] = useState([]);
-  const [showVentanaAgregar, setShowVentanaAgregar] = useState(false);
+  const [showModalAgregar, setShowModalAgregar] = useState(false);
 
   //Spinner
-  const [showSpinner,setShowSpinner] = useState(false);
-  const [mensajeSpinner, setMensajeSpinner] = useState('')
+  const [showSpinner, setShowSpinner] = useState(false);
+  const [mensajeSpinner, setMensajeSpinner] = useState("");
 
-  const manejarModalAgregar = (debeAct)=>{
-    if(debeAct){
+  const manejarModalAgregar = (debeAct) => {
+    if (debeAct) {
       actualizarTabla();
     }
-    setShowVentanaAgregar(false);
-  }
+    setShowModalAgregar(false);
+  };
 
   const actualizarTabla = () => {
-    setMensajeSpinner('Actualizando Tabla');
+    setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
     cargarProductos().then((response) => {
-      setProductos(response);      
-      setShowVentanaAgregar(false);
+      setProductos(response);
+      setShowModalAgregar(false);
       setShowSpinner(false);
     });
-
   };
 
   const borrarProducto = (id) => {
-    setMensajeSpinner('Borrando de DB');
+    setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
     for (let i = 0; i < productos.length; i++) {
       if (productos[i].id === id) {
         borrarProductos(id).then(async () => {
           setShowSpinner(false);
-          cargarProductosTabla();
-          
+          actualizarTabla();
         });
         return;
       }
     }
   };
 
-  function cargarProductosTabla() {
-    setMensajeSpinner('Actualizando Tabla');
-    setShowSpinner(true);
-    cargarProductos().then((response) => {
-      setShowSpinner(false);
-      setProductos(response);
-    });
-  }
-
   useEffect(() => {
-    //ARREGLAR QUE SE CONSUME LA API INFINITAMENTE
-    cargarProductosTabla();
+    actualizarTabla();
   }, []);
 
   return (
     <>
       <Container>
         <br />
-        <Button color="success" onClick={() => setShowVentanaAgregar(true)}>
+        <Button color="success" onClick={() => setShowModalAgregar(true)}>
           Agregar Producto
         </Button>
         <br />
@@ -95,15 +81,23 @@ export default function PantallaGestionProductos() {
                 <td>{prod.precio}</td>
                 <td>
                   <Button color="primary">Editar</Button>{" "}
-                  <Button color="danger" onClick={() => borrarProducto(prod.id)}>Eliminar</Button>
+                  <Button
+                    color="danger"
+                    onClick={() => borrarProducto(prod.id)}
+                  >
+                    Eliminar
+                  </Button>
                 </td>
               </tr>
             ))}
           </tbody>
         </Table>
       </Container>
-      <ModalAgregarProducto mostrarVentana={showVentanaAgregar} cerrarVentana={(res)=>manejarModalAgregar(res)}/>
-      <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner}/>
+      <ModalAgregarProducto
+        mostrarVentana={showModalAgregar}
+        cerrarVentana={(res) => manejarModalAgregar(res)}
+      />
+      <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
     </>
   );
 }

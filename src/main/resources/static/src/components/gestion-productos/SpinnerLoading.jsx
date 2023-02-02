@@ -1,9 +1,8 @@
-import { findByLabelText } from '@testing-library/react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import '../../styles/SpinnerLoading.css';
 
-function SpinnerLoading({mensaje, openSpinner, closeSpinner}) {
+function SpinnerLoading({mensaje, openSpinner}) {
   return (
     <>
     <div className={`spinnerContainer ${openSpinner ? 'show':''}`}>

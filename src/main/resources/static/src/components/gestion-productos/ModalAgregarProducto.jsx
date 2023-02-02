@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { estadosProductos } from "../../service/EstadosProductos";
 import { crearProductos } from "../../service/GestionProductos";
-//import "../../styles/VentanaEmergenteGestionProductos.css";
 
 import {
   Button,

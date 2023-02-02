@@ -34,7 +34,7 @@ export const crearProductos = async (obj,metodo) => {
 
 //DELETE
 export const borrarProductos = async (id) => {
-    const request = await fetch(URL + "/productos/"+id, {
+    await fetch(URL + "/productos/"+id, {
       method: 'DELETE',
       headers: {
         Accept: "application/json",
