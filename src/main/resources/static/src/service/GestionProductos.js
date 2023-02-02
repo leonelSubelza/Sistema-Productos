@@ -1,5 +1,6 @@
 import { URL } from "./Configuracion";
 
+//GET
 export const cargarProductos = async () => {
   const request = await fetch(URL + "/productos", {
     method: "GET",
@@ -14,6 +15,8 @@ export const cargarProductos = async () => {
   return prod;
 };
 
+//Este metodo se puede usar para actualizar y crear
+//POST, PUT
 export const crearProductos = async (obj,metodo) => {
   const request = await fetch(URL + "/productos", {
     method: metodo,
@@ -29,6 +32,7 @@ export const crearProductos = async (obj,metodo) => {
   return prod;
 };
 
+//DELETE
 export const borrarProductos = async (id) => {
     const request = await fetch(URL + "/productos/"+id, {
       method: 'DELETE',
