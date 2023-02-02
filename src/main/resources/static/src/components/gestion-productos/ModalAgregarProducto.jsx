@@ -39,7 +39,7 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" || precio !== "0" || tipo !== "Sin seleccionar";
+    return nombre !== "" && precio && "0" && tipo && "Sin seleccionar";
   };
 
   const agregarProducto = (e, method) => {
