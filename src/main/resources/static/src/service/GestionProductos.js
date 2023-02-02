@@ -15,8 +15,7 @@ export const cargarProductos = async () => {
   return prod;
 };
 
-//Este metodo se puede usar para actualizar y crear
-//POST, PUT
+//Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
 export const crearProductos = async (obj,metodo) => {
   const request = await fetch(URL + "/productos", {
     method: metodo,
@@ -27,9 +26,11 @@ export const crearProductos = async (obj,metodo) => {
       Authorization: localStorage.token,
     },
   });
-
-  let prod = await request.json();
-  return prod;
+  if(metodo==='POST'){
+    let prod = await request.json();
+    return prod;
+  }
+  
 };
 
 //DELETE

@@ -13,6 +13,10 @@ export default function PantallaGestionProductos() {
   const [productos, setProductos] = useState([]);
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
+  //Agregar-Editar
+  const [prodAEditar, setProdAEditar] = useState();
+  const [esAgregar, setEsAgregar] = useState(false);
+
   //Spinner
   const [showSpinner, setShowSpinner] = useState(false);
   const [mensajeSpinner, setMensajeSpinner] = useState("");
@@ -34,6 +38,12 @@ export default function PantallaGestionProductos() {
     });
   };
 
+  const agregarProd = ()=>{
+    setEsAgregar(true);
+    setProdAEditar(null);
+    setShowModalAgregar(true);
+  }
+
   const borrarProducto = (id) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
@@ -48,6 +58,12 @@ export default function PantallaGestionProductos() {
     }
   };
 
+  const editarProducto = (prod)=>{
+    setEsAgregar(false);
+    setProdAEditar(prod);
+    setShowModalAgregar(true);
+  }
+
   useEffect(() => {
     actualizarTabla();
   }, []);
@@ -56,7 +72,7 @@ export default function PantallaGestionProductos() {
     <>
       <Container>
         <br />
-        <Button color="success" onClick={() => setShowModalAgregar(true)}>
+        <Button color="success" onClick={() => agregarProd()}>
           Agregar Producto
         </Button>
         <br />
@@ -80,9 +96,10 @@ export default function PantallaGestionProductos() {
                 <td>{prod.tipo}</td>
                 <td>{prod.precio}</td>
                 <td>
-                  <Button color="primary">Editar</Button>{" "}
+                  <Button color="primary" onClick={() => editarProducto(prod)}>Editar</Button>{" "}
                   <Button
                     color="danger"
+                    active={false}
                     onClick={() => borrarProducto(prod.id)}
                   >
                     Eliminar
@@ -93,9 +110,12 @@ export default function PantallaGestionProductos() {
           </tbody>
         </Table>
       </Container>
+      {/**mostrarVentana, cerrarVentana,prod,esAgregar */}
       <ModalAgregarProducto
         mostrarVentana={showModalAgregar}
         cerrarVentana={(res) => manejarModalAgregar(res)}
+        prod={prodAEditar}
+        esAgregar={esAgregar}
       />
       <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
     </>
