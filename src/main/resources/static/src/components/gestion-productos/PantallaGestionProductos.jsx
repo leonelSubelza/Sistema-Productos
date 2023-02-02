@@ -99,7 +99,6 @@ export default function PantallaGestionProductos() {
                   <Button color="primary" onClick={() => editarProducto(prod)}>Editar</Button>{" "}
                   <Button
                     color="danger"
-                    active={false}
                     onClick={() => borrarProducto(prod.id)}
                   >
                     Eliminar

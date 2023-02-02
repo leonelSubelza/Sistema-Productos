@@ -65,7 +65,7 @@ export default function ModalAgregarProducto({
   };
 
   useEffect(() => {
-    //si se recibe un obj, es porque se abrio la desde editar
+    //si se recibe un obj, es porque se abrio desde editar
     if (prod != null) {
       setNombre(prod.nombre);
       setTipo(prod.tipo);
