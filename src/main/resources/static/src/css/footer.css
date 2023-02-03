@@ -1,0 +1,13 @@
+.footer {
+  display: flex;
+  justify-content: flex-start;
+  background: #f9f9f9;
+}
+
+
+.pie {
+  margin: 20px;
+  margin-bottom: 0;
+  width: auto;
+  height: auto;
+}

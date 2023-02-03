@@ -1,11 +1,14 @@
 import './App.css';
-import GestionProductos from './components/gestion-productos/PantallaGestionProductos'
+import Contenido from './components/ventana-cliente/contenido/Contenido';
+import Footer from './components/ventana-cliente/footer/Footer';
+import Header from './components/ventana-cliente/header/Header';
 
 function App() {
   return (
-    <div>
-      <h1>Titulo</h1>
-      <GestionProductos />
+    <div className="padre">
+      <Header />
+      <Contenido />
+      <Footer />
     </div>
   );
 }
