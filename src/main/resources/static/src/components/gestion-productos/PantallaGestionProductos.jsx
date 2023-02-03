@@ -68,15 +68,22 @@ export default function PantallaGestionProductos() {
     actualizarTabla();
   }, []);
 
+  const styles={
+    widht:"50%",
+    margin: "auto",
+    
+  }
+
   return (
     <>
-      <Container>
+      <Container style={styles}>
         <br />
         <Button color="success" onClick={() => agregarProd()}>
           Agregar Producto
         </Button>
         <br />
         <br />
+        <div style={{overflow:"auto"}}>
         <Table>
           <thead>
             <tr>
@@ -108,6 +115,7 @@ export default function PantallaGestionProductos() {
             ))}
           </tbody>
         </Table>
+        </div>
       </Container>
       {/**mostrarVentana, cerrarVentana,prod,esAgregar */}
       <ModalAgregarProducto
