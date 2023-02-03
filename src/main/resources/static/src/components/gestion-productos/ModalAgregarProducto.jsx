@@ -57,7 +57,6 @@ export default function ModalAgregarProducto({
     console.log(producto);
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    console.log("se agrega prod con method: " + method);
     crearProductos(producto, method).then(() => {
       setShowSpinner(false);
       cerrarModal(true);
@@ -70,6 +69,10 @@ export default function ModalAgregarProducto({
       setNombre(prod.nombre);
       setTipo(prod.tipo);
       setPrecio(prod.precio);
+    }else{
+      setNombre('');
+      setTipo('Sin seleccionar');
+      setPrecio('');
     }
   }, [prod]);
 

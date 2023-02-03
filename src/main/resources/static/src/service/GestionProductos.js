@@ -13,6 +13,21 @@ export const cargarProductos = async () => {
 
   let prod = await request.json();
   return prod;
+/*
+  const prod = fetch(URL + "/productos", {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: localStorage.token,
+    },
+  })
+  .then((response) => response.json())
+  .catch((error) => {
+    alert(error)
+  });
+  return prod;
+  */
 };
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
