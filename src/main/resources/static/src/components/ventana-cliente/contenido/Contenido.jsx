@@ -2,7 +2,7 @@ import React from 'react';
 import Articulo from './Articulo';
 import Filtro from './Filtro';
 import Navegacion from './Navegacion';
-import '../../../css/contenido.css';
+import '../../../styles/contenido.css';
 
 const Contenido = () => {
   return (

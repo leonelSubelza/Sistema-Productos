@@ -38,11 +38,11 @@ export default function PantallaGestionProductos() {
     });
   };
 
-  const agregarProd = ()=>{
+  const agregarProd = () => {
     setEsAgregar(true);
     setProdAEditar(null);
     setShowModalAgregar(true);
-  }
+  };
 
   const borrarProducto = (id) => {
     setMensajeSpinner("Borrando de DB");
@@ -58,21 +58,20 @@ export default function PantallaGestionProductos() {
     }
   };
 
-  const editarProducto = (prod)=>{
+  const editarProducto = (prod) => {
     setEsAgregar(false);
     setProdAEditar(prod);
     setShowModalAgregar(true);
-  }
+  };
 
   useEffect(() => {
     actualizarTabla();
   }, []);
 
-  const styles={
-    widht:"50%",
+  const styles = {
+    widht: "50%",
     margin: "auto",
-    
-  }
+  };
 
   return (
     <>
@@ -83,41 +82,45 @@ export default function PantallaGestionProductos() {
         </Button>
         <br />
         <br />
-        <div style={{overflow:"auto"}}>
-        <Table>
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nombre</th>
-              <th>Tipo</th>
-              <th>Precio</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {productos.map((prod, index) => (
-              <tr key={prod.id}>
-                <td>{prod.id}</td>
-                <td>{prod.nombre}</td>
-                <td>{prod.tipo}</td>
-                <td>{prod.precio}</td>
-                <td>
-                  <Button color="primary" onClick={() => editarProducto(prod)}>Editar</Button>{" "}
-                  <Button
-                    color="danger"
-                    onClick={() => borrarProducto(prod.id)}
-                  >
-                    Eliminar
-                  </Button>
-                </td>
+        <div style={{ overflow: "auto" }}>
+          <Table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+
+            <tbody>
+              {productos.map((prod) => (
+                <tr key={prod.id}>
+                  <td>{prod.id}</td>
+                  <td>{prod.nombre}</td>
+                  <td>{prod.tipo}</td>
+                  <td>{prod.precio}</td>
+                  <td>
+                    <Button
+                      color="primary"
+                      onClick={() => editarProducto(prod)}
+                    >
+                      Editar
+                    </Button>{" "}
+                    <Button
+                      color="danger"
+                      onClick={() => borrarProducto(prod.id)}
+                    >
+                      Eliminar
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
         </div>
       </Container>
-      {/**mostrarVentana, cerrarVentana,prod,esAgregar */}
       <ModalAgregarProducto
         mostrarVentana={showModalAgregar}
         cerrarVentana={(res) => manejarModalAgregar(res)}
