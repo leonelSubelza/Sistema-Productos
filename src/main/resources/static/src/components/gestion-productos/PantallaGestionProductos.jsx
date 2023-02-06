@@ -5,7 +5,15 @@ import {
 } from "../../service/GestionProductos";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../../styles/PantallaGestionProductos.css";
+
 import { Table, Button, Container } from "reactstrap";
+
+//PARA EL DASHBOARD
+import Containerr from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+
 import ModalAgregarProducto from "./ModalAgregarProducto";
 import SpinnerLoading from "./SpinnerLoading";
 
@@ -70,11 +78,23 @@ export default function PantallaGestionProductos() {
 
   const styles = {
     widht: "50%",
-    margin: "auto",
+    margin: "5% auto",
   };
 
   return (
-    <>
+    <div className="pantalla-container">
+
+<div className="dashboard">
+    <div className="dashboard-container">
+      <h1>Entidades</h1>
+      <div className="dashboard-botones">
+      <button className="btn">Productos</button>
+      <button className="btn">Tipos de Productos</button>
+      </div>
+      
+    </div>
+    </div>
+
       <Container style={styles}>
         <br />
         <Button color="success" onClick={() => agregarProd()}>
@@ -128,6 +148,6 @@ export default function PantallaGestionProductos() {
         esAgregar={esAgregar}
       />
       <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
-    </>
+    </div>
   );
 }
