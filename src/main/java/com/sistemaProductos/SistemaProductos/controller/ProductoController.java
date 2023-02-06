@@ -31,9 +31,8 @@ public class ProductoController {
 	//Se agrega responseEntity para manejar los codigos de error al crear un nuevo producto
 	@PostMapping
 	public ResponseEntity<Producto> create(@RequestBody Producto producto) {
-		return new ResponseEntity<>(this.productoService.create(producto),HttpStatus.CREATED);
+		return new ResponseEntity<>(this.productoService.create(producto), HttpStatus.CREATED);
 	}
-
 	
 	@PutMapping
 	public ResponseEntity<Object> update(@RequestBody Producto producto) {

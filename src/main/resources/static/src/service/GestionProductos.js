@@ -2,17 +2,22 @@ import { URL } from "./Configuracion";
 
 //GET
 export const cargarProductos = async () => {
-  const request = await fetch(URL + "/productos", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: localStorage.token,
-    },
-  });
-
-  let prod = await request.json();
-  return prod;
+  try{
+    const request = await fetch(URL + "/productos", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: localStorage.token,
+      },
+    });
+  
+    let prod = await request.json();
+    return prod;
+  }catch(error){
+    console.log('Error conectando a la bd')
+  }
+  
 /*
   const prod = fetch(URL + "/productos", {
     method: "GET",

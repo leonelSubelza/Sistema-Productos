@@ -1,9 +1,10 @@
 package com.sistemaProductos.SistemaProductos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
-@Table( name = "producto")
+@Table( name = "productos")
 public class Producto {
 
     @Id
@@ -13,9 +14,11 @@ public class Producto {
 	@Column(name = "nombre", nullable = false, length = 150)
 	private String nombre;
 	
-	@Column(name = "tipo", length = 150)
-	@Enumerated(value = EnumType.STRING)
-	private TipoProducto tipo;
+	//@Column(name = "tipo", length = 150)
+	@JsonIgnore
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "idTipoProducto")//nombre que tendrá la columna en la tabla
+	private TiposProductos tipoProducto;
 	
 	@Column(name = "precio", nullable = false, length = 150)
 	private String precio;
@@ -44,11 +47,11 @@ public class Producto {
 		this.precio = precio;
 	}
 
-	public TipoProducto getTipo() {
-		return tipo;
+	public TiposProductos getTipoProducto() {
+		return tipoProducto;
 	}
 
-	public void setTipo(TipoProducto tipo) {
-		this.tipo = tipo;
+	public void setTipoProducto(TiposProductos tipoProducto) {
+		this.tipoProducto = tipoProducto;
 	}
 }
