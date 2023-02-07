@@ -6,7 +6,7 @@ function SpinnerLoading({mensaje, openSpinner}) {
   return (
     <>
     <div className={`spinnerContainer ${openSpinner ? 'show':''}`}>
-      <Button variant="primary" disabled>
+      <Button variant="dark" disabled>
       <Spinner
           as="span"
           animation="border"
