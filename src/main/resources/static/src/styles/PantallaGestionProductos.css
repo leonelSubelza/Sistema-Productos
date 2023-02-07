@@ -1,3 +1,4 @@
+/*
 .pantalla-container{
     width: 100%;
     height: 100%;
@@ -8,7 +9,7 @@
     width: 20%;
     height: 100%;
     
-    background-color: #7386d5;/*7386d5,rgb(4, 124, 188)*/
+    background-color: #7386d5;
     color: #fff;
     display: flex;
 }
@@ -76,4 +77,19 @@
     .dashboard-botones button{
         width: auto;
     }
+}
+*/
+
+.pantalla-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.productos-contenedor, .tipoProductos-contenedor{
+    display: flex;
+    height: 90vh;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
 }
