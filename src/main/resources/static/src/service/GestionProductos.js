@@ -17,9 +17,8 @@ export const cargarProductos = async () => {
     let prod = await request.json();
     return prod;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
-  return [];
   /*
   const prod = fetch(URL + "/productos", {
     method: "GET",

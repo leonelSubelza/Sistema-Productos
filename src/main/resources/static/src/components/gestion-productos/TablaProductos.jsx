@@ -10,6 +10,7 @@ import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarProducto from "./ModalAgregarProducto";
 import SpinnerLoading from "./SpinnerLoading";
+import MensajeToast from "./MensajeToast";
 
 const TablaTipoProducto = () => {
   const [productos, setProductos] = useState([]);
@@ -23,6 +24,13 @@ const TablaTipoProducto = () => {
   const [showSpinner, setShowSpinner] = useState(false);
   const [mensajeSpinner, setMensajeSpinner] = useState("");
 
+  //Toast
+  const [toast, setToast] = useState({
+    show: false,
+    msjBody: "",
+    color: "#dc1717",
+  });
+
   const manejarModalAgregar = (debeAct) => {
     if (debeAct) {
       actualizarTabla();
@@ -33,11 +41,21 @@ const TablaTipoProducto = () => {
   const actualizarTabla = () => {
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
-    cargarProductos().then((response) => {
-      setProductos(response);
-      setShowModalAgregar(false);
-      setShowSpinner(false);
-    });
+    cargarProductos()
+      .then((response) => {
+        setProductos(response);
+        setShowModalAgregar(false);
+        setShowSpinner(false);
+      })
+      .catch(() => {
+        setShowSpinner(false);
+        setToast({
+          show: true,
+          msjBody: "Error contectando a la BD",
+          color: "#dc1717",
+        });
+        setProductos([]);
+      });
   };
 
   const agregarProd = () => {
@@ -130,6 +148,12 @@ const TablaTipoProducto = () => {
         esAgregar={esAgregar}
       />
       <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
+      <MensajeToast
+        show={toast.show}
+        msjBody={toast.msjBody}
+        color={toast.color}
+        dispose={(prev) => (setToast({show:false, msjBody:prev.msjBody, color:prev.color}))}
+      />
     </>
   );
 };

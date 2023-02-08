@@ -1,0 +1,24 @@
+.toast-contenedor{
+    position: fixed;
+    top:10px;
+    right:5px;
+    width:auto;
+}
+
+.toast{
+    width: auto;
+}
+
+.resetColor{
+    background-color: white;
+}
+
+.btn-close{
+    opacity: 0;
+    color:white;
+    transition: opacity .5s;
+}
+
+.btn-close:hover{
+    opacity: 1;
+}

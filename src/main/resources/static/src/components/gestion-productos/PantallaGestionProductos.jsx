@@ -10,7 +10,6 @@ import Navbar from "./Dashboard/NavBar";
 
 import TablaProductos from "./TablaProductos";
 import TablaTipoProducto from "./TablaTipoProductos";
-import MensajeToast from "./MensajeToast";
 
 //PARA EL DASHBOARD
 //import Containerr from "react-bootstrap/Container";
@@ -45,11 +44,6 @@ export default function PantallaGestionProductos() {
   return (
     <>
       <RouterProvider router={router} />
-      <MensajeToast
-        color={"Light"}
-        msjHeader={"ZAPATERIA HUMILDE"}
-        msjBody={"ERROR"}
-      />
     </>
   );
 }

@@ -1,25 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 import Toast from "react-bootstrap/Toast";
 
-import ToastContainer from "react-bootstrap/ToastContainer";
-
+import '../../styles/toast.css'
 //onClose={() => setShow(false)} show={show}
+//delay={10000} autohide
 
-const MensajeToast = ({ color, msjHeader, msjBody }) => {
-    const [show, setShow] = useState(false);
-
+const MensajeToast = ({show,msjBody,color,dispose}) => {
   return (
-    <div style={{ position: 'fixed', top:'10px', right:'5px', widht:'auto'}}>
+    <div className='toast-contenedor'>
         <Toast
           className="d-inline-block m-1"
-          bg={color.toLowerCase()}
-          show={show} onClose={() => setShow(!show)}
+          show={show} onClose={() => dispose({show,msjBody,color})}
         >
-          <Toast.Header style={{ background: '#dc1717', color:'white'}}>
+          <Toast.Header style = { {background: color, color:'white'}}>
             <img
               src="holder.js/20x20?text=%20"
               className="rounded me-2"
-              alt=""
+              alt=""              
             />
             <div className="me-auto">
             &#9888; {msjBody}

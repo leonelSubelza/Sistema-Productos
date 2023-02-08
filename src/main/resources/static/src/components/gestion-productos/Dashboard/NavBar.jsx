@@ -19,7 +19,7 @@ function Navbar() {
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
-                <p>X</p>
+                <p>x</p>
               </Link>
             </li>
             {SideBarData.map((item, index) => {
