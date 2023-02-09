@@ -1,16 +1,16 @@
 import { useEffect, useState } from "react";
 import {
-  cargarProductos,
-  borrarProductos,
-} from "../../service/GestionProductos";
+  cargarObjetos,
+  borrarObjeto,
+} from "../../../service/GestionProductos";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { Table, Button, Container } from "reactstrap";
 
-import ModalAgregarProducto from "./ModalAgregarProducto";
-import SpinnerLoading from "./SpinnerLoading";
-import MensajeToast from "./MensajeToast";
+import ModalAgregarProducto from "../ModalAgregarProducto";
+import SpinnerLoading from "../SpinnerLoading";
+import MensajeToast from "../MensajeToast";
 
 const TablaTipoProducto = () => {
   const [productos, setProductos] = useState([]);
@@ -18,11 +18,11 @@ const TablaTipoProducto = () => {
 
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
-  const [esAgregar, setEsAgregar] = useState(false);
+  const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
 
   //Spinner
   const [showSpinner, setShowSpinner] = useState(false);
-  const [mensajeSpinner, setMensajeSpinner] = useState("");
+  const [mensajeSpinner, setMensajeSpinner] = useState("");//el msj del spinner puede variar
 
   //Toast
   const [toast, setToast] = useState({
@@ -41,7 +41,7 @@ const TablaTipoProducto = () => {
   const actualizarTabla = () => {
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
-    cargarProductos()
+    cargarObjetos("productos")
       .then((response) => {
         setProductos(response);
         setShowModalAgregar(false);
@@ -67,15 +67,20 @@ const TablaTipoProducto = () => {
   const borrarProducto = (id) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    for (let i = 0; i < productos.length; i++) {
-      if (productos[i].id === id) {
-        borrarProductos(id).then(async () => {
+    borrarObjeto("productos",id)
+      .then(async () => {
           setShowSpinner(false);
           actualizarTabla();
+          return;
+      })
+      .catch(() => {
+        setShowSpinner(false);
+        setToast({
+          show: true,
+          msjBody: "Se ha producido un error al borrar",
+          color: "#dc1717",
         });
-        return;
-      }
-    }
+      } )
   };
 
   const editarProducto = (prod) => {

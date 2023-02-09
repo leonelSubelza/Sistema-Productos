@@ -1,23 +1,21 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../../styles/PantallaGestionProductos.css";
+import '../../styles/PantallaGestionProductos.css';
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 //ROUTES DAHSBOARD
-import Navbar from "./Dashboard/NavBar";
+import Navbar from "./dashboard/NavBar";
 
-import TablaProductos from "./TablaProductos";
-import TablaTipoProducto from "./TablaTipoProductos";
+import TablaProductos from "./pages/TablaProductos";
+import TablaTipoProducto from "./pages/TablaTipoProductos";
 
 //PARA EL DASHBOARD
 //import Containerr from "react-bootstrap/Container";
 //import Nav from "react-bootstrap/Nav";
 
 export default function PantallaGestionProductos() {
-  const [showTablaProductos, setTablaProductos] = useState(true);
-
   const AppLayout = () => (
     <>
       <Navbar />

@@ -1,11 +1,9 @@
 import { URL } from "./Configuracion";
 
-//Al hacer consultas a la api, los errores se manejan en estos métodos por lo que al utilizarlos en otras clases no hace falta usar catch
-
 //GET
-export const cargarProductos = async () => {
+export const cargarObjetos = async (direccion) => {
   try {
-    const request = await fetch(URL + "/productos", {
+    const request = await fetch(URL + "/"+direccion, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -19,27 +17,12 @@ export const cargarProductos = async () => {
   } catch (error) {
     throw error;
   }
-  /*
-  const prod = fetch(URL + "/productos", {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      Authorization: localStorage.token,
-    },
-  })
-  .then((response) => response.json())
-  .catch((error) => {
-    alert(error)
-  });
-  return prod;
-  */
 };
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
-export const crearProductos = async (obj, metodo) => {
+export const crearObjeto = async (direccion,obj, metodo) => {
   try {
-    const request = await fetch(URL + "/productos", {
+    const request = await fetch(URL + "/" + direccion, {
       method: metodo,
       body: JSON.stringify(obj),
       headers: {
@@ -58,9 +41,9 @@ export const crearProductos = async (obj, metodo) => {
 };
 
 //DELETE
-export const borrarProductos = async (id) => {
+export const borrarObjeto = async (direccion,id) => {
   try {
-    await fetch(URL + "/productos/" + id, {
+    await fetch(URL + "/"+direccion +"/" +id, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

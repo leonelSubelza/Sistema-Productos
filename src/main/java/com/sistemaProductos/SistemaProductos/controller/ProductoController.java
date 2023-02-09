@@ -57,7 +57,7 @@ public class ProductoController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Object> delete(@PathVariable Integer id) {
 		if(this.productoService.findById(id) == null){
-			throw new ModelNotFoundException("El cliente que desea eliminar no existe");
+			throw new ModelNotFoundException("El producto que desea eliminar no existe");
 		}
 		this.productoService.delete(id);
 		return new ResponseEntity<>(HttpStatus.OK);

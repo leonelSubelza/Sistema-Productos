@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { estadosProductos } from "../../service/EstadosProductos";
-import { crearProductos } from "../../service/GestionProductos";
+import { cargarObjetos } from "../../service/GestionProductos";
+import { crearObjeto } from "../../service/GestionProductos";
 
 import {
   Button,
@@ -26,11 +26,20 @@ export default function ModalAgregarProducto({
   const [showSpinner, setShowSpinner] = useState(false);
   const [mensajeSpinner, setMensajeSpinner] = useState("");
 
+  //Tipos prod
+  const [tiposProductos, setTiposProductos] = useState([]);
+
   const vaciarCampos = () => {
     setNombre("");
     setTipo("");
     setPrecio("");
   };
+
+  const cargarTiposProductos = () => {
+    cargarObjetos("tiposProductos")
+      .then((response) => setTiposProductos(response))
+      .catch( error => alert('error cargando tipos de prod: '+error))
+  }
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
   const cerrarModal = (debeAct) => {
@@ -57,13 +66,14 @@ export default function ModalAgregarProducto({
     console.log(producto);
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    crearProductos(producto, method).then(() => {
+    crearObjeto("productos",producto, method).then(() => {
       setShowSpinner(false);
       cerrarModal(true);
     });
   };
 
   useEffect(() => {
+    cargarTiposProductos();
     //si se recibe un obj, es porque se abrio desde editar
     if (prod != null) {
       setNombre(prod.nombre);
@@ -110,9 +120,9 @@ export default function ModalAgregarProducto({
               onChange={(ev) => setTipo(ev.target.value)}
             >
               <option>Sin seleccionar</option>
-              {estadosProductos.map((estado, i) => (
-                <option key={i} value={estado}>
-                  {estado}
+              {tiposProductos.map((tipoProd, i) => (
+                <option key={i} value={tipoProd.nombre}>
+                  {tipoProd.nombre}
                 </option>
               ))}
             </select>
