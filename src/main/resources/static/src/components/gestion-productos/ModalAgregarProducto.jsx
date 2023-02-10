@@ -48,7 +48,7 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" && precio && "0" && tipo && "Sin seleccionar";
+    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar";
   };
 
   const agregarProducto = (e, method) => {
@@ -58,10 +58,10 @@ export default function ModalAgregarProducto({
       return;
     }
     const producto = {
-      id: prod !== null ? prod.id : 0,
-      nombre: nombre,
-      tipo: tipo,
-      precio: precio,
+      "id": prod !== null ? prod.id : 0,
+      "nombre": nombre,
+      "tipoProducto": tiposProductos.find(p => p.nombre === tipo).id,
+      "precio": precio,
     };
     console.log(producto);
     setMensajeSpinner("Guardando en DB");

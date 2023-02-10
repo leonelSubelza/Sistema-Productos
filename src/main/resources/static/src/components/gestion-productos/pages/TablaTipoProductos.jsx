@@ -17,7 +17,7 @@ import SpinnerLoading from "../SpinnerLoading";
 import MensajeToast from "../MensajeToast";
 
 const TablaTipoProducto = () => {
-  const [tiposProductos, setTiposProductos] = useState([]);
+  const [tipoProducto, setTiposProductos] = useState([]);
 
   const [nuevoNombre, setNuevoNombre] = useState("");
 
@@ -143,7 +143,7 @@ const TablaTipoProducto = () => {
             </thead>
 
             <tbody>
-              {tiposProductos.map((prod) => (
+              {tipoProducto.map((prod) => (
                 <tr key={prod.id}>
                   <td>{prod.nombre}</td>
                   <td>

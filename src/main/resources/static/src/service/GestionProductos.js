@@ -36,7 +36,7 @@ export const crearObjeto = async (direccion,obj, metodo) => {
       return prod;
     }
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 };
 
