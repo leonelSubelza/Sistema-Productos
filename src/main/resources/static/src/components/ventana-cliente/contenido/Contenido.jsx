@@ -13,53 +13,66 @@ const Contenido = () => {
       <div className='articulos'>
 
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
+
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
+
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
+
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
+
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
         />
+
         <Articulo
-          url='https://picsum.photos/100/100'
+          url='https://random.imagecdn.app/100/100'
           alt=''
           nombreProducto='Nombre Producto'
           nombreCategoria='Nombre Categoria'
-          precio='$4000'
+          precio='$599'
+        />
+
+        <Articulo
+          url='https://random.imagecdn.app/100/100'
+          alt=''
+          nombreProducto='Nombre Producto'
+          nombreCategoria='Nombre Categoria'
+          precio='$599'
         />
 
         <Navegacion />
