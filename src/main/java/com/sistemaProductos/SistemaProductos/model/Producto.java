@@ -1,6 +1,8 @@
 package com.sistemaProductos.SistemaProductos.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import javax.validation.constraints.NotNull;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,16 +13,24 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "nombre", nullable = false, length = 150)
+	@Column(name = "nombre",length = 150)
+	@NotNull
 	private String nombre;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "idTipoProducto")
-	private TipoProducto tipoProducto;
-	
+	@Column(length = 255)
+	private String descripcion;
+
+	private String imagen;
+
 	@Column(name = "precio", nullable = false, length = 150)
 	private String precio;
+
+	//Muchos productos pertenecen a un único tipoProducto
+	//JsonProperty ignora la propiedad para que no deserialice la propiedad
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "idTipoProducto")
+	@JsonProperty(access = Access.WRITE_ONLY)
+	private TipoProducto tipoProducto;
 
 	public Integer getId() {
 		return id;
@@ -36,6 +46,22 @@ public class Producto {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	public String getPrecio() {
