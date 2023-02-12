@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from "../../../img/TiendaHumilde-logo.png";
-import '../../../styles/header.css';
+import '../../../styles/ventana-cliente/header.css';
 
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
