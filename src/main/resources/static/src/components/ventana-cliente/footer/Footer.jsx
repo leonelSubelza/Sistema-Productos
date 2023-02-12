@@ -1,10 +1,10 @@
 import React from 'react';
-import '../../../styles/footer.css';
+import '../../../styles/ventana-cliente/footer.css';
 
 const Footer = () => {
   return (
 
-    <div>
+    <div className='footer'>
       <footer className="text-center text-lg-start text-white" style={{ backgroundColor: "#7f8c8d" }}>
         <section className="d-flex justify-content-between p-4" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} >
           <div className="me-5">

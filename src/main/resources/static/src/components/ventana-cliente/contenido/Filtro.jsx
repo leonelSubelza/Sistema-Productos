@@ -3,11 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 const Filtro = () => {
   return (
-    // <div className='buscado-lupa-juntos'>
-    //   <input className='filtro-input' type="text" placeholder='Buscar' />
-    //   <button className='filtro-lupa'><i className="bi bi-search"></i></button>
-    // </div>
-    <>
+    < div className='filtro'>
       <Form className="d-flex">
         <Form.Control
           type="search"
@@ -17,7 +13,7 @@ const Filtro = () => {
         />
         <Button variant="outline-success">Buscar</Button>
       </Form>
-    </>
+    </div>
   );
 }
 

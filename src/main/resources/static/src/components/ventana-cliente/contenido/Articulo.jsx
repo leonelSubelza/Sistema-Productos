@@ -1,13 +1,22 @@
 import React from 'react';
+import '../../../styles/ventana-cliente/articulo.css'
 
-const Articulo = (props) => {
+const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio }) => {
   return (
-    <article className="articulo">
-      <img className='articulo-img' src={props.url} alt="img" />
-      <p className='articulo-nombre-producto'>{props.nombreProducto}</p>
-      <p className='articulo-nombre-categoria'>{props.nombreCategoria}</p>
-      <p className='articulo-precio'>{props.precio}</p>
-    </article>
+    <div className="card text-center bg-ligth">
+      <div className="overflow">
+        <img src={imageSource} alt="a wallpaper" className="card-img-top" />
+      </div>
+      <div className="card-body text-dark">
+        <h4 className="card-title">{nombreProducto}</h4>
+        <h6 className="card-subtitle mb-2 text-muted">{nombreCategoria}</h6>
+        <p className="card-text text-secondary  display-5 font-weight-bold">
+          {precio
+            ? precio
+            : "Sin precio"}
+        </p>
+      </div>
+    </div>
   );
 }
 
