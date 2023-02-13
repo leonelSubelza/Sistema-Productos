@@ -33,12 +33,12 @@ const Footer = () => {
                 />
                 <p>
                   <a href="#!" className="text-white me-4">
-                    <i class="bi bi-linkedin"></i> Linkedln
+                    <i className="bi bi-linkedin"></i> Linkedln
                   </a>
                 </p>
                 <p>
                   <a href="#!" className="text-white me-4">
-                    <i class="bi bi-github"></i> Github
+                    <i className="bi bi-github"></i> Github
                   </a>
                 </p>
               </div>
@@ -50,12 +50,12 @@ const Footer = () => {
                 />
                 <p>
                   <a href="#!" className="text-white me-4">
-                    <i class="bi bi-linkedin"></i> Linkedln
+                    <i className="bi bi-linkedin"></i> Linkedln
                   </a>
                 </p>
                 <p>
                   <a href="#!" className="text-white me-4">
-                    <i class="bi bi-github"></i> Github
+                    <i className="bi bi-github"></i> Github
                   </a>
                 </p>
               </div>
@@ -64,7 +64,7 @@ const Footer = () => {
         </section >
         <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} >
           © 2022 Copyright:
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Licencia Creative Commons" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a>
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licencia Creative Commons" style={{ borderWidth: '0' }} src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional</a>
         </div>
       </footer >
     </div >

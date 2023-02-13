@@ -10,7 +10,7 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio }) => {
       <div className="card-body text-dark">
         <h4 className="card-title">{nombreProducto}</h4>
         <h6 className="card-subtitle mb-2 text-muted">{nombreCategoria}</h6>
-        <p className="card-text text-secondary  display-5 font-weight-bold">
+        <p className="custom-precio card-text text-secondary  display-5 font-weight-bold">
           {precio
             ? precio
             : "Sin precio"}
