@@ -6,10 +6,11 @@ import '../../styles/PantallaGestionProductos.css';
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 
 //ROUTES DAHSBOARD
-import Navbar from "./dashboard/NavBar";
+
 
 import TablaProductos from "./pages/TablaProductos";
 import TablaTipoProducto from "./pages/TablaTipoProductos";
+import { Navbar } from "reactstrap";
 
 //PARA EL DASHBOARD
 //import Containerr from "react-bootstrap/Container";

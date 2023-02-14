@@ -8,44 +8,26 @@
 .logo {
   padding: 0;
   display: flex;
-  flex: 1 1 auto;
+  margin: 0 auto;
 }
 
 .logo img {
   margin: 20px;
   margin-right: 0;
-  width: 300px;
-  height: 140px;
+  width: 91%;
+  height: 9rem;
   display: flex;
 }
 
-.desblegable {
-  margin: 20px;
-  flex: 1 1 auto;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.desplegable-inicio-sesion {
-  font-size: 20px;
-  border: none;
-  background-color: white;
-  color: #F55050;
-}
-
-.desplegable-inicio-sesion:hover {
-  color: #850000;
-}
-
-.nav {
-  margin: 20px 0;
-  flex: 1 1 auto;
+.custom-navbar {
+  font-size: 1.3rem;
   display: flex;
   justify-content: center;
+  gap: 600px;
 }
 
-.nav a {
-  padding: 0 16px;
+.custom-nav-link {
+  margin: 0 10px;
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 4px;
@@ -53,9 +35,21 @@
   color: red;
 }
 
-.nav a:hover {
+.custom-nav-link:hover {
   color: #850000;
 }
+
+.custom-nav-link-item {
+  text-transform: lowercase;
+  text-transform: capitalize;
+  letter-spacing: normal;
+}
+
+.nav-link-inicio-sesion {
+  position: absolute !important;
+  right: 0 !important;
+}
+
 
 @media all and (max-width:430px) {
   .nav {
