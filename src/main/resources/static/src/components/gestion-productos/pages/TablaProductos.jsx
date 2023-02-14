@@ -4,8 +4,6 @@ import {
   borrarObjeto,
 } from "../../../service/GestionProductos";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarProducto from "../ModalAgregarProducto";
@@ -80,11 +78,11 @@ const TablaTipoProducto = () => {
   const borrarProducto = (prod) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    borrarObjeto("productos",prod.id)
+    borrarObjeto("productos", prod.id)
       .then(async () => {
-          setShowSpinner(false);
-          actualizarTabla();
-          return;
+        setShowSpinner(false);
+        actualizarTabla();
+        return;
       })
       .catch(() => {
         setShowSpinner(false);
@@ -93,11 +91,11 @@ const TablaTipoProducto = () => {
           msjBody: "Se ha producido un error al borrar",
           color: "#dc1717",
         });
-      } )
+      })
   };
 
-  const editarProducto = (prod,tipoProd) => {
-    console.log('prod a editar: '+prod.nombre);
+  const editarProducto = (prod, tipoProd) => {
+    console.log('prod a editar: ' + prod.nombre);
     setEsAgregar(false);
     prod.tipoProd = tipoProd;//Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
@@ -137,31 +135,31 @@ const TablaTipoProducto = () => {
 
             <tbody>
               {
-                productos.map( (tipoProd,i) => (
-                  tipoProd.productos.map( (prod,index) => (
-                  <tr key={index}>
-                  <td>{prod.id}</td>
-                  <td>{prod.nombre}</td>
-                  <td>{prod.descripcion}</td>
-                  <td>{prod.precio}</td>
-                  <td>{tipoProd.nombre}</td>               
+                productos.map((tipoProd, i) => (
+                  tipoProd.productos.map((prod, index) => (
+                    <tr key={index}>
+                      <td>{prod.id}</td>
+                      <td>{prod.nombre}</td>
+                      <td>{prod.descripcion}</td>
+                      <td>{prod.precio}</td>
+                      <td>{tipoProd.nombre}</td>
 
-                  <td>
-                    <Button
-                      color="primary"
-                      onClick={() => editarProducto(prod,tipoProd)}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button
-                      color="danger"
-                      onClick={() => borrarProducto(prod)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
-                </tr>
-              ))))}
+                      <td>
+                        <Button
+                          color="primary"
+                          onClick={() => editarProducto(prod, tipoProd)}
+                        >
+                          Editar
+                        </Button>{" "}
+                        <Button
+                          color="danger"
+                          onClick={() => borrarProducto(prod)}
+                        >
+                          Eliminar
+                        </Button>
+                      </td>
+                    </tr>
+                  ))))}
             </tbody>
           </Table>
         </div>
@@ -178,7 +176,7 @@ const TablaTipoProducto = () => {
         show={toast.show}
         msjBody={toast.msjBody}
         color={toast.color}
-        dispose={(prev) => (setToast({show:false, msjBody:prev.msjBody, color:prev.color}))}
+        dispose={(prev) => (setToast({ show: false, msjBody: prev.msjBody, color: prev.color }))}
       />
     </>
   );

@@ -6,77 +6,88 @@ import javax.validation.constraints.NotNull;
 import jakarta.persistence.*;
 
 @Entity
-@Table( name = "productos")
+@Table(name = "productos")
 public class Producto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(name = "nombre",length = 150)
-	@NotNull
-	private String nombre;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-	@Column(length = 255)
-	private String descripcion;
+  @Column(name = "nombre", length = 150)
+  @NotNull
+  private String nombre;
 
-	private String imagen;
+  @Column(length = 255)
+  private String descripcion;
 
-	@Column(name = "precio", nullable = false, length = 150)
-	private String precio;
+  private String imagen;
 
-	//Muchos productos pertenecen a un único tipoProducto
-	//JsonProperty ignora la propiedad para que no deserialice la propiedad
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
-	@JoinColumn(name = "idTipoProducto")
-	@JsonProperty(access = Access.WRITE_ONLY)
-	private TipoProducto tipoProducto;
+  @Column(name = "precio", nullable = false, length = 150)
+  private String precio;
 
-	public Integer getId() {
-		return id;
-	}
+  @Column(name = "genero", nullable = false)
+  private String genero;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+  // Muchos productos pertenecen a un único tipoProducto
+  // JsonProperty ignora la propiedad para que no deserialice la propiedad
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
+  @JoinColumn(name = "idTipoProducto")
+  @JsonProperty(access = Access.WRITE_ONLY)
+  private TipoProducto tipoProducto;
 
-	public String getNombre() {
-		return nombre;
-	}
+  public Integer getId() {
+    return id;
+  }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+  public String getNombre() {
+    return nombre;
+  }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-	public String getImagen() {
-		return imagen;
-	}
+  public String getDescripcion() {
+    return descripcion;
+  }
 
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
+  }
 
-	public String getPrecio() {
-		return precio;
-	}
+  public String getImagen() {
+    return imagen;
+  }
 
-	public void setPrecio(String precio) {
-		this.precio = precio;
-	}
+  public void setImagen(String imagen) {
+    this.imagen = imagen;
+  }
 
-	public TipoProducto getTipoProducto() {
-		return tipoProducto;
-	}
+  public String getPrecio() {
+    return precio;
+  }
 
-	public void setTipoProducto(TipoProducto tipoProducto) {
-		this.tipoProducto = tipoProducto;
-	}
+  public void setPrecio(String precio) {
+    this.precio = precio;
+  }
+
+  public TipoProducto getTipoProducto() {
+    return tipoProducto;
+  }
+
+  public void setTipoProducto(TipoProducto tipoProducto) {
+    this.tipoProducto = tipoProducto;
+  }
+
+  public String getGenero() {
+    return genero;
+  }
+
+  public void setGenero(String genero) {
+    this.genero = genero;
+  }
 }

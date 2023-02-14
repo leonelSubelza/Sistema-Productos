@@ -2,24 +2,42 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, Outlet, Route, RouterProvider, Routes } from 'react-router-dom';
 import Root from "../src/router/Root"
 import App from './App';
 import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos'
+import VentanaCliente from './components/ventana-cliente/VentanaCliente';
+import TablaTipoProducto from './components/gestion-productos/pages/TablaProductos';
+import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const AppLayout = () => (
+  <>
+    <Outlet />
+  </>
+);
+
+const router = createBrowserRouter([
+  {
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <VentanaCliente />,
+      },
+      {
+        path: "/administrador",
+        element: <PantallaGestionProductos />,
+      },
+      {
+        path: "/administrador/tablaTipoProductos",
+        element: <PantallaGestionTipoProducto />,
+      },
+    ],
+  },
+]);
 root.render(
   <React.StrictMode>
-    {/* <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Root />}>
-          <Route path='/' element={<PantallaGestionProductos />} />
-          <Route path='/gestionar-productos' element={<PantallaGestionProductos />} />
-          <Route path='/gestionar-tipo-productos' element={<PantallaGestionProductos />} />
-
-
-        </Route>
-      </Routes>
-    </BrowserRouter> */}
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
