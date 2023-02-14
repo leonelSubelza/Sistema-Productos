@@ -1,5 +1,5 @@
 import TablaProductos from "./pages/TablaProductos";
-import Navbar from "./Dashboard/NavBar";
+import Navbar from "./dashboard/NavBar";
 
 export default function PantallaGestionProductos() {
 

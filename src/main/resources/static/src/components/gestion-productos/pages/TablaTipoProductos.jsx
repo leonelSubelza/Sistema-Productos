@@ -36,7 +36,7 @@ const TablaTipoProducto = () => {
     cargarObjetos("tiposProductos")
       .then((response) => {
         setTiposProductos(response);
-        console.log(response)
+        console.log(response);
         setShowSpinner(false);
         console.log("deberia cerrar el spinner");
       })

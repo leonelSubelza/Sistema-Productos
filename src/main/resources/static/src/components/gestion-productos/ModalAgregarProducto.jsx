@@ -23,6 +23,7 @@ export default function ModalAgregarProducto({
   const [descripcion, setDescripcion] = useState('')
   const [tipo, setTipo] = useState("Sin seleccionar");
   const [precio, setPrecio] = useState("");
+  const [genero,setGenero] = useState('')
 
   //Spinner
   const [showSpinner, setShowSpinner] = useState(false);
@@ -37,6 +38,7 @@ export default function ModalAgregarProducto({
       setDescripcion('')
       setTipo("");
       setPrecio("");
+      setGenero('')
     }
         
   };
@@ -57,7 +59,7 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar";
+    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero!=='Sin seleccionar';
   };
 
   const agregarProducto = (e, method) => {
@@ -73,6 +75,7 @@ export default function ModalAgregarProducto({
       "descripcion":descripcion,
       "imagen":null,
       "precio": precio,
+      "genero": genero,
       "tipoProducto": {
           "id": idTipoProd
       }
@@ -171,6 +174,21 @@ export default function ModalAgregarProducto({
             </select>
           </FormGroup>
 
+          <FormGroup>
+            <label>Genero:</label>
+
+            <select
+              className="form-control"
+              name="genero"
+              value={genero}
+              onChange={(ev) => setGenero( ev.target.value)}
+            >
+              <option>Sin seleccionar</option>
+              <option value={'MACHO'}>VARON</option>
+              <option value={'HEMBRA'}>MUJER</option>
+              
+            </select>
+          </FormGroup>
 
         </ModalBody>
 

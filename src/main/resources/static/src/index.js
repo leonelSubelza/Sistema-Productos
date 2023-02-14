@@ -10,6 +10,8 @@ import VentanaCliente from './components/ventana-cliente/VentanaCliente';
 import TablaTipoProducto from './components/gestion-productos/pages/TablaProductos';
 import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 
+import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (
   <>
@@ -38,6 +40,8 @@ const router = createBrowserRouter([
 ]);
 root.render(
   <React.StrictMode>
+    <FuncionesTablaContext>
     <RouterProvider router={router} />
+    </FuncionesTablaContext>
   </React.StrictMode>
 );
