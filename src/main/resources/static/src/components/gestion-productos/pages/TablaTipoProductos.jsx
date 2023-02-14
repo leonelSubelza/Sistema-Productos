@@ -1,178 +1,111 @@
-import { useEffect, useState } from "react";
-import {
-  cargarObjetos,
-  borrarObjeto,
-  crearObjeto,
-} from "../../../service/GestionProductos";
+import { useEffect, useState,useContext } from "react";
+
+import { funcionesContext } from '../../../context/FuncionesTablaContext';
 
 import { Table, Button, Container } from "reactstrap";
 
-import FormButton from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-
-//import ModalAgregarProducto from "../ModalAgregarProducto";
-import SpinnerLoading from "../SpinnerLoading";
-import MensajeToast from "../MensajeToast";
+import ModalAgregarTipoProducto from "../ModalAgregarTipoProducto";
 
 const TablaTipoProducto = () => {
-  const [tipoProducto, setTiposProductos] = useState([]);
+  const [tiposProductos, setTiposProductos] = useState([]);
 
-  const [nuevoNombre, setNuevoNombre] = useState("");
+  const {actualizarTablaGenerica,borrarProductoGenerico} = useContext(funcionesContext);
 
-  //Spinner
-  const [showSpinner, setShowSpinner] = useState(false);
-  const [mensajeSpinner, setMensajeSpinner] = useState(""); //el msj del spinner puede variar
+//modal
+const [showModalAgregar, setShowModalAgregar] = useState(false);
 
-  //Toast
-  const [toast, setToast] = useState({
-    show: false,
-    msjBody: "",
-    color: "#dc1717",
-  });
+//Agregar-Editar
+const [prodAEditar, setProdAEditar] = useState();
+const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
 
-  const actualizarTabla = () => {
-    setMensajeSpinner("Actualizando Tabla tipo prod");
-    setShowSpinner(true);
-    cargarObjetos("tiposProductos")
-      .then((response) => {
-        setTiposProductos(response);
-        console.log(response);
-        setShowSpinner(false);
-        console.log("deberia cerrar el spinner");
-      })
-      .catch(() => {
-        console.log("error wahcoh");
-        setShowSpinner(false);
-        setToast({
-          show: true,
-          msjBody: "Error contectando a la BD",
-          color: "#dc1717",
-        });
-        setTiposProductos([]);
-      });
+
+  const actualizarTabla = async () => {
+    setShowModalAgregar(false);
+    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));      
   };
 
-  const agregarTipoProducto = (e) => {
-    e.preventDefault();
-    if (nuevoNombre === "") {
-      alert("Valores erroneos");
-      return;
+  const manejarModalAgregar = (debeAct) => {
+    if (debeAct) {
+      actualizarTabla();
     }
-    const producto = {
-      id: 0,
-      nombre: nuevoNombre.toUpperCase(),
-    };
-    setMensajeSpinner("Guardando en DB");
-    setShowSpinner(true);
-    crearObjeto("tiposProductos", producto, "POST")
-      .then((res) => {
-        console.log(res);
-        setShowSpinner(false);
-        actualizarTabla();
-      })
-      .catch(() => {
-        setShowSpinner(false);
-        setToast({
-          show: true,
-          msjBody: "Error contectando a la BD",
-          color: "#dc1717",
-        });
-      });
+    setShowModalAgregar(false);
   };
 
-  const borrarProducto = (id) => {
-    setMensajeSpinner("Borrando de DB");
-    setShowSpinner(true);
-    borrarObjeto("tiposProductos", id)
-      .then(async () => {
-        setShowSpinner(false);
-        actualizarTabla();
-        return;
-      })
-      .catch(() => {
-        setShowSpinner(false);
-        setToast({
-          show: true,
-          msjBody: "Se ha producido un error al borrar",
-          color: "#dc1717",
-        });
-      });
+  const agregarProd = () => {
+    setEsAgregar(true);
+    setProdAEditar(null);
+    setShowModalAgregar(true);
+  };
+
+  //Abre la ventana modal con los tiposProd cargados
+  const editarProducto = (tipoProd) => {
+    setEsAgregar(false);
+    setProdAEditar(tipoProd);
+    setShowModalAgregar(true);
+  };
+
+  const borrarProducto = (prod) => {
+    borrarProductoGenerico('productos',prod.id).then(() => actualizarTabla());
   };
 
   useEffect(() => {
-    actualizarTabla();
-  }, []);
+    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));      
+  }, [actualizarTablaGenerica]);
 
+
+  const styles = {
+    widht: "50%",
+    margin: "5% auto",
+  };
   return (
     <>
-      <Container>
+      <Container style={styles}>
         <br />
-
-        <Form
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            width: "100%",
-            gap: "2%",
-          }}
-        >
-          <Form.Label>Tipo de Producto</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="REMERA"
-            autoFocus
-            style={{ width: "40%" }}
-            name={"nuevoNombre"}
-            value={nuevoNombre}
-            onChange={(ev) => setNuevoNombre(ev.target.value)}
-          />
-          <FormButton variant="primary" onClick={agregarTipoProducto}>
-            Save Changes
-          </FormButton>
-        </Form>
-
+        <Button color="success" onClick={() => agregarProd()}>
+          Agregar Producto
+        </Button>
         <br />
         <br />
         <div style={{ overflow: "auto" }}>
           <Table>
             <thead>
               <tr>
+                <th>Id</th>
                 <th>Nombre</th>
               </tr>
             </thead>
 
             <tbody>
-              {tipoProducto.map((prod) => (
-                <tr key={prod.id}>
-                  <td>{prod.nombre}</td>
-                  <td>
-                    <Button
-                      color="primary"
-                      onClick={() => alert("edita el prod xd")}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button
-                      color="danger"
-                      onClick={() => borrarProducto(prod.id)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+              {
+              tiposProductos && tiposProductos.map( (tipoProd,index) => (
+                  <tr key={index}>
+                  <td>{tipoProd.id}</td>
+                  <td>{tipoProd.nombre}</td>
+                      <td>
+                        <Button
+                          color="primary"
+                          onClick={() => editarProducto(tipoProd)}
+                        >
+                          Editar
+                        </Button>{" "}
+                        <Button
+                          color="danger"
+                          onClick={() => borrarProducto(tipoProd)}
+                        >
+                          Eliminar
+                        </Button>
+                      </td>
+                    </tr>
+                  ))}
             </tbody>
           </Table>
         </div>
       </Container>
-      <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
-      <MensajeToast
-        show={toast.show}
-        msjBody={toast.msjBody}
-        color={toast.color}
-        dispose={(prev) =>
-          setToast({ show: false, msjBody: prev.msjBody, color: prev.color })
-        }
+      <ModalAgregarTipoProducto
+        mostrarVentana={showModalAgregar}
+        cerrarVentana={(res) => manejarModalAgregar(res)}
+        tipoProd={prodAEditar}
+        esAgregar={esAgregar}
       />
     </>
   );

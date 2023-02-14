@@ -1,7 +1,5 @@
-import { useState, useEffect } from "react";
-import { cargarObjetos } from "../../service/GestionProductos";
-import { crearObjeto } from "../../service/GestionProductos";
-
+import { useState, useEffect,useContext } from "react";
+import { funcionesContext } from '../../context/FuncionesTablaContext';
 import {
   Button,
   Modal,
@@ -10,7 +8,6 @@ import {
   FormGroup,
   ModalFooter,
 } from "reactstrap";
-import SpinnerLoading from "./SpinnerLoading";
 
 export default function ModalAgregarProducto({
   mostrarVentana,
@@ -25,12 +22,7 @@ export default function ModalAgregarProducto({
   const [precio, setPrecio] = useState("");
   const [genero,setGenero] = useState('')
 
-  //Spinner
-  const [showSpinner, setShowSpinner] = useState(false);
-  const [mensajeSpinner, setMensajeSpinner] = useState("");
-
-  //Tipos prod
-  //const [tiposProductos, setTiposProductos] = useState([]);
+  const {agregarProductoGenerico} = useContext(funcionesContext);
 
   const vaciarCampos = () => {
     if(esAgregar){
@@ -42,15 +34,6 @@ export default function ModalAgregarProducto({
     }
         
   };
-
-  /*
-  const cargarTiposProductos = () => {
-    cargarObjetos("tiposProductos")
-      .then((response) => setTiposProductos(response))
-      .catch( error => alert('error cargando tipos de prod: '+error))
-  }
-
-*/
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
   const cerrarModal = (debeAct) => {
@@ -80,32 +63,27 @@ export default function ModalAgregarProducto({
           "id": idTipoProd
       }
   }
-
-    console.log(producto);
-    setMensajeSpinner("Guardando en DB");
-    setShowSpinner(true);
-    crearObjeto("productos",producto, method).then(() => {
-      setShowSpinner(false);
-      cerrarModal(true);
-    });
+  console.log(producto);
+  agregarProductoGenerico('productos',producto,method).then(() => cerrarModal(true))
   };
 
   useEffect(() => {
-    //cargarTiposProductos();
     //si se recibe un obj, es porque se abrio desde editar
     if (prod == null) {
       setNombre('');
       setDescripcion('')
       setTipo('Sin seleccionar');
       setPrecio('');      
+      setGenero('Sin seleccionar');      
     }else{
 
       setNombre(prod.nombre);
       setDescripcion(prod.descripcion)
       setTipo(prod.tipoProd.nombre);
       setPrecio(prod.precio);
+      setGenero(prod.genero)
     }
-  }, [prod,tiposProductos]);
+  }, [prod]);
 
   return (
     <>
@@ -184,8 +162,8 @@ export default function ModalAgregarProducto({
               onChange={(ev) => setGenero( ev.target.value)}
             >
               <option>Sin seleccionar</option>
-              <option value={'MACHO'}>VARON</option>
-              <option value={'HEMBRA'}>MUJER</option>
+              <option value={'MASCULINO'}>MASCULINO</option>
+              <option value={'FEMENINO'}>FEMENINO</option>
               
             </select>
           </FormGroup>
@@ -202,7 +180,6 @@ export default function ModalAgregarProducto({
           <Button onClick={() => cerrarModal(false)}>Cancelar</Button>
         </ModalFooter>
       </Modal>
-      <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
     </>
   );
 }

@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 
 import { funcionesContext } from '../../../context/FuncionesTablaContext';
-import { cargarObjetos } from "../../../service/GestionProductos";
 
 import { Table, Button, Container } from "reactstrap";
 
@@ -29,8 +28,7 @@ const TablaTipoProducto = () => {
 
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
-    setProductos(actualizarTablaGenerica('productos'));
-    
+    actualizarTablaGenerica('tiposProductos').then(res => setProductos(res));      
   };
 
   const agregarProd = () => {
@@ -40,8 +38,7 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('tiposProductos',prod.id);
-    actualizarTabla();
+    borrarProductoGenerico('productos',prod.id).then(() => actualizarTabla());
   };
 
   const editarProducto = (prod,tipoProd) => {
@@ -81,13 +78,14 @@ const TablaTipoProducto = () => {
                 <th>Descripcion</th>
                 <th>Precio</th>
                 <th>Tipo</th>
+                <th>Genero</th>
                 <th>Acciones</th>
               </tr>
             </thead>
 
             <tbody>
               {
-              productos && productos.map( (tipoProd,i) => (
+              productos && productos.map( (tipoProd) => (
                   tipoProd.productos.map( (prod,index) => (
                   <tr key={index}>
                   <td>{prod.id}</td>
@@ -95,6 +93,7 @@ const TablaTipoProducto = () => {
                   <td>{prod.descripcion}</td>
                   <td>{prod.precio}</td>
                   <td>{tipoProd.nombre}</td>               
+                  <td>{prod.genero}</td>               
 
                       <td>
                         <Button
