@@ -1,12 +1,11 @@
 import React from 'react'
-import PantallaGestionProductos from '../components/gestion-productos/PantallaGestionProductos'
-import VentanaCliente from '../components/ventana-cliente/VentanaCliente'
+import App from '../App'
 
 function root() {
   return (
     <div>
       <>
-        <PantallaGestionProductos />
+        <App />
       </>
     </div>
   )

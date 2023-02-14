@@ -5,8 +5,6 @@ import {
   crearObjeto,
 } from "../../../service/GestionProductos";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Table, Button, Container } from "reactstrap";
 
 import FormButton from "react-bootstrap/Button";

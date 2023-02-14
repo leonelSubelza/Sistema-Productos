@@ -50,6 +50,7 @@
   right: 0 !important;
 }
 
+.navbar-header-cliente {}
 
 @media all and (max-width:430px) {
   .nav {

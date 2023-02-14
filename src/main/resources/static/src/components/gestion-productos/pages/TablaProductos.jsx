@@ -3,8 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import { funcionesContext } from '../../../context/FuncionesTablaContext';
 import { cargarObjetos } from "../../../service/GestionProductos";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarProducto from "../ModalAgregarProducto";
@@ -42,7 +40,7 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('productos',prod.id);
+    borrarProductoGenerico('tiposProductos',prod.id);
     actualizarTabla();
   };
 
@@ -98,22 +96,22 @@ const TablaTipoProducto = () => {
                   <td>{prod.precio}</td>
                   <td>{tipoProd.nombre}</td>               
 
-                  <td>
-                    <Button
-                      color="primary"
-                      onClick={() => editarProducto(prod,tipoProd)}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button
-                      color="danger"
-                      onClick={() => borrarProducto(prod)}
-                    >
-                      Eliminar
-                    </Button>
-                  </td>
-                </tr>
-              ))))}
+                      <td>
+                        <Button
+                          color="primary"
+                          onClick={() => editarProducto(prod, tipoProd)}
+                        >
+                          Editar
+                        </Button>{" "}
+                        <Button
+                          color="danger"
+                          onClick={() => borrarProducto(prod)}
+                        >
+                          Eliminar
+                        </Button>
+                      </td>
+                    </tr>
+                  ))))}
             </tbody>
           </Table>
         </div>
