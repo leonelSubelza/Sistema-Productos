@@ -22,7 +22,6 @@
 /* Navbar CSS */
 .navbar {
   background-color: #060b26;
-  height: 80px;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -69,7 +68,8 @@
 
 .nav-text a {
   text-decoration: none;
-  color: #fff; /*#151414;*/
+  color: #fff;
+  /*#151414;*/
   font-size: 18px;
   width: 95%;
   height: 100%;

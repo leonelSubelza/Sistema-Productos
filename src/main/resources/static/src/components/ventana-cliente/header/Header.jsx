@@ -17,7 +17,7 @@ const Header = () => {
         </div>
       </div>
 
-      <Navbar bg="light" className='custom-navbar' expand="md">
+      <Navbar bg="light" className='custom-navbar navbar-header-cliente' expand="md">
         <div className='container-fluid'>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
