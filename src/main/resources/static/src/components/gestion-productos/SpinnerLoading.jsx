@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import '../../styles/SpinnerLoading.css';
+import { funcionesContext } from '../../context/FuncionesTablaContext';
 
-function SpinnerLoading({mensaje, openSpinner}) {
+function SpinnerLoading() {
+
+  const { mensajeSpinner,showSpinner } = useContext(funcionesContext)
   return (
     <>
-    <div className={`spinnerContainer ${openSpinner ? 'show':''}`}>
+    <div className={`spinnerContainer ${showSpinner ? 'show':''}`}>
       <Button variant="dark" disabled>
       <Spinner
           as="span"
@@ -14,7 +18,7 @@ function SpinnerLoading({mensaje, openSpinner}) {
           role="status"
           aria-hidden="true"
         />
-        {' '+mensaje}
+        {' '+mensajeSpinner}
       </Button>
       </div>
     </>
