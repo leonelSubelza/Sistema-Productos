@@ -16,6 +16,8 @@ const TablaTipoProducto = () => {
   const [productos, setProductos] = useState([]);
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
+  const [tiposProductos, setTiposProductos] = useState([]);
+
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
@@ -41,9 +43,20 @@ const TablaTipoProducto = () => {
   const actualizarTabla = () => {
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
-    cargarObjetos("productos")
+    cargarObjetos("tiposProductos")
       .then((response) => {
+        //setProductos(response.map( p => p.productos));
+        //setTiposProductos(response)
+        console.log(response)
         setProductos(response);
+        /*
+        response.map( tipoPrd => (
+          tipoPrd.productos.map( prod => console.log(prod))
+        ))
+
+        */
+
+        /*console.log(response[0].productos)*/
         setShowModalAgregar(false);
         setShowSpinner(false);
       })
@@ -64,10 +77,10 @@ const TablaTipoProducto = () => {
     setShowModalAgregar(true);
   };
 
-  const borrarProducto = (id) => {
+  const borrarProducto = (prod) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    borrarObjeto("productos",id)
+    borrarObjeto("productos",prod.id)
       .then(async () => {
           setShowSpinner(false);
           actualizarTabla();
@@ -83,8 +96,10 @@ const TablaTipoProducto = () => {
       } )
   };
 
-  const editarProducto = (prod) => {
+  const editarProducto = (prod,tipoProd) => {
+    console.log('prod a editar: '+prod.nombre);
     setEsAgregar(false);
+    prod.tipoProd = tipoProd;//Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
     setShowModalAgregar(true);
   };
@@ -113,35 +128,40 @@ const TablaTipoProducto = () => {
               <tr>
                 <th>Id</th>
                 <th>Nombre</th>
-                <th>Tipo</th>
+                <th>Descripcion</th>
                 <th>Precio</th>
+                <th>Tipo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
 
             <tbody>
-              {productos.map((prod) => (
-                <tr key={prod.id}>
+              {
+                productos.map( (tipoProd,i) => (
+                  tipoProd.productos.map( (prod,index) => (
+                  <tr key={index}>
                   <td>{prod.id}</td>
                   <td>{prod.nombre}</td>
-                  <td>{prod.tipo}</td>
+                  <td>{prod.descripcion}</td>
                   <td>{prod.precio}</td>
+                  <td>{tipoProd.nombre}</td>               
+
                   <td>
                     <Button
                       color="primary"
-                      onClick={() => editarProducto(prod)}
+                      onClick={() => editarProducto(prod,tipoProd)}
                     >
                       Editar
                     </Button>{" "}
                     <Button
                       color="danger"
-                      onClick={() => borrarProducto(prod.id)}
+                      onClick={() => borrarProducto(prod)}
                     >
                       Eliminar
                     </Button>
                   </td>
                 </tr>
-              ))}
+              ))))}
             </tbody>
           </Table>
         </div>
@@ -151,6 +171,7 @@ const TablaTipoProducto = () => {
         cerrarVentana={(res) => manejarModalAgregar(res)}
         prod={prodAEditar}
         esAgregar={esAgregar}
+        tiposProductos={productos}
       />
       <SpinnerLoading mensaje={mensajeSpinner} openSpinner={showSpinner} />
       <MensajeToast

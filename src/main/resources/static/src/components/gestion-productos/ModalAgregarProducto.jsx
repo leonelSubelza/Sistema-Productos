@@ -17,8 +17,10 @@ export default function ModalAgregarProducto({
   cerrarVentana,
   prod,
   esAgregar,
+  tiposProductos
 }) {
   const [nombre, setNombre] = useState("");
+  const [descripcion, setDescripcion] = useState('')
   const [tipo, setTipo] = useState("Sin seleccionar");
   const [precio, setPrecio] = useState("");
 
@@ -27,19 +29,26 @@ export default function ModalAgregarProducto({
   const [mensajeSpinner, setMensajeSpinner] = useState("");
 
   //Tipos prod
-  const [tiposProductos, setTiposProductos] = useState([]);
+  //const [tiposProductos, setTiposProductos] = useState([]);
 
   const vaciarCampos = () => {
-    setNombre("");
-    setTipo("");
-    setPrecio("");
+    if(esAgregar){
+      setNombre("");
+      setDescripcion('')
+      setTipo("");
+      setPrecio("");
+    }
+        
   };
 
+  /*
   const cargarTiposProductos = () => {
     cargarObjetos("tiposProductos")
       .then((response) => setTiposProductos(response))
       .catch( error => alert('error cargando tipos de prod: '+error))
   }
+
+*/
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
   const cerrarModal = (debeAct) => {
@@ -57,12 +66,18 @@ export default function ModalAgregarProducto({
       alert("Valores erroneos");
       return;
     }
+    let idTipoProd = tiposProductos.find(p => p.nombre === tipo).id;
     const producto = {
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
-      "tipoProducto": tiposProductos.find(p => p.nombre === tipo).id,
+      "descripcion":descripcion,
+      "imagen":null,
       "precio": precio,
-    };
+      "tipoProducto": {
+          "id": idTipoProd
+      }
+  }
+
     console.log(producto);
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
@@ -73,18 +88,21 @@ export default function ModalAgregarProducto({
   };
 
   useEffect(() => {
-    cargarTiposProductos();
+    //cargarTiposProductos();
     //si se recibe un obj, es porque se abrio desde editar
-    if (prod != null) {
-      setNombre(prod.nombre);
-      setTipo(prod.tipo);
-      setPrecio(prod.precio);
-    }else{
+    if (prod == null) {
       setNombre('');
+      setDescripcion('')
       setTipo('Sin seleccionar');
-      setPrecio('');
+      setPrecio('');      
+    }else{
+
+      setNombre(prod.nombre);
+      setDescripcion(prod.descripcion)
+      setTipo(prod.tipoProd.nombre);
+      setPrecio(prod.precio);
     }
-  }, [prod]);
+  }, [prod,tiposProductos]);
 
   return (
     <>
@@ -98,7 +116,6 @@ export default function ModalAgregarProducto({
         <ModalBody>
           <FormGroup>
             <label>Nombre:</label>
-
             <input
               className="form-control"
               name="nombre"
@@ -111,21 +128,16 @@ export default function ModalAgregarProducto({
           </FormGroup>
 
           <FormGroup>
-            <label>Tipo:</label>
-
-            <select
+          <label>Descripcion:</label>
+          <input
               className="form-control"
-              name="tipo"
-              value={tipo}
-              onChange={(ev) => setTipo(ev.target.value)}
-            >
-              <option>Sin seleccionar</option>
-              {tiposProductos.map((tipoProd, i) => (
-                <option key={i} value={tipoProd.nombre}>
-                  {tipoProd.nombre}
-                </option>
-              ))}
-            </select>
+              name="descripcion"
+              placeholder="Escriba una descripcion para el prod"
+              autoComplete="off"
+              value={descripcion}
+              onChange={(ev) => setDescripcion(ev.target.value)}
+              type="text"
+            />
           </FormGroup>
 
           <FormGroup>
@@ -133,13 +145,33 @@ export default function ModalAgregarProducto({
             <input
               className="form-control"
               name="precio"
-              type="text"
+              type="number"
               placeholder="Escriba el precio del producto"
               autoComplete="off"
               value={precio}
               onChange={(ev) => setPrecio(ev.target.value)}
             />
           </FormGroup>
+
+          <FormGroup>
+            <label>Tipo:</label>
+
+            <select
+              className="form-control"
+              name="tipo"
+              value={tipo}
+              onChange={(ev) => setTipo( ev.target.value)}
+            >
+              <option>Sin seleccionar</option>
+              {tiposProductos.map((tipoProd, i) => (
+                <option key={i} value={tipoProd.nombre}>
+                  {tipoProd.nombre}
+                </option>
+              ))} 
+            </select>
+          </FormGroup>
+
+
         </ModalBody>
 
         <ModalFooter>
