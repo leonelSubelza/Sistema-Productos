@@ -14,7 +14,7 @@
 .logo img {
   margin: 20px;
   margin-right: 0;
-  width: 100%;
+  width: 91%;
   height: 9rem;
   display: flex;
 }
@@ -44,6 +44,12 @@
   text-transform: capitalize;
   letter-spacing: normal;
 }
+
+.nav-link-inicio-sesion {
+  position: absolute !important;
+  right: 0 !important;
+}
+
 
 @media all and (max-width:430px) {
   .nav {

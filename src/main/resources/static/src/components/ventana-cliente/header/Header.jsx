@@ -2,7 +2,6 @@ import React from 'react';
 import logo from "../../../img/TiendaHumilde-logo.png";
 import '../../../styles/ventana-cliente/header.css';
 
-import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -18,7 +17,7 @@ const Header = () => {
       </div>
 
       <Navbar bg="light" className='custom-navbar' expand="md">
-        <Container>
+        <div className='container-fluid'>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto">
@@ -33,7 +32,8 @@ const Header = () => {
               <Nav.Link className='custom-nav-link' href="#mujer">mujer</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-        </Container>
+          <Nav.Link className='custom-nav-link ml-auto' href="#mujer">inicio sesion</Nav.Link>
+        </div>
       </Navbar>
 
     </header>
