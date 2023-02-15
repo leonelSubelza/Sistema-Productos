@@ -33,6 +33,7 @@ export function FuncionesTablaContext({ children }) {
           msjBody: "Error contectando a la BD",
           color: "#dc1717",
         });
+        console.log('deberia mostrar toast');
         return [];
       });
   }, [setMensajeSpinner, setShowSpinner, setToast]);

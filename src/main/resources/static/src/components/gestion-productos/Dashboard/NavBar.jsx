@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { SideBarData } from "./SideBarData";
 import "../../../styles/NavBar.css";
 
+//Iconos
+import { AiOutlineCloseCircle } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
+
 function Navbar() {
   const [sidebar, setSidebar] = useState(false);
 
@@ -12,14 +16,14 @@ function Navbar() {
     <>
         <div className="navbar">
           <Link to="#" className="menu-bars">
-            <p onClick={showSidebar} >=</p>
+            <p onClick={showSidebar} ><FaBars /></p>
           </Link>
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items" onClick={showSidebar}>
             <li className="navbar-toggle">
               <Link to="#" className="menu-bars">
-                <p>x</p>
+                <p> <AiOutlineCloseCircle /> </p>
               </Link>
             </li>
             {SideBarData.map((item, index) => {

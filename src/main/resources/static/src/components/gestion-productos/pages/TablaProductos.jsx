@@ -6,6 +6,13 @@ import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarProducto from "../ModalAgregarProducto";
 
+//Iconos
+import { IoAddCircleOutline } from "react-icons/io5";
+import { AiFillEdit } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
+import { AiOutlineNumber } from "react-icons/ai";
+
+
 const TablaTipoProducto = () => {
 
   const {actualizarTablaGenerica,borrarProductoGenerico} = useContext(funcionesContext);
@@ -57,15 +64,16 @@ const TablaTipoProducto = () => {
 
   const styles = {
     widht: "50%",
-    margin: "5% auto",
+    margin: "2% auto",
+    border:"2px solid red"
   };
 
   return (
     <>
       <Container style={styles}>
         <br />
-        <Button color="success" onClick={() => agregarProd()}>
-          Agregar Producto
+        <Button color="success" onClick={() => agregarProd()} style={{display:'flex'}}>
+          Agregar Producto <IoAddCircleOutline style={{width:"25px", height:'25px', margin:'0 0 0 5px'}}/>
         </Button>
         <br />
         <br />
@@ -73,7 +81,7 @@ const TablaTipoProducto = () => {
           <Table>
             <thead>
               <tr>
-                <th>Id</th>
+                <th><AiOutlineNumber /></th>
                 <th>Nombre</th>
                 <th>Descripcion</th>
                 <th>Precio</th>
@@ -91,7 +99,7 @@ const TablaTipoProducto = () => {
                   <td>{prod.id}</td>
                   <td>{prod.nombre}</td>
                   <td>{prod.descripcion}</td>
-                  <td>{prod.precio}</td>
+                  <td style={{color:'green'}}>$ {prod.precio}</td>
                   <td>{tipoProd.nombre}</td>               
                   <td>{prod.genero}</td>               
 
@@ -100,13 +108,13 @@ const TablaTipoProducto = () => {
                           color="primary"
                           onClick={() => editarProducto(prod, tipoProd)}
                         >
-                          Editar
+                          Editar <AiFillEdit />
                         </Button>{" "}
                         <Button
                           color="danger"
                           onClick={() => borrarProducto(prod)}
                         >
-                          Eliminar
+                          Eliminar <BsTrash />
                         </Button>
                       </td>
                     </tr>

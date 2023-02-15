@@ -6,6 +6,9 @@ import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarTipoProducto from "../ModalAgregarTipoProducto";
 
+//Iconos
+import { IoAddCircleOutline } from "react-icons/io5";
+
 const TablaTipoProducto = () => {
   const [tiposProductos, setTiposProductos] = useState([]);
 
@@ -61,8 +64,8 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
     <>
       <Container style={styles}>
         <br />
-        <Button color="success" onClick={() => agregarProd()}>
-          Agregar Producto
+        <Button color="success" onClick={() => agregarProd()} style={{display:'flex'}}>
+        Agregar <IoAddCircleOutline style={{width:"25px", height:'25px', margin:'0 0 0 5px'}} />
         </Button>
         <br />
         <br />

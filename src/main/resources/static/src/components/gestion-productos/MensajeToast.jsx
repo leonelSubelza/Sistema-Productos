@@ -1,7 +1,8 @@
-import React,{useContext} from "react";
+import React,{useContext,useEffect} from "react";
 import Toast from "react-bootstrap/Toast";
 
 import '../../styles/toast.css'
+import { CgDanger } from "react-icons/cg";
 
 import { funcionesContext } from '../../context/FuncionesTablaContext';
 //onClose={() => setShow(false)} show={show}
@@ -31,8 +32,8 @@ const MensajeToast = () => {
               className="rounded me-2"
               alt=""              
             />
-            <div className="me-auto">
-            &#9888; {toast.msjBody}
+            <div className="me-auto" >
+            {/*&#9888;*/}<CgDanger style={{width:'25px', height:'25px'}}/> {toast.msjBody}
             </div>
             
           </Toast.Header>
