@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
-import '../../styles/SpinnerLoading.css';
+import '../../styles/ventana-productos/SpinnerLoading.css';
 import { funcionesContext } from '../../context/FuncionesTablaContext';
 
 function SpinnerLoading() {

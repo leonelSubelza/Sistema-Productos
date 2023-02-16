@@ -1,7 +1,7 @@
 import React,{useContext,useEffect} from "react";
 import Toast from "react-bootstrap/Toast";
 
-import '../../styles/toast.css'
+import '../../styles/ventana-productos/toast.css'
 import { CgDanger } from "react-icons/cg";
 
 import { funcionesContext } from '../../context/FuncionesTablaContext';

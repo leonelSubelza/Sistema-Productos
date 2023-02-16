@@ -6,8 +6,14 @@ import { Table, Button, Container } from "reactstrap";
 
 import ModalAgregarTipoProducto from "../ModalAgregarTipoProducto";
 
+import "../../../styles/ventana-productos/Tabla.css";
+
 //Iconos
 import { IoAddCircleOutline } from "react-icons/io5";
+import { AiFillEdit } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
+import { AiOutlineNumber } from "react-icons/ai";
+import { MdLabelImportant } from "react-icons/md";
 
 const TablaTipoProducto = () => {
   const [tiposProductos, setTiposProductos] = useState([]);
@@ -55,14 +61,18 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
     actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));      
   }, [actualizarTablaGenerica]);
 
-
-  const styles = {
-    widht: "50%",
-    margin: "5% auto",
-  };
   return (
     <>
-      <Container style={styles}>
+      <Container className="contenedor-tabla">
+      <div className="contenedor-titulo-tabla">
+      <MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}/>
+      <div className="titulo-tabla">
+          <h1>            
+            Gestion de Tipos de Productos
+          </h1>
+          <p>Listado de los tipos productos a los que puede pertenecer un producto</p>
+        </div>
+      </div>
         <br />
         <Button color="success" onClick={() => agregarProd()} style={{display:'flex'}}>
         Agregar <IoAddCircleOutline style={{width:"25px", height:'25px', margin:'0 0 0 5px'}} />
@@ -70,11 +80,14 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
         <br />
         <br />
         <div style={{ overflow: "auto" }}>
-          <Table>
-            <thead>
+          <Table >
+            <thead style={{background: "#e5e5e5"}}>
               <tr>
-                <th>Id</th>
+              <th>
+                  <AiOutlineNumber />
+                </th>
                 <th>Nombre</th>
+                <th>Acciones</th>
               </tr>
             </thead>
 
@@ -89,13 +102,13 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
                           color="primary"
                           onClick={() => editarProducto(tipoProd)}
                         >
-                          Editar
+                          Editar <AiFillEdit />
                         </Button>{" "}
                         <Button
                           color="danger"
                           onClick={() => borrarProducto(tipoProd)}
                         >
-                          Eliminar
+                          Eliminar <BsTrash />
                         </Button>
                       </td>
                     </tr>

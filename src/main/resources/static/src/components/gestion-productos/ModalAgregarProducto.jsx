@@ -90,7 +90,7 @@ export default function ModalAgregarProducto({
       <Modal isOpen={mostrarVentana}>
         <ModalHeader>
           <div>
-            <h3>Insertar Producto</h3>
+            <h3>{`${esAgregar ? "Agregar Producto" : "Editar Producto"}`}</h3>
           </div>
         </ModalHeader>
 

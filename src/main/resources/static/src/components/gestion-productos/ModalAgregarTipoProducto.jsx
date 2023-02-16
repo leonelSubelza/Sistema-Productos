@@ -42,7 +42,7 @@ const ModalAgregarTipoProducto = ({
     }
     const tipoProducto = {
       id: tipoProd !== null ? tipoProd.id : 0,
-      nombre: nombre,
+      nombre: nombre.toUpperCase(),
     };
     console.log(tipoProducto);
     agregarProductoGenerico("tiposProductos", tipoProducto, method).then(() =>
@@ -63,7 +63,7 @@ const ModalAgregarTipoProducto = ({
       <Modal isOpen={mostrarVentana}>
         <ModalHeader>
           <div>
-            <h3>Tipo Producto</h3>
+            <h3>{`${esAgregar ? "Agregar Tipo de Producto" : "Editar Tipo de Producto"}`}</h3>
           </div>
         </ModalHeader>
 
