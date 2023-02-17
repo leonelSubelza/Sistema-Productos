@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { cargarObjetos } from "../../service/GestionProductos";
+// import { cargarObjetos } from "../../service/GestionProductos";
 import { crearObjeto } from "../../service/GestionProductos";
 
 import {
@@ -23,7 +23,7 @@ export default function ModalAgregarProducto({
   const [descripcion, setDescripcion] = useState('')
   const [tipo, setTipo] = useState("Sin seleccionar");
   const [precio, setPrecio] = useState("");
-  const [genero,setGenero] = useState('')
+  const [genero, setGenero] = useState('')
 
   //Spinner
   const [showSpinner, setShowSpinner] = useState(false);
@@ -33,14 +33,14 @@ export default function ModalAgregarProducto({
   //const [tiposProductos, setTiposProductos] = useState([]);
 
   const vaciarCampos = () => {
-    if(esAgregar){
+    if (esAgregar) {
       setNombre("");
       setDescripcion('')
       setTipo("");
       setPrecio("");
       setGenero('')
     }
-        
+
   };
 
   /*
@@ -59,7 +59,7 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero!=='Sin seleccionar';
+    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero !== 'Sin seleccionar';
   };
 
   const agregarProducto = (e, method) => {
@@ -72,19 +72,19 @@ export default function ModalAgregarProducto({
     const producto = {
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
-      "descripcion":descripcion,
-      "imagen":null,
+      "descripcion": descripcion,
+      "imagen": null,
       "precio": precio,
       "genero": genero,
       "tipoProducto": {
-          "id": idTipoProd
+        "id": idTipoProd
       }
-  }
+    }
 
     console.log(producto);
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    crearObjeto("productos",producto, method).then(() => {
+    crearObjeto("productos", producto, method).then(() => {
       setShowSpinner(false);
       cerrarModal(true);
     });
@@ -97,15 +97,15 @@ export default function ModalAgregarProducto({
       setNombre('');
       setDescripcion('')
       setTipo('Sin seleccionar');
-      setPrecio('');      
-    }else{
+      setPrecio('');
+    } else {
 
       setNombre(prod.nombre);
       setDescripcion(prod.descripcion)
       setTipo(prod.tipoProd.nombre);
       setPrecio(prod.precio);
     }
-  }, [prod,tiposProductos]);
+  }, [prod, tiposProductos]);
 
   return (
     <>
@@ -131,8 +131,8 @@ export default function ModalAgregarProducto({
           </FormGroup>
 
           <FormGroup>
-          <label>Descripcion:</label>
-          <input
+            <label>Descripcion:</label>
+            <input
               className="form-control"
               name="descripcion"
               placeholder="Escriba una descripcion para el prod"
@@ -163,14 +163,14 @@ export default function ModalAgregarProducto({
               className="form-control"
               name="tipo"
               value={tipo}
-              onChange={(ev) => setTipo( ev.target.value)}
+              onChange={(ev) => setTipo(ev.target.value)}
             >
               <option>Sin seleccionar</option>
               {tiposProductos.map((tipoProd, i) => (
                 <option key={i} value={tipoProd.nombre}>
                   {tipoProd.nombre}
                 </option>
-              ))} 
+              ))}
             </select>
           </FormGroup>
 
@@ -181,12 +181,12 @@ export default function ModalAgregarProducto({
               className="form-control"
               name="genero"
               value={genero}
-              onChange={(ev) => setGenero( ev.target.value)}
+              onChange={(ev) => setGenero(ev.target.value)}
             >
               <option>Sin seleccionar</option>
               <option value={'MACHO'}>VARON</option>
               <option value={'HEMBRA'}>MUJER</option>
-              
+
             </select>
           </FormGroup>
 

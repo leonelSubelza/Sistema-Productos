@@ -1,4 +1,4 @@
-import React, { useState,useContext,useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { cargarObjetos, borrarObjeto } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
@@ -18,7 +18,7 @@ export function FuncionesTablaContext({ children }) {
     color: "#dc1717",
   });
 
-  const actualizarTablaGenerica = useCallback(async (entidad) => {    
+  const actualizarTablaGenerica = useCallback(async (entidad) => {
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
     return cargarObjetos(entidad)
@@ -69,8 +69,8 @@ export function FuncionesTablaContext({ children }) {
         borrarProductoGenerico,
       }}
     >
-      <SpinnerLoading/>
-      <MensajeToast/>
+      <SpinnerLoading />
+      <MensajeToast />
       {children}
     </funcionesContext.Provider>
   );

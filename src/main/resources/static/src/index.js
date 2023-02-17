@@ -2,12 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter, createBrowserRouter, Outlet, Route, RouterProvider, Routes } from 'react-router-dom';
-import Root from "../src/router/Root"
-import App from './App';
+import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos'
 import VentanaCliente from './components/ventana-cliente/VentanaCliente';
-import TablaTipoProducto from './components/gestion-productos/pages/TablaProductos';
 import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
@@ -41,7 +38,7 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     <FuncionesTablaContext>
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </FuncionesTablaContext>
   </React.StrictMode>
 );

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 
 import { funcionesContext } from '../../../context/FuncionesTablaContext';
-import { cargarObjetos } from "../../../service/GestionProductos";
+// import { cargarObjetos } from "../../../service/GestionProductos";
 
 import { Table, Button, Container } from "reactstrap";
 
@@ -9,7 +9,7 @@ import ModalAgregarProducto from "../ModalAgregarProducto";
 
 const TablaTipoProducto = () => {
 
-  const {actualizarTablaGenerica,borrarProductoGenerico} = useContext(funcionesContext);
+  const { actualizarTablaGenerica, borrarProductoGenerico } = useContext(funcionesContext);
 
 
   const [productos, setProductos] = useState([]);
@@ -30,7 +30,7 @@ const TablaTipoProducto = () => {
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
     setProductos(actualizarTablaGenerica('productos'));
-    
+
   };
 
   const agregarProd = () => {
@@ -40,23 +40,23 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('tiposProductos',prod.id);
+    borrarProductoGenerico('tiposProductos', prod.id);
     actualizarTabla();
   };
 
-  const editarProducto = (prod,tipoProd) => {
+  const editarProducto = (prod, tipoProd) => {
     setEsAgregar(false);
     prod.tipoProd = tipoProd;//Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
     setShowModalAgregar(true);
   };
 
-  useEffect( () => {
-    actualizarTablaGenerica('tiposProductos').then(res => setProductos(res));  
+  useEffect(() => {
+    actualizarTablaGenerica('tiposProductos').then(res => setProductos(res));
 
   }, [actualizarTablaGenerica]);
 
-  
+
 
   const styles = {
     widht: "50%",
@@ -87,14 +87,14 @@ const TablaTipoProducto = () => {
 
             <tbody>
               {
-              productos && productos.map( (tipoProd,i) => (
-                  tipoProd.productos.map( (prod,index) => (
-                  <tr key={index}>
-                  <td>{prod.id}</td>
-                  <td>{prod.nombre}</td>
-                  <td>{prod.descripcion}</td>
-                  <td>{prod.precio}</td>
-                  <td>{tipoProd.nombre}</td>               
+                productos && productos.map((tipoProd, i) => (
+                  tipoProd.productos.map((prod, index) => (
+                    <tr key={index}>
+                      <td>{prod.id}</td>
+                      <td>{prod.nombre}</td>
+                      <td>{prod.descripcion}</td>
+                      <td>{prod.precio}</td>
+                      <td>{tipoProd.nombre}</td>
 
                       <td>
                         <Button
