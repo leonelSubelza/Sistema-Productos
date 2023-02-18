@@ -6,8 +6,8 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import VentanaCliente from './components/ventana-cliente/VentanaCliente';
 
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
-import PantallaGestionTipoProducto from './components/gestion-productos/GestionarTipoProductos/PantallaGestionTipoProducto';
-import PantallaGestionProductos from './components/gestion-productos/GestionarProductos/PantallaGestionProductos';
+import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
+import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (

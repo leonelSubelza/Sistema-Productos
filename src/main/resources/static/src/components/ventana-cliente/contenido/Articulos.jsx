@@ -8,11 +8,12 @@ function Articulos() {
   const [productos, setproductos] = useState([]);
   const totalProductos = productos.length;
 
-  const [productosPorPagina] = useState();
+  const [productosPorPagina] = useState(2);
   const [paginaActual, setpaginaActual] = useState(1);
 
   const ultimoIndex = paginaActual * productosPorPagina; // 2 * 4 = 8
   const primerIndex = ultimoIndex - productosPorPagina; // 8 - 4 = 4
+
 
   const cargarTipoProductosLista = () => {
     cargarObjetos("tiposProductos")
@@ -34,10 +35,12 @@ function Articulos() {
   }
 
   useEffect(() => {
-    cargarTipoProductosLista();
+    //cargarTipoProductosLista();
     cargarProductosLista();
   }, []);
-  console.log(tipoProducto)
+
+  //console.log("Prod:"  +productos);
+
   return (
     <>
       <div className='articulos'>

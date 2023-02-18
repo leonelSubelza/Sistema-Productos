@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import { funcionesContext } from "../../context/FuncionesTablaContext";
+import { funcionesContext } from "../../../context/FuncionesTablaContext";
 import {
   Button,
   Modal,
