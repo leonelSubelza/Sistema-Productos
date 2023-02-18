@@ -23,7 +23,9 @@ function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual,
       <ul className="pagination">
         <li className={`page-item`} disable><button onClick={onAnteriorPagina} disabled={paginaActual === 1} className="page-link">Anterior</button></li>
         {numeroPaginas.map(nPagina => (
-          <li onClick={() => onEspecificarPagina(nPagina)} key={nPagina} className={`page-item ${nPagina === paginaActual ? 'active' : ''}`}><button className={`page-link`}>{nPagina}</button></li>
+          <li onClick={() => onEspecificarPagina(nPagina)} key={nPagina} className={`page-item ${nPagina === paginaActual ? 'active' : ''}`}>
+            <button className={`page-link`}>{nPagina}</button>
+          </li>
         ))}
         <li className="page-item"><button onClick={onSiguientePagina} disabled={paginaActual >= numeroPaginas.length} className="page-link">Siguiente</button></li>
       </ul>
