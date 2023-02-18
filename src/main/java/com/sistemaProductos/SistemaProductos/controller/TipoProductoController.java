@@ -15,26 +15,32 @@ import java.util.List;
 @RequestMapping("/tiposProductos")
 public class TipoProductoController {
 
-    @Autowired
-    private ITipoProductoService tipoProductoService;
+  @Autowired
+  private ITipoProductoService tipoProductoService;
 
-    @GetMapping
-    public ResponseEntity<List<TipoProducto>> findAll(){
-        return new ResponseEntity<>(this.tipoProductoService.findAll(), HttpStatus.OK);
-    }
+  @GetMapping
+  public ResponseEntity<List<TipoProducto>> findAll() {
+    return new ResponseEntity<>(this.tipoProductoService.findAll(), HttpStatus.OK);
+  }
 
-    @PostMapping
-    public ResponseEntity<TipoProducto> create(@RequestBody TipoProducto tipoProd){
-        return new ResponseEntity<>(this.tipoProductoService.create(tipoProd), HttpStatus.CREATED);
-    }
+  @PutMapping
+  public ResponseEntity<Object> update(@RequestBody TipoProducto tipoProducto) {
+    this.tipoProductoService.update(tipoProducto);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable Long id) {
-        if(this.tipoProductoService.findById(id) == null){
-            throw new ModelNotFoundException("El tipo de prod que desea eliminar no existe");
-        }
-        this.tipoProductoService.deleteTipoProd(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+  @PostMapping
+  public ResponseEntity<TipoProducto> create(@RequestBody TipoProducto tipoProd) {
+    return new ResponseEntity<>(this.tipoProductoService.create(tipoProd), HttpStatus.CREATED);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Object> delete(@PathVariable Long id) {
+    if (this.tipoProductoService.findById(id) == null) {
+      throw new ModelNotFoundException("El tipo de prod que desea eliminar no existe");
     }
+    this.tipoProductoService.deleteTipoProd(id);
+    return new ResponseEntity<>(HttpStatus.OK);
+  }
 
 }

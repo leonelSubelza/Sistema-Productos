@@ -1,4 +1,4 @@
-import { useEffect, useState,useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 
 import { funcionesContext } from '../../../context/FuncionesTablaContext';
 
@@ -18,19 +18,19 @@ import { MdLabelImportant } from "react-icons/md";
 const TablaTipoProducto = () => {
   const [tiposProductos, setTiposProductos] = useState([]);
 
-  const {actualizarTablaGenerica,borrarProductoGenerico} = useContext(funcionesContext);
+  const { actualizarTablaGenerica, borrarProductoGenerico } = useContext(funcionesContext);
 
-//modal
-const [showModalAgregar, setShowModalAgregar] = useState(false);
+  //modal
+  const [showModalAgregar, setShowModalAgregar] = useState(false);
 
-//Agregar-Editar
-const [prodAEditar, setProdAEditar] = useState();
-const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
+  //Agregar-Editar
+  const [prodAEditar, setProdAEditar] = useState();
+  const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
 
 
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
-    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));      
+    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));
   };
 
   const manejarModalAgregar = (debeAct) => {
@@ -54,36 +54,36 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('productos',prod.id).then(() => actualizarTabla());
+    borrarProductoGenerico('tiposProductos', prod.id).then(() => actualizarTabla());
   };
 
   useEffect(() => {
-    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));      
+    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));
   }, [actualizarTablaGenerica]);
 
   return (
     <>
       <Container className="contenedor-tabla">
-      <div className="contenedor-titulo-tabla">
-      <MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}/>
-      <div className="titulo-tabla">
-          <h1>            
-            Gestion de Tipos de Productos
-          </h1>
-          <p>Listado de los tipos productos a los que puede pertenecer un producto</p>
+        <div className="contenedor-titulo-tabla">
+          <MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }} />
+          <div className="titulo-tabla">
+            <h1>
+              Gestion de Tipos de Productos
+            </h1>
+            <p>Listado de los tipos productos a los que puede pertenecer un producto</p>
+          </div>
         </div>
-      </div>
         <br />
-        <Button color="success" onClick={() => agregarProd()} style={{display:'flex'}}>
-        Agregar <IoAddCircleOutline style={{width:"25px", height:'25px', margin:'0 0 0 5px'}} />
+        <Button color="success" onClick={() => agregarProd()} style={{ display: 'flex' }}>
+          Agregar <IoAddCircleOutline style={{ width: "25px", height: '25px', margin: '0 0 0 5px' }} />
         </Button>
         <br />
         <br />
         <div style={{ overflow: "auto" }}>
           <Table >
-            <thead style={{background: "#e5e5e5"}}>
+            <thead style={{ background: "#e5e5e5" }}>
               <tr>
-              <th>
+                <th>
                   <AiOutlineNumber />
                 </th>
                 <th>Nombre</th>
@@ -93,26 +93,26 @@ const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los 
 
             <tbody>
               {
-              tiposProductos && tiposProductos.map( (tipoProd,index) => (
+                tiposProductos && tiposProductos.map((tipoProd, index) => (
                   <tr key={index}>
-                  <td>{tipoProd.id}</td>
-                  <td>{tipoProd.nombre}</td>
-                      <td>
-                        <Button
-                          color="primary"
-                          onClick={() => editarProducto(tipoProd)}
-                        >
-                          Editar <AiFillEdit />
-                        </Button>{" "}
-                        <Button
-                          color="danger"
-                          onClick={() => borrarProducto(tipoProd)}
-                        >
-                          Eliminar <BsTrash />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                    <td>{tipoProd.id}</td>
+                    <td>{tipoProd.nombre}</td>
+                    <td>
+                      <Button
+                        color="primary"
+                        onClick={() => editarProducto(tipoProd)}
+                      >
+                        Editar <AiFillEdit />
+                      </Button>{" "}
+                      <Button
+                        color="danger"
+                        onClick={() => borrarProducto(tipoProd)}
+                      >
+                        Eliminar <BsTrash />
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         </div>
