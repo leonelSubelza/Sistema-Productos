@@ -1,0 +1,17 @@
+.contenedor-tabla{
+    margin: 2% auto;
+    background-color: white;
+}
+
+.contenedor-titulo-tabla{
+    display: flex;
+    align-items: center;
+    /*font-size: 1.7rem;*/
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
+}
+
+
+
+.titulo-tabla{
+    margin-left: 1rem;
+}

@@ -1,5 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { cargarObjetos, borrarObjeto } from "../service/GestionProductos";
+import React, { useState,useCallback } from "react";
+import { cargarObjetos, borrarObjeto,crearObjeto } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
 import MensajeToast from "../components/gestion-productos/MensajeToast";
@@ -18,13 +18,12 @@ export function FuncionesTablaContext({ children }) {
     color: "#dc1717",
   });
 
-  const actualizarTablaGenerica = useCallback(async (entidad) => {
+  const actualizarTablaGenerica = useCallback(async (direccion) => {    
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
-    return cargarObjetos(entidad)
+    return cargarObjetos(direccion)
       .then((response) => {
         setShowSpinner(false);
-        console.log('deberia cerrarse el spinner');
         return response;
       })
       .catch(() => {
@@ -34,15 +33,16 @@ export function FuncionesTablaContext({ children }) {
           msjBody: "Error contectando a la BD",
           color: "#dc1717",
         });
+        console.log('deberia mostrar toast');
         return [];
       });
   }, [setMensajeSpinner, setShowSpinner, setToast]);
 
-  const borrarProductoGenerico = (entidad, idEntidad) => {
+  const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    borrarObjeto(entidad, idEntidad)
-      .then(async () => {
+    return borrarObjeto(direccion, idEntidad)
+      .then(() => {
         setShowSpinner(false);
         return;
       })
@@ -54,7 +54,16 @@ export function FuncionesTablaContext({ children }) {
           color: "#dc1717",
         });
       });
-  };
+  }, [setMensajeSpinner, setShowSpinner, setToast]);
+
+
+  const agregarProductoGenerico = useCallback( async(direccion,objeto,method) => {
+    setMensajeSpinner("Guardando en DB");
+    setShowSpinner(true);
+    return crearObjeto(direccion,objeto, method).then(() => {
+      setShowSpinner(false);
+    });
+  },[setMensajeSpinner,setShowSpinner]);
 
   return (
     <funcionesContext.Provider
@@ -67,6 +76,7 @@ export function FuncionesTablaContext({ children }) {
         setToast,
         actualizarTablaGenerica,
         borrarProductoGenerico,
+        agregarProductoGenerico
       }}
     >
       <SpinnerLoading />
