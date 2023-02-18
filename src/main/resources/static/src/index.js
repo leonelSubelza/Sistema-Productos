@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos'
 import VentanaCliente from './components/ventana-cliente/VentanaCliente';
-import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
+import PantallaGestionTipoProducto from './components/gestion-productos/GestionarTipoProductos/PantallaGestionTipoProducto';
+import PantallaGestionProductos from './components/gestion-productos/GestionarProductos/PantallaGestionProductos';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (

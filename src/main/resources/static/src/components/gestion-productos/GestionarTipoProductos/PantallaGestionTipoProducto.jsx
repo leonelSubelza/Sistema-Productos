@@ -1,5 +1,5 @@
-import TablaTipoProducto from './pages/TablaTipoProductos'
-import Navbar from './dashboard/NavBar'
+import Navbar from "../dashboard/NavBar"
+import TablaTipoProducto from "./TablaTipoProductos"
 
 function PantallaGestionTipoProducto() {
   return (

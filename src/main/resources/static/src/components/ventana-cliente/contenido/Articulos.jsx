@@ -8,7 +8,7 @@ function Articulos() {
   const [productos, setproductos] = useState([]);
   const totalProductos = productos.length;
 
-  const [productosPorPagina] = useState(4);
+  const [productosPorPagina] = useState();
   const [paginaActual, setpaginaActual] = useState(1);
 
   const ultimoIndex = paginaActual * productosPorPagina; // 2 * 4 = 8
