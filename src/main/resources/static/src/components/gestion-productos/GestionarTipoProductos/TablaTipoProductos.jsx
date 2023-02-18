@@ -14,11 +14,18 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 import { MdLabelImportant } from "react-icons/md";
+import PaginadorTipoProductos from "./PaginadorTipoProductos";
 
 const TablaTipoProducto = () => {
   const [tiposProductos, setTiposProductos] = useState([]);
-
   const { actualizarTablaGenerica, borrarProductoGenerico } = useContext(funcionesContext);
+
+  //variables de paginacion
+  const totalTipoProductos = tiposProductos.length;
+  const [tipoProductosPorPagina] = useState(5);
+  const [paginaActual, setpaginaActual] = useState(1);
+  const ultimoIndex = paginaActual * tipoProductosPorPagina;
+  const primerIndex = ultimoIndex - tipoProductosPorPagina;
 
   //modal
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -30,7 +37,12 @@ const TablaTipoProducto = () => {
 
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
-    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));
+    actualizarTablaGenerica('tiposProductos').then(res => {
+      setTiposProductos(res);
+
+      setpaginaActual(1);
+      totalTipoProductos = tiposProductos.length;
+    });
   };
 
   const manejarModalAgregar = (debeAct) => {
@@ -54,7 +66,10 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('tiposProductos', prod.id).then(() => actualizarTabla());
+    borrarProductoGenerico('tiposProductos', prod.id).then(() => {
+      actualizarTabla();
+      totalTipoProductos = tiposProductos.length;
+    });
   };
 
   useEffect(() => {
@@ -79,7 +94,7 @@ const TablaTipoProducto = () => {
         </Button>
         <br />
         <br />
-        <div style={{ overflow: "auto" }}>
+        <div style={{ overflow: "auto", height: "400px" }}>
           <Table >
             <thead style={{ background: "#e5e5e5" }}>
               <tr>
@@ -112,11 +127,14 @@ const TablaTipoProducto = () => {
                       </Button>
                     </td>
                   </tr>
-                ))}
+                )).slice(primerIndex, ultimoIndex)}
             </tbody>
           </Table>
         </div>
       </Container>
+
+      <PaginadorTipoProductos tipoProductosPorPagina={tipoProductosPorPagina} paginaActual={paginaActual} setpaginaActual={setpaginaActual} totalTipoProductos={totalTipoProductos} />
+
       <ModalAgregarTipoProducto
         mostrarVentana={showModalAgregar}
         cerrarVentana={(res) => manejarModalAgregar(res)}

@@ -60,7 +60,7 @@ const TablaTipoProducto = () => {
       setProductos(res);
 
       cargarPrductosLista();
-      totalProductos = listaProductos.length;
+      totalProductos(listaProductos.length);
     });
   };
   const agregarProd = () => {
@@ -73,7 +73,7 @@ const TablaTipoProducto = () => {
       actualizarTabla();
 
       cargarPrductosLista();
-      totalProductos = listaProductos.length;
+      totalProductos(listaProductos.length);
     });
   };
   const editarProducto = (prod, tipoProd) => {

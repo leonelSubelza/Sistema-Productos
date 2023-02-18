@@ -4,7 +4,6 @@ import { cargarObjetos } from "../../../service/GestionProductos";
 import Paginacion from './Paginacion';
 
 function Articulos() {
-  const [tipoProducto, setTipoProductos] = useState([]);
   const [productos, setproductos] = useState([]);
   const totalProductos = productos.length;
 
@@ -14,16 +13,6 @@ function Articulos() {
   const ultimoIndex = paginaActual * productosPorPagina; // 2 * 4 = 8
   const primerIndex = ultimoIndex - productosPorPagina; // 8 - 4 = 4
 
-
-  const cargarTipoProductosLista = () => {
-    cargarObjetos("tiposProductos")
-      .then((response) => {
-        setTipoProductos(response);
-      })
-      .catch(() => {
-        setTipoProductos([]);
-      });
-  }
   const cargarProductosLista = () => {
     cargarObjetos("productos")
       .then((response) => {
@@ -35,7 +24,6 @@ function Articulos() {
   }
 
   useEffect(() => {
-    //cargarTipoProductosLista();
     cargarProductosLista();
   }, []);
 
