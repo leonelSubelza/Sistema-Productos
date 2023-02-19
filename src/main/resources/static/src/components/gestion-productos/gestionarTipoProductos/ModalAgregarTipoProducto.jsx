@@ -44,8 +44,6 @@ const ModalAgregarTipoProducto = ({
       id: tipoProd !== null ? tipoProd.id : 0,
       nombre: nombre.toUpperCase(),
     };
-    console.log("tipo producto: " + tipoProducto);
-    console.log("metodo: " + method);
     agregarProductoGenerico("tiposProductos", tipoProducto, method).then(() =>
       cerrarModal(true)
     );

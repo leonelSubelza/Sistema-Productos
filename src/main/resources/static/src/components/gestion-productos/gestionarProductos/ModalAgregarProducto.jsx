@@ -1,4 +1,4 @@
-import { useState, useEffect,useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { funcionesContext } from '../../../context/FuncionesTablaContext';
 import {
   Button,
@@ -22,7 +22,7 @@ export default function ModalAgregarProducto({
   const [precio, setPrecio] = useState("");
   const [genero, setGenero] = useState('')
 
-  const {agregarProductoGenerico} = useContext(funcionesContext);
+  const { agregarProductoGenerico } = useContext(funcionesContext);
 
   const vaciarCampos = () => {
     if (esAgregar) {
@@ -62,9 +62,8 @@ export default function ModalAgregarProducto({
       "tipoProducto": {
         "id": idTipoProd
       }
-  }
-  console.log(producto);
-  agregarProductoGenerico('productos',producto,method).then(() => cerrarModal(true))
+    }
+    agregarProductoGenerico('productos', producto, method).then(() => cerrarModal(true))
   };
 
   useEffect(() => {
@@ -73,9 +72,9 @@ export default function ModalAgregarProducto({
       setNombre('');
       setDescripcion('')
       setTipo('Sin seleccionar');
-      setPrecio('');      
-      setGenero('Sin seleccionar');      
-    }else{
+      setPrecio('');
+      setGenero('Sin seleccionar');
+    } else {
 
       setNombre(prod.nombre);
       setDescripcion(prod.descripcion)
@@ -164,7 +163,7 @@ export default function ModalAgregarProducto({
               <option>Sin seleccionar</option>
               <option value={'MASCULINO'}>MASCULINO</option>
               <option value={'FEMENINO'}>FEMENINO</option>
-              
+
             </select>
           </FormGroup>
 

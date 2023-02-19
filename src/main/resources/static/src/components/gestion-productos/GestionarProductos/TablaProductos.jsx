@@ -26,7 +26,8 @@ const TablaTipoProducto = () => {
 
   // Variables de paginacion
   const [listaProductos, setListaProductos] = useState([]);
-  const totalProductos = listaProductos.length;
+  const [totalProductos, settotalProductos] = useState(listaProductos.length)
+  // let totalProductos = listaProductos.length;
   const [productosPorPagina] = useState(5);
   const [paginaActual, setpaginaActual] = useState(1);
   const ultimoIndex = paginaActual * productosPorPagina;
@@ -42,6 +43,8 @@ const TablaTipoProducto = () => {
       .then((response) => {
         setListaProductos(response);
         setpaginaActual(1);
+        settotalProductos(response.length);
+
       })
       .catch(() => {
         setListaProductos([]);
@@ -60,7 +63,6 @@ const TablaTipoProducto = () => {
       setProductos(res);
 
       cargarPrductosLista();
-      totalProductos = listaProductos.length;
     });
   };
   const agregarProd = () => {
@@ -73,7 +75,6 @@ const TablaTipoProducto = () => {
       actualizarTabla();
 
       cargarPrductosLista();
-      totalProductos = listaProductos.length;
     });
   };
   const editarProducto = (prod, tipoProd) => {
@@ -134,6 +135,7 @@ const TablaTipoProducto = () => {
               {productos &&
                 productos.map((tipoProd) =>
                   tipoProd.productos.map((prod, index) => (
+
                     <tr key={index}>
                       <td>{prod.id}</td>
                       <td>{prod.nombre}</td>
