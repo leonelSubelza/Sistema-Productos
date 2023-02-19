@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 
-import { funcionesContext } from '../../../context/FuncionesTablaContext';
+import { funcionesContext } from "../../../context/FuncionesTablaContext";
 
 import { Table, Button, Container } from "reactstrap";
 
@@ -18,10 +18,11 @@ import PaginadorTipoProductos from "./PaginadorTipoProductos";
 
 const TablaTipoProducto = () => {
   const [tiposProductos, setTiposProductos] = useState([]);
-  const { actualizarTablaGenerica, borrarProductoGenerico } = useContext(funcionesContext);
+  const { actualizarTablaGenerica, borrarProductoGenerico } =
+    useContext(funcionesContext);
 
   //variables de paginacion
-  const totalTipoProductos = tiposProductos.length;
+  const [totalTipoProductos, setTotalTiposProductos] = useState(tiposProductos.length);
   const [tipoProductosPorPagina] = useState(5);
   const [paginaActual, setpaginaActual] = useState(1);
   const ultimoIndex = paginaActual * tipoProductosPorPagina;
@@ -32,16 +33,15 @@ const TablaTipoProducto = () => {
 
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
-  const [esAgregar, setEsAgregar] = useState(false);//si es agregar se borran los valores seteados
-
+  const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
-    actualizarTablaGenerica('tiposProductos').then(res => {
+    actualizarTablaGenerica("tiposProductos").then((res) => {
       setTiposProductos(res);
 
       setpaginaActual(1);
-      totalTipoProductos = tiposProductos.length;
+      setTotalTiposProductos(res.length);
     });
   };
 
@@ -66,36 +66,52 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico('tiposProductos', prod.id).then(() => {
+    borrarProductoGenerico("tiposProductos", prod.id).then(() => {
       actualizarTabla();
-      totalTipoProductos = tiposProductos.length;
     });
   };
 
   useEffect(() => {
-    actualizarTablaGenerica('tiposProductos').then(res => setTiposProductos(res));
+    actualizarTablaGenerica("tiposProductos").then((res) =>{
+      setTiposProductos(res);
+      setTotalTiposProductos(res.length);
+    }
+    );
   }, [actualizarTablaGenerica]);
+
+  console.log("total tipo prod: " + totalTipoProductos);
+  
 
   return (
     <>
       <Container className="contenedor-tabla">
         <div className="contenedor-titulo-tabla">
-          <MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }} />
+          <MdLabelImportant
+            style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}
+          />
           <div className="titulo-tabla">
-            <h1>
-              Gestion de Tipos de Productos
-            </h1>
-            <p>Listado de los tipos productos a los que puede pertenecer un producto</p>
+            <h1>Gestion de Tipos de Productos</h1>
+            <p>
+              Listado de los tipos productos a los que puede pertenecer un
+              producto
+            </p>
           </div>
         </div>
         <br />
-        <Button color="success" onClick={() => agregarProd()} style={{ display: 'flex' }}>
-          Agregar <IoAddCircleOutline style={{ width: "25px", height: '25px', margin: '0 0 0 5px' }} />
+        <Button
+          color="success"
+          onClick={() => agregarProd()}
+          style={{ display: "flex" }}
+        >
+          Agregar{" "}
+          <IoAddCircleOutline
+            style={{ width: "25px", height: "25px", margin: "0 0 0 5px" }}
+          />
         </Button>
         <br />
         <br />
         <div style={{ overflow: "auto", height: "400px" }}>
-          <Table >
+          <Table>
             <thead style={{ background: "#e5e5e5" }}>
               <tr>
                 <th>
@@ -107,33 +123,40 @@ const TablaTipoProducto = () => {
             </thead>
 
             <tbody>
-              {
-                tiposProductos && tiposProductos.map((tipoProd, index) => (
-                  <tr key={index}>
-                    <td>{tipoProd.id}</td>
-                    <td>{tipoProd.nombre}</td>
-                    <td>
-                      <Button
-                        color="primary"
-                        onClick={() => editarProducto(tipoProd)}
-                      >
-                        Editar <AiFillEdit />
-                      </Button>{" "}
-                      <Button
-                        color="danger"
-                        onClick={() => borrarProducto(tipoProd)}
-                      >
-                        Eliminar <BsTrash />
-                      </Button>
-                    </td>
-                  </tr>
-                )).slice(primerIndex, ultimoIndex)}
+              {tiposProductos &&
+                tiposProductos
+                  .map((tipoProd, index) => (
+                    <tr key={index}>
+                      <td>{tipoProd.id}</td>
+                      <td>{tipoProd.nombre}</td>
+                      <td>
+                        <Button
+                          color="primary"
+                          onClick={() => editarProducto(tipoProd)}
+                        >
+                          Editar <AiFillEdit />
+                        </Button>{" "}
+                        <Button
+                          color="danger"
+                          onClick={() => borrarProducto(tipoProd)}
+                        >
+                          Eliminar <BsTrash />
+                        </Button>
+                      </td>
+                    </tr>
+                  ))
+                  .slice(primerIndex, ultimoIndex)}
             </tbody>
           </Table>
         </div>
       </Container>
 
-      <PaginadorTipoProductos tipoProductosPorPagina={tipoProductosPorPagina} paginaActual={paginaActual} setpaginaActual={setpaginaActual} totalTipoProductos={totalTipoProductos} />
+      <PaginadorTipoProductos
+        tipoProductosPorPagina={tipoProductosPorPagina}
+        paginaActual={paginaActual}
+        setpaginaActual={setpaginaActual}
+        totalTipoProductos={totalTipoProductos}
+      />
 
       <ModalAgregarTipoProducto
         mostrarVentana={showModalAgregar}

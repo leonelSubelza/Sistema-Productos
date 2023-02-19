@@ -51,7 +51,8 @@ export default function ModalAgregarProducto({
       alert("Valores erroneos");
       return;
     }
-    let idTipoProd = tiposProductos.find(p => p.nombre === tipo).id;
+    //Se busca entre todos los tiposProductos, un tipo producto que tenga el mismo nombre
+    let idTipoProd = tiposProductos.find( p => p.nombre === tipo).id;
     const producto = {
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
@@ -143,9 +144,9 @@ export default function ModalAgregarProducto({
               onChange={(ev) => setTipo(ev.target.value)}
             >
               <option>Sin seleccionar</option>
-              {tiposProductos.map((tipoProd, i) => (
-                <option key={i} value={tipoProd.nombre}>
-                  {tipoProd.nombre}
+              {tiposProductos.map((prod, i) => (
+                <option key={i} value={prod.nombre}>
+                  {prod.nombre}
                 </option>
               ))}
             </select>

@@ -16,40 +16,57 @@ import { AiOutlineNumber } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
 import PaginadorProductos from "./PaginadorProductos";
 import { cargarObjetos } from "../../../service/GestionProductos";
+import { json } from "react-router";
 
 const TablaTipoProducto = () => {
   const { actualizarTablaGenerica, borrarProductoGenerico } =
     useContext(funcionesContext);
 
   const [productos, setProductos] = useState([]);
+  const [tiposProductos, setTiposProductos] = useState([]);
+
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
   // Variables de paginacion
   const [listaProductos, setListaProductos] = useState([]);
-  const [totalProductos, settotalProductos] = useState(listaProductos.length)
+  const [totalProductos, settotalProductos] = useState(listaProductos.length);
   // let totalProductos = listaProductos.length;
   const [productosPorPagina] = useState(5);
   const [paginaActual, setpaginaActual] = useState(1);
   const ultimoIndex = paginaActual * productosPorPagina;
   const primerIndex = ultimoIndex - productosPorPagina;
 
-
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
-  const cargarPrductosLista = () => {
-    cargarObjetos("productos")
-      .then((response) => {
-        setListaProductos(response);
-        setpaginaActual(1);
-        settotalProductos(response.length);
+  //Carga las variables productos y tiposProductos
+  const cargarValores = (productosBD) => {
+    let productosPiolas = [];
+    let tiposProductos = [];
 
-      })
-      .catch(() => {
-        setListaProductos([]);
+    productosBD.forEach((tipoProd) => {
+      let tipoProductoObj = {
+        id: tipoProd.id,
+        nombre: tipoProd.nombre,
+      };
+
+      tipoProd.productos.forEach((prod) => {
+        prod.tipoProducto = tipoProductoObj;
+
+        productosPiolas.push(prod);
+        //console.log("prod agregado: " + JSON.stringify(prod));
       });
-  }
+
+      tiposProductos.push(tipoProductoObj);
+    });
+    setTiposProductos(tiposProductos);
+    setProductos(productosPiolas);
+
+    setpaginaActual(1);
+    settotalProductos(productosPiolas.length)
+  };
+
   const manejarModalAgregar = (debeAct) => {
     if (debeAct) {
       actualizarTabla();
@@ -60,9 +77,7 @@ const TablaTipoProducto = () => {
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
     actualizarTablaGenerica("tiposProductos").then((res) => {
-      setProductos(res);
-
-      cargarPrductosLista();
+      cargarValores(res);
     });
   };
   const agregarProd = () => {
@@ -73,8 +88,6 @@ const TablaTipoProducto = () => {
   const borrarProducto = (prod) => {
     borrarProductoGenerico("productos", prod.id).then(() => {
       actualizarTabla();
-
-      cargarPrductosLista();
     });
   };
   const editarProducto = (prod, tipoProd) => {
@@ -85,8 +98,10 @@ const TablaTipoProducto = () => {
   };
 
   useEffect(() => {
-    actualizarTablaGenerica("tiposProductos").then((res) => setProductos(res));
-    cargarPrductosLista();
+    actualizarTablaGenerica("tiposProductos").then((res) => {
+      cargarValores(res);
+    });
+    //cargarPrductosLista();
   }, [actualizarTablaGenerica]);
 
   return (
@@ -95,9 +110,7 @@ const TablaTipoProducto = () => {
         <div className="contenedor-titulo-tabla">
           <GiClothes style={{ height: "100%", width: "4rem" }} />
           <div className="titulo-tabla">
-            <h1>
-              Gestion de Productos
-            </h1>
+            <h1>Gestion de Productos</h1>
             <p>Listado de los productos cargados en el sistema</p>
           </div>
         </div>
@@ -133,41 +146,53 @@ const TablaTipoProducto = () => {
 
             <tbody>
               {productos &&
-                productos.map((tipoProd) =>
-                  tipoProd.productos.map((prod, index) => (
-
+                productos
+                  .map((prod, index) => (
                     <tr key={index}>
                       <td>{prod.id}</td>
                       <td>{prod.nombre}</td>
                       <td>{prod.descripcion}</td>
                       <td style={{ color: "green" }}>$ {prod.precio}</td>
-                      <td>{tipoProd.nombre}</td>
+                      <td>{prod.tipoProducto.nombre}</td>
                       <td>{prod.genero}</td>
 
                       <td>
-                        <Button color="primary" onClick={() => editarProducto(prod, tipoProd)}>
+                        <Button
+                          color="primary"
+                          onClick={() =>
+                            editarProducto(prod, prod.tipoProducto.id)
+                          }
+                        >
                           Editar <AiFillEdit />
                         </Button>{" "}
-                        <Button color="danger" onClick={() => borrarProducto(prod)}>
+                        <Button
+                          color="danger"
+                          onClick={() => borrarProducto(prod)}
+                        >
                           Eliminar <BsTrash />
                         </Button>
                       </td>
                     </tr>
                   )).slice(primerIndex, ultimoIndex)
-                )}
+                  }
             </tbody>
           </Table>
         </div>
       </Container>
 
-      <PaginadorProductos productosPorPagina={productosPorPagina} paginaActual={paginaActual} setpaginaActual={setpaginaActual} totalProductos={totalProductos} />
+      <PaginadorProductos
+        productosPorPagina={productosPorPagina}
+        paginaActual={paginaActual}
+        setpaginaActual={setpaginaActual}
+        totalProductos={totalProductos}
+      />
 
       <ModalAgregarProducto
         mostrarVentana={showModalAgregar}
         cerrarVentana={(res) => manejarModalAgregar(res)}
         prod={prodAEditar}
         esAgregar={esAgregar}
-        tiposProductos={productos}
+        tiposProductos={tiposProductos}
       />
     </>
   );
