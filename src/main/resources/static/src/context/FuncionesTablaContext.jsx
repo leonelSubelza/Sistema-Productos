@@ -1,8 +1,10 @@
-import React, { useState,useCallback } from "react";
+import React, { useState,useCallback, useEffect } from "react";
 import { cargarObjetos, borrarObjeto,crearObjeto } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
 import MensajeToast from "../components/gestion-productos/MensajeToast";
+
+import {connect} from '../service/WebSocket.js';
 
 export const funcionesContext = React.createContext();
 
@@ -64,6 +66,10 @@ export function FuncionesTablaContext({ children }) {
       setShowSpinner(false);
     });
   },[setMensajeSpinner,setShowSpinner]);
+
+  useEffect(()=>{
+    connect()
+  },[])
 
   return (
     <funcionesContext.Provider

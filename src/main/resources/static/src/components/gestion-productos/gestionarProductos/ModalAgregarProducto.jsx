@@ -76,10 +76,9 @@ export default function ModalAgregarProducto({
       setPrecio('');
       setGenero('Sin seleccionar');
     } else {
-
       setNombre(prod.nombre);
       setDescripcion(prod.descripcion)
-      setTipo(prod.tipoProd.nombre);
+      setTipo(prod.tipoProducto.nombre);
       setPrecio(prod.precio);
       setGenero(prod.genero)
     }

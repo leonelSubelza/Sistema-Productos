@@ -10,6 +10,7 @@ import com.sistemaProductos.SistemaProductos.service.ITipoProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,10 @@ public class ProductoController {
 
 	@Autowired
 	private ITipoProductoService tipoProductoService;
+
+
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
 
 	@GetMapping
 	public ResponseEntity<List<Producto>> findAll(){
@@ -75,6 +80,9 @@ public class ProductoController {
 		producto.setTipoProducto(tipoProductoOptional.get());
 		this.productoService.update(producto);
 		//return ResponseEntity.noContent().build();
+
+		simpMessagingTemplate.convertAndSend("/topic/notification", "Actualizate gato");
+
 		return new ResponseEntity<>(HttpStatus.OK);
 		//this.productoService.update(producto);
 		//return new ResponseEntity<>(HttpStatus.OK);
