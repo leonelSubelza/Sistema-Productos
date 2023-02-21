@@ -32,7 +32,6 @@ export function FuncionesTablaContext({ children }) {
         prod.tipoProducto = tipoProductoObj;
 
         productosPiolas.push(prod);
-        //console.log("prod agregado: " + JSON.stringify(prod));
       });
 
       tiposProductos.push(tipoProductoObj);
@@ -49,12 +48,10 @@ export function FuncionesTablaContext({ children }) {
   });
 
   const manejarMsjRecibido=(payload)=>{
-    console.log('se recibe msj de la poronga del servidor')
     actualizarTablaGenerica('tiposProductos')
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
-    console.log('deberia actualizar la tabla')  
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
     cargarObjetos(direccion)
@@ -69,7 +66,6 @@ export function FuncionesTablaContext({ children }) {
           msjBody: "Error contectando a la BD",
           color: "#dc1717",
         });
-        console.log('deberia mostrar toast');
       });
   }, [setMensajeSpinner, setShowSpinner, setToast]);
 

@@ -12,6 +12,7 @@ const WebSocket = ({ mensajeRecibido }) => {
     if(stompClient===null){
         let Sock = new SockJS(URL+webSocketEndpoint);
         stompClient = over(Sock);
+        stompClient.debug = false;
         stompClient.connect({}, onConnected, onError);
     }
   };
