@@ -1,4 +1,5 @@
 import { over } from "stompjs";
+import { URL, webSocketEndpoint,destMessageWS} from "./Configuracion";
 
 //Es una librearia de JS. A diferencia de usar la api WebSocket para crear la conexion,
 //Esta sirve para que pueda ser usada en navegadores más viejos.
@@ -9,14 +10,14 @@ var stompClient = null;
 const WebSocket = ({ mensajeRecibido }) => {
   const connect = () => {
     if(stompClient===null){
-        let Sock = new SockJS("http://192.168.0.19:8080/ws");
+        let Sock = new SockJS(URL+webSocketEndpoint);
         stompClient = over(Sock);
         stompClient.connect({}, onConnected, onError);
     }
   };
 
   const onConnected = () => {
-    stompClient.subscribe("/topic/notification", onMessageReceived);
+    stompClient.subscribe(destMessageWS, onMessageReceived);
   };
 
   const onMessageReceived = (payload) => {
