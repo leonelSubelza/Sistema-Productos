@@ -25,9 +25,9 @@ const ModalAgregarTipoProducto = ({
     }
   };
 
-  const cerrarModal = (debeAct) => {
+  const cerrarModal = () => {
     vaciarCampos();
-    return cerrarVentana(debeAct);
+    return cerrarVentana();
   };
 
   const valoresValidos = () => {
@@ -89,7 +89,7 @@ const ModalAgregarTipoProducto = ({
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
           </Button>
-          <Button onClick={() => cerrarModal(false)}>Cancelar</Button>
+          <Button onClick={cerrarModal}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </>

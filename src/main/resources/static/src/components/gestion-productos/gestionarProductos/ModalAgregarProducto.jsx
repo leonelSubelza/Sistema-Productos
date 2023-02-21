@@ -32,14 +32,12 @@ export default function ModalAgregarProducto({
       setPrecio("");
       setGenero('')
     }
-
   };
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
-  const cerrarModal = (debeAct) => {
+  const cerrarModal = () => {
     vaciarCampos();
-    console.log('se agrego/edito el producto');
-    return cerrarVentana(debeAct);
+    return cerrarVentana();
   };
 
   const valoresValidos = () => {
@@ -48,6 +46,7 @@ export default function ModalAgregarProducto({
 
   const agregarProducto = (e, method) => {
     e.preventDefault();
+    //#FALTA HACER LA VALIDACION DE CAMPOS CORRECTA
     if (!valoresValidos()) {
       alert("Valores erroneos");
       return;
@@ -65,7 +64,7 @@ export default function ModalAgregarProducto({
         "id": idTipoProd
       }
     }
-    agregarProductoGenerico('productos', producto, method).then(() => cerrarModal(true))
+    agregarProductoGenerico('productos', producto, method).then(() => cerrarModal())
   };
 
   useEffect(() => {
@@ -177,7 +176,7 @@ export default function ModalAgregarProducto({
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
           </Button>
-          <Button onClick={() => cerrarModal(false)}>Cancelar</Button>
+          <Button onClick={() => cerrarModal()}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </>

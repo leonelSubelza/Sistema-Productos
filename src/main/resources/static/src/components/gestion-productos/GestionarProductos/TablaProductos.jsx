@@ -35,15 +35,10 @@ const TablaTipoProducto = () => {
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
-
-
-  const manejarModalAgregar = (debeAct) => {
+  const manejarModalAgregar = () => {
     setShowModalAgregar(false);
   };
 
-  const actualizarTabla = async () => {
-    setShowModalAgregar(false);
-  };
   const agregarProd = () => {
     setEsAgregar(true);
     setProdAEditar(null);
@@ -61,9 +56,8 @@ const TablaTipoProducto = () => {
 
   useEffect(() => {
     settotalProductos(productos.length)
-
+    setpaginaActual(1)
   }, [productos]);
-
 
   return (
     <>
@@ -150,7 +144,7 @@ const TablaTipoProducto = () => {
 
       <ModalAgregarProducto
         mostrarVentana={showModalAgregar}
-        cerrarVentana={(res) => manejarModalAgregar(res)}
+        cerrarVentana={manejarModalAgregar}
         prod={prodAEditar}
         esAgregar={esAgregar}
         tiposProductos={tiposProductos}

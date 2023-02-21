@@ -17,8 +17,7 @@ import { MdLabelImportant } from "react-icons/md";
 import PaginadorTipoProductos from "./PaginadorTipoProductos";
 
 const TablaTipoProducto = () => {
-  const [tiposProductos, setTiposProductos] = useState([]);
-  const { actualizarTablaGenerica, borrarProductoGenerico } =
+  const { actualizarTablaGenerica, borrarProductoGenerico,tiposProductos } =
     useContext(funcionesContext);
 
   //variables de paginacion
@@ -35,20 +34,7 @@ const TablaTipoProducto = () => {
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
-  const actualizarTabla = async () => {
-    setShowModalAgregar(false);
-    actualizarTablaGenerica("tiposProductos").then((res) => {
-      setTiposProductos(res);
-
-      setpaginaActual(1);
-      setTotalTiposProductos(res.length);
-    });
-  };
-
-  const manejarModalAgregar = (debeAct) => {
-    if (debeAct) {
-      actualizarTabla();
-    }
+  const manejarModalAgregar = () => {
     setShowModalAgregar(false);
   };
 
@@ -66,18 +52,13 @@ const TablaTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico("tiposProductos", prod.id).then(() => {
-      actualizarTabla();
-    });
+    borrarProductoGenerico("tiposProductos", prod.id);
   };
 
   useEffect(() => {
-    actualizarTablaGenerica("tiposProductos").then((res) =>{
-      setTiposProductos(res);
-      setTotalTiposProductos(res.length);
-    }
-    );
-  }, [actualizarTablaGenerica]);
+    setTotalTiposProductos(tiposProductos.length);
+    setpaginaActual(1)
+  }, [tiposProductos]);
 
   console.log("total tipo prod: " + totalTipoProductos);
   
@@ -160,7 +141,7 @@ const TablaTipoProducto = () => {
 
       <ModalAgregarTipoProducto
         mostrarVentana={showModalAgregar}
-        cerrarVentana={(res) => manejarModalAgregar(res)}
+        cerrarVentana={manejarModalAgregar}
         tipoProd={prodAEditar}
         esAgregar={esAgregar}
       />
