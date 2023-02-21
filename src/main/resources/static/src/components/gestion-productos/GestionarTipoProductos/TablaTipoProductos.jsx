@@ -17,7 +17,7 @@ import { MdLabelImportant } from "react-icons/md";
 import PaginadorTipoProductos from "./PaginadorTipoProductos";
 
 const TablaTipoProducto = () => {
-  const { actualizarTablaGenerica, borrarProductoGenerico,tiposProductos } =
+  const { borrarProductoGenerico,tiposProductos } =
     useContext(funcionesContext);
 
   //variables de paginacion
@@ -58,10 +58,7 @@ const TablaTipoProducto = () => {
   useEffect(() => {
     setTotalTiposProductos(tiposProductos.length);
     setpaginaActual(1)
-  }, [tiposProductos]);
-
-  console.log("total tipo prod: " + totalTipoProductos);
-  
+  }, [tiposProductos]);  
 
   return (
     <>
