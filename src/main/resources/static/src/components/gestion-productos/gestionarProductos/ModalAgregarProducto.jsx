@@ -38,6 +38,7 @@ export default function ModalAgregarProducto({
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
   const cerrarModal = (debeAct) => {
     vaciarCampos();
+    console.log('se agrego/edito el producto');
     return cerrarVentana(debeAct);
   };
 

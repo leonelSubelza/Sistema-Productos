@@ -15,15 +15,10 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
 import PaginadorProductos from "./PaginadorProductos";
-import { cargarObjetos } from "../../../service/GestionProductos";
-import { json } from "react-router";
 
 const TablaTipoProducto = () => {
-  const { actualizarTablaGenerica, borrarProductoGenerico } =
+  const { borrarProductoGenerico,productos,tiposProductos } =
     useContext(funcionesContext);
-
-  const [productos, setProductos] = useState([]);
-  const [tiposProductos, setTiposProductos] = useState([]);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
@@ -40,45 +35,14 @@ const TablaTipoProducto = () => {
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
-  //Carga las variables productos y tiposProductos
-  const cargarValores = (productosBD) => {
-    let productosPiolas = [];
-    let tiposProductos = [];
 
-    productosBD.forEach((tipoProd) => {
-      let tipoProductoObj = {
-        id: tipoProd.id,
-        nombre: tipoProd.nombre,
-      };
-
-      tipoProd.productos.forEach((prod) => {
-        prod.tipoProducto = tipoProductoObj;
-
-        productosPiolas.push(prod);
-        //console.log("prod agregado: " + JSON.stringify(prod));
-      });
-
-      tiposProductos.push(tipoProductoObj);
-    });
-    setTiposProductos(tiposProductos);
-    setProductos(productosPiolas);
-
-    setpaginaActual(1);
-    settotalProductos(productosPiolas.length)
-  };
 
   const manejarModalAgregar = (debeAct) => {
-    if (debeAct) {
-      actualizarTabla();
-    }
     setShowModalAgregar(false);
   };
 
   const actualizarTabla = async () => {
     setShowModalAgregar(false);
-    actualizarTablaGenerica("tiposProductos").then((res) => {
-      cargarValores(res);
-    });
   };
   const agregarProd = () => {
     setEsAgregar(true);
@@ -86,9 +50,7 @@ const TablaTipoProducto = () => {
     setShowModalAgregar(true);
   };
   const borrarProducto = (prod) => {
-    borrarProductoGenerico("productos", prod.id).then(() => {
-      actualizarTabla();
-    });
+    borrarProductoGenerico("productos", prod.id);
   };
   const editarProducto = (prod, tipoProd) => {
     setEsAgregar(false);
@@ -98,11 +60,10 @@ const TablaTipoProducto = () => {
   };
 
   useEffect(() => {
-    actualizarTablaGenerica("tiposProductos").then((res) => {
-      cargarValores(res);
-    });
-    //cargarPrductosLista();
-  }, [actualizarTablaGenerica]);
+    settotalProductos(productos.length)
+
+  }, [productos]);
+
 
   return (
     <>

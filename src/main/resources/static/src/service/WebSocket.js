@@ -1,28 +1,33 @@
-import {over} from 'stompjs';
+import { over } from "stompjs";
 
 //Es una librearia de JS. A diferencia de usar la api WebSocket para crear la conexion,
 //Esta sirve para que pueda ser usada en navegadores más viejos.
-import SockJS from 'sockjs-client';
+import SockJS from "sockjs-client";
 
-var stompClient =null;
+var stompClient = null;
 
+const WebSocket = ({ mensajeRecibido }) => {
+  const connect = () => {
+    if(stompClient===null){
+        let Sock = new SockJS("http://192.168.0.19:8080/ws");
+        stompClient = over(Sock);
+        stompClient.connect({}, onConnected, onError);
+    }
+  };
 
-export const connect =()=>{
-    let Sock = new SockJS('http://192.168.0.19:8080/ws');
-    stompClient = over(Sock);
-    stompClient.connect({},onConnected, onError);
-}
+  const onConnected = () => {
+    stompClient.subscribe("/topic/notification", onMessageReceived);
+  };
 
-const onConnected = () => {
-    stompClient.subscribe('/topic/notification', onMessageReceived);
-}
+  const onMessageReceived = (payload) => {
+    return mensajeRecibido(payload);
+  };
 
-const onMessageReceived = (payload)=>{
-    var payloadData = JSON.parse(payload.body);
-    alert('msj del socket: '+payloadData)
-}
+  const onError = (err) => {
+    console.log("Error: " + err);
+    alert(err);
+  };
 
-const onError = (err) => {
-    console.log("Error: "+err);
-    alert(err)
-}
+  connect();
+};
+export default WebSocket;

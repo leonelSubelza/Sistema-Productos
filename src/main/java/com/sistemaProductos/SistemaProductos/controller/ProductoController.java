@@ -58,6 +58,9 @@ public class ProductoController {
 		//Se guarda la ubicacion en la que se guarda el nuevo producto, ej: http://localhost:8080/123
 		URI ubicacion = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(productoGuardado.getId()).toUri();
+
+		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
+
 		//Se devuelve el objeto creado con su ubicacion
 		return ResponseEntity.created(ubicacion).body(productoGuardado);
 		//return new ResponseEntity<>(this.productoService.create(producto), HttpStatus.CREATED);
@@ -81,7 +84,7 @@ public class ProductoController {
 		this.productoService.update(producto);
 		//return ResponseEntity.noContent().build();
 
-		simpMessagingTemplate.convertAndSend("/topic/notification", "Actualizate gato");
+		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 
 		return new ResponseEntity<>(HttpStatus.OK);
 		//this.productoService.update(producto);
@@ -113,6 +116,8 @@ public class ProductoController {
 			return ResponseEntity.unprocessableEntity().build();
 		}
 		this.productoService.delete(id);
+
+		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 		return ResponseEntity.noContent().build();
 
 		/*
