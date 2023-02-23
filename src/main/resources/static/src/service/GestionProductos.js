@@ -20,17 +20,47 @@ export const cargarObjetos = async (direccion) => {
 };
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
-export const crearObjeto = async (direccion,obj, metodo) => {
+export const crearObjeto = async (direccion, obj, imagen, metodo) => {
   try {
+    //const boundary = Math.random().toString(36).substring(2);
+    /*
+    const boundary = 100;
+    const formData = new FormData();
+    formData.append('producto',JSON.stringify(obj))
+    if(imagen!==undefined || imagen!==null){
+      formData.append('file', imagen);
+    }
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
-      body: JSON.stringify(obj),
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: localStorage.token,
-      },
+      body: formData,
+      headers:{
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'multipart/form-data; boundary=MyBoundary'
+      }
     });
+*/
+/*
+*/
+const formData = new FormData();
+formData.append('id',obj.id);
+formData.append('nombre',obj.nombre);
+formData.append('descripcion',obj.descripcion);
+//formData.append('imagen',obj.imagen);
+formData.append('precio',obj.precio);
+formData.append('genero',obj.genero);
+formData.append("tipoProducto.id", obj.tipoProducto.id);
+
+//formData.append('producto', JSON.stringify(obj)); 
+formData.append('imagenObj', imagen); // archivo es el objeto File de la imagen seleccionada
+
+const request = await fetch(URL + "/" + direccion, {
+  method: metodo,
+  body: formData,
+  headers: {
+    Authorization: localStorage.token,
+  },
+});
     if (metodo === "POST") {
       let prod = await request.json();
       return prod;

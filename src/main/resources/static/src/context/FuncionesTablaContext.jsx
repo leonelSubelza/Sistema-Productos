@@ -52,6 +52,7 @@ export function FuncionesTablaContext({ children }) {
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
+    console.log('se ejecuta el act tabla');
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
     cargarObjetos(direccion)
@@ -72,13 +73,11 @@ export function FuncionesTablaContext({ children }) {
   const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    return borrarObjeto(direccion, idEntidad)
+    borrarObjeto(direccion, idEntidad)
       .then(() => {
         if(mensajeSpinner !== 'Actualizando Tabla'){
           setShowSpinner(false);
         }
-        
-        return;
       })
       .catch(() => {
         setShowSpinner(false);
@@ -90,15 +89,18 @@ export function FuncionesTablaContext({ children }) {
       });
   }, [setMensajeSpinner, setShowSpinner, setToast,mensajeSpinner]);
 
-
-  const agregarProductoGenerico = useCallback( async(direccion,objeto,method) => {
+  
+  const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
+    console.log('se ejecuta el agregar prod');
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    return crearObjeto(direccion,objeto, method).then(() => {
+    crearObjeto(direccion,objeto, imagen,method).then(() => {
       if(mensajeSpinner !== 'Actualizando Tabla'){
+        console.log('se guardo en bd, deberia cerrer spinner Guardando en BD');
         setShowSpinner(false);
       }
-    });
+    })
+    .catch(e => {console.log("Entro al cathc de funcionestablacontext: "+e);setShowSpinner(false)});
   },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
 
 

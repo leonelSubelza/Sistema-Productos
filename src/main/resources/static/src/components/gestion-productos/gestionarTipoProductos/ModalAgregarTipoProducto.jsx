@@ -46,7 +46,7 @@ const ModalAgregarTipoProducto = ({
     };
     agregarProductoGenerico("tiposProductos", tipoProducto, method).then(() =>
       cerrarModal(true)
-    );
+    ).catch(e =>{cerrarModal(true);alert('error al agregar')});
   };
 
   useEffect(() => {

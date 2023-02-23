@@ -21,6 +21,7 @@ export default function ModalAgregarProducto({
   const [tipo, setTipo] = useState("Sin seleccionar");
   const [precio, setPrecio] = useState("");
   const [genero, setGenero] = useState('')
+  const [imagen,setImagen] = useState('');
 
   const { agregarProductoGenerico } = useContext(funcionesContext);
 
@@ -31,6 +32,7 @@ export default function ModalAgregarProducto({
       setTipo("");
       setPrecio("");
       setGenero('')
+      setImagen('')
     }
   };
 
@@ -41,7 +43,7 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero !== 'Sin seleccionar';
+    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero !== 'Sin seleccionar' && imagen!=='';
   };
 
   const agregarProducto = (e, method) => {
@@ -57,14 +59,17 @@ export default function ModalAgregarProducto({
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
       "descripcion": descripcion,
-      "imagen": null,
+      "imagen": imagen.value,
       "precio": precio,
       "genero": genero,
       "tipoProducto": {
         "id": idTipoProd
       }
     }
-    agregarProductoGenerico('productos', producto, method).then(() => cerrarModal())
+
+    console.log('imagen name: '+imagen.value);
+    agregarProductoGenerico('productos', producto, imagen.files[0],method).then(() => cerrarModal())
+    .catch(e => {console.log('error al agregar Prod: '+e);cerrarModal()})
   };
 
   useEffect(() => {
@@ -118,6 +123,18 @@ export default function ModalAgregarProducto({
               onChange={(ev) => setDescripcion(ev.target.value)}
               type="text"
             />
+          </FormGroup>
+
+          <FormGroup>
+            <label>Imagen</label>
+            <input 
+              className="form-control"
+              name="imagen"
+              onChange={(ev) =>setImagen(ev.target)}
+              type="file"
+              color="dark"
+              /> 
+            
           </FormGroup>
 
           <FormGroup>

@@ -95,6 +95,7 @@ const TablaTipoProducto = () => {
                 <th>Precio</th>
                 <th>Tipo</th>
                 <th>Genero</th>
+                <th>Imágen</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -110,6 +111,7 @@ const TablaTipoProducto = () => {
                       <td style={{ color: "green" }}>$ {prod.precio}</td>
                       <td>{prod.tipoProducto.nombre}</td>
                       <td>{prod.genero}</td>
+                      <td>{prod.imagen}</td>
 
                       <td>
                         <Button

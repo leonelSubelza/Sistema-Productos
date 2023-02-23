@@ -1,9 +1,15 @@
 package com.sistemaProductos.SistemaProductos.controller;
 
+import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.TipoProducto;
 import com.sistemaProductos.SistemaProductos.service.ITipoProductoService;
@@ -11,21 +17,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.sistemaProductos.SistemaProductos.model.Producto;
 import com.sistemaProductos.SistemaProductos.service.IProductoService;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+
 
 @CrossOrigin("*")
 //@CrossOrigin(origins = "http://localhost:3000")
@@ -51,8 +51,48 @@ public class ProductoController {
 	//Se agrega responseEntity para manejar los codigos de error al crear un nuevo producto
 	//Valid indica que se deben validar antes de procesar los datos recibidos dado que el nombre de producto
 	//no puede ser null
+
+	//@RequestParam("nombre") String nombre,
+	//											   @RequestParam("descripcion") String descripcion,
+	//											   //@RequestParam("imagen") String imagen,
+	//											   @RequestParam("precio") String precio,
+	//											   @RequestParam("genero") String genero,
+	//											   @RequestParam("tipoProducto") Long idTipoProducto,
+	//											   @RequestParam(value = "imagenObj", required = true) MultipartFile imagenObj) throws JsonProcessingException
+	//
+	//Producto producto = new Producto();
+	//		producto.setNombre(nombre);
+	//		producto.setDescripcion(descripcion);
+	//		//producto.setImagen(imagen);
+	//		producto.setPrecio(precio);
+	//		producto.setGenero(genero);
+	//		TipoProducto tipoProducto = this.tipoProductoService.findById(idTipoProducto);
+	//		producto.setTipoProducto(tipoProducto);
+
 	@PostMapping
-	public ResponseEntity<Producto> create(@Valid @RequestBody Producto producto) {
+	public ResponseEntity<Producto> create(    @Valid @ModelAttribute Producto producto,
+											   @RequestParam("tipoProducto.id") Long tipoProductoId,
+											   @RequestParam("imagenObj") MultipartFile imagenObj){
+		//Producto producto = new ObjectMapper().readValue(productoJson, Producto.class);
+
+		TipoProducto tipoProducto = this.tipoProductoService.findById(tipoProductoId);
+
+		producto.setTipoProducto(tipoProducto);
+		if(!imagenObj.isEmpty()){
+			Path directorioImagenes= Paths.get("src//main//resources//static/images");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+			try{
+				byte[] bytesImg = imagenObj.getBytes();
+				Path rutaCompleta = Paths.get(rutaAbsoluta+"//"+imagenObj.getOriginalFilename());
+				Files.write(rutaCompleta,bytesImg);
+				producto.setImagen(imagenObj.getOriginalFilename());
+				System.out.println("url img: "+producto.getImagen());
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+
+		}
+
 		//Se guarda el producto creado en una variable
 		Producto productoGuardado = this.productoService.create(producto);
 		//Se guarda la ubicacion en la que se guarda el nuevo producto, ej: http://localhost:8080/123
@@ -69,18 +109,18 @@ public class ProductoController {
 	@PutMapping
 	public ResponseEntity<Object> update(@Valid @RequestBody Producto producto) {
 		//Obtenemos el TipoProducto asociado al Producto
-		Optional<TipoProducto> tipoProductoOptional = Optional.ofNullable(this.tipoProductoService.findById(producto.getTipoProducto().getId()));
-		if(!tipoProductoOptional.isPresent()){
+		//Optional<TipoProducto> tipoProductoOptional = Optional.ofNullable(this.tipoProductoService.findById(producto.getTipoProducto().getId()));
+		//if(!tipoProductoOptional.isPresent()){
 			//Si un producto no tiene asignado un tipo producto explota todo
-			return ResponseEntity.unprocessableEntity().build();
-		}
+//			return ResponseEntity.unprocessableEntity().build();
+	//	}
 
 		Optional<Producto> productoOptional = Optional.ofNullable(this.productoService.findById(producto.getId()));
 		if(!productoOptional.isPresent()){
 			//Si el objeto no existe se retorna un codigo de error
 			return ResponseEntity.unprocessableEntity().build();
 		}
-		producto.setTipoProducto(tipoProductoOptional.get());
+//		producto.setTipoProducto(tipoProductoOptional.get());
 		this.productoService.update(producto);
 		//return ResponseEntity.noContent().build();
 
