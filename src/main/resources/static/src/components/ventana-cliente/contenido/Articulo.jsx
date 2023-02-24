@@ -5,7 +5,7 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio }) => {
   return (
     <div className="card text-center bg-ligth">
       <div className="overflow">
-        <img src={imageSource} alt="a wallpaper" className="card-img-top" />
+        <img src={imageSource} alt="a wallpaper" className="card-img-top articulo-img" />
       </div>
       <div className="card-body text-dark">
         <h4 className="card-title">{nombreProducto}</h4>

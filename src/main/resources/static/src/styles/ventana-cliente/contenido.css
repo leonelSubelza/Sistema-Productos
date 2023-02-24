@@ -25,9 +25,9 @@
   margin: 5px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 776px) {
   .row [class*="col-"] {
-    width: 50% !important;
+    width: 47% !important;
     float: none !important;
   }
 }
