@@ -18,7 +18,7 @@ function Articulos({productosMostrados,totalProductos,productosPorPagina,paginaA
                 .map((prod) => (
                   <div className="col-md-3 col-sm-6 col-xs-6 p-1" key={prod.id}>
                     <Articulo
-                      imageSource={URLImagenes+prod.imagen}
+                      imageSource={ prod.imagen !==null ? (URLImagenes+prod.imagen): '' }
                       nombreProducto={prod.nombre}
                       nombreCategoria={prod.tipoProducto.nombre}
                       precio={prod.precio}

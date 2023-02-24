@@ -59,15 +59,15 @@ export default function ModalAgregarProducto({
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
       "descripcion": descripcion,
-      "imagen": imagen.value,
+      "imagen": imagen.files[0].name,
       "precio": precio,
       "genero": genero,
       "tipoProducto": {
         "id": idTipoProd
-      }
+      },
     }
 
-    console.log('imagen name: '+imagen.value);
+    console.log('imagen name: '+imagen.files[0].name);
     agregarProductoGenerico('productos', producto, imagen.files[0],method).then(() => cerrarModal())
     .catch(e => {console.log('error al agregar Prod: '+e);cerrarModal()})
   };

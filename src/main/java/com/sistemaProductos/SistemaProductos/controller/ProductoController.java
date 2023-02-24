@@ -70,27 +70,17 @@ public class ProductoController {
 	//		producto.setTipoProducto(tipoProducto);
 
 	@PostMapping
-	public ResponseEntity<Producto> create(    @Valid @ModelAttribute Producto producto,
-											   @RequestParam("tipoProducto.id") Long tipoProductoId,
-											   @RequestParam("imagenObj") MultipartFile imagenObj){
+	public ResponseEntity<Producto> create(
+			@Valid @ModelAttribute Producto producto,
+			@RequestParam("tipoProducto.id") Long tipoProductoId,
+			@RequestParam("imagenObj") MultipartFile imagenObj){
 		//Producto producto = new ObjectMapper().readValue(productoJson, Producto.class);
 
 		TipoProducto tipoProducto = this.tipoProductoService.findById(tipoProductoId);
 
 		producto.setTipoProducto(tipoProducto);
 		if(!imagenObj.isEmpty()){
-			Path directorioImagenes= Paths.get("src//main//resources//static/images");
-			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-			try{
-				byte[] bytesImg = imagenObj.getBytes();
-				Path rutaCompleta = Paths.get(rutaAbsoluta+"//"+imagenObj.getOriginalFilename());
-				Files.write(rutaCompleta,bytesImg);
-				producto.setImagen(imagenObj.getOriginalFilename());
-				System.out.println("url img: "+producto.getImagen());
-			}catch (IOException e){
-				e.printStackTrace();
-			}
-
+			guardarImagen(producto,imagenObj);
 		}
 
 		//Se guarda el producto creado en una variable
@@ -107,28 +97,25 @@ public class ProductoController {
 	}
 	
 	@PutMapping
-	public ResponseEntity<Object> update(@Valid @RequestBody Producto producto) {
-		//Obtenemos el TipoProducto asociado al Producto
-		//Optional<TipoProducto> tipoProductoOptional = Optional.ofNullable(this.tipoProductoService.findById(producto.getTipoProducto().getId()));
-		//if(!tipoProductoOptional.isPresent()){
-			//Si un producto no tiene asignado un tipo producto explota todo
-//			return ResponseEntity.unprocessableEntity().build();
-	//	}
+	public ResponseEntity<Object> update(
+			@Valid @ModelAttribute Producto producto,
+			@RequestParam("tipoProducto.id") Long tipoProductoId,
+			@RequestParam("imagenObj") MultipartFile imagenObj) {
 
 		Optional<Producto> productoOptional = Optional.ofNullable(this.productoService.findById(producto.getId()));
 		if(!productoOptional.isPresent()){
 			//Si el objeto no existe se retorna un codigo de error
 			return ResponseEntity.unprocessableEntity().build();
 		}
+		if(!imagenObj.isEmpty()){
+			guardarImagen(producto,imagenObj);
+		}
 //		producto.setTipoProducto(tipoProductoOptional.get());
 		this.productoService.update(producto);
-		//return ResponseEntity.noContent().build();
 
 		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 
 		return new ResponseEntity<>(HttpStatus.OK);
-		//this.productoService.update(producto);
-		//return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}")
@@ -139,13 +126,6 @@ public class ProductoController {
 			//return ResponseEntity.unprocessableEntity().build();
 		}
 		return ResponseEntity.ok(productoOptional.get());
-		/*
-		Producto prod = this.productoService.findById(id);
-		if(prod == null){
-			throw new ModelNotFoundException("El cliente no fue encontrado");
-		}
-		return new ResponseEntity<>(prod,HttpStatus.OK);
-		 */
 	}
 
 	@DeleteMapping("/{id}")
@@ -159,14 +139,19 @@ public class ProductoController {
 
 		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 		return ResponseEntity.noContent().build();
-
-		/*
-		if(this.productoService.findById(id) == null){
-			throw new ModelNotFoundException("El producto que desea eliminar no existe");
-		}
-		this.productoService.delete(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-		*/
-
 	}
+
+	public void guardarImagen(Producto producto,MultipartFile imagenObj){
+		Path directorioImagenes= Paths.get("src//main//resources//static/images");
+		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+		try{
+			byte[] bytesImg = imagenObj.getBytes();
+			Path rutaCompleta = Paths.get(rutaAbsoluta+"//"+imagenObj.getOriginalFilename());
+			Files.write(rutaCompleta,bytesImg);
+			producto.setImagen(imagenObj.getOriginalFilename());
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+
 }

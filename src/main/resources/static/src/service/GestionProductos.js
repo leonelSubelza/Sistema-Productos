@@ -3,7 +3,7 @@ import { URL } from "./Configuracion";
 //GET
 export const cargarObjetos = async (direccion) => {
   try {
-    const request = await fetch(URL + "/"+direccion, {
+    const request = await fetch(URL + "/" + direccion, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -40,27 +40,35 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       }
     });
 */
-/*
-*/
-const formData = new FormData();
-formData.append('id',obj.id);
-formData.append('nombre',obj.nombre);
-formData.append('descripcion',obj.descripcion);
-//formData.append('imagen',obj.imagen);
-formData.append('precio',obj.precio);
-formData.append('genero',obj.genero);
-formData.append("tipoProducto.id", obj.tipoProducto.id);
+    /*
+     */
+    const formData = new FormData();
 
-//formData.append('producto', JSON.stringify(obj)); 
-formData.append('imagenObj', imagen); // archivo es el objeto File de la imagen seleccionada
+    if (direccion === "productos") {
+      formData.append("id", obj.id);
+      formData.append("nombre", obj.nombre);
+      formData.append("descripcion", obj.descripcion);
+      formData.append("imagen", obj.imagen);
+      formData.append("precio", obj.precio);
+      formData.append("genero", obj.genero);
+      formData.append("tipoProducto.id", obj.tipoProducto.id);
+    }
+    if (direccion === "tiposProductos") {
+      formData.append("id", obj.id);
+      formData.append("nombre", obj.nombre);
+    }
 
-const request = await fetch(URL + "/" + direccion, {
-  method: metodo,
-  body: formData,
-  headers: {
-    Authorization: localStorage.token,
-  },
-});
+    //Si la imagen es
+    if (imagen !== null) {
+      formData.append("imagenObj", imagen); // archivo es el objeto File de la imagen seleccionada
+    }
+    const request = await fetch(URL + "/" + direccion, {
+      method: metodo,
+      body: formData,
+      headers: {
+        Authorization: localStorage.token,
+      },
+    });
     if (metodo === "POST") {
       let prod = await request.json();
       return prod;
@@ -71,9 +79,9 @@ const request = await fetch(URL + "/" + direccion, {
 };
 
 //DELETE
-export const borrarObjeto = async (direccion,id) => {
+export const borrarObjeto = async (direccion, id) => {
   try {
-    await fetch(URL + "/"+direccion +"/" +id, {
+    await fetch(URL + "/" + direccion + "/" + id, {
       method: "DELETE",
       headers: {
         Accept: "application/json",

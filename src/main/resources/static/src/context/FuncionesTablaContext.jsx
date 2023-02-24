@@ -36,6 +36,8 @@ export function FuncionesTablaContext({ children }) {
 
       tiposProductos.push(tipoProductoObj);
     });
+    console.log('tiposProductos: '+JSON.stringify(tiposProductos));
+    console.log('productos: '+productosPiolas);
     setTiposProductos(tiposProductos);
     setProductos(productosPiolas);
   };
@@ -91,7 +93,6 @@ export function FuncionesTablaContext({ children }) {
 
   
   const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
-    console.log('se ejecuta el agregar prod');
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
     crearObjeto(direccion,objeto, imagen,method).then(() => {
