@@ -64,7 +64,7 @@ export default function ModalAgregarProducto({
       "genero": genero,
       "tipoProducto": {
         "id": idTipoProd
-      },
+      }
     }
 
     console.log('imagen name: '+imagen.files[0].name);

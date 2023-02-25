@@ -143,11 +143,15 @@ public class ProductoController {
 
 	public void guardarImagen(Producto producto,MultipartFile imagenObj){
 		Path directorioImagenes= Paths.get("src//main//resources//static/images");
+        //Path directorioImagenes2= Paths.get("target//classes//static//images");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+        //String rutaAbsoluta2 = directorioImagenes2.toFile().getAbsolutePath();
 		try{
 			byte[] bytesImg = imagenObj.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta+"//"+imagenObj.getOriginalFilename());
+            //Path rutaCompleta2 = Paths.get(rutaAbsoluta2+"//"+imagenObj.getOriginalFilename());
 			Files.write(rutaCompleta,bytesImg);
+            //Files.write(rutaCompleta2,bytesImg);
 			producto.setImagen(imagenObj.getOriginalFilename());
 		}catch (IOException e){
 			e.printStackTrace();
