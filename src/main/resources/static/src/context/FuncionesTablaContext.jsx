@@ -36,8 +36,6 @@ export function FuncionesTablaContext({ children }) {
 
       tiposProductos.push(tipoProductoObj);
     });
-    console.log('tiposProductos: '+JSON.stringify(tiposProductos));
-    console.log('productos: '+productosPiolas);
     setTiposProductos(tiposProductos);
     setProductos(productosPiolas);
   };
@@ -54,7 +52,6 @@ export function FuncionesTablaContext({ children }) {
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
-    console.log('se ejecuta el act tabla');
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
     cargarObjetos(direccion)

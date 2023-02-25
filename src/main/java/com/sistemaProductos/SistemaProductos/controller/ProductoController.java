@@ -73,14 +73,14 @@ public class ProductoController {
 	public ResponseEntity<Producto> create(
 			@Valid @ModelAttribute Producto producto,
 			@RequestParam("tipoProducto.id") Long tipoProductoId,
-			@RequestParam("imagenObj") MultipartFile imagenObj){
+			@RequestParam("imagenObj") Optional<MultipartFile> imagenObj){
 		//Producto producto = new ObjectMapper().readValue(productoJson, Producto.class);
 
 		TipoProducto tipoProducto = this.tipoProductoService.findById(tipoProductoId);
 
 		producto.setTipoProducto(tipoProducto);
-		if(!imagenObj.isEmpty()){
-			guardarImagen(producto,imagenObj);
+		if(imagenObj.isPresent()){
+			guardarImagen(producto,imagenObj.get());
 		}
 
 		//Se guarda el producto creado en una variable

@@ -43,11 +43,12 @@ export default function ModalAgregarProducto({
   };
 
   const valoresValidos = () => {
-    return nombre !== "" && precio !== "0" && tipo !== "Sin seleccionar" && genero !== 'Sin seleccionar' && imagen!=='';
+    return nombre !== "" &&  precio!=='' && tipo !== "Sin seleccionar" && genero !== 'Sin seleccionar';
   };
 
   const agregarProducto = (e, method) => {
     e.preventDefault();
+
     //#FALTA HACER LA VALIDACION DE CAMPOS CORRECTA
     if (!valoresValidos()) {
       alert("Valores erroneos");
@@ -55,20 +56,19 @@ export default function ModalAgregarProducto({
     }
     //Se busca entre todos los tiposProductos, un tipo producto que tenga el mismo nombre
     let idTipoProd = tiposProductos.find( p => p.nombre === tipo).id;
+    let imagenPosta = imagen!=='' ? imagen.files[0].name : null
     const producto = {
       "id": prod !== null ? prod.id : 0,
       "nombre": nombre,
       "descripcion": descripcion,
-      "imagen": imagen.files[0].name,
+      "imagen": imagenPosta,
       "precio": precio,
       "genero": genero,
       "tipoProducto": {
         "id": idTipoProd
       }
     }
-
-    console.log('imagen name: '+imagen.files[0].name);
-    agregarProductoGenerico('productos', producto, imagen.files[0],method).then(() => cerrarModal())
+    agregarProductoGenerico('productos', producto, imagenPosta,method).then(() => cerrarModal())
     .catch(e => {console.log('error al agregar Prod: '+e);cerrarModal()})
   };
 

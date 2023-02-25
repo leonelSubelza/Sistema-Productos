@@ -19,11 +19,11 @@ function Articulos({productosMostrados,totalProductos,productosPorPagina,paginaA
               productosMostrados
                 .map((prod) => (
                   <div className="col-md-3 col-sm-6 col-xs-6 p-1" key={prod.id}>
-                    <Articulo                      
+                    <Articulo      
                       imageSource={
-                        prod.imagen !== null ?
-                        `${URLImagenes}${prod.imagen}?timestamp=${window.timestamp}`
-                        : ''
+                        prod.imagen === 'null' ?
+                        ''
+                        : `${URLImagenes}${prod.imagen}?timestamp=${window.timestamp}`
                       }
                       nombreProducto={prod.nombre}
                       nombreCategoria={prod.tipoProducto.nombre}
