@@ -3,7 +3,7 @@ import { URL } from "./Configuracion";
 //GET
 export const cargarObjetos = async (direccion) => {
   try {
-    const request = await fetch(URL + "/"+direccion, {
+    const request = await fetch(URL + "/" + direccion, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -20,7 +20,7 @@ export const cargarObjetos = async (direccion) => {
 };
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
-export const crearObjeto = async (direccion,obj, metodo) => {
+export const crearObjeto = async (direccion, obj, metodo) => {
   try {
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
@@ -41,9 +41,9 @@ export const crearObjeto = async (direccion,obj, metodo) => {
 };
 
 //DELETE
-export const borrarObjeto = async (direccion,id) => {
+export const borrarObjeto = async (direccion, id) => {
   try {
-    await fetch(URL + "/"+direccion +"/" +id, {
+    await fetch(URL + "/" + direccion + "/" + id, {
       method: "DELETE",
       headers: {
         Accept: "application/json",
@@ -55,3 +55,7 @@ export const borrarObjeto = async (direccion,id) => {
     console.log(error);
   }
 };
+
+export const iniciarSesion = async () => {
+
+}
