@@ -9,6 +9,8 @@ import {
   ModalFooter,
 } from "reactstrap";
 
+import Alert from "react-bootstrap/Alert";
+
 const ModalAgregarTipoProducto = ({
   mostrarVentana,
   cerrarVentana,
@@ -16,12 +18,13 @@ const ModalAgregarTipoProducto = ({
   esAgregar }
 ) => {
   const { agregarProductoGenerico } = useContext(funcionesContext);
-
+  const [errors, setErrors] = useState({});
   const [nombre, setNombre] = useState("");
 
   const vaciarCampos = () => {
     if (esAgregar) {
       setNombre("");
+      setErrors({})
     }
   };
 
@@ -31,7 +34,12 @@ const ModalAgregarTipoProducto = ({
   };
 
   const valoresValidos = () => {
-    return nombre !== "";
+    let errores = {};
+    if(nombre === ''){
+      errores.nombre = 'Debe escribir un nombre'
+    }
+    setErrors(errores)
+    return Object.values(errores).length === 0;
   };
 
   const agregarProducto = (e, method) => {
@@ -78,6 +86,7 @@ const ModalAgregarTipoProducto = ({
               onChange={(ev) => setNombre(ev.target.value)}
               type="text"
             />
+            {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
           </FormGroup>
 
         </ModalBody>
