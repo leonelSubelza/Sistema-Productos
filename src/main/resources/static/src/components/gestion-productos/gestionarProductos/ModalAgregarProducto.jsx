@@ -48,10 +48,10 @@ export default function ModalAgregarProducto({
 
   const valoresValidos = () => {
     let errores = {};
-    if(nombre === ''){
+    if(!/^[a-zA-Z]{1,140}$/.test(nombre)){
       errores.nombre = 'El nombre no puede ser vacio'
     }
-    if(precio === '' || ( typeof precio === 'number' && precio < 1)){
+    if(!/^[0-9]{1,220}$/.test(parseInt(precio))){
       errores.precio = 'El valor de precio es incorrecto';
     }
     if(tipo === 'Sin seleccionar'){

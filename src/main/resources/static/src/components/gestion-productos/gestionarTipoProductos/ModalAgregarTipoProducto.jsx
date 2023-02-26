@@ -35,7 +35,8 @@ const ModalAgregarTipoProducto = ({
 
   const valoresValidos = () => {
     let errores = {};
-    if(nombre === ''){
+    //Debe escribir un texto entre 1 y 100 caracteres
+    if(!(/^[a-zA-Z]{1,100}$/.test(nombre))){
       errores.nombre = 'Debe escribir un nombre'
     }
     setErrors(errores)
