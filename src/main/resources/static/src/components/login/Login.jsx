@@ -1,9 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import '../../styles/login/Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
+import { iniciarSesion } from '../../service/GestionUsuarios';
 
 function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const manejarSesion = () => {
+    iniciarSesion(email, password)
+  }
+
+
   return (
     <div className="fondo">
       <div className='container-img-login'>
@@ -16,14 +25,18 @@ function Login() {
           <form className='form-login'>
             <div className="mb-3">
               <label for="form-email" className="form-label">Email</label>
-              <input type="email" className="form-control" id="form-email" placeholder="name@example.com" />
+
+              <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="form-email" placeholder="name@example.com" />
+
             </div>
             <div className="mb-3">
               <label for="form-password" className="form-label">Contraseña</label>
-              <input type="password" className="form-control" id="form-password" placeholder='Contraseña' />
+
+              <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="form-password" placeholder='Contraseña' />
+
             </div>
             <div className="mb-3">
-              <button type="button" className="btn btn-dark">Iniciar Sesión</button>
+              <button onClick={manejarSesion} type="button" className="btn btn-dark">Iniciar Sesión</button>
             </div>
           </form>
         </div>
