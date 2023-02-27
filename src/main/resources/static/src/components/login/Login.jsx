@@ -16,6 +16,10 @@ function Login() {
     }
   }
 
+  const volverInicio = () => {
+    window.location.href = '/'
+  }
+
 
   return (
     <div className="fondo">
@@ -41,6 +45,7 @@ function Login() {
             </div>
             <div className="mb-3">
               <button onClick={manejarSesion} type="button" className="btn btn-dark">Iniciar Sesión</button>
+              <button onClick={volverInicio} type="button" className="btn btn-dark" style={{ marginLeft: '10px' }}>Volver</button>
             </div>
           </form>
         </div>
