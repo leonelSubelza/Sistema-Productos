@@ -20,14 +20,30 @@ export const cargarObjetos = async (direccion) => {
 };
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
-export const crearObjeto = async (direccion, obj, metodo) => {
+export const crearObjeto = async (direccion, obj, imagen, metodo) => {
   try {
+    const formData = new FormData();
+
+    if (direccion === "productos") {
+      formData.append("id", obj.id);
+      formData.append("nombre", obj.nombre);
+      formData.append("descripcion", obj.descripcion);
+      formData.append("imagen", obj.imagen);
+      formData.append("precio", obj.precio);
+      formData.append("genero", obj.genero);
+      formData.append("tipoProducto.id", obj.tipoProducto.id);
+    }
+    if (direccion === "tiposProductos") {
+      formData.append("id", obj.id);
+      formData.append("nombre", obj.nombre);
+    }
+
+    formData.append("imagenObj", imagen);
+
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
-      body: JSON.stringify(obj),
+      body: formData,
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
         Authorization: localStorage.token,
       },
     });

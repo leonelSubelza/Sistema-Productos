@@ -1,8 +1,10 @@
-import React, { useState,useCallback } from "react";
+import React, { useState,useCallback, useEffect } from "react";
 import { cargarObjetos, borrarObjeto,crearObjeto } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
 import MensajeToast from "../components/gestion-productos/MensajeToast";
+
+import WebSocket from '../service/WebSocket.js';
 
 export const funcionesContext = React.createContext();
 
@@ -11,6 +13,33 @@ export function FuncionesTablaContext({ children }) {
   const [showSpinner, setShowSpinner] = useState(false);
   const [mensajeSpinner, setMensajeSpinner] = useState(""); //el msj del spinner puede variar
 
+  const [productos, setProductos] = useState([]);
+  const [tiposProductos, setTiposProductos] = useState([]);
+
+
+  //Carga las variables productos y tiposProductos
+  const cargarValores = (productosBD) => {
+    let productosPiolas = [];
+    let tiposProductos = [];
+
+    productosBD.forEach((tipoProd) => {
+      let tipoProductoObj = {
+        id: tipoProd.id,
+        nombre: tipoProd.nombre,
+      };
+
+      tipoProd.productos.forEach((prod) => {
+        prod.tipoProducto = tipoProductoObj;
+
+        productosPiolas.push(prod);
+      });
+
+      tiposProductos.push(tipoProductoObj);
+    });
+    setTiposProductos(tiposProductos);
+    setProductos(productosPiolas);
+  };
+
   //Toast
   const [toast, setToast] = useState({
     show: false,
@@ -18,13 +47,17 @@ export function FuncionesTablaContext({ children }) {
     color: "#dc1717",
   });
 
-  const actualizarTablaGenerica = useCallback(async (direccion) => {    
+  const manejarMsjRecibido=(payload)=>{
+    actualizarTablaGenerica('tiposProductos')
+  }
+
+  const actualizarTablaGenerica = useCallback(async (direccion) => {  
     setMensajeSpinner("Actualizando Tabla");
     setShowSpinner(true);
-    return cargarObjetos(direccion)
+    cargarObjetos(direccion)
       .then((response) => {
         setShowSpinner(false);
-        return response;
+        cargarValores(response);
       })
       .catch(() => {
         setShowSpinner(false);
@@ -33,18 +66,17 @@ export function FuncionesTablaContext({ children }) {
           msjBody: "Error contectando a la BD",
           color: "#dc1717",
         });
-        console.log('deberia mostrar toast');
-        return [];
       });
   }, [setMensajeSpinner, setShowSpinner, setToast]);
 
   const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
-    return borrarObjeto(direccion, idEntidad)
+    borrarObjeto(direccion, idEntidad)
       .then(() => {
-        setShowSpinner(false);
-        return;
+        if(mensajeSpinner !== 'Actualizando Tabla'){
+          setShowSpinner(false);
+        }
       })
       .catch(() => {
         setShowSpinner(false);
@@ -54,20 +86,33 @@ export function FuncionesTablaContext({ children }) {
           color: "#dc1717",
         });
       });
-  }, [setMensajeSpinner, setShowSpinner, setToast]);
+  }, [setMensajeSpinner, setShowSpinner, setToast,mensajeSpinner]);
 
-
-  const agregarProductoGenerico = useCallback( async(direccion,objeto,method) => {
+  
+  const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    return crearObjeto(direccion,objeto, method).then(() => {
-      setShowSpinner(false);
-    });
-  },[setMensajeSpinner,setShowSpinner]);
+    crearObjeto(direccion,objeto, imagen,method).then(() => {
+      if(mensajeSpinner !== 'Actualizando Tabla'){
+        console.log('se guardo en bd, deberia cerrer spinner Guardando en BD');
+        setShowSpinner(false);
+      }
+    })
+    .catch(e => {console.log("Entro al cathc de funcionestablacontext: "+e);setShowSpinner(false)});
+  },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
+
+
+  useEffect(()=>{
+    actualizarTablaGenerica('tiposProductos')
+  },[actualizarTablaGenerica])
 
   return (
     <funcionesContext.Provider
       value={{
+        productos,
+        setProductos,
+        tiposProductos,
+        setTiposProductos,
         showSpinner,
         setShowSpinner,
         mensajeSpinner,
@@ -76,11 +121,13 @@ export function FuncionesTablaContext({ children }) {
         setToast,
         actualizarTablaGenerica,
         borrarProductoGenerico,
-        agregarProductoGenerico
+        agregarProductoGenerico,
+        cargarValores
       }}
     >
       <SpinnerLoading />
       <MensajeToast />
+      <WebSocket mensajeRecibido={(res)=>manejarMsjRecibido(res)}/>
       {children}
     </funcionesContext.Provider>
   );

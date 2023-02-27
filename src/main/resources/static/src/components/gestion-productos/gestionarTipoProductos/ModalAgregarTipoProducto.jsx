@@ -9,6 +9,8 @@ import {
   ModalFooter,
 } from "reactstrap";
 
+import Alert from "react-bootstrap/Alert";
+
 const ModalAgregarTipoProducto = ({
   mostrarVentana,
   cerrarVentana,
@@ -16,22 +18,29 @@ const ModalAgregarTipoProducto = ({
   esAgregar }
 ) => {
   const { agregarProductoGenerico } = useContext(funcionesContext);
-
+  const [errors, setErrors] = useState({});
   const [nombre, setNombre] = useState("");
 
   const vaciarCampos = () => {
     if (esAgregar) {
       setNombre("");
+      setErrors({})
     }
   };
 
-  const cerrarModal = (debeAct) => {
+  const cerrarModal = () => {
     vaciarCampos();
-    return cerrarVentana(debeAct);
+    return cerrarVentana();
   };
 
   const valoresValidos = () => {
-    return nombre !== "";
+    let errores = {};
+    //Debe escribir un texto entre 1 y 100 caracteres
+    if(!(/^[a-zA-Z]{1,100}$/.test(nombre))){
+      errores.nombre = 'Debe escribir un nombre'
+    }
+    setErrors(errores)
+    return Object.values(errores).length === 0;
   };
 
   const agregarProducto = (e, method) => {
@@ -44,9 +53,9 @@ const ModalAgregarTipoProducto = ({
       id: tipoProd !== null ? tipoProd.id : 0,
       nombre: nombre.toUpperCase(),
     };
-    agregarProductoGenerico("tiposProductos", tipoProducto, method).then(() =>
+    agregarProductoGenerico("tiposProductos", tipoProducto,null, method).then(() =>
       cerrarModal(true)
-    );
+    ).catch(e =>{cerrarModal(true);alert('error al agregar')});
   };
 
   useEffect(() => {
@@ -78,6 +87,7 @@ const ModalAgregarTipoProducto = ({
               onChange={(ev) => setNombre(ev.target.value)}
               type="text"
             />
+            {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
           </FormGroup>
 
         </ModalBody>
@@ -89,7 +99,7 @@ const ModalAgregarTipoProducto = ({
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
           </Button>
-          <Button onClick={() => cerrarModal(false)}>Cancelar</Button>
+          <Button onClick={cerrarModal}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </>
