@@ -145,7 +145,6 @@ public class ProductoController {
 	public void guardarImagen(Producto producto,MultipartFile imagenObj){
 		String currentDirectory = System.getProperty("user.dir").replace( "\\" , "/");
 		File directorio = new File(currentDirectory+"/src/main/resources/static/images");
-		System.out.println("directorio en el que se va a crear: "+directorio);
 		if (!directorio.exists()) {
 			if (directorio.mkdirs()) {
 				System.out.println("Directorio creado");
