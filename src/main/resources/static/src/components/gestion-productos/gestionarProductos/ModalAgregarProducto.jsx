@@ -48,8 +48,8 @@ export default function ModalAgregarProducto({
 
   const valoresValidos = () => {
     let errores = {};
-    if(!/^[a-zA-Z]{1,140}$/.test(nombre)){
-      errores.nombre = 'El nombre no puede ser vacio'
+    if(!/^[a-zA-Z\s]{1,140}$/.test(nombre)){
+      errores.nombre = 'El nombre es incorrecto'
     }
     if(!/^[0-9]{1,220}$/.test(parseInt(precio))){
       errores.precio = 'El valor de precio es incorrecto';
@@ -75,12 +75,14 @@ export default function ModalAgregarProducto({
     }
     //Se busca entre todos los tiposProductos, un tipo producto que tenga el mismo nombre
     let idTipoProd = tiposProductos.find((p) => p.nombre === tipo).id;
-    let imagenPosta = imagen !== "" ? imagen.files[0].name : null;
+    let imagenPosta = imagen !== "" ? imagen.files[0] : null;
+    console.log('imagen: ');
+    console.log(imagenPosta);
     const producto = {
       id: prod !== null ? prod.id : 0,
       nombre: nombre,
       descripcion: descripcion,
-      imagen: imagenPosta,
+      imagen: imagen.name,
       precio: precio,
       genero: genero,
       tipoProducto: {
@@ -93,6 +95,7 @@ export default function ModalAgregarProducto({
         console.log("error al agregar Prod: " + e);
         cerrarModal();
       });
+      
   };
 
   useEffect(() => {
@@ -213,13 +216,13 @@ export default function ModalAgregarProducto({
         </ModalBody>
 
         <ModalFooter>
+          <Button onClick={() => cerrarModal()}>Cancelar</Button>
           <Button
             color="primary"
             onClick={(e) => agregarProducto(e, esAgregar ? "POST" : "PUT")}
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
           </Button>
-          <Button onClick={() => cerrarModal()}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </>
