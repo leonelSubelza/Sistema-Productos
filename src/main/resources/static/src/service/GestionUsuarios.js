@@ -15,6 +15,7 @@ export async function iniciarSesion(email, password) {
   });
 
   const respuesta = await request.text();
+  console.log("respuesta: " + respuesta);
   if (respuesta !== 'FAIL') {
     localStorage.token = respuesta;
     localStorage.email = datos.email;

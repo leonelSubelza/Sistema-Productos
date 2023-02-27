@@ -9,7 +9,11 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const manejarSesion = () => {
-    iniciarSesion(email, password)
+    if (email !== "") {
+      iniciarSesion(email, password)
+    } else {
+      alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
+    }
   }
 
 
