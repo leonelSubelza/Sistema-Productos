@@ -36,7 +36,7 @@ const ModalAgregarTipoProducto = ({
   const valoresValidos = () => {
     let errores = {};
     //Debe escribir un texto entre 1 y 100 caracteres
-    if(!(/^[a-zA-Z]{1,100}$/.test(nombre))){
+    if(!(/^[a-zA-Z\s]{1,100}$/.test(nombre))){
       errores.nombre = 'Debe escribir un nombre'
     }
     setErrors(errores)
@@ -93,13 +93,13 @@ const ModalAgregarTipoProducto = ({
         </ModalBody>
 
         <ModalFooter>
+          <Button onClick={cerrarModal}>Cancelar</Button>
           <Button
             color="primary"
             onClick={(e) => agregarProducto(e, esAgregar ? "POST" : "PUT")}
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
           </Button>
-          <Button onClick={cerrarModal}>Cancelar</Button>
         </ModalFooter>
       </Modal>
     </>

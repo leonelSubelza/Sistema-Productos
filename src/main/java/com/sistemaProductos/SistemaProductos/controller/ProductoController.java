@@ -1,5 +1,6 @@
 package com.sistemaProductos.SistemaProductos.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Files;
@@ -142,6 +143,15 @@ public class ProductoController {
 	}
 
 	public void guardarImagen(Producto producto,MultipartFile imagenObj){
+		String currentDirectory = System.getProperty("user.dir").replace( "\\" , "/");
+		File directorio = new File(currentDirectory+"/src/main/resources/static/images");
+		System.out.println("directorio en el que se va a crear: "+directorio);
+		if (!directorio.exists()) {
+			if (directorio.mkdirs()) {
+				System.out.println("Directorio creado");
+			}
+		}
+
 		Path directorioImagenes= Paths.get("src//main//resources//static/images");
         //Path directorioImagenes2= Paths.get("target//classes//static//images");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
