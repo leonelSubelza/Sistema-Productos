@@ -5,7 +5,6 @@ import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
 import MensajeToast from "../components/gestion-productos/MensajeToast";
 
 import WebSocket from '../service/WebSocket.js';
-
 export const funcionesContext = React.createContext();
 
 export function FuncionesTablaContext({ children }) {
@@ -15,6 +14,7 @@ export function FuncionesTablaContext({ children }) {
 
   const [productos, setProductos] = useState([]);
   const [tiposProductos, setTiposProductos] = useState([]);
+
 
 
   //Carga las variables productos y tiposProductos
@@ -52,8 +52,12 @@ export function FuncionesTablaContext({ children }) {
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
+    let location = window.location.href;
     setMensajeSpinner("Actualizando Tabla");
-    setShowSpinner(true);
+    if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
+      setShowSpinner(true);
+    }
+    
     cargarObjetos(direccion)
       .then((response) => {
         setShowSpinner(false);
@@ -101,9 +105,8 @@ export function FuncionesTablaContext({ children }) {
     .catch(e => {console.log("Entro al cathc de funcionestablacontext: "+e);setShowSpinner(false)});
   },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
 
-
   useEffect(()=>{
-    actualizarTablaGenerica('tiposProductos')
+    actualizarTablaGenerica('tiposProductos');
   },[actualizarTablaGenerica])
 
   return (

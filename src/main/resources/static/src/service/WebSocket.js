@@ -27,7 +27,6 @@ const WebSocket = ({ mensajeRecibido }) => {
 
   const onError = (err) => {
     console.log("Error: " + err);
-    alert(err);
   };
 
   connect();
