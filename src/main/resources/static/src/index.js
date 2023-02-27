@@ -8,6 +8,7 @@ import VentanaCliente from './components/ventana-cliente/VentanaCliente';
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos';
+import Login from './components/login/Login';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "/administrador/tablaTipoProductos",
         element: <PantallaGestionTipoProducto />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
       },
     ],
   },

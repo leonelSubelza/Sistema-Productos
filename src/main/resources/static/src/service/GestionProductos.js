@@ -38,7 +38,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       formData.append("nombre", obj.nombre);
     }
 
-      formData.append("imagenObj", imagen);
+    formData.append("imagenObj", imagen);
 
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
@@ -71,3 +71,7 @@ export const borrarObjeto = async (direccion, id) => {
     console.log(error);
   }
 };
+
+export const iniciarSesion = async () => {
+
+}

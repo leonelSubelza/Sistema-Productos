@@ -16,7 +16,7 @@ function App() {
             path="/gestion-productos/*"
             element={<PantallaGestionProductos />}
           />
-        </
+        </Routes>
 
       </FuncionesTablaContext>
       {/* <PantallaGestionProductos /> */}
