@@ -50,8 +50,9 @@ const Carrito = ({ show, cerrarVentana }) => {
           <p>Total</p>
           <p>${total}</p>
         </div>
+        <Button variant="dark">IR A PAGAR</Button>
       </div>
-      <Button variant="dark">IR A PAGAR</Button>
+      
     </div>
   );
 };

@@ -13,6 +13,10 @@
   padding: 0;
 }
 
+.card text-center bg-ligth{
+  height: 100%;
+}
+
 .articulo-img {
   padding: 0;
   margin: 0;
