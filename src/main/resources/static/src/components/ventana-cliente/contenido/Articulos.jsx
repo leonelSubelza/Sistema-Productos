@@ -28,6 +28,7 @@ function Articulos({productosMostrados,totalProductos,productosPorPagina,paginaA
                       nombreProducto={prod.nombre}
                       nombreCategoria={prod.tipoProducto.nombre}
                       precio={prod.precio}
+                      producto={prod}
                     />
                   </div>
                 ))

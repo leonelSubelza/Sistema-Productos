@@ -3,6 +3,8 @@ import Header from "./header/Header";
 import Contenido from "./contenido/Contenido";
 import Footer from "./footer/Footer";
 import { funcionesContext } from "../../context/FuncionesTablaContext";
+import Carrito from './carrito/Carrito';
+import ElementosCarritoContext from "../../context/ElementosCarritoContext";
 
 function VentanaCliente() {
   const { productos,tiposProductos } = useContext(funcionesContext);
@@ -14,13 +16,20 @@ function VentanaCliente() {
   const [productosPorPagina] = useState(8);
   const [paginaActual, setPaginaActual] = useState(1);
 
+  const [showCarrito,setShowCarrito] = useState(false)
+
   useEffect(() => {
     setProductosMostrados(productos);
     setPaginaActual(1);
     settotalProductos(productos.length);
   }, [productos]);
 
+  const mostrarCarrito=()=>{
+    setShowCarrito(true);
+  }
+
   return (
+    <ElementosCarritoContext>
     <div>
       <Header
         productos={productos}
@@ -28,6 +37,7 @@ function VentanaCliente() {
         tiposProductos={tiposProductos}
         settotalProductos={settotalProductos}
         setPaginaActual={setPaginaActual}
+        mostrarCarrito={mostrarCarrito}
       />
       <Contenido
         productos={productos}
@@ -41,7 +51,9 @@ function VentanaCliente() {
         setPaginaActual={setPaginaActual}
       />
       <Footer />
+      <Carrito show={showCarrito} cerrarVentana={()=>setShowCarrito(false)}/>
     </div>
+    </ElementosCarritoContext>
   );
 }
 
