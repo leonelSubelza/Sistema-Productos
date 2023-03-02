@@ -40,8 +40,9 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
       <Navbar bg="light" className='custom-navbar navbar-header-cliente' expand="md">
         <div className='container-fluid'>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto">
+            <Nav className="mx-auto div-a-centrar">
               <Nav.Link onClick={() => filtrar("")} className='custom-nav-link' href="#!">inicio</Nav.Link>
 
               <NavDropdown className='custom-nav-link' title="productos" id="basic-nav-dropdown">

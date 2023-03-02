@@ -7,7 +7,7 @@ import Carrito from './carrito/Carrito';
 import ElementosCarritoContext from "../../context/ElementosCarritoContext";
 
 function VentanaCliente() {
-  const { productos,tiposProductos } = useContext(funcionesContext);
+  const { productos, tiposProductos } = useContext(funcionesContext);
   //const [productos, setProductos] = useState([]);
   const [productosMostrados, setProductosMostrados] = useState([]);
   //const [tiposProductos, setTiposProductos] = useState([]);

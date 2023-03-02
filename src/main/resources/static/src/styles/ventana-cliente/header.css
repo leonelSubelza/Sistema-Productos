@@ -27,7 +27,8 @@
 }
 
 .custom-nav-link {
-  margin: 0 10px;
+  margin: 0px;
+  text-align: center;
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 4px;
@@ -50,7 +51,25 @@
   right: 0 !important;
 }
 
-.navbar-header-cliente {}
+
+.div-a-centrar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@media all and (max-width:1024px) {
+  .div-a-centrar {
+    position: unset;
+    transform: unset;
+    margin: 0 !important;
+  }
+
+  .navbar-collapse {
+    justify-content: flex-end !important;
+  }
+}
 
 @media all and (max-width:430px) {
   .nav {
