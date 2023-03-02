@@ -3,11 +3,31 @@ import Button from "react-bootstrap/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import "../../../styles/ventana-cliente/Carrito.css";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { TiDelete } from "react-icons/ti";
 
+import { funcionesContext } from "../../../context/FuncionesTablaContext";
+
 const Carrito = () => {
-  const {productosEnCarrito,limpiarCarrito,quitarProducto,total,showCarrito,setShowCarrito} = useContext(carritoContext);
+  const {productosEnCarrito,setProductosEnCarrito,limpiarCarrito,quitarProducto,total,showCarrito,setShowCarrito} = useContext(carritoContext);
+  const { productos } = useContext(funcionesContext);
+
+  const actualizarProductosEnCarrito = useCallback(() => {
+    console.log('se actualizaron los prod o.O')
+    let prodActualizados = [];
+    productosEnCarrito.forEach( prod => {
+      productos.forEach(prodNuevo => {
+        if(prodNuevo.id === prod.id){
+          prodActualizados.push(prodNuevo);
+        }
+      })
+    } )
+    setProductosEnCarrito(prodActualizados);
+  },[productos,productosEnCarrito,setProductosEnCarrito])
+
+  useEffect(()=>{
+    
+  },[])
 
   return (
     <>
@@ -22,12 +42,13 @@ const Carrito = () => {
       {productosEnCarrito &&
        productosEnCarrito.map((prod,index) => (
         <div className="contenedor-producto" key={index}>
+          {prod.nombre === 'Mierda asquerosa' ? console.log('imgNombre: '+prod.imagen) : ''}
           <img
           className="producto-img"
             src={
               prod.imagen === "null"
                 ? ""
-                : `${URLImagenes}${prod.imagen}?timestamp=${window.timestamp}`
+                : `${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`
             }
             alt="Imágen-producto"            
           />

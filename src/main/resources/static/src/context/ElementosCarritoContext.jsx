@@ -28,7 +28,6 @@ const ElementosCarritoContext = ({ children }) => {
     setProductosEnCarrito(productosEnCarrito)
     setTotal(total-prod.precio)
 };
-
   return (
     <>
       <carritoContext.Provider
