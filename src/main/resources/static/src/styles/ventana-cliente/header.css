@@ -59,7 +59,19 @@
   transform: translate(-50%, -50%);
 }
 
-@media all and (max-width:1024px) {
+
+.carrito-txt {
+  margin-bottom: 0px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.icon-carrito {
+  margin-bottom: 1px;
+  margin-right: 3px;
+}
+
+@media all and (max-width:1118px) {
   .div-a-centrar {
     position: unset;
     transform: unset;

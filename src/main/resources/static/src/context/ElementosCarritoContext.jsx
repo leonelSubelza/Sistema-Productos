@@ -5,6 +5,7 @@ export const carritoContext = React.createContext();
 const ElementosCarritoContext = ({ children }) => {
   const [productosEnCarrito, setProductosEnCarrito] = useState([]);
   const [total,setTotal] = useState(0);
+  const [showCarrito,setShowCarrito] = useState(false);
 
   const agregarProducto = (prod) => {
     //if(!productosEnCarrito.includes(prod)){
@@ -21,9 +22,11 @@ const ElementosCarritoContext = ({ children }) => {
     setTotal(0)
 }
 
-  const quitarProducto = (prodABorrar) => {
-    setProductosEnCarrito(productosEnCarrito.filter(producto => producto.id === prodABorrar.id))
-    setTotal(total-prodABorrar.precio)
+  const quitarProducto = (index,prod) => {
+    delete(productosEnCarrito[index])
+    productosEnCarrito.filter(e => e!==undefined)
+    setProductosEnCarrito(productosEnCarrito)
+    setTotal(total-prod.precio)
 };
 
   return (
@@ -35,7 +38,9 @@ const ElementosCarritoContext = ({ children }) => {
           agregarProducto,
           limpiarCarrito,
           quitarProducto,
-          total
+          total,
+          showCarrito,
+          setShowCarrito
         }}
       >
         {children}

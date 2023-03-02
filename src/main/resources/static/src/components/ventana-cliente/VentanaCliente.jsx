@@ -16,17 +16,11 @@ function VentanaCliente() {
   const [productosPorPagina] = useState(8);
   const [paginaActual, setPaginaActual] = useState(1);
 
-  const [showCarrito, setShowCarrito] = useState(false)
-
   useEffect(() => {
     setProductosMostrados(productos);
     setPaginaActual(1);
     settotalProductos(productos.length);
   }, [productos]);
-
-  const mostrarCarrito = () => {
-    setShowCarrito(true);
-  }
 
   return (
     <ElementosCarritoContext>
@@ -37,7 +31,6 @@ function VentanaCliente() {
           tiposProductos={tiposProductos}
           settotalProductos={settotalProductos}
           setPaginaActual={setPaginaActual}
-          mostrarCarrito={mostrarCarrito}
         />
         <Contenido
           productos={productos}
@@ -51,7 +44,7 @@ function VentanaCliente() {
           setPaginaActual={setPaginaActual}
         />
         <Footer />
-        <Carrito show={showCarrito} cerrarVentana={() => setShowCarrito(false)} />
+        <Carrito />
       </div>
     </ElementosCarritoContext>
   );
