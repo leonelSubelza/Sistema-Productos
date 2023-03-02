@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import "../../../styles/ventana-cliente/articulo.css";
+import Button from "react-bootstrap/Button";
+import { carritoContext } from "../../../context/ElementosCarritoContext";
 
-const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio }) => {
+const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,producto }) => {
+  const {agregarProducto} = useContext(carritoContext);
   const [imageUrl, setImageUrl] = useState(imageSource);
 
   const handleImageError = (e) => {
@@ -27,6 +30,7 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio }) => {
           {precio ? precio : "Sin precio"}
         </p>
       </div>
+      <Button variant="dark" onClick={()=>agregarProducto(producto)}>AÑADIR AL CARRITO</Button>
     </div>
   );
 };

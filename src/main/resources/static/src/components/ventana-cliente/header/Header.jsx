@@ -5,8 +5,9 @@ import '../../../styles/ventana-cliente/header.css';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import { BsFillCartFill } from "react-icons/bs";
 
-const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProductos, setPaginaActual }) => {
+const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProductos, setPaginaActual, mostrarCarrito }) => {
 
   // filtra genero o tipoProducto
   const filtrar = (valor, tipo = "genero") => {
@@ -53,7 +54,7 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
               <Nav.Link onClick={() => filtrar("FEMENINO", "genero")} className='custom-nav-link' href="#!">mujer</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-
+          <p onClick={mostrarCarrito}><BsFillCartFill /></p>
           <Nav.Link className='custom-nav-link ml-auto' href="/login">
             Inicio sesión
           </Nav.Link>
