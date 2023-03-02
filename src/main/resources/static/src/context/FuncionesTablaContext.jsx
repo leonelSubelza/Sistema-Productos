@@ -36,6 +36,7 @@ export function FuncionesTablaContext({ children }) {
 
       tiposProductos.push(tipoProductoObj);
     });
+    console.log(productosPiolas);
     setTiposProductos(tiposProductos);
     setProductos(productosPiolas);
   };
@@ -52,6 +53,7 @@ export function FuncionesTablaContext({ children }) {
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
+    console.log('actualizando tabla');
     let location = window.location.href;
     setMensajeSpinner("Actualizando Tabla");
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){

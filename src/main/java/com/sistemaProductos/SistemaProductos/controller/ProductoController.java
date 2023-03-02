@@ -82,15 +82,17 @@ public class ProductoController {
 	public ResponseEntity<Object> update(
 			@Valid @ModelAttribute Producto producto,
 			@RequestParam("tipoProducto.id") Long tipoProductoId,
-			@RequestParam("imagenObj") MultipartFile imagenObj) {
+			@RequestParam("imagenObj") Optional<MultipartFile> imagenObj) {
 
 		Optional<Producto> productoOptional = Optional.ofNullable(this.productoService.findById(producto.getId()));
 		if(!productoOptional.isPresent()){
 			//Si el objeto no existe se retorna un codigo de error
 			return ResponseEntity.unprocessableEntity().build();
 		}
-		if(!imagenObj.isEmpty()){
-			guardarImagen(producto,imagenObj);
+		if(imagenObj.isPresent()){
+			guardarImagen(producto,imagenObj.get());
+		}else{
+			producto.setImagen(producto.getImagen());
 		}
 		this.productoService.update(producto);
 

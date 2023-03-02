@@ -3,15 +3,11 @@ import Button from "react-bootstrap/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import "../../../styles/ventana-cliente/Carrito.css";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { TiDelete } from "react-icons/ti";
 
 const Carrito = () => {
-
   const {productosEnCarrito,limpiarCarrito,quitarProducto,total,showCarrito,setShowCarrito} = useContext(carritoContext);
-    useEffect(()=>{
-        console.log(productosEnCarrito.map( a => console.log('asdffads')));
-    },[productosEnCarrito])
 
   return (
     <>
