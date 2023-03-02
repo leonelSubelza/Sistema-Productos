@@ -6,17 +6,18 @@ import { carritoContext } from "../../../context/ElementosCarritoContext";
 import { useContext, useEffect } from "react";
 import { TiDelete } from "react-icons/ti";
 
-const Carrito = ({ show, cerrarVentana }) => {
+const Carrito = () => {
 
-  const {productosEnCarrito,limpiarCarrito,quitarProducto,total} = useContext(carritoContext);
+  const {productosEnCarrito,limpiarCarrito,quitarProducto,total,showCarrito,setShowCarrito} = useContext(carritoContext);
     useEffect(()=>{
         console.log(productosEnCarrito.map( a => console.log('asdffads')));
     },[productosEnCarrito])
 
   return (
-    <div className={`carrito ${show ? 'carrito-show' : ''}`}>
+    <>
+    <div className={`carrito ${showCarrito ? 'carrito-show' : ''}`}>
       <div className="carrito-info-titulo">
-        <p onClick={cerrarVentana}>
+        <p onClick={()=>setShowCarrito(false)}>
           <IoIosArrowBack />
         </p>
         <h1>CARRITO DE COMPRAS</h1>
@@ -37,23 +38,28 @@ const Carrito = ({ show, cerrarVentana }) => {
           <div className="producto-info">
             <h1>{prod.nombre}</h1>
             <p>Descripcion: {prod.descripcion}</p>
-            <p>Precio: ${prod.precio}</p>
+            <p style={{color:'#D30034'}}>Precio: ${prod.precio}</p>
             <p>Género: {prod.genero}</p>
             <p>Tipo producto:{prod.tipoProducto.nombre}</p>
           </div>
           <p onClick={quitarProducto} className='boton-borrar-producto'><TiDelete /></p>
         </div>
       ))}
-    
+
+      {productosEnCarrito.length>0 ? 
       <div className="carrito-total">
-        <div className="carrito-total-precio">
-          <p>Total</p>
-          <p>${total}</p>
-        </div>
-        <Button variant="dark">IR A PAGAR</Button>
+      <div className="carrito-total-precio">
+        <p>Total</p>
+        <p>${total}</p>
       </div>
+      <Button variant="dark">IR A PAGAR</Button>
+    </div>
+      :
+       <p className="carrito-vacio">No hay productos en el carrito</p>}
       
     </div>
+    <div className={`carrito-contenedor ${showCarrito ? 'carrito-contenedor-active' : ''}`} onClick={()=>setShowCarrito(false)}></div>
+    </>
   );
 };
 export default Carrito;

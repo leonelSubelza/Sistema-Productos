@@ -52,24 +52,6 @@ public class ProductoController {
 	//Se agrega responseEntity para manejar los codigos de error al crear un nuevo producto
 	//Valid indica que se deben validar antes de procesar los datos recibidos dado que el nombre de producto
 	//no puede ser null
-
-	//@RequestParam("nombre") String nombre,
-	//											   @RequestParam("descripcion") String descripcion,
-	//											   //@RequestParam("imagen") String imagen,
-	//											   @RequestParam("precio") String precio,
-	//											   @RequestParam("genero") String genero,
-	//											   @RequestParam("tipoProducto") Long idTipoProducto,
-	//											   @RequestParam(value = "imagenObj", required = true) MultipartFile imagenObj) throws JsonProcessingException
-	//
-	//Producto producto = new Producto();
-	//		producto.setNombre(nombre);
-	//		producto.setDescripcion(descripcion);
-	//		//producto.setImagen(imagen);
-	//		producto.setPrecio(precio);
-	//		producto.setGenero(genero);
-	//		TipoProducto tipoProducto = this.tipoProductoService.findById(idTipoProducto);
-	//		producto.setTipoProducto(tipoProducto);
-
 	@PostMapping
 	public ResponseEntity<Producto> create(
 			@Valid @ModelAttribute Producto producto,
@@ -94,7 +76,6 @@ public class ProductoController {
 
 		//Se devuelve el objeto creado con su ubicacion
 		return ResponseEntity.created(ubicacion).body(productoGuardado);
-		//return new ResponseEntity<>(this.productoService.create(producto), HttpStatus.CREATED);
 	}
 	
 	@PutMapping
@@ -111,7 +92,6 @@ public class ProductoController {
 		if(!imagenObj.isEmpty()){
 			guardarImagen(producto,imagenObj);
 		}
-//		producto.setTipoProducto(tipoProductoOptional.get());
 		this.productoService.update(producto);
 
 		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
@@ -124,7 +104,6 @@ public class ProductoController {
 		Optional<Producto> productoOptional = Optional.ofNullable(this.productoService.findById(id));
 		if(!productoOptional.isPresent()){
 			throw new ModelNotFoundException("El cliente no fue encontrado");
-			//return ResponseEntity.unprocessableEntity().build();
 		}
 		return ResponseEntity.ok(productoOptional.get());
 	}
@@ -137,7 +116,6 @@ public class ProductoController {
 			return ResponseEntity.unprocessableEntity().build();
 		}
 		this.productoService.delete(id);
-
 		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 		return ResponseEntity.noContent().build();
 	}
@@ -150,17 +128,12 @@ public class ProductoController {
 				System.out.println("Directorio creado");
 			}
 		}
-
 		Path directorioImagenes= Paths.get("src//main//resources//static/images");
-        //Path directorioImagenes2= Paths.get("target//classes//static//images");
 		String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
-        //String rutaAbsoluta2 = directorioImagenes2.toFile().getAbsolutePath();
 		try{
 			byte[] bytesImg = imagenObj.getBytes();
 			Path rutaCompleta = Paths.get(rutaAbsoluta+"//"+imagenObj.getOriginalFilename());
-            //Path rutaCompleta2 = Paths.get(rutaAbsoluta2+"//"+imagenObj.getOriginalFilename());
 			Files.write(rutaCompleta,bytesImg);
-            //Files.write(rutaCompleta2,bytesImg);
 			producto.setImagen(imagenObj.getOriginalFilename());
 		}catch (IOException e){
 			e.printStackTrace();
