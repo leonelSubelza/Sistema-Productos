@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface ITipoProductoService {
 
-    public TipoProducto create(TipoProducto tipoProducto);
+  public TipoProducto create(TipoProducto tipoProducto);
 
-    public TipoProducto update(TipoProducto tipoProducto);
+  public TipoProducto update(TipoProducto tipoProducto);
 
-    public TipoProducto findById(Long id);
+  public TipoProducto findById(Long id);
 
-    public List<TipoProducto> findAll();
+  public List<TipoProducto> findAll();
 
-    public void deleteTipoProd(Long id);
+  public void deleteTipoProd(Long id);
 }

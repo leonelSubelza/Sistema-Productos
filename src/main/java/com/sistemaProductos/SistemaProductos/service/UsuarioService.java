@@ -24,7 +24,7 @@ public class UsuarioService implements IUsuarioService {
     String query = "FROM Usuario";
     TypedQuery<Usuario> query2 = entityManager.createQuery(query, Usuario.class);
     List<Usuario> lista = query2.getResultList();
-        return lista;
+    return lista;
   }
 
   @Override
@@ -53,7 +53,7 @@ public class UsuarioService implements IUsuarioService {
     String passwordHashed = lista.get(0).getPassword();
 
     Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-    if (argon2.verify(passwordHashed, usuario.getPassword())) {
+    if (argon2.verify(passwordHashed, usuario.getPassword().toCharArray())) {
       return lista.get(0);
     }
     return null;

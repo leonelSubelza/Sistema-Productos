@@ -1,13 +1,14 @@
 .carrito{
     position:fixed;
-    top: 10px;
     height: 100vh;
+    max-height: 100vh;
     background-color: #fff;
     width: 350px;
     display: flex;
     flex-direction: column;
     right: -100%;
     transition: 850ms;
+    overflow: auto;
   }
   
   .carrito-show {
@@ -70,6 +71,13 @@
     right: 5px;
     top:20%;
     bottom: 50%;
+}
+
+.carrito-total{
+    display: flex;
+    flex-direction: column;
+    margin: 2% 0;
+    padding:5px
 }
 
 .carrito-total-precio p{

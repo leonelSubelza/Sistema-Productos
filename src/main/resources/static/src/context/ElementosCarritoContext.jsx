@@ -7,12 +7,12 @@ const ElementosCarritoContext = ({ children }) => {
   const [total,setTotal] = useState(0);
 
   const agregarProducto = (prod) => {
-    if(!productosEnCarrito.includes(prod)){
+    //if(!productosEnCarrito.includes(prod)){
       productosEnCarrito.push(prod)
         setProductosEnCarrito(productosEnCarrito)
-    }else{
-        console.log('ya se posee elemento en carrito');
-    }
+    //}else{
+     //   console.log('ya se posee elemento en carrito');
+    //}
     setTotal( (parseInt(total) + parseInt(prod.precio)) );
 } 
 

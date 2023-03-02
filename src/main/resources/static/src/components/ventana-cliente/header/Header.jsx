@@ -54,7 +54,7 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
               <Nav.Link onClick={() => filtrar("FEMENINO", "genero")} className='custom-nav-link' href="#!">mujer</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <p onClick={mostrarCarrito}><BsFillCartFill /></p>
+          <p onClick={mostrarCarrito}>Carrito <BsFillCartFill /></p>
           <Nav.Link className='custom-nav-link ml-auto' href="/login">
             Inicio sesión
           </Nav.Link>

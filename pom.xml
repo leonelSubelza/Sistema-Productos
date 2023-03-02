@@ -18,7 +18,11 @@
 	</properties>
 	
 	<dependencies>
-	
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-test</artifactId>
+    </dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -99,13 +103,11 @@
 			<scope>runtime</scope>
 		</dependency>
 
-
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-websocket</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<build>

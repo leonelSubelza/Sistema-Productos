@@ -30,7 +30,7 @@ function VentanaCliente() {
 
   return (
     <ElementosCarritoContext>
-      <div>
+      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Header
           productos={productos}
           setProductosMostrados={setProductosMostrados}

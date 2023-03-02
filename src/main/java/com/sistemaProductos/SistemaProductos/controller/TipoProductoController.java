@@ -1,7 +1,6 @@
 package com.sistemaProductos.SistemaProductos.controller;
 
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
-import com.sistemaProductos.SistemaProductos.model.Producto;
 import com.sistemaProductos.SistemaProductos.model.TipoProducto;
 import com.sistemaProductos.SistemaProductos.service.ITipoProductoService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -9,8 +9,6 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.TipoProducto;
 import com.sistemaProductos.SistemaProductos.service.ITipoProductoService;
