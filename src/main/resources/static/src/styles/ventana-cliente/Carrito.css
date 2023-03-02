@@ -1,4 +1,4 @@
-.carrito-contenedor{
+.carrito-fondo{
     background-color: #00000047;
     z-index: 29;
     height: 0;
@@ -9,7 +9,7 @@
         transition: opacity ease-out 850ms;
 }
 
-.carrito-contenedor-active{
+.carrito-fondo-active{
     height: 100%;
     width: 100%;
     opacity: 1;    
@@ -33,6 +33,17 @@
     right: 0;
     transition: 450ms;
   }
+
+.carrito::-webkit-scrollbar{
+    width: 7px;
+}
+
+.carrito::-webkit-scrollbar-thumb{
+    
+    /*#212529*/
+    background-color: #7b7b7b;
+    border-radius: 5px;
+}
 
 .carrito-info-titulo{
     display:flex;

@@ -22,9 +22,11 @@ const ElementosCarritoContext = ({ children }) => {
     setTotal(0)
 }
 
-  const quitarProducto = (prodABorrar) => {
-    setProductosEnCarrito(productosEnCarrito.filter(producto => producto.id === prodABorrar.id))
-    setTotal(total-prodABorrar.precio)
+  const quitarProducto = (index,prod) => {
+    delete(productosEnCarrito[index])
+    productosEnCarrito.filter(e => e!==undefined)
+    setProductosEnCarrito(productosEnCarrito)
+    setTotal(total-prod.precio)
 };
 
   return (

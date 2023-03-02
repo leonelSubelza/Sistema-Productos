@@ -42,7 +42,7 @@ const Carrito = () => {
             <p>Género: {prod.genero}</p>
             <p>Tipo producto:{prod.tipoProducto.nombre}</p>
           </div>
-          <p onClick={quitarProducto} className='boton-borrar-producto'><TiDelete /></p>
+          <p onClick={()=>quitarProducto(index,prod)} className='boton-borrar-producto'><TiDelete /></p>
         </div>
       ))}
 
@@ -58,7 +58,7 @@ const Carrito = () => {
        <p className="carrito-vacio">No hay productos en el carrito</p>}
       
     </div>
-    <div className={`carrito-contenedor ${showCarrito ? 'carrito-contenedor-active' : ''}`} onClick={()=>setShowCarrito(false)}></div>
+    <div className={`carrito-fondo ${showCarrito ? 'carrito-fondo-active' : ''}`} onClick={()=>setShowCarrito(false)}></div>
     </>
   );
 };
