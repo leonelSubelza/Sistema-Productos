@@ -36,7 +36,7 @@ export function FuncionesTablaContext({ children }) {
 
       tiposProductos.push(tipoProductoObj);
     });
-    console.log(productosPiolas);
+    //console.log(productosPiolas);
     setTiposProductos(tiposProductos);
     setProductos(productosPiolas);
   };
@@ -53,7 +53,7 @@ export function FuncionesTablaContext({ children }) {
   }
 
   const actualizarTablaGenerica = useCallback(async (direccion) => {  
-    console.log('actualizando tabla');
+    //console.log('actualizando tabla');
     let location = window.location.href;
     setMensajeSpinner("Actualizando Tabla");
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
@@ -100,11 +100,10 @@ export function FuncionesTablaContext({ children }) {
     setShowSpinner(true);
     crearObjeto(direccion,objeto, imagen,method).then(() => {
       if(mensajeSpinner !== 'Actualizando Tabla'){
-        console.log('se guardo en bd, deberia cerrer spinner Guardando en BD');
         setShowSpinner(false);
       }
     })
-    .catch(e => {console.log("Entro al cathc de funcionestablacontext: "+e);setShowSpinner(false)});
+    .catch(e => setShowSpinner(false));
   },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
 
   useEffect(()=>{

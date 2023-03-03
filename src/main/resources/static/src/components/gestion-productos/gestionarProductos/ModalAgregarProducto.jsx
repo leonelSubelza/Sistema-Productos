@@ -85,7 +85,7 @@ export default function ModalAgregarProducto({
     }
     const producto = {
       id: prod !== null ? prod.id : 0,
-      nombre: nombre,
+      nombre: nombre.toUpperCase(),
       descripcion: descripcion,
       imagen: imagenNombre,
       precio: precio,
@@ -97,7 +97,6 @@ export default function ModalAgregarProducto({
     agregarProductoGenerico("productos", producto, imagenFormulario, method)
       .then(() => cerrarModal())
       .catch((e) => {
-        console.log("error al agregar Prod: " + e);
         cerrarModal();
       });
      
