@@ -21,18 +21,18 @@ const Carrito = () => {
   const { productos } = useContext(funcionesContext);
 
   useEffect(() => {
-    let prodActualizados = [];
-    productosEnCarrito.forEach((prod) => {
+    let carritoActualizado = [];
+    productosEnCarrito.forEach((e) => {
       productos.forEach((prodNuevo) => {
-        if (prodNuevo.id === prod.id) {
-          prodActualizados.push(prodNuevo);
+        if (prodNuevo.id === e.producto.id) {
+          carritoActualizado.push({producto: prodNuevo,cantidad:e.cantidad});
         }
       });
     });
     if (
-      JSON.stringify(prodActualizados) !== JSON.stringify(productosEnCarrito)
+      JSON.stringify(carritoActualizado) !== JSON.stringify(productosEnCarrito)
     ) {
-      setProductosEnCarrito(prodActualizados);
+      setProductosEnCarrito(carritoActualizado);
     }
   }, [productos, productosEnCarrito, setProductosEnCarrito]);
 
@@ -45,7 +45,6 @@ const Carrito = () => {
           </p>
           <h1>CARRITO DE COMPRAS</h1>
         </div>
-
         {productosEnCarrito &&
           productosEnCarrito.map((elemento, index) => (
             <div className="contenedor-producto" key={index}>
@@ -82,7 +81,7 @@ const Carrito = () => {
             </div>
           
           ))}
-        {productosEnCarrito.length > 0 ? (
+        {productosEnCarrito.length >= 1 ? (
           <div className="carrito-total">
             <div className="carrito-total-precio">
               <p>Total</p>
