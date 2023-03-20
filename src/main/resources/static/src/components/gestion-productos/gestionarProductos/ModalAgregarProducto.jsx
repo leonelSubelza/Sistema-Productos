@@ -68,34 +68,38 @@ export default function ModalAgregarProducto({
   const agregarProducto = (e, method) => {
     e.preventDefault();
 
-    //#FALTA HACER LA VALIDACION DE CAMPOS CORRECTA
     if (!valoresValidos()) {
       alert("Valores erroneos");
       return;
     }
     //Se busca entre todos los tiposProductos, un tipo producto que tenga el mismo nombre
     let idTipoProd = tiposProductos.find((p) => p.nombre === tipo).id;
-    let imagenPosta = imagen !== "" ? imagen.files[0] : null;
-    console.log('imagen: ');
-    console.log(imagenPosta);
+
+    //Si el metodo es agregar se obtiene la img del form si o si
+    let imagenFormulario = imagen !== "" ? imagen.files[0] : null;
+    let imagenNombre;
+    if(method === 'POST'){
+      imagenNombre = imagen.files[0].name;
+    }else{
+      imagenNombre = imagen === "" ? prod.imagen : imagen.files[0].name;
+    }
     const producto = {
       id: prod !== null ? prod.id : 0,
-      nombre: nombre,
+      nombre: nombre.toUpperCase(),
       descripcion: descripcion,
-      imagen: imagen.name,
+      imagen: imagenNombre,
       precio: precio,
       genero: genero,
       tipoProducto: {
         id: idTipoProd,
       },
     };
-    agregarProductoGenerico("productos", producto, imagenPosta, method)
+    agregarProductoGenerico("productos", producto, imagenFormulario, method)
       .then(() => cerrarModal())
       .catch((e) => {
-        console.log("error al agregar Prod: " + e);
         cerrarModal();
       });
-      
+     
   };
 
   useEffect(() => {
