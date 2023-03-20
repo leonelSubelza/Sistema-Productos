@@ -23,6 +23,7 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
     } else {
       productosFiltrados = productos.filter(producto => producto[tipo].includes(valor));
     }
+    console.log();
     setProductosMostrados(productosFiltrados)
     settotalProductos(productosFiltrados.length)
     setPaginaActual(1);
