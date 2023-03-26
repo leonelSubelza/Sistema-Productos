@@ -67,7 +67,6 @@
   margin-bottom: 0px;
   display: flex;
   flex-direction: column;
-
 }
 
 .card:hover {
@@ -77,7 +76,7 @@
 
 .card-body {
   padding: 1rem 0 !important;
-  height: 40%;
+  height: 100px;
   width: 100%;
 }
 
