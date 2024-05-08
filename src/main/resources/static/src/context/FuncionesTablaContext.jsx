@@ -15,7 +15,7 @@ export function FuncionesTablaContext({ children }) {
   const [productos, setProductos] = useState([]);
   const [tiposProductos, setTiposProductos] = useState([]);
 
-
+  const [sesionIniciada, setSesionIniciada] = useState(false);
 
   //Carga las variables productos y tiposProductos
   const cargarValores = (productosBD) => {
@@ -126,7 +126,8 @@ export function FuncionesTablaContext({ children }) {
         actualizarTablaGenerica,
         borrarProductoGenerico,
         agregarProductoGenerico,
-        cargarValores
+        cargarValores,
+        sesionIniciada, setSesionIniciada
       }}
     >
       <SpinnerLoading />

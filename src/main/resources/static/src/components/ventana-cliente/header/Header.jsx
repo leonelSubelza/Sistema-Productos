@@ -7,9 +7,10 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { BsFillCartFill } from "react-icons/bs";
 import { carritoContext } from '../../../context/ElementosCarritoContext';
+import { useNavigate } from 'react-router';
 
 const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProductos, setPaginaActual }) => {
-
+  const navigate = useNavigate();
   const { setShowCarrito } = useContext(carritoContext);
 
   // filtra genero o tipoProducto
@@ -27,6 +28,10 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
     setProductosMostrados(productosFiltrados)
     settotalProductos(productosFiltrados.length)
     setPaginaActual(1);
+  }
+
+  const handleLoginScreen = () => {
+    navigate("login");
   }
 
   return (
@@ -62,7 +67,7 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
             <p className='carrito-txt' onClick={() => setShowCarrito(true)}>Carrito <BsFillCartFill className='icon-carrito' /></p>
           </div>
 
-          <Nav.Link className='custom-nav-link ml-auto' href="/login">
+          <Nav.Link className='custom-nav-link ml-auto' onClick={handleLoginScreen}>
             Inicio sesión
           </Nav.Link>
         </div>

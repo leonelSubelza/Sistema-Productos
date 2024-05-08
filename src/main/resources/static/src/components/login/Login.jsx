@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import '../../styles/login/Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
 import { iniciarSesion } from '../../service/GestionUsuarios';
+import { funcionesContext } from '../../context/FuncionesTablaContext';
+import { useNavigate } from 'react-router';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const { sesionIniciada, setSesionIniciada } =
+  useContext(funcionesContext);
+  const navigate = useNavigate();
+  
+
   const manejarSesion = () => {
     if (email !== "") {
-      iniciarSesion(email, password)
+      if(iniciarSesion(email, password)){
+        setSesionIniciada(true);
+        console.log("se debería iniciar sesion en true");
+        navigate("/administrador")
+      }
     } else {
       alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
     }

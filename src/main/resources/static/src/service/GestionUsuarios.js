@@ -5,23 +5,51 @@ export async function iniciarSesion(email, password) {
   datos.email = email;
   datos.password = password;
 
-  const request = await fetch(URL + '/api/login', {
+  fetch(URL + '/auth/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(datos)
+  })
+  .then(response => {
+    // Verificar si la respuesta es exitosa (código de estado 200)
+    if (response.ok) {
+      // Procesar la respuesta JSON
+      return response.json();
+    } else {
+      // Si la respuesta no es exitosa, lanzar un error con el mensaje de error
+      throw new Error('Error al iniciar sesión');
+    }
+  })
+  .then(data => {
+    console.log(data); // Aquí puedes hacer lo que necesites con los datos
+    // window.location.href = '/administrador'; // Redirigir a la página de dashboard después del inicio de sesión exitoso
+    return true;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    return false;
   });
 
-  const respuesta = await request.text();
-  console.log("respuesta: " + respuesta);
-  if (respuesta !== 'FAIL') {
-    localStorage.token = respuesta;
-    localStorage.email = datos.email;
-    window.location.href = '/administrador'
-  } else {
-    alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
-  }
+  // const request = await fetch(URL + '/api/login', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json',
+  //     'Content-Type': 'application/json'
+  //   },
+  //   body: JSON.stringify(datos)
+  // });
+
+  // const respuesta = await request.text();
+  // console.log("respuesta: " + respuesta);
+  // if (respuesta !== 'FAIL') {
+  //   localStorage.token = respuesta;
+  //   localStorage.email = datos.email;
+  //   window.location.href = '/administrador'
+  // } else {
+  //   alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
+  // }
 
 }
