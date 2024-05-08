@@ -1,16 +1,11 @@
 import React, { useContext } from 'react';
 import logo from "../../../img/TiendaHumilde-logo.png";
 import '../../../styles/ventana-cliente/header.css';
-
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { BsFillCartFill } from "react-icons/bs";
-import { carritoContext } from '../../../context/ElementosCarritoContext';
 
 const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProductos, setPaginaActual }) => {
-
-  const { setShowCarrito } = useContext(carritoContext);
 
   // filtra genero o tipoProducto
   const filtrar = (valor, tipo = "genero") => {
@@ -58,9 +53,6 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
               <Nav.Link onClick={() => filtrar("FEMENINO", "genero")} className='custom-nav-link' href="#!">mujer</Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <div>
-            <p className='carrito-txt' onClick={() => setShowCarrito(true)}>Carrito <BsFillCartFill className='icon-carrito' /></p>
-          </div>
 
           <Nav.Link className='custom-nav-link ml-auto' href="/login">
             Inicio sesión

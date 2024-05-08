@@ -1,11 +1,7 @@
 import React, { useContext } from "react";
 import "../../../styles/ventana-cliente/articulo.css";
-import Button from "react-bootstrap/Button";
-import { carritoContext } from "../../../context/ElementosCarritoContext";
 
 const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,producto }) => {
-  const {agregarProducto,setShowCarrito} = useContext(carritoContext);
-
 
   const cargarAnimacion = (e) => {
     let divProd = e.target.closest('.card.text-center.bg-ligth');
@@ -15,11 +11,6 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
     },1500)
   }
 
-  const manejarClick = (e) => {
-    agregarProducto(producto);
-    setShowCarrito(true);
-    cargarAnimacion(e)
-  }
   return (
     <div className="card text-center bg-ligth">
       <div className="overflow">
@@ -36,7 +27,6 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
           {precio ? precio : "Sin precio"}
         </p>
       </div>
-      <Button variant="dark" onClick={(e)=> manejarClick(e)}>AÑADIR AL CARRITO</Button>
     </div>
   );
 };

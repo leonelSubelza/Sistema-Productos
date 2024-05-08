@@ -50,10 +50,3 @@ function Articulos({ productosMostrados, totalProductos, productosPorPagina, pag
 }
 
 export default Articulos;
-/**
- * () => {
-                        const img = prod.imagen === 'null' ?  '' : `${URLImagenes}${prod.imagen}?timestamp=${window.timestamp}`;
-                        return img
-                      }
- * 
- */

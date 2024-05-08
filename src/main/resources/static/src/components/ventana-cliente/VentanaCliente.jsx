@@ -3,8 +3,6 @@ import Header from "./header/Header";
 import Contenido from "./contenido/Contenido";
 import Footer from "./footer/Footer";
 import { funcionesContext } from "../../context/FuncionesTablaContext";
-import Carrito from './carrito/Carrito';
-import ElementosCarritoContext from "../../context/ElementosCarritoContext";
 
 function VentanaCliente() {
   const { productos, tiposProductos } = useContext(funcionesContext);
@@ -23,7 +21,6 @@ function VentanaCliente() {
   }, [productos]);
 
   return (
-    <ElementosCarritoContext>
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
         <Header
           productos={productos}
@@ -44,9 +41,8 @@ function VentanaCliente() {
           setPaginaActual={setPaginaActual}
         />
         <Footer />
-        <Carrito />
+
       </div>
-    </ElementosCarritoContext>
   );
 }
 
