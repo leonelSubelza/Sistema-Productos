@@ -3,6 +3,8 @@ package com.sistemaProductos.SistemaProductos.service;
 import java.util.List;
 
 import com.sistemaProductos.SistemaProductos.model.Producto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface IProductoService {
 
@@ -12,7 +14,7 @@ public interface IProductoService {
 	
 	public Producto findById(Integer id);
 	
-	public List<Producto> findAll();
+	public Page<Producto> findAll(Pageable pageable);
 	
 	public void delete(Integer id);
 	

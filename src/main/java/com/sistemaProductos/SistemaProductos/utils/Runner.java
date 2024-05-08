@@ -21,7 +21,8 @@ import org.springframework.core.io.Resource;
 
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-
+//public class Runner{}
+/*
 @Component
 public class Runner implements CommandLineRunner {
 
@@ -99,4 +100,4 @@ public class Runner implements CommandLineRunner {
     }
 
   }
-}
+}*/

@@ -4,7 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import javax.validation.constraints.NotNull;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "productos")
 public class Producto {
@@ -34,60 +42,4 @@ public class Producto {
   @JoinColumn(name = "idTipoProducto")
   @JsonProperty(access = Access.WRITE_ONLY)
   private TipoProducto tipoProducto;
-
-  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public String getDescripcion() {
-    return descripcion;
-  }
-
-  public void setDescripcion(String descripcion) {
-    this.descripcion = descripcion;
-  }
-
-  public String getImagen() {
-    return imagen;
-  }
-
-  public void setImagen(String imagen) {
-    this.imagen = imagen;
-  }
-
-  public String getPrecio() {
-    return precio;
-  }
-
-  public void setPrecio(String precio) {
-    this.precio = precio;
-  }
-
-  public TipoProducto getTipoProducto() {
-    return tipoProducto;
-  }
-
-  public void setTipoProducto(TipoProducto tipoProducto) {
-    this.tipoProducto = tipoProducto;
-  }
-
-  public String getGenero() {
-    return genero;
-  }
-
-  public void setGenero(String genero) {
-    this.genero = genero;
-  }
 }

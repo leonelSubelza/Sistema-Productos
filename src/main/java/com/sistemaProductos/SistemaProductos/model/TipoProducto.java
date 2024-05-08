@@ -4,7 +4,15 @@ import java.util.List;
 
 // import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tiposProductos")
 public class TipoProducto {
@@ -26,28 +34,4 @@ public class TipoProducto {
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "tipoProducto", cascade = CascadeType.ALL)
   List<Producto> productos;// Este atributo no se cargará en la bd, pero servirá para obtener todos los
                            // prod asociados
-
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public List<Producto> getProductos() {
-    return productos;
-  }
-
-  public void setProductos(List<Producto> productos) {
-    this.productos = productos;
-  }
 }
