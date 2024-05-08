@@ -5,11 +5,12 @@ import com.sistemaProductos.SistemaProductos.model.Usuario;
 import java.util.List;
 
 public interface IUsuarioService {
-    List<Usuario> getUsuarios();
+    public List<Usuario> getUsuarios();
 
-    void eliminar(Long id);
+    public void eliminar(Long id);
 
-    void registrar(Usuario usuario);
+    public Usuario registrar(Usuario usuario);
 
-    Usuario obtenerUsuarioPorCredenciales(Usuario usuario);
+    public Usuario obtenerPorId(Long id);
+    public Usuario getUsuario(Usuario usuario);
 }
