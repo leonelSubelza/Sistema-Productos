@@ -18,10 +18,13 @@ function PantallaGestionTipoProducto() {
   },[])
 
   return (
-    <div className='contenedor-pantalla-productos'>
-      <Navbar />
-      <TablaTipoProducto />
-    </div>
+    <>{sesionIniciada && 
+        <div className='contenedor-pantalla-productos'>
+          <Navbar />
+          <TablaTipoProducto />
+        </div>
+      }
+    </>
   )
 }
 

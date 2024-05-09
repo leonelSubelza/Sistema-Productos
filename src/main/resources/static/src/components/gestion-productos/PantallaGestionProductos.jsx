@@ -20,9 +20,12 @@ export default function PantallaGestionProductos() {
   },[])
 
   return (
-    <div className="contenedor-pantalla-productos">
-      <Navbar />
-      <TablaProductos />
-    </div>
+    <>{sesionIniciada && 
+      <div className="contenedor-pantalla-productos">
+        <Navbar />
+        <TablaProductos />
+      </div>
+    }
+    </>
   );
 }

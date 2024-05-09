@@ -12,10 +12,10 @@ function App() {
 
         <Routes>
           <Route exact path="/" element={<VentanaCliente />} />
-          <Route
+          {/* <Route
             path="/gestion-productos/*"
             element={<PantallaGestionProductos />}
-          />
+          /> */}
           <Route path='*' element={<VentanaCliente />} />
         </Routes>
 
