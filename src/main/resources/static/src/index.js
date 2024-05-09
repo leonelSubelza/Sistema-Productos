@@ -6,9 +6,11 @@ import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import VentanaCliente from './components/ventana-cliente/VentanaCliente';
 
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
-import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
-import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos';
+// import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
+// import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos';
+import PantallaAdministrador from './components/administrador/PantallaAdministrador';
 import Login from './components/login/Login';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (
@@ -27,12 +29,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/administrador",
-        element: <PantallaGestionProductos />,
+        element: <PantallaAdministrador />,
       },
-      {
-        path: "/administrador/tablaTipoProductos",
-        element: <PantallaGestionTipoProducto />,
-      },
+      // {
+      //   path: "/administrador",
+      //   element: <PantallaGestionProductos />,
+      // },
+      // {
+      //   path: "/administrador/tablaTipoProductos",
+      //   element: <PantallaGestionTipoProducto />,
+      // },
       {
         path: "/login",
         element: <Login />,
@@ -43,7 +49,8 @@ const router = createBrowserRouter([
 root.render(
   <React.StrictMode>
     <FuncionesTablaContext>
-      <RouterProvider router={router} />
+      {/* <RouterProvider router={router} /> */}
+      <App />
     </FuncionesTablaContext>
   </React.StrictMode>
 );

@@ -1,8 +1,8 @@
 import React, { useState,useCallback, useEffect } from "react";
 import { cargarObjetos, borrarObjeto,crearObjeto } from "../service/GestionProductos";
 
-import SpinnerLoading from "../components/gestion-productos/SpinnerLoading";
-import MensajeToast from "../components/gestion-productos/MensajeToast";
+import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
+import MensajeToast from "../components/utils/MensajeToast.jsx";
 
 import WebSocket from '../service/WebSocket.js';
 export const funcionesContext = React.createContext();

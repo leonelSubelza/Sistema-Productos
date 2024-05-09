@@ -1,6 +1,12 @@
 .contenedor-tabla{
     margin: 2% auto;
     background-color: white;
+    width: 100%;
+    display: none;
+}
+
+.contenedor-tabla.show {
+    display: block;
 }
 
 .contenedor-titulo-tabla{

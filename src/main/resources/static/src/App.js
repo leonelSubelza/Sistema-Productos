@@ -1,28 +1,25 @@
 import "./App.css";
-import PantallaGestionProductos from "./components/gestion-productos/PantallaGestionProductos";
+// import PantallaGestionProductos from "./components/gestion-productos/PantallaGestionProductos";
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import VentanaCliente from "./components/ventana-cliente/VentanaCliente";
 
 import { BrowserRouter as Router, Route, Switch, Routes } from "react-router-dom";
+import PantallaAdministrador from "./components/administrador/PantallaAdministrador";
+import Login from "./components/login/Login";
 
 function App() {
   return (
-    <div className="padre">
-      <FuncionesTablaContext>
-
-        <Routes>
-          <Route exact path="/" element={<VentanaCliente />} />
-          {/* <Route
-            path="/gestion-productos/*"
-            element={<PantallaGestionProductos />}
-          /> */}
-          <Route path='*' element={<VentanaCliente />} />
-        </Routes>
-
-      </FuncionesTablaContext>
-      {/* <PantallaGestionProductos /> */}
-    </div>
-  );
+      <Router>
+        <FuncionesTablaContext>
+          <Routes>
+            <Route exact path="/" element={<VentanaCliente />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/administrador/*" element={<PantallaAdministrador />} />
+            <Route path='*' element={<VentanaCliente />} />
+          </Routes>
+        </FuncionesTablaContext>
+      </Router>
+    );
 }
 
 export default App;

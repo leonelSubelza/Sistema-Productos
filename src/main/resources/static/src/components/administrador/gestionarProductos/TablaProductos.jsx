@@ -16,7 +16,7 @@ import { AiOutlineNumber } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
 import PaginadorProductos from "./PaginadorProductos";
 
-const TablaTipoProducto = () => {
+const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,productos,tiposProductos } =
     useContext(funcionesContext);
 
@@ -61,7 +61,7 @@ const TablaTipoProducto = () => {
 
   return (
     <>
-      <Container className="contenedor-tabla">
+      <Container className={`contenedor-tabla ${show && 'show'}`}>
         <div className="contenedor-titulo-tabla">
           <GiClothes style={{ height: "100%", width: "4rem" }} />
           <div className="titulo-tabla">

@@ -28,7 +28,7 @@ function Login() {
   }
 
   const volverInicio = () => {
-    window.location.href = '/'
+    navigate("/")
   }
 
 

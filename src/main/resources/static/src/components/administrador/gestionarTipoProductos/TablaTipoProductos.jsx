@@ -16,7 +16,7 @@ import { AiOutlineNumber } from "react-icons/ai";
 import { MdLabelImportant } from "react-icons/md";
 import PaginadorTipoProductos from "./PaginadorTipoProductos";
 
-const TablaTipoProducto = () => {
+const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,tiposProductos } =
     useContext(funcionesContext);
 
@@ -62,7 +62,7 @@ const TablaTipoProducto = () => {
 
   return (
     <>
-      <Container className="contenedor-tabla">
+      <Container className={`contenedor-tabla ${show && 'show'}`}>
         <div className="contenedor-titulo-tabla">
           <MdLabelImportant
             style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}
