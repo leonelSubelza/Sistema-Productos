@@ -1,66 +1,61 @@
 package com.sistemaProductos.SistemaProductos.service;
 
-import com.sistemaProductos.SistemaProductos.model.Usuario;
-import com.sistemaProductos.SistemaProductos.repository.IUsuarioRepository;
+import com.sistemaProductos.SistemaProductos.model.User;
+import com.sistemaProductos.SistemaProductos.repository.IUserRepository;
 import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.ws.rs.NotFoundException;
 import java.util.List;
 
 @Service
-public class UsuarioService implements IUsuarioService {
+public class UserService implements IUserService {
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private IUserRepository userRepository;
 
     @Override
-    public List<Usuario> getUsuarios() {
-        return this.usuarioRepository.findAll();
+    public List<User> findAll() {
+        return this.userRepository.findAll();
     }
 
     @Override
-    public void eliminar(Long id) {
-        Usuario topic = this.usuarioRepository.findById(id)
+    public void deleteById(Long id) {
+        User topic = this.userRepository.findById(id)
                 .orElseThrow(()-> new NotFoundException("El usuario que se desea eliminar no existe"));
-        this.usuarioRepository.deleteById(id);
+        this.userRepository.deleteById(id);
     }
 
     @Override
-    public Usuario registrar(Usuario usuario) {
+    public User save(User user) {
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String passwordEncripted = argon2.hash(
-                1, 1024, 1, usuario.getPassword().toCharArray());
-        usuario.setPassword(passwordEncripted);
-        return this.usuarioRepository.save(usuario);
+                1, 1024, 1, user.getPassword().toCharArray());
+        user.setPassword(passwordEncripted);
+        return this.userRepository.save(user);
     }
 
     @Override
-    public Usuario obtenerPorId(Long id) {
-        return this.usuarioRepository.findById(id).orElseThrow(
+    public User getById(Long id) {
+        return this.userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("El usuario con id "+id+" no existe"));
     }
 
     @Override
-    public Usuario getUsuario(Usuario usuario) {
-        Usuario usuarioEncontrado = this.usuarioRepository.findUsuarioByEmail(usuario.getEmail());
-        System.out.println("usuario encontrado: "+usuarioEncontrado);
-        if(!usuarioEncontrado.getPassword().equals(usuarioEncontrado.getPassword())){
+    public User getUser(User user) {
+        User userFounded = this.userRepository.findUserByEmail(user.getEmail());
+        System.out.println("usuario encontrado: "+userFounded);
+        if(!userFounded.getPassword().equals(userFounded.getPassword())){
             throw new NotFoundException("El usuario solicitado no existe");
         }
-        String passwordHashed = usuarioEncontrado.getPassword();
+        String passwordHashed = userFounded.getPassword();
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
-        if (!argon2.verify(passwordHashed, usuario.getPassword().toCharArray())) {
+        if (!argon2.verify(passwordHashed, user.getPassword().toCharArray())) {
             throw new NotFoundException("El usuario solicitado no existe");
         }
-        return usuarioEncontrado;
+        return userFounded;
     }
 
 /*  @PersistenceContext

@@ -1,26 +1,5 @@
 package com.sistemaProductos.SistemaProductos.utils;
 
-import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.stereotype.Component;
-
-import com.sistemaProductos.SistemaProductos.controller.ProductoController;
-import com.sistemaProductos.SistemaProductos.model.Producto;
-import com.sistemaProductos.SistemaProductos.model.TipoProducto;
-import com.sistemaProductos.SistemaProductos.model.Usuario;
-import com.sistemaProductos.SistemaProductos.service.TipoProductoService;
-import com.sistemaProductos.SistemaProductos.service.UsuarioService;
-import org.springframework.core.io.Resource;
-
-import de.mkammerer.argon2.Argon2;
-import de.mkammerer.argon2.Argon2Factory;
 //public class Runner{}
 /*
 @Component

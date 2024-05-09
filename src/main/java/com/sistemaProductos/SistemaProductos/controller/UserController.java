@@ -3,8 +3,8 @@ package com.sistemaProductos.SistemaProductos.controller;
 import java.net.URI;
 import java.util.List;
 
-import com.sistemaProductos.SistemaProductos.model.Usuario;
-import com.sistemaProductos.SistemaProductos.service.UsuarioService;
+import com.sistemaProductos.SistemaProductos.model.User;
+import com.sistemaProductos.SistemaProductos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,34 +16,34 @@ import org.springframework.web.util.UriComponentsBuilder;
 // indicamos que es una clase controlador
 @RestController
 @RequestMapping("/api/usuarios")
-public class UsuarioController {
+public class UserController {
 
   @Autowired
-  private UsuarioService usuarioService;
+  private UserService userService;
 
   @GetMapping
-  public ResponseEntity<List<Usuario>> getUsuarios() {
-    return ResponseEntity.ok().body(usuarioService.getUsuarios());
+  public ResponseEntity<List<User>> findAll() {
+    return ResponseEntity.ok().body(userService.findAll());
   }
 
   @PostMapping
-  public ResponseEntity<Usuario> registrar(@RequestBody Usuario usuario,
-                                                  UriComponentsBuilder uriComponentsBuilder) {
-    Usuario response = this.usuarioService.registrar(usuario);
+  public ResponseEntity<User> save(@RequestBody User usuario,
+                                   UriComponentsBuilder uriComponentsBuilder) {
+    User response = this.userService.save(usuario);
     //esta URL irá asociada en el encabezado de respuesta location
     URI url = uriComponentsBuilder.path("/topico/{id}").buildAndExpand(response.getId()).toUri();
     return ResponseEntity.created(url).body(response);
   }
 
   @DeleteMapping
-  public ResponseEntity<String> eliminar(@PathVariable(value = "id") Long id) {
-    this.usuarioService.eliminar(id);
+  public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
+    this.userService.deleteById(id);
     return new ResponseEntity<>("Autor eliminado con éxito", HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<Usuario> getById(@PathVariable(value = "id") Long id){
-    return ResponseEntity.ok(this.usuarioService.obtenerPorId(id));
+  public ResponseEntity<User> getById(@PathVariable(value = "id") Long id){
+    return ResponseEntity.ok(this.userService.getById(id));
   }
 
 }
