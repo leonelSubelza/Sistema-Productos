@@ -1,10 +1,11 @@
 import React, { useState,useCallback, useEffect } from "react";
-import { cargarObjetos, borrarObjeto,crearObjeto } from "../service/GestionProductos";
+import { cargarObjetosConPaginacion, borrarObjeto,crearObjeto, cargarTodosLosObjetos } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
 import MensajeToast from "../components/utils/MensajeToast.jsx";
 
 import WebSocket from '../service/WebSocket.js';
+import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 export const funcionesContext = React.createContext();
 
 export function FuncionesTablaContext({ children }) {
@@ -17,7 +18,18 @@ export function FuncionesTablaContext({ children }) {
 
   const [sesionIniciada, setSesionIniciada] = useState(false);
 
+  //Paginacion
+  const [cantPaginasPorProducto, setCantPaginasPorProducto] = useState(0)
+
+    //Toast
+    const [toast, setToast] = useState({
+      show: false,
+      msjBody: "",
+      color: "#dc1717",
+    });
   //Carga las variables productos y tiposProductos
+
+  /*
   const cargarValores = (productosBD) => {
     let productosPiolas = [];
     let tiposProductos = [];
@@ -30,49 +42,119 @@ export function FuncionesTablaContext({ children }) {
 
       tipoProd.productos.forEach((prod) => {
         prod.tipoProducto = tipoProductoObj;
-
         productosPiolas.push(prod);
       });
 
       tiposProductos.push(tipoProductoObj);
     });
-    //console.log(productosPiolas);
     setTiposProductos(tiposProductos);
     setProductos(productosPiolas);
   };
+  */
 
-  //Toast
-  const [toast, setToast] = useState({
-    show: false,
-    msjBody: "",
-    color: "#dc1717",
-  });
-
-  const manejarMsjRecibido=(payload)=>{
-    actualizarTablaGenerica('tiposProductos')
+  const getTipoProducto = (id,tiposProduct) => {
+    return tiposProduct.find(tipoProd => tipoProd.id === id);
   }
 
-  const actualizarTablaGenerica = useCallback(async (direccion) => {  
-    //console.log('actualizando tabla');
+  //A cada objeto se le asigna su objeto tipoProducto correspondiente
+  const cargarTipoProductoAProductos = (productosBD,tiposProduct) => {
+    if(productosBD === undefined || tiposProduct === undefined ||
+      productosBD.length === 0 || tiposProduct.length === 0){ 
+      return
+    };
+    let productosAux = [];
+    productosBD.forEach(prod => {
+      prod.tipoProducto = getTipoProducto(prod.productTypeId,tiposProduct);
+      productosAux.push(prod);
+    })
+    return productosAux;
+  }
+
+  //msj recibido del ws que dice qué actualizar
+  const manejarMsjRecibido=(payload)=>{
+    // actualizarTablaGenerica('tiposProductos')
+    actualizarValores();
+  }
+
+  //Al actualizar los tipoProduct también se actualizan los productos asociados a los tipoProducto
+  const actualizarTipoProductos = async () => {
+    //Cargamos todos los tipoProductos
     let location = window.location.href;
     setMensajeSpinner("Actualizando Tabla");
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
       setShowSpinner(true);
     }
-    
-    cargarObjetos(direccion)
+    try{
+      const response = await cargarTodosLosObjetos("tiposProductos");
+      setShowSpinner(false);
+      setTiposProductos(response);
+      cargarTipoProductoAProductos(productos,response);
+      return response;
+    } catch(e){
+      setShowSpinner(false);
+      console.error("Error al actualizar tipo productos:", e);
+      setToast({
+        show: true,
+        msjBody: "Error conectando al servidor",
+        color: "#dc1717",
+      });
+    }
+    // cargarTodosLosObjetos("tiposProductos")
+    // .then((response) => {
+    //   setShowSpinner(false);
+    //   setTiposProductos(response);
+    //   console.log("prodObtenidos");
+    //   console.log(response);
+    //   return response;
+    // })
+    // .catch(() => {
+    //   setShowSpinner(false);
+    //   console.log("callo act tipo prod");
+    //   setToast({
+    //     show: true,
+    //     msjBody: "Error contectando al servidor",
+    //     color: "#dc1717",
+    //   });
+    // })
+  }
+
+  const actualizarProductos = async (direccion,page,size, tiposProductos) => {
+    let location = window.location.href;
+    setMensajeSpinner("Actualizando Tabla");
+    if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
+      setShowSpinner(true);
+    }
+    //Cargamos algunos productos
+    cargarObjetosConPaginacion(direccion,page,size)
       .then((response) => {
         setShowSpinner(false);
-        cargarValores(response);
+        let productosCargados = cargarTipoProductoAProductos(response.content,tiposProductos);
+        setCantPaginasPorProducto(response.totalPages);
+        setProductos(productosCargados);
+        return productosCargados;
       })
-      .catch(() => {
+      .catch((e) => {
         setShowSpinner(false);
+        console.log("callo act prod: "+e);
         setToast({
           show: true,
-          msjBody: "Error contectando a la BD",
+          msjBody: "Error contectando al servidor",
           color: "#dc1717",
         });
       });
+  }
+
+  const actualizarValores = useCallback(async () => {  
+    try{
+      const tiposProductos = await actualizarTipoProductos();
+      const productos = await actualizarProductos(
+          "productos",
+          0,administradorCantObjPorTabla,
+          tiposProductos);
+    }catch(e){
+      console.log(e);
+    }
+    
   }, [setMensajeSpinner, setShowSpinner, setToast]);
 
   const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
@@ -107,8 +189,8 @@ export function FuncionesTablaContext({ children }) {
   },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
 
   useEffect(()=>{
-    actualizarTablaGenerica('tiposProductos');
-  },[actualizarTablaGenerica])
+    actualizarValores();
+  },[])
 
   return (
     <funcionesContext.Provider
@@ -123,11 +205,14 @@ export function FuncionesTablaContext({ children }) {
         setMensajeSpinner,
         toast,
         setToast,
-        actualizarTablaGenerica,
+        // actualizarTablaGenerica,
         borrarProductoGenerico,
         agregarProductoGenerico,
-        cargarValores,
-        sesionIniciada, setSesionIniciada
+        actualizarTipoProductos,
+        actualizarProductos,
+        actualizarValores,
+        sesionIniciada, setSesionIniciada,
+        cantPaginasPorProducto
       }}
     >
       <SpinnerLoading />

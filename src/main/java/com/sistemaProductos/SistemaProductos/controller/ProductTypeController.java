@@ -4,6 +4,9 @@ import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
 import com.sistemaProductos.SistemaProductos.service.IProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -22,9 +25,18 @@ public class ProductTypeController {
   @Autowired
   private SimpMessagingTemplate simpMessagingTemplate;
 
+  @GetMapping("/paginated")
+  public ResponseEntity<Page<ProductType>> findAll(
+          @RequestParam(defaultValue = "0") int page,
+          @RequestParam(defaultValue = "2") int size
+  ) {
+    Pageable pageable = PageRequest.of(page, size);
+    return new ResponseEntity<>(this.productTypeService.findAll(pageable), HttpStatus.OK);
+  }
+
   @GetMapping
-  public ResponseEntity<List<ProductType>> findAll() {
-    return new ResponseEntity<>(this.productTypeService.findAll(), HttpStatus.OK);
+  public ResponseEntity<List<ProductType>> readAll() {
+    return new ResponseEntity<>(this.productTypeService.readAll(), HttpStatus.OK);
   }
 
   @PutMapping

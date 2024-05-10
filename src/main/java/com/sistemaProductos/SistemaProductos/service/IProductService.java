@@ -1,5 +1,6 @@
 package com.sistemaProductos.SistemaProductos.service;
 
+import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
 import com.sistemaProductos.SistemaProductos.model.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +17,7 @@ public interface IProductService {
 	
 	public Product findById(Long id);
 	
-	public Page<Product> findAll(Pageable pageable);
+	public Page<ProductResponseDTO> findAll(Pageable pageable);
 	
 	public void delete(Long id);
 	

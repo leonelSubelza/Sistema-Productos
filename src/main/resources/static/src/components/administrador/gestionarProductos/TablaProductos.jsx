@@ -15,21 +15,23 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
 import PaginadorProductos from "./PaginadorProductos";
+import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 
 const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,productos,tiposProductos } =
+  const { borrarProductoGenerico,productos,tiposProductos,cantPaginasPorProducto,actualizarProductos, } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
   // Variables de paginacion
-  const [listaProductos, setListaProductos] = useState([]);
-  const [totalProductos, settotalProductos] = useState(listaProductos.length);
+  // const [listaProductos, setListaProductos] = useState([]);
+  // const [totalProductos, settotalProductos] = useState(listaProductos.length);
   // let totalProductos = listaProductos.length;
-  const [productosPorPagina] = useState(5);
-  const [paginaActual, setpaginaActual] = useState(1);
-  const ultimoIndex = paginaActual * productosPorPagina;
-  const primerIndex = ultimoIndex - productosPorPagina;
+  // const [productosPorPagina] = useState(5);
+  const [paginaActual, setPaginaActual] = useState(1);
+  // const ultimoIndex = paginaActual * productosPorPagina;
+  // const primerIndex = ultimoIndex - productosPorPagina;
+
 
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
@@ -54,10 +56,20 @@ const TablaTipoProducto = ({show}) => {
     setShowModalAgregar(true);
   };
 
+  //Paginacion
+  const handlePaginaNueva = (nPagina) => {
+    if(nPagina>=1){
+      actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
+    }else{
+      actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos)
+    }
+    setPaginaActual(nPagina);
+  }
+
   useEffect(() => {
-    settotalProductos(productos.length)
-    setpaginaActual(1)
-  }, [productos]);
+    // settotalProductos(productos.length)
+    setPaginaActual(1)
+  },[]);
 
   return (
     <>
@@ -91,10 +103,10 @@ const TablaTipoProducto = ({show}) => {
                   <AiOutlineNumber />
                 </th>
                 <th>Nombre</th>
-                <th>Descripcion</th>
+                <th>Descripción</th>
                 <th>Precio</th>
                 <th>Tipo</th>
-                <th>Genero</th>
+                <th>Género</th>
                 <th>Imágen</th>
                 <th>Acciones</th>
               </tr>
@@ -130,18 +142,20 @@ const TablaTipoProducto = ({show}) => {
                         </Button>
                       </td>
                     </tr>
-                  )).slice(primerIndex, ultimoIndex)
+                  ))
                   }
             </tbody>
           </Table>
         </div>
       </Container>
 
-      <PaginadorProductos
-        productosPorPagina={productosPorPagina}
-        paginaActual={paginaActual}
-        setpaginaActual={setpaginaActual}
-        totalProductos={totalProductos}
+       <PaginadorProductos
+           setPaginaAnterior={handlePaginaNueva}
+           setPaginaSiguiente={handlePaginaNueva}
+           setPaginaActual={handlePaginaNueva}
+           numeroTotalDePaginas={cantPaginasPorProducto}
+           paginaActual={paginaActual}
+           show={show}
       />
 
       <ModalAgregarProducto

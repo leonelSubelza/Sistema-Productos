@@ -3,6 +3,7 @@ package com.sistemaProductos.SistemaProductos.controller;
 import java.net.URI;
 import java.util.Optional;
 
+import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class ProductController {
 	private SimpMessagingTemplate simpMessagingTemplate;
 
 	@GetMapping
-	public ResponseEntity<Page<Product>> findAll(
+	public ResponseEntity<Page<ProductResponseDTO>> findAll(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "2") int size
 	){

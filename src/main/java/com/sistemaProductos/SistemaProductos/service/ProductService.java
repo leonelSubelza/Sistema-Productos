@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +57,18 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Page<Product> findAll(Pageable pageable) {
-		return productRepo.findAll(pageable);
+	public Page<ProductResponseDTO> findAll(Pageable pageable) {
+		Page<Product> listProducts= productRepo.findAll(pageable);
+		return listProducts.map(product -> ProductResponseDTO
+				.builder()
+				.id(product.getId())
+				.nombre(product.getNombre())
+				.descripcion(product.getDescripcion())
+				.imagen(product.getImagen())
+				.precio(product.getPrecio())
+				.genero(product.getGenero())
+				.productTypeId(product.getTipoProducto().getId())
+				.build());
 	}
 
 	@Override

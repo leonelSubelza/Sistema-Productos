@@ -4,6 +4,8 @@ import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
 import com.sistemaProductos.SistemaProductos.repository.IProductTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +37,12 @@ public class ProductTypeService implements IProductTypeService {
   }
 
   @Override
-  public List<ProductType> findAll() {
+  public Page<ProductType> findAll(Pageable pageable) {
+    return this.productTypeRepository.findAll(pageable);
+  }
+
+  @Override
+  public List<ProductType> readAll() {
     return this.productTypeRepository.findAll();
   }
 

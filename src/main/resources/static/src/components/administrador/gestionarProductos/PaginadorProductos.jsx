@@ -1,36 +1,51 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
-function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual, totalProductos }) {
-  const numeroPaginas = [];
+// function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual, totalProductos }) {
+function PaginadorProductos({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
+                              numeroTotalDePaginas, paginaActual, show}) {
+  // const numeroPaginas = [];
 
   // relleno el numero de paginas que se mostraran
-  for (let i = 1; i <= Math.ceil(totalProductos / productosPorPagina); i++) {
+/*  for (let i = 1; i <= Math.ceil(totalProductos / productosPorPagina); i++) {
     numeroPaginas.push(i)
   }
-
+*/
   const onSiguientePagina = () => {
-    setpaginaActual(paginaActual + 1);
+    return setPaginaSiguiente(paginaActual + 1);
   }
   const onAnteriorPagina = () => {
-    setpaginaActual(paginaActual - 1);
+    return setPaginaAnterior(paginaActual - 1);
   }
 
   const onEspecificarPagina = (num) => {
-    setpaginaActual(num);
+    return setPaginaActual(num);
   }
+
   return (
     <nav aria-label="Page navigation">
-      <ul className="pagination">
-        <li className={`page-item`} disabled><button onClick={onAnteriorPagina} disabled={paginaActual === 1} className="page-link">Anterior</button></li>
-        {numeroPaginas.map(nPagina => (
-          <li onClick={() => onEspecificarPagina(nPagina)} key={nPagina} className={`page-item ${nPagina === paginaActual ? 'active' : ''}`}>
+      <ul className={`pagination ${show && 'show'}`}>
+        <li className={`page-item`} disabled>
+          <button onClick={()=>onAnteriorPagina()} disabled={paginaActual === 1} className="page-link">
+            Anterior
+          </button>
+        </li>
+        {/*Creo un array dado un número*/}
+        {Array.from({ length: numeroTotalDePaginas }, (_, index) => index + 1)
+          .map(nPagina => (
+          <li
+              key={nPagina}
+              onClick={()=>onEspecificarPagina(nPagina)}
+              className={`page-item ${nPagina === paginaActual ? 'active' : ''}`}>
             <button className={`page-link`}>{nPagina}</button>
           </li>
         ))}
-        <li className="page-item"><button onClick={onSiguientePagina} disabled={paginaActual >= numeroPaginas.length} className="page-link">Siguiente</button></li>
+        <li className="page-item">
+          <button onClick={()=>onSiguientePagina()} disabled={paginaActual >= numeroTotalDePaginas} className="page-link">
+            Siguiente
+          </button>
+        </li>
       </ul>
     </nav>
   )
 }
-
 export default PaginadorProductos

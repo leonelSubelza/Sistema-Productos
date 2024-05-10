@@ -15,17 +15,19 @@ import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 import { MdLabelImportant } from "react-icons/md";
 import PaginadorTipoProductos from "./PaginadorTipoProductos";
+import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
+import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 
 const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,tiposProductos } =
+  const { borrarProductoGenerico,tiposProductos,actualizarTipoProductos } =
     useContext(funcionesContext);
 
   //variables de paginacion
-  const [totalTipoProductos, setTotalTiposProductos] = useState(tiposProductos.length);
-  const [tipoProductosPorPagina] = useState(5);
-  const [paginaActual, setpaginaActual] = useState(1);
-  const ultimoIndex = paginaActual * tipoProductosPorPagina;
-  const primerIndex = ultimoIndex - tipoProductosPorPagina;
+  // const [totalTipoProductos, setTotalTiposProductos] = useState(tiposProductos.length);
+  // const [tipoProductosPorPagina] = useState(5);
+  const [paginaActual, setPaginaActual] = useState(1);
+  // const ultimoIndex = paginaActual * tipoProductosPorPagina;
+  // const primerIndex = ultimoIndex - tipoProductosPorPagina;
 
   //modal
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -55,10 +57,15 @@ const TablaTipoProducto = ({show}) => {
     borrarProductoGenerico("tiposProductos", prod.id);
   };
 
-  useEffect(() => {
+  const handlePaginaNueva = (nPagina) => {
+    actualizarTipoProductos()
+    setPaginaActual(nPagina);
+  }
+
+/*  useEffect(() => {
     setTotalTiposProductos(tiposProductos.length);
     setpaginaActual(1)
-  }, [tiposProductos]);  
+  }, [tiposProductos]);*/
 
   return (
     <>
@@ -123,17 +130,19 @@ const TablaTipoProducto = ({show}) => {
                       </td>
                     </tr>
                   ))
-                  .slice(primerIndex, ultimoIndex)}
+              }
             </tbody>
           </Table>
         </div>
       </Container>
 
-      <PaginadorTipoProductos
-        tipoProductosPorPagina={tipoProductosPorPagina}
-        paginaActual={paginaActual}
-        setpaginaActual={setpaginaActual}
-        totalTipoProductos={totalTipoProductos}
+      <PaginadorProductos
+          setPaginaAnterior={handlePaginaNueva}
+          setPaginaSiguiente={handlePaginaNueva}
+          setPaginaActual={handlePaginaNueva}
+          numeroTotalDePaginas={0}
+          paginaActual={paginaActual}
+          show={show}
       />
 
       <ModalAgregarTipoProducto

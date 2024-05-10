@@ -1,14 +1,13 @@
 import { URL } from "./Configuracion";
 
-//GET
-export const cargarObjetos = async (direccion) => {
+//GET retorna un listado de prod dada una pag y una cantidad
+export const cargarObjetosConPaginacion = async (direccion,page,size) => {
   try {
-    const request = await fetch(URL + "/" + direccion, {
+    const request = await fetch(URL + "/" + direccion+"?page="+page+"&size="+size, {
       method: "GET",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Authorization: localStorage.token,
       },
     });
 
@@ -18,6 +17,24 @@ export const cargarObjetos = async (direccion) => {
     throw error;
   }
 };
+
+export const cargarTodosLosObjetos = async (direccion) => {
+  try {
+    const request = await fetch(URL + "/" + direccion, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    let prod = await request.json();
+    return prod;
+  } catch (error) {
+    throw error;
+  }
+};
+
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
 export const crearObjeto = async (direccion, obj, imagen, metodo) => {
@@ -71,7 +88,3 @@ export const borrarObjeto = async (direccion, id) => {
     console.log(error);
   }
 };
-
-export const iniciarSesion = async () => {
-
-}
