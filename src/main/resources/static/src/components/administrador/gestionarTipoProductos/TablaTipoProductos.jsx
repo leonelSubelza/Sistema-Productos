@@ -17,7 +17,7 @@ import { MdLabelImportant } from "react-icons/md";
 // import PaginadorTipoProductos from "./PaginadorTipoProductos";
 // import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
-import TablaAdministrador from "../TablaAdministrador";
+import TablaAdministrador from "../../utils/TablaAdministrador";
 import {GiClothes} from "react-icons/gi";
 
 const TablaTipoProducto = ({show}) => {
@@ -81,7 +81,6 @@ const TablaTipoProducto = ({show}) => {
 
   return (
     <>
-
       <TablaAdministrador
         show={show}
         titleIcon={<MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}/>}

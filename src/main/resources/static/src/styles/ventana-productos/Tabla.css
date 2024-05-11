@@ -57,7 +57,12 @@
     background: #060b26;
     color: white;
     font-size: 15px;
+    width: 5%;
     /*border-bottom: 2px solid #787878;*/
+}
+
+.table th:first-of-type, .table th:last-of-type {
+    width: 1%;
 }
 
 .titulo-tabla{
@@ -67,6 +72,11 @@
 .table-data{
     word-break: break-word;
     font-size: 15px;
+    width: 5%;
+}
+
+.table-data:first-of-type, .table-data:last-of-type {
+    width: 1%;
 }
 
 .table-data-buttons-container{
@@ -83,3 +93,11 @@
     height: auto;
 }
 
+@media screen and (max-width: 768px) {
+    .titulo-tabla h1{
+        font-size: 18px;
+    }
+    .titulo-tabla p, .boton-agregar{
+        font-size: 14px;
+    }
+}

@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+
 // Los controllers sirven para manejar las direcciones de URL
 
 // indicamos que es una clase controlador
@@ -27,7 +29,7 @@ public class UserController {
   }
 
   @PostMapping
-  public ResponseEntity<User> save(@RequestBody User usuario,
+  public ResponseEntity<User> save(@Valid @RequestBody User usuario,
                                    UriComponentsBuilder uriComponentsBuilder) {
     User response = this.userService.save(usuario);
     //esta URL irá asociada en el encabezado de respuesta location

@@ -36,7 +36,7 @@ const ModalAgregarTipoProducto = ({
   const valoresValidos = () => {
     let errores = {};
     //Debe escribir un texto entre 1 y 100 caracteres
-    if(!(/^[a-zA-Z\s]{1,100}$/.test(nombre))){
+    if(!(/^[a-zA-Z\s]{1,100}$/.test(nombre)) && nombre.length<=50){
       errores.nombre = 'Debe escribir un nombre'
     }
     setErrors(errores)
@@ -84,7 +84,13 @@ const ModalAgregarTipoProducto = ({
               placeholder="Escriba el nombre del producto"
               autoComplete="off"
               value={nombre}
-              onChange={(ev) => setNombre(ev.target.value)}
+              onChange={(ev) => {
+                const { value } = ev.target;
+                if(value.length>50){
+                  return;
+                }
+                setNombre(ev.target.value);
+              }}
               type="text"
             />
             {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}

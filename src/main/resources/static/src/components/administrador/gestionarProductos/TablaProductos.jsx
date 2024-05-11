@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from "react";
 
 import { funcionesContext } from "../../../context/FuncionesTablaContext";
 
-import { Table, Button, Container } from "reactstrap";
-
 import ModalAgregarProducto from "./ModalAgregarProducto";
 
 import "../../../styles/ventana-productos/Tabla.css";
@@ -14,9 +12,10 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";*/
 import { GiClothes } from "react-icons/gi";
-import PaginadorProductos from "./PaginadorProductos";
+import PaginadorProductos from "../../utils/Paginador";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
-import TablaAdministrador from "../TablaAdministrador";
+import TablaAdministrador from "../../utils/TablaAdministrador";
+import Paginador from "../../utils/Paginador";
 
 const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,
@@ -26,16 +25,6 @@ const TablaTipoProducto = ({show}) => {
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
-
-  // Variables de paginacion
-  // const [listaProductos, setListaProductos] = useState([]);
-  // const [totalProductos, settotalProductos] = useState(listaProductos.length);
-  // let totalProductos = listaProductos.length;
-  // const [productosPorPagina] = useState(5);
-  // const [paginaActual, setPaginaActual] = useState(1);
-  // const ultimoIndex = paginaActual * productosPorPagina;
-  // const primerIndex = ultimoIndex - productosPorPagina;
-
 
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
@@ -107,7 +96,7 @@ const TablaTipoProducto = ({show}) => {
           objectTD={getTableData}
       />
 
-       <PaginadorProductos
+       <Paginador
            setPaginaAnterior={handlePaginaNueva}
            setPaginaSiguiente={handlePaginaNueva}
            setPaginaActual={handlePaginaNueva}

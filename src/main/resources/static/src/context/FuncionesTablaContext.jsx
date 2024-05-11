@@ -117,9 +117,8 @@ export function FuncionesTablaContext({ children }) {
     setShowSpinner(true);
     borrarObjeto(direccion, idEntidad)
         .then(() => {
-          if(mensajeSpinner !== 'Actualizando Tabla'){
-            setShowSpinner(false);
-          }
+          setShowSpinner(false);
+          actualizarValores();
         })
         .catch((error) => {
           console.log(error)
@@ -144,6 +143,11 @@ export function FuncionesTablaContext({ children }) {
     }catch(e){
       console.log("error en agregarProductoGenerico: "+e)
       setShowSpinner(false)
+      setToast({
+        show: true,
+        msjBody: "Se ha producido un error al agregar",
+        color: "#dc1717",
+      });
     }
   };
 

@@ -48,12 +48,12 @@ export default function ModalAgregarProducto({
     return cerrarVentana();
   };
 
-  const valoresValidos = () => {
+  const sonValoresValidos = () => {
     let errores = {};
-    if(!/^[a-zA-Z\s]{1,140}$/.test(nombre)){
+    if(!/^[a-zA-Z\s]{1,140}$/.test(nombre) && nombre.length<=50){
       errores.nombre = 'El nombre es incorrecto'
     }
-    if(!/^[0-9]{1,220}$/.test(parseInt(precio))){
+    if(!/^[0-9]{1,220}$/.test(parseInt(precio)) && precio.length<=100){
       errores.precio = 'El valor de precio es incorrecto';
     }
     if(tipo === 'Sin seleccionar'){
@@ -70,7 +70,7 @@ export default function ModalAgregarProducto({
   const agregarProducto = (e, method) => {
     e.preventDefault();
 
-    if (!valoresValidos()) {
+    if (!sonValoresValidos()) {
       alert("Valores erroneos");
       return;
     }
@@ -85,6 +85,8 @@ export default function ModalAgregarProducto({
     }else{
       imagenNombre = imagen === "" ? prod.imagen : imagen.files[0].name;
     }
+
+    let productoTipoId = (prod === null) ? tipo : prod.tipoProducto.id;
     const producto = {
       id: prod !== null ? prod.id : 0,
       nombre: nombre.toUpperCase(),
@@ -92,10 +94,7 @@ export default function ModalAgregarProducto({
       imagen: imagenNombre,
       precio: precio,
       genero: genero,
-      // tipoProducto: {
-      //   id: idTipoProd,
-      // },
-      productTypeId:prod.tipoProducto.id
+      productTypeId: productoTipoId
     };
     agregarProductoGenerico("productos", producto, imagenFormulario, method)
       .then(() => {
@@ -119,9 +118,10 @@ export default function ModalAgregarProducto({
     } else {
       setNombre(prod.nombre);
       setDescripcion(prod.descripcion);
-      setTipo(prod.tipoProducto.nombre);
+      setTipo(prod.tipoProducto.id);
       setPrecio(prod.precio);
       setGenero(prod.genero);
+      setImagen(prod.imagen)
     }
   }, [prod]);
 
@@ -143,7 +143,13 @@ export default function ModalAgregarProducto({
               placeholder="Escriba el nombre del producto"
               autoComplete="off"
               value={nombre}
-              onChange={(ev) => setNombre(ev.target.value)}
+              onChange={(ev) => {
+                const { value } = ev.target;
+                if(value.length>50){
+                  return;
+                }
+                setNombre(value)
+              }}
               type="text"
             />
             {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
@@ -159,7 +165,13 @@ export default function ModalAgregarProducto({
               placeholder="Escriba una descripcion para el prod"
               autoComplete="off"
               value={descripcion}
-              onChange={(ev) => setDescripcion(ev.target.value)}
+              onChange={(ev) => {
+                const { value } = ev.target;
+                if(value.length>100){
+                  return;
+                }
+                setDescripcion(ev.target.value)
+              }}
               type="text"
             />
           </FormGroup>
@@ -184,7 +196,13 @@ export default function ModalAgregarProducto({
               placeholder="Escriba el precio del producto"
               autoComplete="off"
               value={precio}
-              onChange={(ev) => setPrecio(ev.target.value)}
+              onChange={(ev) => {
+                const { value } = ev.target;
+                if(value.length>100){
+                  return;
+                }
+                setPrecio(ev.target.value)
+              }}
             />
           {errors.precio && <Alert key="danger" variant="danger" className="p-1">{errors.precio}</Alert>}
           </FormGroup>
@@ -196,11 +214,14 @@ export default function ModalAgregarProducto({
               className="form-control"
               name="tipo"
               value={tipo}
-              onChange={(ev) => setTipo(ev.target.value)}
+              onChange={(ev) => {
+                const {value} = ev.target;
+                setTipo(value);
+              }}
             >
               <option>Sin seleccionar</option>
               {tiposProductos.map((prod, i) => (
-                <option key={i} value={prod.nombre}>
+                <option key={i} value={prod.id} selected={tipo===prod.id}>
                   {prod.nombre}
                 </option>
               ))}

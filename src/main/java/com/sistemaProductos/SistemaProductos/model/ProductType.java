@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Size;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -24,6 +26,7 @@ public class ProductType {
   private Long id;
 
   @Column(name = "nombre", nullable = false, length = 150)
+  @Size(max=50, message = "Nombre of TypeProduct is too large")
   private String nombre;
 
   // FetchType.LAZY = La peticion se hará de tipo lazy para consumir menos

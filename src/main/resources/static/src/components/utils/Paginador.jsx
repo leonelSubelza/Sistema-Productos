@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 
 // function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual, totalProductos }) {
-function PaginadorProductos({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
+function Paginador({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
                               numeroTotalDePaginas, paginaActual, show}) {
   // const numeroPaginas = [];
 
@@ -48,4 +48,4 @@ function PaginadorProductos({ setPaginaAnterior, setPaginaSiguiente, setPaginaAc
     </nav>
   )
 }
-export default PaginadorProductos
+export default Paginador;
