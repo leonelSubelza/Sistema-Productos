@@ -11,9 +11,9 @@ import java.util.Optional;
 
 public interface IProductService {
 
-	public Product create(Product product, Long productTypeId, Optional<MultipartFile> imageObj);
+	public Product create(ProductResponseDTO product, Optional<MultipartFile> imageObj);
 	
-	public Product update(Product product, Long productTypeId, Optional<MultipartFile> imageObj);
+	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj);
 	
 	public Product findById(Long id);
 	

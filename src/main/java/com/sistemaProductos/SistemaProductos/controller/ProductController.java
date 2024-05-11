@@ -45,11 +45,11 @@ public class ProductController {
 	//no puede ser null
 	@PostMapping
 	public ResponseEntity<Product> create(
-			@Valid @ModelAttribute Product product,
-			@RequestParam("tipoProducto.id") Long productTypeId,
+			@Valid @ModelAttribute ProductResponseDTO product,
+//			@RequestParam("tipoProducto.id") Long productTypeId,
 			@RequestParam("imagenObj") Optional<MultipartFile> imageObj
 	){
-		Product productSaved = this.productService.create(product,productTypeId,imageObj);
+		Product productSaved = this.productService.create(product,imageObj);
 		//Se guarda la ubicacion en la que se guarda el nuevo producto, ej: http://localhost:8080/123
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(productSaved.getId()).toUri();
@@ -62,11 +62,10 @@ public class ProductController {
 	
 	@PutMapping
 	public ResponseEntity<Object> update(
-			@Valid @ModelAttribute Product product,
-			@RequestParam("tipoProducto.id") Long productTypeId,
+			@Valid @ModelAttribute ProductResponseDTO product,
 			@RequestParam("imagenObj") Optional<MultipartFile> imageObj
 	) {
-		this.productService.update(product,productTypeId, imageObj);
+		this.productService.update(product, imageObj);
 
 		simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
 

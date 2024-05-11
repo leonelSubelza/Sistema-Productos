@@ -9,16 +9,17 @@ import ModalAgregarProducto from "./ModalAgregarProducto";
 import "../../../styles/ventana-productos/Tabla.css";
 
 //Iconos
-import { IoAddCircleOutline } from "react-icons/io5";
+/*import { IoAddCircleOutline } from "react-icons/io5";
 import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
-import { AiOutlineNumber } from "react-icons/ai";
+import { AiOutlineNumber } from "react-icons/ai";*/
 import { GiClothes } from "react-icons/gi";
 import PaginadorProductos from "./PaginadorProductos";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
+import TablaAdministrador from "../TablaAdministrador";
 
 const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,productos,tiposProductos,cantPaginasPorProducto,actualizarProductos, } =
+  const { borrarProductoGenerico,productos,setProductos,tiposProductos,cantPaginasPorProducto,actualizarProductos, } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -49,9 +50,9 @@ const TablaTipoProducto = ({show}) => {
   const borrarProducto = (prod) => {
     borrarProductoGenerico("productos", prod.id);
   };
-  const editarProducto = (prod, tipoProd) => {
+  const editarProducto = (prod) => {
     setEsAgregar(false);
-    prod.tipoProd = tipoProd; //Se agrega a la fuerza el obj tipoProd para mostrar
+    // prod.tipoProd = tipoProd; //Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
     setShowModalAgregar(true);
   };
@@ -66,13 +67,32 @@ const TablaTipoProducto = ({show}) => {
     setPaginaActual(nPagina);
   }
 
+  const getTableData = (prod) => {
+    return(<>
+          <td>{prod.id}</td>
+          <td>{prod.nombre}</td>
+          <td>{prod.descripcion}</td>
+          <td style={{ color: "green" }}>$ {prod.precio}</td>
+          <td>{prod.tipoProducto.nombre}</td>
+          <td>{prod.genero}</td>
+          <td>{prod.imagen}</td>
+        </>
+    )
+  }
+
   useEffect(() => {
     // settotalProductos(productos.length)
     setPaginaActual(1)
   },[]);
 
-  return (
+    useEffect(() => {
+        console.log("se detecto cambio prod en TablaProductos")
+        console.log(productos)
+    },[productos,setProductos]);
+
+    return (
     <>
+      {/*
       <Container className={`contenedor-tabla ${show && 'show'}`}>
         <div className="contenedor-titulo-tabla">
           <GiClothes style={{ height: "100%", width: "4rem" }} />
@@ -148,6 +168,21 @@ const TablaTipoProducto = ({show}) => {
           </Table>
         </div>
       </Container>
+      */}
+      <TablaAdministrador
+          show={show}
+          titleIcon={<GiClothes style={{ height: "100%", width: "4rem" }} />}
+          title={"Gestion de Productos"}
+          description={"Listado de los productos cargados en el sistema"}
+          addObject={agregarProd}
+          editObject={editarProducto}
+          removeObject={borrarProducto}
+          textButtonAdd={"Agregar Producto"}
+          columnNames={["Nombre","Descripción","Precio","Tipo","Género","Imágen","Acciones"]}
+          objects={productos}
+          objectTD={getTableData}
+      />
+
 
        <PaginadorProductos
            setPaginaAnterior={handlePaginaNueva}

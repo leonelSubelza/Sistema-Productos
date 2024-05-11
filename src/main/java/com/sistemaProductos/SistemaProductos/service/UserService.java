@@ -46,7 +46,6 @@ public class UserService implements IUserService {
     @Override
     public User getUser(User user) {
         User userFounded = this.userRepository.findUserByEmail(user.getEmail());
-        System.out.println("usuario encontrado: "+userFounded);
         if(!userFounded.getPassword().equals(userFounded.getPassword())){
             throw new NotFoundException("El usuario solicitado no existe");
         }

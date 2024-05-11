@@ -72,7 +72,6 @@ export function FuncionesTablaContext({ children }) {
 
   //msj recibido del ws que dice qué actualizar
   const manejarMsjRecibido=(payload)=>{
-    // actualizarTablaGenerica('tiposProductos')
     actualizarValores();
   }
 
@@ -83,12 +82,13 @@ export function FuncionesTablaContext({ children }) {
     setMensajeSpinner("Actualizando Tabla");
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
       setShowSpinner(true);
+      setMensajeSpinner("Actualizando Tabla");
     }
     try{
       const response = await cargarTodosLosObjetos("tiposProductos");
       setShowSpinner(false);
       setTiposProductos(response);
-      cargarTipoProductoAProductos(productos,response);
+      // cargarTipoProductoAProductos(productos,response);
       return response;
     } catch(e){
       setShowSpinner(false);
@@ -120,31 +120,47 @@ export function FuncionesTablaContext({ children }) {
 
   const actualizarProductos = async (direccion,page,size, tiposProductos) => {
     let location = window.location.href;
-    setMensajeSpinner("Actualizando Tabla");
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
+      setMensajeSpinner("Actualizando Tabla");
       setShowSpinner(true);
     }
     //Cargamos algunos productos
-    cargarObjetosConPaginacion(direccion,page,size)
-      .then((response) => {
-        setShowSpinner(false);
-        let productosCargados = cargarTipoProductoAProductos(response.content,tiposProductos);
-        setCantPaginasPorProducto(response.totalPages);
-        setProductos(productosCargados);
-        return productosCargados;
-      })
-      .catch((e) => {
-        setShowSpinner(false);
-        console.log("callo act prod: "+e);
-        setToast({
-          show: true,
-          msjBody: "Error contectando al servidor",
-          color: "#dc1717",
-        });
-      });
+      try{
+          const response = await cargarObjetosConPaginacion(direccion,page,size);
+          setShowSpinner(false);
+          const productosCargados = cargarTipoProductoAProductos(response.content,tiposProductos);
+          setCantPaginasPorProducto(response.totalPages);
+          setProductos(productosCargados);
+          console.log("se cargan los productos:")
+          console.log(productosCargados);
+          return productosCargados;
+      }catch(e) {
+          setShowSpinner(false);
+          console.log("callo act prod: "+e);
+          setToast({
+              show: true,
+              msjBody: "Error contectando al servidor",
+              color: "#dc1717",
+          });
+      }
   }
 
-  const actualizarValores = useCallback(async () => {  
+  const actualizarValores = async () => {
+    try{
+      console.log("se deberían actualizar valores")
+      const tiposProductosAux = await actualizarTipoProductos();
+      const productosAux = await actualizarProductos(
+          "productos",
+          0,
+          administradorCantObjPorTabla,
+          tiposProductosAux);
+      setProductos(productosAux)
+    }catch(e){
+      console.log(e);
+    }
+
+  };
+/*  const actualizarValores = useCallback(async () => {
     try{
       const tiposProductos = await actualizarTipoProductos();
       const productos = await actualizarProductos(
@@ -155,9 +171,29 @@ export function FuncionesTablaContext({ children }) {
       console.log(e);
     }
     
-  }, [setMensajeSpinner, setShowSpinner, setToast]);
+  }, [setMensajeSpinner, setShowSpinner, setToast]);*/
 
-  const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
+
+  const borrarProductoGenerico = async (direccion, idEntidad) => {
+    setMensajeSpinner("Borrando de DB");
+    setShowSpinner(true);
+    borrarObjeto(direccion, idEntidad)
+        .then(() => {
+          if(mensajeSpinner !== 'Actualizando Tabla'){
+            setShowSpinner(false);
+          }
+        })
+        .catch((error) => {
+          console.log(error)
+          setShowSpinner(false);
+          setToast({
+            show: true,
+            msjBody: "Se ha producido un error al borrar",
+            color: "#dc1717",
+          });
+        });
+  }
+/*  const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
     borrarObjeto(direccion, idEntidad)
@@ -174,19 +210,44 @@ export function FuncionesTablaContext({ children }) {
           color: "#dc1717",
         });
       });
-  }, [setMensajeSpinner, setShowSpinner, setToast,mensajeSpinner]);
+  }, [setMensajeSpinner, setShowSpinner, setToast,mensajeSpinner]);*/
 
-  
-  const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
+  const agregarProductoGenerico = async (direccion,objeto,imagen,method) => {
     setMensajeSpinner("Guardando en DB");
     setShowSpinner(true);
-    crearObjeto(direccion,objeto, imagen,method).then(() => {
+    try{
+      await crearObjeto(direccion,objeto, imagen,method)
+      // if(mensajeSpinner !== 'Actualizando Tabla'){
+      setShowSpinner(false);
+      // }
+    }catch(e){
+      console.log("error en agregarProductoGenerico: "+e)
+      setShowSpinner(false)
+    }
+  };
+/*  const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
+    // setMensajeSpinner("Guardando en DB");
+    // setShowSpinner(true);
+    // crearObjeto(direccion,objeto, imagen,method).then(() => {
+    //   if(mensajeSpinner !== 'Actualizando Tabla'){
+    //     setShowSpinner(false);
+    //   }
+    // })
+    // .catch(e => setShowSpinner(false));
+    setMensajeSpinner("Guardando en DB");
+    setShowSpinner(true);
+    console.log("ejecutando agregarProductoGenerico")
+    try{
+      await crearObjeto(direccion,objeto, imagen,method)
+      console.log("terminó de ejecutar crearObjeto")
       if(mensajeSpinner !== 'Actualizando Tabla'){
         setShowSpinner(false);
       }
-    })
-    .catch(e => setShowSpinner(false));
-  },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);
+    }catch(e){
+      console.log("error en agregarProductoGenerico: "+e)
+      setShowSpinner(false)
+    }
+  },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);*/
 
   useEffect(()=>{
     actualizarValores();

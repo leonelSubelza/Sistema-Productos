@@ -25,5 +25,4 @@ public class ProductResponseDTO {
     private String precio;
     private String genero;
     private Long productTypeId;
-
 }

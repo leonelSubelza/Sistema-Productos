@@ -11,6 +11,8 @@ import {
 
 import Alert from "react-bootstrap/Alert";
 
+// import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
+
 export default function ModalAgregarProducto({
   mostrarVentana,
   cerrarVentana,
@@ -73,7 +75,7 @@ export default function ModalAgregarProducto({
       return;
     }
     //Se busca entre todos los tiposProductos, un tipo producto que tenga el mismo nombre
-    let idTipoProd = tiposProductos.find((p) => p.nombre === tipo).id;
+    // let idTipoProd = tiposProductos.find((p) => p.nombre === tipo).id;
 
     //Si el metodo es agregar se obtiene la img del form si o si
     let imagenFormulario = imagen !== "" ? imagen.files[0] : null;
@@ -90,16 +92,20 @@ export default function ModalAgregarProducto({
       imagen: imagenNombre,
       precio: precio,
       genero: genero,
-      tipoProducto: {
-        id: idTipoProd,
-      },
+      // tipoProducto: {
+      //   id: idTipoProd,
+      // },
+      productTypeId:prod.tipoProducto.id
     };
     agregarProductoGenerico("productos", producto, imagenFormulario, method)
-      .then(() => cerrarModal())
+      .then(() => {
+        console.log("se recibio una respuesta")
+        cerrarModal()
+      })
       .catch((e) => {
+        console.log(e)
         cerrarModal();
       });
-     
   };
 
   useEffect(() => {

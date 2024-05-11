@@ -48,7 +48,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       formData.append("imagen", obj.imagen);
       formData.append("precio", obj.precio);
       formData.append("genero", obj.genero);
-      formData.append("tipoProducto.id", obj.tipoProducto.id);
+      formData.append("productTypeId", obj.productTypeId);
     }
     if (direccion === "tiposProductos") {
       formData.append("id", obj.id);
@@ -56,19 +56,17 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
     }
 
     formData.append("imagenObj", imagen);
-
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
       body: formData,
-      headers: {
-        Authorization: localStorage.token,
-      },
     });
     if (metodo === "POST") {
       let prod = await request.json();
       return prod;
     }
+    return;
   } catch (error) {
+    console.log(error)
     throw error;
   }
 };

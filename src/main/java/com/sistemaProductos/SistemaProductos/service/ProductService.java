@@ -29,25 +29,27 @@ public class ProductService implements IProductService {
 	private IProductTypeService productTypeService;
 
 	@Override
-	public Product create(Product product, Long productTypeId, Optional<MultipartFile> imageObj) {
-		ProductType tipoProducto = this.productTypeService.findById(productTypeId);
-		product.setTipoProducto(tipoProducto);
-        imageObj.ifPresent(multipartFile -> saveImage(product, multipartFile));
-		return this.productRepo.save(product);
+	public Product create(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
+		ProductType tipoProducto = this.productTypeService.findById(product.getProductTypeId());
+		Product productToSave = mapProductResponseDTOToProduct(product,tipoProducto);
+        imageObj.ifPresent(multipartFile -> saveImage(productToSave, multipartFile));
+		return this.productRepo.save(productToSave);
 	}
 
 	@Override
-	public Product update(Product product,Long productTypeId, Optional<MultipartFile> imageObj) {
+	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
 		Product productSaved = this.productRepo.findById(product.getId())
 				.orElseThrow(() -> new ModelNotFoundException("El producto que se intenta actualizar no existe"));
 
-		productSaved.setTipoProducto(this.productTypeService.findById(productTypeId));
-		if(imageObj.isPresent()){
-			saveImage(productSaved,imageObj.get());
-		}else{
-			productSaved.setImagen(product.getImagen());
-		}
-		return this.productRepo.save(productSaved);
+		ProductType productTypeSaved = this.productTypeService.findById(product.getProductTypeId());
+		System.out.println("producto a actualizar:");
+		System.out.println(product);
+		Product productToSave = mapProductResponseDTOToProduct(product,productTypeSaved);
+
+		productToSave.setId(productSaved.getId());
+        imageObj.ifPresent(multipartFile -> saveImage(productSaved, multipartFile));
+
+		return this.productRepo.save(productToSave);
 	}
 
 	@Override
@@ -98,5 +100,16 @@ public class ProductService implements IProductService {
 		}catch (IOException e){
 			e.printStackTrace();
 		}
+	}
+
+	public Product mapProductResponseDTOToProduct(ProductResponseDTO productResponseDTO,ProductType productType){
+		return Product.builder()
+				.nombre(productResponseDTO.getNombre())
+				.descripcion(productResponseDTO.getDescripcion())
+				.imagen(productResponseDTO.getImagen())
+				.precio(productResponseDTO.getPrecio())
+				.genero(productResponseDTO.getGenero())
+				.tipoProducto(productType)
+				.build();
 	}
 }
