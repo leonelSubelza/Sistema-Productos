@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import logo from "../../../img/TiendaHumilde-logo.png";
+// import logo from "../../../img/TiendaHumilde-logo.png";
 import '../../../styles/ventana-cliente/header.css';
 
 import Nav from 'react-bootstrap/Nav';
@@ -32,11 +32,11 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
   return (
     <header className='header'>
 
-      <div className='cabecera'>
+      {/* <div className='cabecera'>
         <div onClick={() => { filtrar("") }} className='logo'>
           <a href="/#!"><img src={logo} alt="Logo" /></a>
         </div>
-      </div>
+      </div> */}
 
       <Navbar bg="light" className='custom-navbar navbar-header-cliente' expand="md">
         <div className='container-fluid' style={{ background: "white" }}>
@@ -44,7 +44,7 @@ const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProd
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto div-a-centrar">
-              <Nav.Link onClick={() => filtrar("")} className='custom-nav-link' href="#!">inicio</Nav.Link>
+              <Nav.Link onClick={() => filtrar("")} className='custom-nav-link' href="#!">Restaurar</Nav.Link>
 
               <NavDropdown className='custom-nav-link' title="productos" id="basic-nav-dropdown">
 

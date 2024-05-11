@@ -5,6 +5,7 @@ import Footer from "./footer/Footer";
 import { funcionesContext } from "../../context/FuncionesTablaContext";
 import Carrito from './carrito/Carrito';
 import ElementosCarritoContext from "../../context/ElementosCarritoContext";
+import Inicio from "./inicio/Inicio";
 
 function VentanaCliente() {
   const { productos, tiposProductos } = useContext(funcionesContext);
@@ -25,6 +26,7 @@ function VentanaCliente() {
   return (
     <ElementosCarritoContext>
       <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+        <Inicio/>
         <Header
           productos={productos}
           setProductosMostrados={setProductosMostrados}
