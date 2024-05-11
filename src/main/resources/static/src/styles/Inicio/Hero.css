@@ -1,0 +1,37 @@
+.hero-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    margin: auto;
+}
+
+.hero-text{
+    width: 60%;
+    padding: 100px;
+}
+.hero-text h1{
+    font-size: 80px;
+}
+
+.hero-text p{
+    font-size: 20px;
+}
+
+
+.hero-text button{
+    background-color: #6BA488;
+    padding: 10px 40px;
+    color: white;
+    border: transparent;
+}
+
+.hero-text button:hover{
+    background-color: #4A7F4C;
+}
+
+.hero-section img{
+    width: 40%;
+    height: auto;
+}

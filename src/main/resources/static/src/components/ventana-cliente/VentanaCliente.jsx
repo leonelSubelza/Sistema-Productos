@@ -25,7 +25,7 @@ function VentanaCliente() {
 
   return (
     <ElementosCarritoContext>
-      <div style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      <div style={{display: 'flex', flexDirection: 'column' }}>
         <Inicio/>
         <Header
           productos={productos}
