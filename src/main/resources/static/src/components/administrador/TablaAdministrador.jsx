@@ -6,6 +6,8 @@ import { AiOutlineNumber } from "react-icons/ai";
 import { GiClothes } from "react-icons/gi";
 import {useEffect, useState} from "react";
 
+import '../../styles/ventana-productos/Tabla.css'
+
 const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObject,removeObject,
                             textButtonAdd, columnNames, objects,objectTD}) => {
 
@@ -26,69 +28,72 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
     }
 
   return (
-      <Container className={`contenedor-tabla ${show && 'show'}`}>
-          <div className="contenedor-titulo-tabla">
-              {/*<GiClothes style={{ height: "100%", width: "4rem" }} />*/}
-              {titleIcon}
-              <div className="titulo-tabla">
-                  <h1>{title}</h1>
-                  <p>{description}</p>
-              </div>
-          </div>
-          <br />
-          <Button
-              color="success"
-              onClick={()=>handleAddButton()}
-              style={{ display: "flex" }}
-          >
-              {`${textButtonAdd} `}
-              <IoAddCircleOutline
-                  style={{ width: "25px", height: "25px", margin: "0 0 0 5px" }}
-              />
-          </Button>
-          <br />
-          <br />
-          <div style={{ overflow: "auto", height: "340px" }}>
-              <Table>
-                  <thead style={{ background: "#e5e5e5" }}>
-                  <tr>
-                      <th>
-                          <AiOutlineNumber />
-                      </th>
-                      {columnNames.map((name) => (
-                          <th>{name}</th>
-                      ))}
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {
-                      objects && objects
-                          .map((obj, index) => (
-                              <tr key={index}>
-                                {getTableData(obj)}
-                                  <td>
-                                      <Button
-                                          color="primary"
-                                          onClick={() =>
-                                              handleEditObject(obj)
-                                          }
-                                      >
-                                          <AiFillEdit />
-                                      </Button>{" "}
-                                      <Button
-                                          color="danger"
-                                          onClick={() => handleRemoveObject(obj)}
-                                      >
-                                          <BsTrash />
-                                      </Button>
-                                  </td>
-                              </tr>
-                          ))
-                  }
-                  </tbody>
-              </Table>
-          </div>
-      </Container>
+    <Container className={`contenedor-tabla ${show && 'show'}`}>
+      <div className="contenedor-titulo-tabla">
+        {/*<GiClothes style={{ height: "100%", width: "4rem" }} />*/}
+        {titleIcon}
+        <div className="titulo-tabla">
+          <h1>{title}</h1>
+          <p>{description}</p>
+        </div>
+      </div>
+      <Button
+        color="success"
+        className={"boton-agregar"}
+        onClick={() => handleAddButton()}
+        style={{display: "flex"}}
+      >
+        {`${textButtonAdd} `}
+        <IoAddCircleOutline
+          style={{width: "25px", height: "25px", margin: "0 0 0 5px"}}
+        />
+      </Button>
+      <div className={"contenedor-table"}>
+        <Table>
+          <thead>
+          <tr>
+            <th>
+              <AiOutlineNumber/>
+            </th>
+            {columnNames.map((name) => (
+              <th>{name}</th>
+            ))}
+          </tr>
+          </thead>
+          <tbody>
+          {
+            objects && objects
+              .map((obj, index) => (
+                <tr key={index}>
+                  {getTableData(obj)}
+                  <td className={"table-data"}>
+                    <div className={"table-data-buttons-container"}>
+                      <button
+                        style={{color: "blue"}}
+                        className={"table-data-button"}
+                        onClick={() =>
+                          handleEditObject(obj)
+                        }
+                      >
+                        <AiFillEdit/>
+                      </button>{" "}
+                      <button
+                        className={"table-data-button"}
+                        style={{color: "red"}}
+                        color="danger"
+                        onClick={() => handleRemoveObject(obj)}
+                      >
+                        <BsTrash/>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+          }
+          </tbody>
+        </Table>
+      </div>
+    </Container>
   );
 }
 export default TablaAdministrador;

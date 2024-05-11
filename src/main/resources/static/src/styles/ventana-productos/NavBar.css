@@ -30,8 +30,11 @@
 }
 
 .menu-bars {
-  margin-left: 2rem;
-  font-size: 2rem;
+  /*margin-left: 2rem;*/
+  /*font-size: 2rem;*/
+  margin: auto auto auto 10px;
+  height: 100%;
+  font-size: 25px;
   background: none;
   text-decoration: none;
   color: #fff;

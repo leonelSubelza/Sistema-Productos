@@ -14,9 +14,11 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 import { MdLabelImportant } from "react-icons/md";
-import PaginadorTipoProductos from "./PaginadorTipoProductos";
-import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
+// import PaginadorTipoProductos from "./PaginadorTipoProductos";
+// import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
+import TablaAdministrador from "../TablaAdministrador";
+import {GiClothes} from "react-icons/gi";
 
 const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,tiposProductos,actualizarTipoProductos } =
@@ -62,6 +64,16 @@ const TablaTipoProducto = ({show}) => {
     setPaginaActual(nPagina);
   }
 
+  const getTableData = (tipoProd) => {
+    return (
+      <>
+        <td>{tipoProd.id}</td>
+        <td>{tipoProd.nombre}</td>
+      </>
+      );
+
+  }
+
 /*  useEffect(() => {
     setTotalTiposProductos(tiposProductos.length);
     setpaginaActual(1)
@@ -69,81 +81,29 @@ const TablaTipoProducto = ({show}) => {
 
   return (
     <>
-      <Container className={`contenedor-tabla ${show && 'show'}`}>
-        <div className="contenedor-titulo-tabla">
-          <MdLabelImportant
-            style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}
-          />
-          <div className="titulo-tabla">
-            <h1>Gestion de Tipos de Productos</h1>
-            <p>
-              Listado de los tipos productos a los que puede pertenecer un
-              producto
-            </p>
-          </div>
-        </div>
-        <br />
-        <Button
-          color="success"
-          onClick={() => agregarProd()}
-          style={{ display: "flex" }}
-        >
-          Agregar{" "}
-          <IoAddCircleOutline
-            style={{ width: "25px", height: "25px", margin: "0 0 0 5px" }}
-          />
-        </Button>
-        <br />
-        <br />
-        <div style={{ overflow: "auto", height: "400px" }}>
-          <Table>
-            <thead style={{ background: "#e5e5e5" }}>
-              <tr>
-                <th>
-                  <AiOutlineNumber />
-                </th>
-                <th>Nombre</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {tiposProductos &&
-                tiposProductos
-                  .map((tipoProd, index) => (
-                    <tr key={index}>
-                      <td>{tipoProd.id}</td>
-                      <td>{tipoProd.nombre}</td>
-                      <td>
-                        <Button
-                          color="primary"
-                          onClick={() => editarProducto(tipoProd)}
-                        >
-                          Editar <AiFillEdit />
-                        </Button>{" "}
-                        <Button
-                          color="danger"
-                          onClick={() => borrarProducto(tipoProd)}
-                        >
-                          Eliminar <BsTrash />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))
-              }
-            </tbody>
-          </Table>
-        </div>
-      </Container>
+      <TablaAdministrador
+        show={show}
+        titleIcon={<MdLabelImportant style={{ width: "40px", height: "40px", margin: "0 0 0 5px" }}/>}
+        title={"Gestion de Tipos de Productos"}
+        description={"Listado de los tipos productos a los que puede pertenecer un producto"}
+        addObject={agregarProd}
+        editObject={editarProducto}
+        removeObject={borrarProducto}
+        textButtonAdd={"Agregar"}
+        columnNames={["Nombre","Acciones"]}
+        objects={tiposProductos}
+        objectTD={getTableData}
+      />
 
-      <PaginadorProductos
+{/*      <PaginadorProductos
           setPaginaAnterior={handlePaginaNueva}
           setPaginaSiguiente={handlePaginaNueva}
           setPaginaActual={handlePaginaNueva}
           numeroTotalDePaginas={0}
           paginaActual={paginaActual}
           show={show}
-      />
+      />*/}
 
       <ModalAgregarTipoProducto
         mostrarVentana={showModalAgregar}

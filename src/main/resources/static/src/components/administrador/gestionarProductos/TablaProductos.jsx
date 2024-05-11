@@ -19,7 +19,10 @@ import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import TablaAdministrador from "../TablaAdministrador";
 
 const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,productos,setProductos,tiposProductos,cantPaginasPorProducto,actualizarProductos, } =
+  const { borrarProductoGenerico,
+    productos,setProductos,tiposProductos,
+    cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
+    actualizarProductos, } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -29,7 +32,7 @@ const TablaTipoProducto = ({show}) => {
   // const [totalProductos, settotalProductos] = useState(listaProductos.length);
   // let totalProductos = listaProductos.length;
   // const [productosPorPagina] = useState(5);
-  const [paginaActual, setPaginaActual] = useState(1);
+  // const [paginaActual, setPaginaActual] = useState(1);
   // const ultimoIndex = paginaActual * productosPorPagina;
   // const primerIndex = ultimoIndex - productosPorPagina;
 
@@ -64,111 +67,32 @@ const TablaTipoProducto = ({show}) => {
     }else{
       actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos)
     }
-    setPaginaActual(nPagina);
+    setPaginaActualProductos(nPagina);
   }
 
   const getTableData = (prod) => {
     return(<>
-          <td>{prod.id}</td>
-          <td>{prod.nombre}</td>
-          <td>{prod.descripcion}</td>
-          <td style={{ color: "green" }}>$ {prod.precio}</td>
-          <td>{prod.tipoProducto.nombre}</td>
-          <td>{prod.genero}</td>
-          <td>{prod.imagen}</td>
+          <td className={"table-data"}>{prod.id}</td>
+          <td className={"table-data"}>{prod.nombre}</td>
+          <td className={"table-data"}>{prod.descripcion}</td>
+          <td className={"table-data"} style={{ color: "green" }}>$ {prod.precio}</td>
+          <td className={"table-data"}>{prod.tipoProducto.nombre}</td>
+          <td className={"table-data"}>{prod.genero}</td>
+          <td className={"table-data"}>{prod.imagen}</td>
         </>
     )
   }
 
   useEffect(() => {
     // settotalProductos(productos.length)
-    setPaginaActual(1)
+    if(paginaActualProductos>1){
+      setPaginaActualProductos(1)
+      actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos);
+    }
   },[]);
-
-    useEffect(() => {
-        console.log("se detecto cambio prod en TablaProductos")
-        console.log(productos)
-    },[productos,setProductos]);
 
     return (
     <>
-      {/*
-      <Container className={`contenedor-tabla ${show && 'show'}`}>
-        <div className="contenedor-titulo-tabla">
-          <GiClothes style={{ height: "100%", width: "4rem" }} />
-          <div className="titulo-tabla">
-            <h1>Gestion de Productos</h1>
-            <p>Listado de los productos cargados en el sistema</p>
-          </div>
-        </div>
-
-        <br />
-        <Button
-          color="success"
-          onClick={() => agregarProd()}
-          style={{ display: "flex" }}
-        >
-          Agregar Producto{" "}
-          <IoAddCircleOutline
-            style={{ width: "25px", height: "25px", margin: "0 0 0 5px" }}
-          />
-        </Button>
-        <br />
-        <br />
-        <div style={{ overflow: "auto", height: "340px" }}>
-          <Table>
-            <thead style={{ background: "#e5e5e5" }}>
-              <tr>
-                <th>
-                  <AiOutlineNumber />
-                </th>
-                <th>Nombre</th>
-                <th>Descripción</th>
-                <th>Precio</th>
-                <th>Tipo</th>
-                <th>Género</th>
-                <th>Imágen</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {productos &&
-                productos
-                  .map((prod, index) => (
-                    <tr key={index}>
-                      <td>{prod.id}</td>
-                      <td>{prod.nombre}</td>
-                      <td>{prod.descripcion}</td>
-                      <td style={{ color: "green" }}>$ {prod.precio}</td>
-                      <td>{prod.tipoProducto.nombre}</td>
-                      <td>{prod.genero}</td>
-                      <td>{prod.imagen}</td>
-
-                      <td>
-                        <Button
-                          color="primary"
-                          onClick={() =>
-                            editarProducto(prod, prod.tipoProducto.id)
-                          }
-                        >
-                          Editar <AiFillEdit />
-                        </Button>{" "}
-                        <Button
-                          color="danger"
-                          onClick={() => borrarProducto(prod)}
-                        >
-                          Eliminar <BsTrash />
-                        </Button>
-                      </td>
-                    </tr>
-                  ))
-                  }
-            </tbody>
-          </Table>
-        </div>
-      </Container>
-      */}
       <TablaAdministrador
           show={show}
           titleIcon={<GiClothes style={{ height: "100%", width: "4rem" }} />}
@@ -183,13 +107,12 @@ const TablaTipoProducto = ({show}) => {
           objectTD={getTableData}
       />
 
-
        <PaginadorProductos
            setPaginaAnterior={handlePaginaNueva}
            setPaginaSiguiente={handlePaginaNueva}
            setPaginaActual={handlePaginaNueva}
            numeroTotalDePaginas={cantPaginasPorProducto}
-           paginaActual={paginaActual}
+           paginaActual={paginaActualProductos}
            show={show}
       />
 

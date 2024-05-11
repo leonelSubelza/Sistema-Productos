@@ -4,7 +4,7 @@ import { cargarObjetosConPaginacion, borrarObjeto,crearObjeto, cargarTodosLosObj
 import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
 import MensajeToast from "../components/utils/MensajeToast.jsx";
 
-import WebSocket from '../service/WebSocket.js';
+import WebSocket from '../service/WebSocket.jsx';
 import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 export const funcionesContext = React.createContext();
 
@@ -20,6 +20,7 @@ export function FuncionesTablaContext({ children }) {
 
   //Paginacion
   const [cantPaginasPorProducto, setCantPaginasPorProducto] = useState(0)
+  const [paginaActualProductos,setPaginaActualProductos] = useState(1)
 
     //Toast
     const [toast, setToast] = useState({
@@ -29,28 +30,10 @@ export function FuncionesTablaContext({ children }) {
     });
   //Carga las variables productos y tiposProductos
 
-  /*
-  const cargarValores = (productosBD) => {
-    let productosPiolas = [];
-    let tiposProductos = [];
-
-    productosBD.forEach((tipoProd) => {
-      let tipoProductoObj = {
-        id: tipoProd.id,
-        nombre: tipoProd.nombre,
-      };
-
-      tipoProd.productos.forEach((prod) => {
-        prod.tipoProducto = tipoProductoObj;
-        productosPiolas.push(prod);
-      });
-
-      tiposProductos.push(tipoProductoObj);
-    });
-    setTiposProductos(tiposProductos);
-    setProductos(productosPiolas);
+  //msj recibido del ws que dice qué actualizar
+  const manejarMsjRecibido = (payload)=>{
+    actualizarValores();
   };
-  */
 
   const getTipoProducto = (id,tiposProduct) => {
     return tiposProduct.find(tipoProd => tipoProd.id === id);
@@ -61,7 +44,7 @@ export function FuncionesTablaContext({ children }) {
     if(productosBD === undefined || tiposProduct === undefined ||
       productosBD.length === 0 || tiposProduct.length === 0){ 
       return
-    };
+    }
     let productosAux = [];
     productosBD.forEach(prod => {
       prod.tipoProducto = getTipoProducto(prod.productTypeId,tiposProduct);
@@ -70,13 +53,8 @@ export function FuncionesTablaContext({ children }) {
     return productosAux;
   }
 
-  //msj recibido del ws que dice qué actualizar
-  const manejarMsjRecibido=(payload)=>{
-    actualizarValores();
-  }
-
   //Al actualizar los tipoProduct también se actualizan los productos asociados a los tipoProducto
-  const actualizarTipoProductos = async () => {
+  const actualizarTipoProductos =  async () => {
     //Cargamos todos los tipoProductos
     let location = window.location.href;
     setMensajeSpinner("Actualizando Tabla");
@@ -99,26 +77,9 @@ export function FuncionesTablaContext({ children }) {
         color: "#dc1717",
       });
     }
-    // cargarTodosLosObjetos("tiposProductos")
-    // .then((response) => {
-    //   setShowSpinner(false);
-    //   setTiposProductos(response);
-    //   console.log("prodObtenidos");
-    //   console.log(response);
-    //   return response;
-    // })
-    // .catch(() => {
-    //   setShowSpinner(false);
-    //   console.log("callo act tipo prod");
-    //   setToast({
-    //     show: true,
-    //     msjBody: "Error contectando al servidor",
-    //     color: "#dc1717",
-    //   });
-    // })
-  }
+  };
 
-  const actualizarProductos = async (direccion,page,size, tiposProductos) => {
+  const actualizarProductos =  async (direccion,page,size, tiposProductos) => {
     let location = window.location.href;
     if(location.includes('/administrador') || location.includes('/administrador/tablaTipoProductos')){
       setMensajeSpinner("Actualizando Tabla");
@@ -131,8 +92,6 @@ export function FuncionesTablaContext({ children }) {
           const productosCargados = cargarTipoProductoAProductos(response.content,tiposProductos);
           setCantPaginasPorProducto(response.totalPages);
           setProductos(productosCargados);
-          console.log("se cargan los productos:")
-          console.log(productosCargados);
           return productosCargados;
       }catch(e) {
           setShowSpinner(false);
@@ -143,37 +102,16 @@ export function FuncionesTablaContext({ children }) {
               color: "#dc1717",
           });
       }
-  }
+  };
 
   const actualizarValores = async () => {
-    try{
-      console.log("se deberían actualizar valores")
-      const tiposProductosAux = await actualizarTipoProductos();
-      const productosAux = await actualizarProductos(
-          "productos",
-          0,
-          administradorCantObjPorTabla,
-          tiposProductosAux);
-      setProductos(productosAux)
-    }catch(e){
-      console.log(e);
-    }
-
-  };
-/*  const actualizarValores = useCallback(async () => {
-    try{
-      const tiposProductos = await actualizarTipoProductos();
-      const productos = await actualizarProductos(
-          "productos",
-          0,administradorCantObjPorTabla,
-          tiposProductos);
-    }catch(e){
-      console.log(e);
-    }
-    
-  }, [setMensajeSpinner, setShowSpinner, setToast]);*/
-
-
+    const tiposProductosAct = await actualizarTipoProductos();
+    const productosAct = await actualizarProductos(
+      "productos",
+      paginaActualProductos - 1,
+      administradorCantObjPorTabla,
+      tiposProductosAct);
+  }
   const borrarProductoGenerico = async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
@@ -193,24 +131,6 @@ export function FuncionesTablaContext({ children }) {
           });
         });
   }
-/*  const borrarProductoGenerico = useCallback( async (direccion, idEntidad) => {
-    setMensajeSpinner("Borrando de DB");
-    setShowSpinner(true);
-    borrarObjeto(direccion, idEntidad)
-      .then(() => {
-        if(mensajeSpinner !== 'Actualizando Tabla'){
-          setShowSpinner(false);
-        }
-      })
-      .catch(() => {
-        setShowSpinner(false);
-        setToast({
-          show: true,
-          msjBody: "Se ha producido un error al borrar",
-          color: "#dc1717",
-        });
-      });
-  }, [setMensajeSpinner, setShowSpinner, setToast,mensajeSpinner]);*/
 
   const agregarProductoGenerico = async (direccion,objeto,imagen,method) => {
     setMensajeSpinner("Guardando en DB");
@@ -219,35 +139,13 @@ export function FuncionesTablaContext({ children }) {
       await crearObjeto(direccion,objeto, imagen,method)
       // if(mensajeSpinner !== 'Actualizando Tabla'){
       setShowSpinner(false);
+      actualizarValores();
       // }
     }catch(e){
       console.log("error en agregarProductoGenerico: "+e)
       setShowSpinner(false)
     }
   };
-/*  const agregarProductoGenerico = useCallback( async(direccion,objeto,imagen,method) => {
-    // setMensajeSpinner("Guardando en DB");
-    // setShowSpinner(true);
-    // crearObjeto(direccion,objeto, imagen,method).then(() => {
-    //   if(mensajeSpinner !== 'Actualizando Tabla'){
-    //     setShowSpinner(false);
-    //   }
-    // })
-    // .catch(e => setShowSpinner(false));
-    setMensajeSpinner("Guardando en DB");
-    setShowSpinner(true);
-    console.log("ejecutando agregarProductoGenerico")
-    try{
-      await crearObjeto(direccion,objeto, imagen,method)
-      console.log("terminó de ejecutar crearObjeto")
-      if(mensajeSpinner !== 'Actualizando Tabla'){
-        setShowSpinner(false);
-      }
-    }catch(e){
-      console.log("error en agregarProductoGenerico: "+e)
-      setShowSpinner(false)
-    }
-  },[setMensajeSpinner,setShowSpinner,mensajeSpinner]);*/
 
   useEffect(()=>{
     actualizarValores();
@@ -273,12 +171,13 @@ export function FuncionesTablaContext({ children }) {
         actualizarProductos,
         actualizarValores,
         sesionIniciada, setSesionIniciada,
-        cantPaginasPorProducto
+        cantPaginasPorProducto,
+        paginaActualProductos,setPaginaActualProductos
       }}
     >
       <SpinnerLoading />
       <MensajeToast />
-      <WebSocket mensajeRecibido={(res)=>manejarMsjRecibido(res)}/>
+      {/*<WebSocket mensajeRecibido={manejarMsjRecibido}/>*/}
       {children}
     </funcionesContext.Provider>
   );

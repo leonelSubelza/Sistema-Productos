@@ -24,8 +24,6 @@ export async function iniciarSesion(email, password) {
     }
   })
   .then(data => {
-    console.log(data); // Aquí puedes hacer lo que necesites con los datos
-    // window.location.href = '/administrador'; // Redirigir a la página de dashboard después del inicio de sesión exitoso
     return true;
   })
   .catch(error => {
