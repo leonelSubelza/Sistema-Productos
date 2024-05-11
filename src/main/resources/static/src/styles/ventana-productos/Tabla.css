@@ -26,6 +26,14 @@
     width: auto;
     height:auto;
     margin: 0 auto 0 0;
+    background-color: transparent;
+    color: black;
+    border: 1px solid #060b26;
+}
+
+.boton-agregar:hover {
+    color:white;
+    background-color: #060b26;
 }
 
 .contenedor-table{
@@ -34,13 +42,22 @@
     margin:1% auto 0 0;
     overflow-y: auto;
     overflow-x: auto;
+    border-radius: 10px;
 }
 
-.table tr{
+.table tr:nth-child(even) {
+    background-color: rgb(246 246 246);
+}
+
+.table tr:nth-child(odd) {
+    background-color: #fff;
 }
 
 .table th{
-    background: #e5e5e5;
+    background: #060b26;
+    color: white;
+    font-size: 15px;
+    /*border-bottom: 2px solid #787878;*/
 }
 
 .titulo-tabla{
@@ -49,6 +66,7 @@
 
 .table-data{
     word-break: break-word;
+    font-size: 15px;
 }
 
 .table-data-buttons-container{

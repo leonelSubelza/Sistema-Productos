@@ -69,7 +69,7 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
                   <td className={"table-data"}>
                     <div className={"table-data-buttons-container"}>
                       <button
-                        style={{color: "blue"}}
+                        style={{color: "#060b26"}}
                         className={"table-data-button"}
                         onClick={() =>
                           handleEditObject(obj)
