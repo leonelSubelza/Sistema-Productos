@@ -1,10 +1,11 @@
 // Componente Navbar.jsx
-import React from "react";
+import React, { useContext } from "react";
 import "../../../styles/Inicio/Navbar.css";
 import logo from "../../../img/TiendaHumilde-logo.png";
 import { BsFillCartFill } from "react-icons/bs";
-
+import { carritoContext } from "../../../context/ElementosCarritoContext";
 const Navbar = () => {
+  const { setShowCarrito } = useContext(carritoContext);
   return (
     <div className="header-inicio">
       <div className="logo-inicio">
@@ -26,7 +27,7 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className="button-nav-inicio">
-      <button>
+      <button onClick={() => setShowCarrito(true)}>
         <BsFillCartFill className='icon-carrito' />
         <p>0</p>
       </button>

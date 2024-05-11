@@ -1,3 +1,15 @@
+.header{
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-productos{
+  font-size: 80px;
+  margin: 0 auto;
+}
+
+
+
 .cabecera {
   display: flex;
   flex-flow: row nowrap;
