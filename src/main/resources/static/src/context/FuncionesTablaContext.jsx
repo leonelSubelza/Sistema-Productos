@@ -19,8 +19,12 @@ export function FuncionesTablaContext({ children }) {
   const [sesionIniciada, setSesionIniciada] = useState(false);
 
   //Paginacion
+  //cantidad total de paginas que habra
   const [cantPaginasPorProducto, setCantPaginasPorProducto] = useState(0)
   const [paginaActualProductos,setPaginaActualProductos] = useState(1)
+
+  //Guarda los productos ya cargados
+  const [productosCargados, setProductosCargados] = useState(new Map());
 
     //Toast
     const [toast, setToast] = useState({
@@ -32,11 +36,18 @@ export function FuncionesTablaContext({ children }) {
 
   //msj recibido del ws que dice qué actualizar
   const manejarMsjRecibido = (payload)=>{
-    actualizarValores();
+    actualizarValores(paginaActualProductos);
   };
 
   const getTipoProducto = (id,tiposProduct) => {
     return tiposProduct.find(tipoProd => tipoProd.id === id);
+  }
+
+  const reiniciarProductosCargadosMap = () => {
+    let prodCargadosAux= productosCargados;
+    for (var obj of prodCargadosAux) {
+      productosCargados.delete(obj[0]);
+    }
   }
 
   //A cada objeto se le asigna su objeto tipoProducto correspondiente
@@ -89,10 +100,14 @@ export function FuncionesTablaContext({ children }) {
       try{
           const response = await cargarObjetosConPaginacion(direccion,page,size);
           setShowSpinner(false);
-          const productosCargados = cargarTipoProductoAProductos(response.content,tiposProductos);
+          const productosCargadosCompletos = cargarTipoProductoAProductos(response.content,tiposProductos);
           setCantPaginasPorProducto(response.totalPages);
-          setProductos(productosCargados);
-          return productosCargados;
+          setProductos(productosCargadosCompletos);
+
+
+          productosCargados.set(page+1,productosCargadosCompletos);
+          setProductosCargados(productosCargados)
+          return productosCargadosCompletos;
       }catch(e) {
           setShowSpinner(false);
           console.log("callo act prod: "+e);
@@ -104,21 +119,15 @@ export function FuncionesTablaContext({ children }) {
       }
   };
 
-  const actualizarValores = async () => {
-    const tiposProductosAct = await actualizarTipoProductos();
-    const productosAct = await actualizarProductos(
-      "productos",
-      paginaActualProductos - 1,
-      administradorCantObjPorTabla,
-      tiposProductosAct);
-  }
   const borrarProductoGenerico = async (direccion, idEntidad) => {
     setMensajeSpinner("Borrando de DB");
     setShowSpinner(true);
     borrarObjeto(direccion, idEntidad)
         .then(() => {
           setShowSpinner(false);
-          actualizarValores();
+          reiniciarProductosCargadosMap();
+          //Al borrar un prod se deben volver a actualizar los valores
+          actualizarValores(paginaActualProductos);
         })
         .catch((error) => {
           console.log(error)
@@ -136,10 +145,9 @@ export function FuncionesTablaContext({ children }) {
     setShowSpinner(true);
     try{
       await crearObjeto(direccion,objeto, imagen,method)
-      // if(mensajeSpinner !== 'Actualizando Tabla'){
       setShowSpinner(false);
-      actualizarValores();
-      // }
+      reiniciarProductosCargadosMap();
+      actualizarValores(paginaActualProductos);
     }catch(e){
       console.log("error en agregarProductoGenerico: "+e)
       setShowSpinner(false)
@@ -151,8 +159,17 @@ export function FuncionesTablaContext({ children }) {
     }
   };
 
+  const actualizarValores = async (pagActual) => {
+    const tiposProductosAct = await actualizarTipoProductos();
+    const productosAct = await actualizarProductos(
+      "productos",
+      pagActual - 1,
+      administradorCantObjPorTabla,
+      tiposProductosAct);
+  }
+
   useEffect(()=>{
-    actualizarValores();
+    actualizarValores(paginaActualProductos);
   },[])
 
   return (
@@ -176,7 +193,8 @@ export function FuncionesTablaContext({ children }) {
         actualizarValores,
         sesionIniciada, setSesionIniciada,
         cantPaginasPorProducto,
-        paginaActualProductos,setPaginaActualProductos
+        paginaActualProductos,setPaginaActualProductos,
+        productosCargados, setProductosCargados
       }}
     >
       <SpinnerLoading />

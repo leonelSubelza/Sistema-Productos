@@ -21,7 +21,7 @@ const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,
     productos,setProductos,tiposProductos,
     cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
-    actualizarProductos, } =
+    actualizarProductos,productosCargados, setProductosCargados } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -51,6 +51,10 @@ const TablaTipoProducto = ({show}) => {
 
   //Paginacion
   const handlePaginaNueva = (nPagina) => {
+    if(productosCargados.has(nPagina)){
+      setPaginaActualProductos(nPagina);
+      return;
+    }
     if(nPagina>=1){
       actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
     }else{
@@ -92,7 +96,7 @@ const TablaTipoProducto = ({show}) => {
           removeObject={borrarProducto}
           textButtonAdd={"Agregar Producto"}
           columnNames={["Nombre","Descripción","Precio","Tipo","Género","Imágen","Acciones"]}
-          objects={productos}
+          objects={productosCargados.get(paginaActualProductos)}
           objectTD={getTableData}
       />
 
