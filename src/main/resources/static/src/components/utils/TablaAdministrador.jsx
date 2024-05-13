@@ -55,8 +55,8 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
             <th>
               <AiOutlineNumber/>
             </th>
-            {columnNames.map((name) => (
-              <th>{name}</th>
+            {columnNames.map((name,i) => (
+              <th key={i}>{name}</th>
             ))}
           </tr>
           </thead>

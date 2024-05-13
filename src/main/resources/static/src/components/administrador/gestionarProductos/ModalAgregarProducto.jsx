@@ -35,8 +35,6 @@ export default function ModalAgregarProducto({
   const { agregarProductoGenerico } = useContext(funcionesContext);
 
   const vaciarCampos = () => {
-    console.log("se vacian campos")
-    // if (esAgregar) {
       setNombre("");
       setDescripcion("");
       setTipoProductoId("");
@@ -46,7 +44,6 @@ export default function ModalAgregarProducto({
       setImagenArchivo(undefined)
       setUrlImg('')
       setErrors({})
-    // }
   };
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
@@ -95,8 +92,6 @@ export default function ModalAgregarProducto({
       genero: genero,
       productTypeId: productoTipoId
     };
-    console.log("imagenNombre: "+imagenNombre)
-    console.log("imagen archivo:"+imagenArchivo)
     agregarProductoGenerico("productos", producto, imagenArchivo, method)
       .then(() => {
         console.log("se recibio una respuesta")
@@ -111,44 +106,18 @@ export default function ModalAgregarProducto({
   const handleImagenAgregada = (event) => {
     //Cargamos el archivo img
     setImagenArchivo(event.target)
-    console.log(event.target)
     const archivo = event.target.files[0];
     if (archivo) {
       const lector = new FileReader();
       lector.onload = () => {
         setUrlImg(lector.result);
-        console.log("url-foto: ")
-        console.log(lector.result)
         setImagenNombre(archivo.name);
     };
     lector.readAsDataURL(archivo);
   }
 }
 
-/*  useEffect(() => {
-    //si se recibe un obj, es porque se abrio desde editar
-    if (prod === undefined) {
-      setNombre("");
-      setDescripcion("");
-      setTipoProductoId("Sin seleccionar");
-      setPrecio("");
-      setGenero("Sin seleccionar");
-    } else {
-      setNombre(prod.nombre);
-      setDescripcion(prod.descripcion);
-      setTipoProductoId(prod.tipoProducto.id);
-      setPrecio(prod.precio);
-      setGenero(prod.genero);
-      setImagenNombre(prod.imagen)
-    }
-    console.log(prod)
-    console.log(imagenNombre)
-    console.log(imagenArchivo)
-    console.log(URLImagenes)
-  }, [prod]);*/
-
   useEffect(() => {
-    console.log(prod)
     if(prod !== undefined){
       //si el prod tiene una img le generamos el path para la primer img
       setUrlImg(`${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`)
@@ -415,7 +384,6 @@ export default function ModalAgregarProducto({
                   value={tipoProductoId}
                   onChange={(ev) => {
                     const {value} = ev.target;
-                    console.log("tipo seleciconado: "+value)
                     setTipoProductoId(value);
                   }}
                 >

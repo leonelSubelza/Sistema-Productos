@@ -13,13 +13,10 @@ function Navbar({showTablaProductos}) {
   const showSidebar = () => setSidebar(!sidebar);
 
   const handleNavbarItemClick = (item) => {
-    console.log(item);
     if(item.title === 'Tipos de Productos'){
-      console.log("se hizo click en Tipoproductos");
       return showTablaProductos(false);
     }
     if(item.title === 'Productos'){
-      console.log("se hizo click en productos");
       return showTablaProductos(true);
     }
   }
