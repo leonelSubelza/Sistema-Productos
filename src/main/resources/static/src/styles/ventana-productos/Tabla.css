@@ -6,6 +6,7 @@
     display: none;
     overflow: hidden;
     flex-direction: column;
+    border-radius:20px;
 }
 
 .contenedor-tabla.show {
@@ -94,6 +95,10 @@
 }
 
 @media screen and (max-width: 1000px){
+    .contenedor-tabla.container{
+        width: 95% !important;
+        max-width: 100% !important;
+    }
     .modal-input-containers-elements{
         flex-direction: column;
     }
@@ -105,6 +110,9 @@
 
 
 @media screen and (max-width: 768px) {
+    .contenedor-tabla.container{
+        width: 99% !important;
+    }
     .titulo-tabla h1{
         font-size: 18px;
     }
