@@ -36,7 +36,7 @@ const TablaTipoProducto = ({show}) => {
 
   const agregarProd = () => {
     setEsAgregar(true);
-    setProdAEditar(null);
+    setProdAEditar(undefined);
     setShowModalAgregar(true);
   };
   const borrarProducto = (prod) => {

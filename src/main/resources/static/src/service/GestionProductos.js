@@ -55,7 +55,9 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       formData.append("nombre", obj.nombre);
     }
 
-    formData.append("imagenObj", imagen);
+    if(imagen!==undefined){
+      formData.append("imagenObj", imagen);
+    }
     const request = await fetch(URL + "/" + direccion, {
       method: metodo,
       body: formData,
