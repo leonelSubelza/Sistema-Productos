@@ -16,6 +16,8 @@ import PaginadorProductos from "../../utils/Paginador";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import TablaAdministrador from "../../utils/TablaAdministrador";
 import Paginador from "../../utils/Paginador";
+import GestionadorObjectosAdministracion from "./GestionadorObjectosAdministracion";
+
 
 const TablaTipoProducto = ({show}) => {
   const { borrarProductoGenerico,
@@ -40,7 +42,11 @@ const TablaTipoProducto = ({show}) => {
     setShowModalAgregar(true);
   };
   const borrarProducto = (prod) => {
-    borrarProductoGenerico("productos", prod.id);
+    let opc = window.confirm("Estáis seguro que desáis borrar vuestro producto?");
+    console.log(opc)
+    if(opc){
+      borrarProductoGenerico("productos", prod.id);
+    }
   };
   const editarProducto = (prod) => {
     setEsAgregar(false);
@@ -86,7 +92,7 @@ const TablaTipoProducto = ({show}) => {
 
     return (
     <>
-      <TablaAdministrador
+{/*      <TablaAdministrador
           show={show}
           titleIcon={<GiClothes style={{ height: "100%", width: "4rem" }} />}
           title={"Gestion de Productos"}
@@ -98,6 +104,16 @@ const TablaTipoProducto = ({show}) => {
           columnNames={["Nombre","Descripción","Precio","Tipo","Género","Imágen","Acciones"]}
           objects={productosCargados.get(paginaActualProductos)}
           objectTD={getTableData}
+      />*/}
+
+      <GestionadorObjectosAdministracion
+        show={show}
+        titulo={"Gestion de Productos"}
+        objectName={`Producto`}
+        objects={productosCargados.get(paginaActualProductos)}
+        addObject={agregarProd}
+        editObject={editarProducto}
+        removeObject={borrarProducto}
       />
 
        <Paginador

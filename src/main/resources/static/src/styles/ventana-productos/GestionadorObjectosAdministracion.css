@@ -1,0 +1,217 @@
+.gestionador-objetos-administracion-container {
+    width: 80%;
+    height: 75%;
+    display: none;
+    flex-direction: column;
+    margin: 5px auto 10px auto;
+}
+
+.gestionador-objetos-administracion-container.show{
+    display: flex;
+}
+
+.gestionador-titulo-container {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    justify-content: space-between;
+}
+
+.gestionador-titulo-container h1 {
+    font-size: 20px;
+    margin: auto 0;
+    color: #e8e8e8;
+}
+
+.gestionador-titulo-container button {
+    border-radius: 25px;
+    padding: 8px 18px;
+    margin: 5px 5px 5px 0;
+    background-color: #0057ff;
+    color: white;
+    border: 1px solid transparent;
+    font-size: 12px;
+    display: flex
+
+}
+
+.gestionador-titulo-container button svg, .gestionador-titulo-container button p{
+    margin:auto;
+    font-size: 14px;
+}
+
+.gestionador-titulo-container button:hover {
+    background-color: #1668fd;
+    border: 1px solid #0057ff;
+}
+
+.gestionador-tabla-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 85%;
+    margin-top: 1%;
+    overflow-x: auto;
+    overflow-y: auto;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.gestionador-tabla-container::-webkit-scrollbar {
+    height: 10px;
+    margin: auto;
+    border-radius: 10px;
+    background-color: transparent;
+    width: 5px;
+}
+
+.gestionador-tabla-container::-webkit-scrollbar-thumb {
+    background: #d1d1d1;
+    border-radius: 10px;
+}
+
+.card-administracion-container {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 5px 0;
+    border-radius: 20px;
+    border: 2px solid transparent;
+    z-index: 19;
+}
+
+.card-administracion-container:hover {
+    border: 2px solid #80abff;
+    background-color: #e1edff;
+
+}
+
+.card-administracion-img-container {
+    width: 10%;
+    height: 100%;
+    /*padding: 0 20px;*/
+    display: flex;
+    margin:auto 0 auto auto;
+}
+
+.card-administracion-img {
+    margin:auto;
+    /*width: 168px;*/
+    /*height: 168px;*/
+    width: 100px;
+    height: 100px;
+    display: flex;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card-administracion-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
+    border-radius: 20px;
+}
+
+.card-administracion-elements-container {
+    display: flex;
+    width: 85%;
+    height: 100%;
+    margin:auto;
+
+}
+
+.card-administracion-elements-nombre-descripcion {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 50%;
+    max-width: 50%;
+
+}
+
+.card-administracion-elements-nombre-descripcion h1{
+    font-size: 16px;
+    width: 100%;
+    height: 30%;
+    word-break: break-word;
+}
+
+.card-administracion-elements-nombre-descripcion p{
+    font-size: 14px;
+    width: 100%;
+    height: 70%;
+    word-break: break-word;
+    margin:auto;
+}
+
+.card-administracion-elements-info {
+    display: flex;
+    width: 50%;
+
+}
+
+.card-administracion-elements-info div {
+    width: auto;
+    max-width: 33%;
+    word-break: break-word;
+    margin: auto;
+    display: flex;
+    align-items: center;
+}
+
+.card-administracion-elements-info-dolar{
+    color:green;
+    justify-content: center;
+    display: flex;
+    height: 100%;
+}
+
+.card-administracion-elements-info-dolar svg{
+    width: 10%;
+    height: 100%;
+    font-size: 16px;
+}
+.card-administracion-elements-info-dolar p{
+    width: 90%;
+    margin:auto;
+    font-size: 16px;
+}
+
+.card-administracion-closeBtn {
+    display: flex;
+}
+
+.card-administracion-closeBtn button{
+    display: flex;
+    margin: 0 0 auto auto;
+    border: 1px solid transparent;
+    background-color: transparent;
+    opacity: 0;
+    border:1px solid #c5c5c5;
+    z-index: 20;
+}
+
+.card-administracion-container:hover .card-administracion-closeBtn button{
+    opacity: 1;
+}
+
+.card-administracion-closeBtn button svg{
+    margin: 0 0 auto auto;
+}
+
+@media screen and (max-width: 1000px){
+    .gestionador-objetos-administracion-container{
+        width: 99%;
+        height: auto;
+    }
+
+    .card-administracion-elements-info {
+        flex-direction: column;
+    }
+
+    .card-administracion-elements-info div{
+        font-size: 12px;
+        max-width: 100%;
+    }
+}
