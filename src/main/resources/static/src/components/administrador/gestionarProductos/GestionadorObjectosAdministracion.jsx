@@ -19,7 +19,9 @@ export default function GestionadorObjectosAdministracion({show,titulo,objectNam
     <div className={`gestionador-objetos-administracion-container ${show&&'show'}`}>
       <div className={'gestionador-titulo-container'}>
         <h1>{titulo}</h1>
-        <button onClick={handleAdd}><IoMdAdd /><p>{objectName}</p></button>
+        <div>
+          <button onClick={handleAdd}><IoMdAdd /><p>{objectName}</p></button>
+        </div>
       </div>
       <div className={'gestionador-tabla-container'}>
         {objects &&

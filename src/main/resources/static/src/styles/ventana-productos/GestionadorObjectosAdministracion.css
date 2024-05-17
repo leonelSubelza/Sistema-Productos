@@ -23,7 +23,11 @@
     color: #e8e8e8;
 }
 
-.gestionador-titulo-container button {
+.gestionador-titulo-container div{
+    margin: auto 0 auto auto;
+}
+
+.gestionador-titulo-container div button {
     border-radius: 25px;
     padding: 8px 18px;
     margin: 5px 5px 5px 0;
@@ -32,7 +36,6 @@
     border: 1px solid transparent;
     font-size: 12px;
     display: flex
-
 }
 
 .gestionador-titulo-container button svg, .gestionador-titulo-container button p{
@@ -79,6 +82,7 @@
     border-radius: 20px;
     border: 2px solid transparent;
     z-index: 19;
+    user-select: none;
 }
 
 .card-administracion-container:hover {
@@ -152,7 +156,7 @@
 }
 
 .card-administracion-elements-info div {
-    width: auto;
+    width: 33%;
     max-width: 33%;
     word-break: break-word;
     margin: auto;
