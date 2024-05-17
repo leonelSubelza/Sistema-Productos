@@ -22,22 +22,24 @@ export default function CardAdministracion({prod,removeObj,editObj}){
   }, []);
 
   return (
-      <div className={'card-administracion-container'} onClick={handleEdit}>
-        <div className={'card-administracion-img-container'}>
+      <div className={'card-administracion-container'}>
+        <div className={'card-administracion-img-container'} onClick={handleEdit}>
           <div className={'card-administracion-img'}>
             <img src={urlImg} alt="foto-del-producto"/>
           </div>
         </div>
-        <div className={'card-administracion-elements-container'}>
+        <div className={'card-administracion-elements-container'} onClick={handleEdit}>
           <div className={'card-administracion-elements-nombre-descripcion'}>
             <h1>{prod.nombre}</h1>
             <p>{prod.descripcion}</p>
           </div>
-          <div className={'card-administracion-elements-info'}>
+          <div className={'card-administracion-elements-info'} onClick={handleEdit}>
             <div><GiClothes />{prod.tipoProducto.nombre}</div>
             <div><IoMaleFemale />{prod.genero}</div>
             <div className={'card-administracion-elements-info-dolar'}><AiFillDollarCircle /><p>{prod.precio}</p></div>
           </div>
+        </div>
+        <div className={'card-administracion-closeBtn-container'}>
           <div className={'card-administracion-closeBtn'}>
             <button onClick={handleDelete}>
               <IoClose />

@@ -49,6 +49,7 @@ const TablaTipoProducto = ({show}) => {
     }
   };
   const editarProducto = (prod) => {
+    console.log("se hizo click en editar")
     setEsAgregar(false);
     // prod.tipoProd = tipoProd; //Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
