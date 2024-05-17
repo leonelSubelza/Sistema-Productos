@@ -34,9 +34,9 @@ export default function CardAdministracion({prod,removeObj,editObj}){
             <p>{prod.descripcion}</p>
           </div>
           <div className={'card-administracion-elements-info'} onClick={handleEdit}>
-            <div><GiClothes />{prod.tipoProducto.nombre}</div>
-            <div><IoMaleFemale />{prod.genero}</div>
-            <div className={'card-administracion-elements-info-dolar'}><AiFillDollarCircle /><p>{prod.precio}</p></div>
+            <div><GiClothes /> <p>{prod.tipoProducto.nombre}</p></div>
+            <div><IoMaleFemale /> <p>{prod.genero}</p></div>
+            <div className={'card-administracion-elements-info-dolar'}><AiFillDollarCircle /> <p>{prod.precio}</p></div>
           </div>
         </div>
         <div className={'card-administracion-closeBtn-container'}>

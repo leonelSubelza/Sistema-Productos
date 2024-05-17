@@ -159,8 +159,22 @@
     display: flex;
     align-items: center;
 }
+.card-administracion-elements-info div p{
+    width: 100%;
+}
+.card-administracion-elements-info div svg{
+    margin: 5px auto auto 0;
+}
+.card-administracion-elements-info div p{
+    margin: 0 auto auto 0;
+    font-size: 16px;
+}
 
 .card-administracion-elements-info-dolar{
+    color:green;
+}
+
+/*.card-administracion-elements-info-dolar{
     color:green;
     justify-content: center;
     display: flex;
@@ -176,7 +190,7 @@
     width: 90%;
     margin:auto;
     font-size: 16px;
-}
+}*/
 
 .card-administracion-closeBtn-container{
     width: auto;
@@ -224,6 +238,7 @@
         font-size: 12px;
         width: 100%;
         max-width: 100%;
+        margin:5px 0;
     }
 }
 @media screen and (max-width: 850px){
@@ -237,9 +252,9 @@
         display: none;
     }*/
 }
-@media screen and (max-width: 335px){
+@media screen and (max-width: 480px){
     .card-administracion-container{
-        width: 315px;
+        width: 472px;
     }
 /*    .card-administracion-img-container{
         flex-direction: column;
