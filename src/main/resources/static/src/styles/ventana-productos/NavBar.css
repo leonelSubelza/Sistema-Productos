@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+/*@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
 
 * {
   box-sizing: border-box;
@@ -19,7 +20,16 @@
   color: #fff;
 }
 
-/* Navbar CSS */
+.navbar-container{
+  background-color: #060b26;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  !*transition: 850ms;*!
+}
+
+!* Navbar CSS *!
 .navbar {
   background-color: #060b26;
   display: flex;
@@ -30,8 +40,8 @@
 }
 
 .menu-bars {
-  /*margin-left: 2rem;*/
-  /*font-size: 2rem;*/
+  !*margin-left: 2rem;*!
+  !*font-size: 2rem;*!
   margin: auto auto auto 10px;
   height: 100%;
   font-size: 25px;
@@ -75,7 +85,7 @@
 .nav-text a {
   text-decoration: none;
   color: #fff;
-  /*#151414;*/
+  !*#151414;*!
   font-size: 18px;
   width: 95%;
   height: 100%;
@@ -87,7 +97,7 @@
 
 .nav-text a:hover {
   background-color: #000000;
-  /*color: #fff;*/
+  !*color: #fff;*!
   filter: brightness(70%);
 }
 
@@ -102,4 +112,95 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+@media screen and (max-width: 1000px){
+  .navbar-container{
+    height: 64px;
+    width: 100%;
+  }
+}
+*/
+.navbar-container{
+  background-color: #0d112f;
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding:15px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.navbar-brand {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navbar-brand-item{
+  display: flex;
+}
+
+.navbar-brand-item p{
+  font-size: 27px;
+  font-family: 'Roboto', serif;
+}
+
+.navbar-brand-item-actions, .navbar-brand-item-actions p {
+  display: none;
+}
+
+.navbar-brand-item-actions p.show{
+  display: flex;
+}
+
+.nav-menu-items {
+  display: flex;
+  flex-direction: column;
+  transition: all 0.5s ease;
+  list-style: none;
+  margin:0;
+  padding: 0;
+}
+
+.nav-menu-items.show{
+  display: flex;
+}
+
+.nav-text{
+  display: flex;
+  justify-content: space-between;
+  height: 48px;
+  cursor:pointer;
+}
+
+.nav-text svg{
+  width: 20%;
+  font-size: 16px;
+  margin: auto;
+}
+
+.nav-text span {
+  width: 100%;
+  font-size: 16px;
+  margin: auto;
+}
+
+@media screen and (max-width: 1000px){
+  .navbar-container{
+    /*min-height: 64px;*/
+    width: 100%;
+    height: auto;
+  }
+
+  .navbar-brand-item-actions {
+    display: flex;
+  }
+  .nav-menu-items{
+    display: none;
+  }
+  .nav-text svg{
+    width: 5%;
+  }
 }

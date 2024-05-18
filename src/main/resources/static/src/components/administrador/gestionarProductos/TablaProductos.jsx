@@ -6,24 +6,17 @@ import ModalAgregarProducto from "./ModalAgregarProducto";
 
 import "../../../styles/ventana-productos/Tabla.css";
 
-//Iconos
-/*import { IoAddCircleOutline } from "react-icons/io5";
-import { AiFillEdit } from "react-icons/ai";
-import { BsTrash } from "react-icons/bs";
-import { AiOutlineNumber } from "react-icons/ai";*/
-import { GiClothes } from "react-icons/gi";
-import PaginadorProductos from "../../utils/Paginador";
+
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
-import TablaAdministrador from "../../utils/TablaAdministrador";
 import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./GestionadorObjectosAdministracion";
+import '../../../styles/ventana-productos/Tabla.css'
 
-
-const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,
-    productos,setProductos,tiposProductos,
+const TablaProductos = ({show}) => {
+  const { borrarProductoGenerico
+    ,tiposProductos,
     cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
-    actualizarProductos,productosCargados, setProductosCargados } =
+    actualizarProductos,productosCargados } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
@@ -70,7 +63,7 @@ const TablaTipoProducto = ({show}) => {
     setPaginaActualProductos(nPagina);
   }
 
-  const getTableData = (prod) => {
+/*  const getTableData = (prod) => {
     return(<>
           <td className={"table-data"}>{prod.id}</td>
           <td className={"table-data"}>{prod.nombre}</td>
@@ -81,7 +74,7 @@ const TablaTipoProducto = ({show}) => {
           <td className={"table-data"}>{prod.imagen}</td>
         </>
     )
-  }
+  }*/
 
   useEffect(() => {
     // settotalProductos(productos.length)
@@ -106,26 +99,26 @@ const TablaTipoProducto = ({show}) => {
           objects={productosCargados.get(paginaActualProductos)}
           objectTD={getTableData}
       />*/}
+      <div className={`tabla-productos-container ${show? 'show':'hijodeputa'}`}>
+        <GestionadorObjectosAdministracion
+          show={show}
+          titulo={"Gestion de Productos"}
+          objectName={`Producto`}
+          objects={productosCargados.get(paginaActualProductos)}
+          addObject={agregarProd}
+          editObject={editarProducto}
+          removeObject={borrarProducto}
+        />
 
-      <GestionadorObjectosAdministracion
-        show={show}
-        titulo={"Gestion de Productos"}
-        objectName={`Producto`}
-        objects={productosCargados.get(paginaActualProductos)}
-        addObject={agregarProd}
-        editObject={editarProducto}
-        removeObject={borrarProducto}
-      />
-
-       <Paginador
-           setPaginaAnterior={handlePaginaNueva}
-           setPaginaSiguiente={handlePaginaNueva}
-           setPaginaActual={handlePaginaNueva}
-           numeroTotalDePaginas={cantPaginasPorProducto}
-           paginaActual={paginaActualProductos}
-           show={show}
-      />
-
+         <Paginador
+             setPaginaAnterior={handlePaginaNueva}
+             setPaginaSiguiente={handlePaginaNueva}
+             setPaginaActual={handlePaginaNueva}
+             numeroTotalDePaginas={cantPaginasPorProducto}
+             paginaActual={paginaActualProductos}
+             show={show}
+        />
+      </div>
       <ModalAgregarProducto
         mostrarVentana={showModalAgregar}
         cerrarVentana={manejarModalAgregar}
@@ -136,4 +129,4 @@ const TablaTipoProducto = ({show}) => {
     </>
   );
 };
-export default TablaTipoProducto;
+export default TablaProductos;
