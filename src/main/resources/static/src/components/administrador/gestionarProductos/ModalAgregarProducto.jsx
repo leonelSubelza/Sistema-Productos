@@ -105,7 +105,7 @@ export default function ModalAgregarProducto({
 
   const handleImagenAgregada = (event) => {
     //Cargamos el archivo img
-    setImagenArchivo(event.target)
+    setImagenArchivo(event.target.files[0])
     const archivo = event.target.files[0];
     if (archivo) {
       const lector = new FileReader();
