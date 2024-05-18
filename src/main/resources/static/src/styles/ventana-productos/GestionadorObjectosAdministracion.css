@@ -54,12 +54,37 @@
     width: 100%;
     height: 85%;
     margin-top: 1%;
-    overflow-x: auto;
-    overflow-y: auto;
+    /*    overflow-x: auto;
+        overflow-y: auto;*/
     background-color: white;
     border-radius: 20px;
 }
 
+.gestionador-tabla-scroll{
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: scroll;
+    overflow-x: auto;
+    width: 98.5%;
+    height: 100%;
+    margin:auto auto auto 0;
+    border-radius: 20px;
+}
+
+.gestionador-tabla-scroll::-webkit-scrollbar {
+    height: 0;
+    border-radius: 10px;
+    background-color: transparent;
+    width: 7px;
+}
+
+.gestionador-tabla-scroll::-webkit-scrollbar-thumb {
+    background: #d1d1d1;
+    border-radius: 50px;
+}
+
+/*
 .gestionador-tabla-container::-webkit-scrollbar {
     height: 10px;
     margin: auto;
@@ -72,6 +97,7 @@
     background: #d1d1d1;
     border-radius: 10px;
 }
+*/
 
 /*****************************************/
 
@@ -82,7 +108,7 @@
     border-radius: 20px;
     border: 2px solid transparent;
     z-index: 19;
-    user-select: none;
+    cursor: pointer;
 }
 
 .card-administracion-container:hover {
@@ -117,6 +143,7 @@
     object-fit: cover;
     margin: auto;
     border-radius: 20px;
+    user-select: none;
 }
 
 .card-administracion-elements-container {
@@ -140,6 +167,7 @@
     width: 100%;
     height: 30%;
     word-break: break-word;
+    user-select: none;
 }
 
 .card-administracion-elements-nombre-descripcion p{
@@ -148,6 +176,7 @@
     height: 70%;
     word-break: break-word;
     margin:auto;
+    user-select: none;
 }
 
 .card-administracion-elements-info {
@@ -172,6 +201,7 @@
 .card-administracion-elements-info div p{
     margin: 0 auto auto 0;
     font-size: 16px;
+    user-select: none;
 }
 
 .card-administracion-elements-info-dolar{
@@ -246,6 +276,10 @@
     }
 }
 @media screen and (max-width: 850px){
+    .gestionador-tabla-scroll{
+        width: 97%;
+
+    }
     .card-administracion-img-container{
         width: auto;
     }

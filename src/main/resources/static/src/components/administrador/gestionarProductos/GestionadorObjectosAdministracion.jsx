@@ -24,15 +24,17 @@ export default function GestionadorObjectosAdministracion({show,titulo,objectNam
         </div>
       </div>
       <div className={'gestionador-tabla-container'}>
-        {objects &&
-          objects.map((obj)=>(
-            <CardAdministracion
-              prod={obj}
-              removeObj={handleRemove}
-              editObj={handleEdit}
-            />
-          ))
-        }
+        <div className={'gestionador-tabla-scroll'}>
+            {objects &&
+              objects.map((obj)=>(
+                <CardAdministracion
+                  prod={obj}
+                  removeObj={handleRemove}
+                  editObj={handleEdit}
+                />
+              ))
+            }
+        </div>
       </div>
     </div>
   );
