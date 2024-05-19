@@ -4,7 +4,6 @@
     display: none;
     flex-direction: column;
     margin: 5px auto 10px auto;
-    border:1px solid red;
 }
 
 .gestionador-objetos-administracion-container.show{
