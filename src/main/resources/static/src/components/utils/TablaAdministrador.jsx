@@ -28,7 +28,8 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
     }
 
   return (
-    <Container className={`contenedor-tabla ${show && 'show'}`}>
+    <div className={`contenedor-tabla ${show && 'show'}`}>
+    <Container>
       <div className="contenedor-titulo-tabla">
         {/*<GiClothes style={{ height: "100%", width: "4rem" }} />*/}
         {titleIcon}
@@ -37,17 +38,17 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
           <p>{description}</p>
         </div>
       </div>
-      <Button
-        color="success"
-        className={"boton-agregar"}
-        onClick={() => handleAddButton()}
-        style={{display: "flex"}}
-      >
-        {`${textButtonAdd} `}
-        <IoAddCircleOutline
-          style={{width: "25px", height: "25px", margin: "0 0 0 5px"}}
-        />
-      </Button>
+      <div className={'contenedor-button'}>
+        <button
+          className={"boton-agregar"}
+          onClick={() => handleAddButton()}
+        >
+          <p>{`${textButtonAdd} `}</p>
+          <IoAddCircleOutline
+            style={{width: "25px", height: "25px", margin: "0 0 0 5px"}}
+          />
+        </button>
+      </div>
       <div className={"contenedor-table"}>
         <Table>
           <thead>
@@ -94,6 +95,7 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
         </Table>
       </div>
     </Container>
+    </div>
   );
 }
 export default TablaAdministrador;

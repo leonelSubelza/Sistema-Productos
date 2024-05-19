@@ -1,4 +1,4 @@
-.tabla-productos-container{
+.tabla-productos-container, .contenedor-tabla{
     display: none;
     flex-direction: column;
     margin:auto;
@@ -11,15 +11,13 @@
     display: flex;
 }
 
-.contenedor-tabla{
-    margin: 2% auto;
-    background-color: white;
-    width: 70%;
-    height: 75%;
-    display: none;
-    overflow: hidden;
+.contenedor-tabla .container{
+    width: 80%;
+    height: 85%;
     flex-direction: column;
+    margin: 5px auto 10px auto;
     border-radius:20px;
+    border:1px solid red;
 }
 
 .contenedor-tabla.show {
@@ -35,7 +33,12 @@
     margin:0;
 }
 
+.contenedor-titulo-tabla svg{
+    color: #e8e8e8;
+}
+
 .titulo-tabla h1, .titulo-tabla p{
+    color: #e8e8e8;
     font-size: 20px;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;
 }
@@ -43,23 +46,40 @@
 .titulo-tabla p {
     font-size: 16px;
 }
+
+.contenedor-button {
+    display: flex;
+    width: 100%;
+    height: 10%;
+    border:1px solid red;
+}
+
 .boton-agregar{
     width: auto;
-    height:auto;
-    margin: 0 auto 0 0;
-    background-color: transparent;
-    color: black;
-    border: 1px solid #060b26;
+    min-height: 31px;
+    border-radius: 25px;
+    padding: 8px 18px;
+    margin: auto 0;
+    background-color: #0057ff;
+    color: white;
+    border: 1px solid transparent;
+    font-size: 12px;
+    display: flex
+
 }
 
 .boton-agregar:hover {
-    color:white;
-    background-color: #060b26;
+    background-color: #1668fd;
+    border: 1px solid #0057ff;
+}
+
+.boton-agregar p{
+    margin:auto;
 }
 
 .contenedor-table{
     width: 100%;
-    height: 100%;
+    height: 70%;
     margin:1% auto 0 0;
     overflow-y: auto;
     overflow-x: auto;
@@ -120,7 +140,7 @@ tbody td{
 }
 
 @media screen and (max-width: 1000px){
-    .contenedor-tabla.container{
+    .contenedor-tabla.container, .tabla-productos-container{
         width: 95% !important;
         height: 100%;
         max-width: 100% !important;
@@ -132,8 +152,6 @@ tbody td{
         width:100% !important;
     }
 }
-
-
 
 @media screen and (max-width: 768px) {
     .contenedor-tabla.container{

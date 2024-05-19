@@ -35,7 +35,7 @@ function Navbar({showTablaProductos}) {
           <div className={'navbar-brand'}>
             <div className="navbar-brand-item">
               {/*<p><IoStorefront /></p>*/}
-              <p> Tienda Humilde </p>
+              <p onClick={()=> navigate('/')}> Tienda Humilde </p>
             </div>
             <div className="navbar-brand-item navbar-brand-item-actions">
                 <p className={`${!showItems&&'show'}`} onClick={()=> setShowItems(true)}><IoMenu /></p>

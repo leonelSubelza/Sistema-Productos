@@ -18,7 +18,7 @@ export const SideBarData = [
   },
   {
     title: 'Salir',
-    path: '/',
+    path: '/login',
     icon: <FiLogOut/>,
     cName: 'nav-text'
   }

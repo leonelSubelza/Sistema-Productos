@@ -1,9 +1,10 @@
 .gestionador-objetos-administracion-container {
     width: 80%;
-    height: 75%;
+    height: 85%;
     display: none;
     flex-direction: column;
     margin: 5px auto 10px auto;
+    border:1px solid red;
 }
 
 .gestionador-objetos-administracion-container.show{
@@ -188,7 +189,7 @@
     width: 33%;
     max-width: 33%;
     word-break: break-word;
-    margin: auto;
+    margin: 0 auto;
     display: flex;
     align-items: center;
 }
