@@ -12,7 +12,7 @@ function Articulos({ productosMostrados, totalProductos, productosPorPagina, pag
   const primerIndex = ultimoIndex - productosPorPagina;
   const { productos } =
     useContext(funcionesContext);
-
+//console.log(productos);
   return (
     <>
       <div className="articulos">

@@ -69,7 +69,6 @@ const TablaTipoProducto = () => {
             <p>Listado de los productos cargados en el sistema</p>
           </div>
         </div>
-
         <br />
         <Button
           color="success"
