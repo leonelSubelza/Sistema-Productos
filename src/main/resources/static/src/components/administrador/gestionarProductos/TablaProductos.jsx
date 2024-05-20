@@ -99,7 +99,7 @@ const TablaProductos = ({show}) => {
           objects={productosCargados.get(paginaActualProductos)}
           objectTD={getTableData}
       />*/}
-      <div className={`tabla-productos-container ${show? 'show':'hijodeputa'}`}>
+      <div className={`tabla-productos-container ${show&&'show'}`}>
         <GestionadorObjectosAdministracion
           show={show}
           titulo={"Gestion de Productos"}
