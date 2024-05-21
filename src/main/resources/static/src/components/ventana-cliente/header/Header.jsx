@@ -51,13 +51,19 @@ const Header = ({
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto div-a-centrar">
               <Nav.Link
-                onClick={() => filtrar("")}
+                onClick={() => filtrar("FEMENINO", "genero")}
                 className="custom-nav-link"
                 href="#!"
               >
-                Restaurar
+                mujer
               </Nav.Link>
-
+              <Nav.Link
+                onClick={() => filtrar("MASCULINO", "genero")}
+                className="custom-nav-link"
+                href="#!"
+              >
+                hombre
+              </Nav.Link>
               <NavDropdown
                 className="custom-nav-link"
                 title="productos"
@@ -77,20 +83,12 @@ const Header = ({
                     </NavDropdown.Item>
                   ))}
               </NavDropdown>
-
               <Nav.Link
-                onClick={() => filtrar("MASCULINO", "genero")}
+                onClick={() => filtrar("")}
                 className="custom-nav-link"
                 href="#!"
               >
-                hombre
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => filtrar("FEMENINO", "genero")}
-                className="custom-nav-link"
-                href="#!"
-              >
-                mujer
+                Quitar Filtro
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

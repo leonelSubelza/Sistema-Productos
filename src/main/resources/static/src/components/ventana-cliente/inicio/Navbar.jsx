@@ -4,6 +4,8 @@ import "../../../styles/Inicio/Navbar.css";
 import logo from "../../../img/TiendaHumilde-logo.png";
 import { BsFillCartFill } from "react-icons/bs";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
+import Cart from "../../svg/Cart";
+
 const Navbar = () => {
   const { setShowCarrito } = useContext(carritoContext);
   return (
@@ -28,7 +30,7 @@ const Navbar = () => {
       </nav>
       <div className="button-nav-inicio">
       <button onClick={() => setShowCarrito(true)}>
-        <BsFillCartFill className='icon-carrito' />
+        <Cart/>
         <p>0</p>
       </button>
       </div>
