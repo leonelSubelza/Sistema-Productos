@@ -1,80 +1,114 @@
-import React, { useContext } from 'react';
-import logo from "../../../img/TiendaHumilde-logo.png";
-import '../../../styles/ventana-cliente/header.css';
+import React, { useContext } from "react";
+import "../../../styles/ventana-cliente/header.css";
 
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { BsFillCartFill } from "react-icons/bs";
-import { carritoContext } from '../../../context/ElementosCarritoContext';
-import { useNavigate } from 'react-router';
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+// import { BsFillCartFill } from "react-icons/bs";
+// import { carritoContext } from "../../../context/ElementosCarritoContext";
 
-const Header = ({ productos, setProductosMostrados, tiposProductos, settotalProductos, setPaginaActual }) => {
-  const navigate = useNavigate();
-  const { setShowCarrito } = useContext(carritoContext);
+const Header = ({
+  productos,
+  setProductosMostrados,
+  tiposProductos,
+  settotalProductos,
+  setPaginaActual,
+}) => {
+  // const { setShowCarrito } = useContext(carritoContext);
 
   // filtra genero o tipoProducto
   const filtrar = (valor, tipo = "genero") => {
-    setProductosMostrados(productos)
+    setProductosMostrados(productos);
     let productosFiltrados = [];
     if (tipo === "tipoProducto") {
       // una expresion regular extricta donde solo filtra exactamnete el valor que se le pasa
-      let palabra = new RegExp(`^${valor}$`, 'i');
-      productosFiltrados = productos.filter(producto => palabra.test(producto[tipo].nombre));
+      let palabra = new RegExp(`^${valor}$`, "i");
+      productosFiltrados = productos.filter((producto) =>
+        palabra.test(producto[tipo].nombre)
+      );
     } else {
-      productosFiltrados = productos.filter(producto => producto[tipo].includes(valor));
+      productosFiltrados = productos.filter((producto) =>
+        producto[tipo].includes(valor)
+      );
     }
     console.log();
-    setProductosMostrados(productosFiltrados)
-    settotalProductos(productosFiltrados.length)
+    setProductosMostrados(productosFiltrados);
+    settotalProductos(productosFiltrados.length);
     setPaginaActual(1);
-  }
+  };
 
   const handleLoginScreen = () => {
     navigate("login");
   }
 
   return (
-    <header className='header'>
-
-      <div className='cabecera'>
-        <div onClick={() => { filtrar("") }} className='logo'>
-          <a href="/#!"><img src={logo} alt="Logo" /></a>
-        </div>
-      </div>
-
-      <Navbar bg="light" className='custom-navbar navbar-header-cliente' expand="md">
-        <div className='container-fluid' style={{ background: "white" }}>
+    <header className="header" id="producto-link">
+      <h1 className="titulo-productos">Productos</h1>
+      <Navbar
+        bg="light"
+        className="custom-navbar navbar-header-cliente"
+        expand="md"
+      >
+        <div className="container-fluid">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mx-auto div-a-centrar">
-              <Nav.Link onClick={() => filtrar("")} className='custom-nav-link' href="#!">inicio</Nav.Link>
-
-              <NavDropdown className='custom-nav-link' title="productos" id="basic-nav-dropdown">
-
-                {tiposProductos && tiposProductos.map((tipoProducto) => (
-                  <NavDropdown.Item onClick={() => filtrar(tipoProducto.nombre, "tipoProducto")} key={tipoProducto.id} className='custom-nav-link-item' href="#!">{tipoProducto.nombre}</NavDropdown.Item>
-                ))}
-
+              <Nav.Link
+                onClick={() => filtrar("FEMENINO", "genero")}
+                className="custom-nav-link"
+                href="#!"
+              >
+                mujer
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => filtrar("MASCULINO", "genero")}
+                className="custom-nav-link"
+                href="#!"
+              >
+                hombre
+              </Nav.Link>
+              <NavDropdown
+                className="custom-nav-link"
+                title="productos"
+                id="basic-nav-dropdown"
+              >
+                {tiposProductos &&
+                  tiposProductos.map((tipoProducto) => (
+                    <NavDropdown.Item
+                      onClick={() =>
+                        filtrar(tipoProducto.nombre, "tipoProducto")
+                      }
+                      key={tipoProducto.id}
+                      className="custom-nav-link-item"
+                      href="#!"
+                    >
+                      {tipoProducto.nombre}
+                    </NavDropdown.Item>
+                  ))}
               </NavDropdown>
-
-              <Nav.Link onClick={() => filtrar("MASCULINO", "genero")} className='custom-nav-link' href="#!">hombre</Nav.Link>
-              <Nav.Link onClick={() => filtrar("FEMENINO", "genero")} className='custom-nav-link' href="#!">mujer</Nav.Link>
+              <Nav.Link
+                onClick={() => filtrar("")}
+                className="custom-nav-link"
+                href="#!"
+              >
+                Quitar Filtro
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          <div>
-            <p className='carrito-txt' onClick={() => setShowCarrito(true)}>Carrito <BsFillCartFill className='icon-carrito' /></p>
-          </div>
+          {/* <div>
+            <p className="carrito-txt" onClick={() => setShowCarrito(true)}>
+              Carrito <BsFillCartFill className="icon-carrito" />
+            </p>
+          </div> */}
 
-          <Nav.Link className='custom-nav-link ml-auto' onClick={handleLoginScreen}>
+          {/* <Nav.Link className="custom-nav-link ml-auto" href="/login">
             Inicio sesión
-          </Nav.Link>
+          </Nav.Link> */}
         </div>
       </Navbar>
-
     </header>
   );
-}
+};
 
 export default Header;

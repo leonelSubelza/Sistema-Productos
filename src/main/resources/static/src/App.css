@@ -3,21 +3,3 @@
   padding: 0px;
   box-sizing: border-box;
 }
-
-.App {
-  text-align: center;
-  height: 100%;
-  width: 100%;
-}
-
-#root{
-  height: 100%;
-  width: 100%;
-}
-
-.padre {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 100%;
-  width: 100%;
-}

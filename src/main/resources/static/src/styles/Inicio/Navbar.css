@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+.header-inicio {
+  background-color: #F9C1C5;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: auto;
+  padding: 5px 2%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  margin-bottom: 500px;
+}
+
+.logo-inicio {
+  width: 20%;
+  display: flex;
+  align-items: center;
+}
+
+.logo-inicio a img {
+  height: auto;
+  width: 60%;
+  transition: all 0.3s;
+}
+
+.logo-inicio a img:hover {
+  transform: scale(1.1);
+}
+
+.navbar-inicio ul {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  padding-left: 0;
+}
+
+.navbar-inicio ul li {
+  font-weight: 700;
+  margin-right: 20px;
+  transition: all 0.3s;
+}
+
+.navbar-inicio ul li:last-child {
+  margin-right: 0;
+}
+
+.navbar-inicio ul li:hover {
+  transform: scale(1.1);
+}
+
+.navbar-inicio ul li::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 2px;
+  background-color: black;
+  transition: width 0.1s;
+  width: 0;
+}
+
+.navbar-inicio ul li:hover::after,
+.navbar-inicio ul li.active::after {
+  width: 70%;
+}
+
+.navbar-inicio a {
+  font-size: 1.5em;
+  text-decoration: none;
+  color: black;
+}
+
+.button-nav-inicio {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-nav-inicio button {
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.button-nav-inicio button p {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.button-nav-inicio .icon-carrito {
+  font-size: 2em;
+}
+
+@media only screen and (max-width: 768px) {
+  .logo-inicio,
+  .button-nav-inicio {
+    width: 30%;
+  }
+
+  .navbar-inicio a {
+    font-size: 1em;
+  }
+
+  .button-nav-inicio button p {
+    font-size: 1.5em;
+  }
+
+  .button-nav-inicio .icon-carrito {
+    font-size: 1.5em;
+  }
+}
+
+@media only screen and (max-width: 458px){
+  .logo-inicio a img {
+    width: 90%;
+
+  }
+  
+} 
+
+@media only screen and (max-width: 390px){
+  .header-inicio{
+    justify-content: center;
+  }
+  .logo-inicio{
+    display: none;
+  }
+
+
+} 

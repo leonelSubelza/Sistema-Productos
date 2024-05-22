@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "../../../styles/ventana-cliente/articulo.css";
-import Button from "react-bootstrap/Button";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
 
 const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,producto }) => {
@@ -8,7 +7,7 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
 
 
   const cargarAnimacion = (e) => {
-    let divProd = e.target.closest('.card.text-center.bg-ligth');
+    let divProd = e.target.closest('.card');
     divProd.classList.add('articulo-pulsado');
     setTimeout(() => {
       divProd.classList.remove('articulo-pulsado')
@@ -17,26 +16,27 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
 
   const manejarClick = (e) => {
     agregarProducto(producto);
-    setShowCarrito(true);
     cargarAnimacion(e)
   }
   return (
-    <div className="card text-center bg-ligth">
-      <div className="overflow">
+    <div className="card">
+      <div className="card-image-wrapper">
         <img
           src={imageSource}
-          alt="a wallpaper"
+          alt={nombreProducto || "Producto sin imagen"}
           className="card-img-top"
         />
       </div>
-      <div className="card-body text-dark">
+      <div className="card-body">
         <h4 className="card-title">{nombreProducto}</h4>
-        <h6 className="card-subtitle mb-2 text-muted">{nombreCategoria}</h6>
-        <p className="custom-precio card-text text-secondary  display-5 font-weight-bold">
-          {precio ? precio : "Sin precio"}
+        <h6 className="card-subtitle">{nombreCategoria}</h6>
+        <p className="card-price">
+          {precio ? `$ ${precio}` : "Sin precio"}
         </p>
+        <button className="card-btn btn-dark" onClick={manejarClick}>
+          AÑADIR AL CARRITO
+        </button>
       </div>
-      <Button variant="dark" onClick={(e)=> manejarClick(e)}>AÑADIR AL CARRITO</Button>
     </div>
   );
 };

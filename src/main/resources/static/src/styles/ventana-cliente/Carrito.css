@@ -1,6 +1,6 @@
 .carrito-fondo {
   background-color: #00000047;
-  z-index: 29;
+  z-index: 1000;
   height: 0;
   width: 0;
   position: fixed;
@@ -26,7 +26,7 @@
   right: -1000%;
   transition: 850ms;
   overflow: auto;
-  z-index: 30;
+  z-index: 1001;
 }
 
 .carrito-show {
