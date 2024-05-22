@@ -20,7 +20,7 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
   }
   return (
     <div className="card">
-      <div className="card-image-wrapper">
+      <div className="card-image">
         <img
           src={imageSource}
           alt={nombreProducto || "Producto sin imagen"}
