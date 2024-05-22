@@ -6,6 +6,7 @@
 .titulo-productos{
   font-size: 80px;
   margin: 0 auto;
+  margin-top: 50px;
 }
 
 .container-fluid{
@@ -61,6 +62,10 @@
 .nav-link-inicio-sesion {
   position: absolute !important;
   right: 0 !important;
+}
+
+.nav-link{
+  color: black;
 }
 
 

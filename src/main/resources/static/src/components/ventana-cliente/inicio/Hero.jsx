@@ -10,7 +10,9 @@ const Inicio = () => {
           ¡Bienvenidos! Aqui podran subir sus productos
           <br></br>para ser mostrador al publico.
         </p>
+        <a href="#producto-link">
         <button>Catálogo</button>
+        </a>
       </div>
 
     </div>

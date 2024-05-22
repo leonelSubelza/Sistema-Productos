@@ -16,7 +16,6 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
 
   const manejarClick = (e) => {
     agregarProducto(producto);
-    setShowCarrito(true);
     cargarAnimacion(e)
   }
   return (

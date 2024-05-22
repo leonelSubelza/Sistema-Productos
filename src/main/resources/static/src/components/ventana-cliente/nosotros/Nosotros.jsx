@@ -9,7 +9,9 @@ const Nosotros = () => {
         En Tienda Humilde nos centramos en ofrecer a nuestros clientes que
         puedan vender sus productos de la forma más humilde posible.{" "}
       </p>
+      <a href="/login">
       <button>Unirse</button>
+      </a>
     </div>
   );
 };

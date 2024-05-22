@@ -1,13 +1,12 @@
-// Componente Navbar.jsx
 import React, { useContext } from "react";
 import "../../../styles/Inicio/Navbar.css";
 import logo from "../../../img/TiendaHumilde-logo.png";
-import { BsFillCartFill } from "react-icons/bs";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
 import Cart from "../../svg/Cart";
 
 const Navbar = () => {
-  const { setShowCarrito } = useContext(carritoContext);
+  const { setShowCarrito, calcularTotalProductos } = useContext(carritoContext);
+
   return (
     <div className="header-inicio">
       <div className="logo-inicio">
@@ -29,10 +28,10 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className="button-nav-inicio">
-      <button onClick={() => setShowCarrito(true)}>
-        <Cart/>
-        <p>0</p>
-      </button>
+        <button onClick={() => setShowCarrito(true)}>
+          <Cart />
+          <p>{calcularTotalProductos}</p>
+        </button>
       </div>
     </div>
   );

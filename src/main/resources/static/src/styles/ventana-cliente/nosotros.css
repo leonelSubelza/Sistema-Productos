@@ -8,6 +8,7 @@ flex-direction: column;
 .nosotros h1 {
   font-size: 80px;
 margin: auto;
+margin-top: 50px;
 }
 
 .nosotros p {
@@ -18,13 +19,14 @@ margin: auto;
   font-size: 20px;
 }
 
+.nosotros a{
+  margin: 20px auto;
+}
 .nosotros button{
-    justify-content: start;
     background-color: #6ba488;
     padding: 10px 40px;
     color: white;
     border: transparent;
-    margin: 20px auto;
 }
 .nosotros button:hover {
     background-color: #4a7f4c;
