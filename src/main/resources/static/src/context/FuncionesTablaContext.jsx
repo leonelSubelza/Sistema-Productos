@@ -1,10 +1,9 @@
-import React, { useState,useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { cargarObjetosConPaginacion, borrarObjeto,crearObjeto, cargarTodosLosObjetos } from "../service/GestionProductos";
 
 import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
 import MensajeToast from "../components/utils/MensajeToast.jsx";
 
-import WebSocket from '../service/WebSocket.jsx';
 import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 export const funcionesContext = React.createContext();
 
@@ -35,9 +34,9 @@ export function FuncionesTablaContext({ children }) {
   //Carga las variables productos y tiposProductos
 
   //msj recibido del ws que dice qué actualizar
-  const manejarMsjRecibido = (payload)=>{
+/*  const manejarMsjRecibido = (payload)=>{
     actualizarValores(paginaActualProductos);
-  };
+  };*/
 
   const getTipoProducto = (id,tiposProduct) => {
     return tiposProduct.find(tipoProd => tipoProd.id === id);
@@ -161,7 +160,7 @@ export function FuncionesTablaContext({ children }) {
 
   const actualizarValores = async (pagActual) => {
     const tiposProductosAct = await actualizarTipoProductos();
-    const productosAct = await actualizarProductos(
+    await actualizarProductos(
       "productos",
       pagActual - 1,
       administradorCantObjPorTabla,

@@ -3,7 +3,7 @@ import "./App.css";
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import VentanaCliente from "./components/ventana-cliente/VentanaCliente";
 
-import { BrowserRouter as Router, Route, Switch, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PantallaAdministrador from "./components/administrador/PantallaAdministrador";
 import Login from "./components/login/Login";
 
