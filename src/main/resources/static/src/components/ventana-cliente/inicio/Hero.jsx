@@ -1,5 +1,4 @@
 import React from "react";
-import Img from "../../../img/img-inicio.jpg";
 import "../../../styles/Inicio/Hero.css";
 
 const Inicio = () => {
@@ -13,7 +12,7 @@ const Inicio = () => {
         </p>
         <button>Catálogo</button>
       </div>
-      <img src={Img} alt="" />
+
     </div>
   );
 };

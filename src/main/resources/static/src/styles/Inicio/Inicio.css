@@ -1,14 +1,9 @@
-.inicio{
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+.inicio {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: url("../../img/imageFondo.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
-
-@media screen and (max-width: 1090px) {
-    .inicio{
-        background-image: url("../../img/imageFondo.png");
-        background-repeat: no-repeat;
-    background-size: cover; 
-    background-position: center;
-    }
-  }

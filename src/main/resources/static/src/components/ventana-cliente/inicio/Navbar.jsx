@@ -21,10 +21,10 @@ const Navbar = () => {
             <a href="#">Inicio</a>
           </li>
           <li>
-            <a href="#">Tienda</a>
+            <a href="#producto-link">Tienda</a>
           </li>
           <li>
-            <a href="#">Nosotros</a>
+            <a href="#nosotros-link">Nosotros</a>
           </li>
         </ul>
       </nav>

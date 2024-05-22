@@ -1,12 +1,8 @@
-import React, { useContext } from "react";
 import "../../../styles/ventana-cliente/header.css";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-// import { BsFillCartFill } from "react-icons/bs";
-// import { carritoContext } from "../../../context/ElementosCarritoContext";
-
 const Header = ({
   productos,
   setProductosMostrados,
@@ -38,7 +34,7 @@ const Header = ({
   };
 
   return (
-    <header className="header">
+    <header className="header" id="producto-link">
       <h1 className="titulo-productos">Productos</h1>
       <Navbar
         bg="light"
@@ -92,15 +88,6 @@ const Header = ({
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
-          {/* <div>
-            <p className="carrito-txt" onClick={() => setShowCarrito(true)}>
-              Carrito <BsFillCartFill className="icon-carrito" />
-            </p>
-          </div> */}
-
-          {/* <Nav.Link className="custom-nav-link ml-auto" href="/login">
-            Inicio sesión
-          </Nav.Link> */}
         </div>
       </Navbar>
     </header>

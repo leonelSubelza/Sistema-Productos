@@ -6,6 +6,7 @@ import { funcionesContext } from "../../context/FuncionesTablaContext";
 import Carrito from './carrito/Carrito';
 import ElementosCarritoContext from "../../context/ElementosCarritoContext";
 import Inicio from "./inicio/Inicio";
+import Nosotros from "./nosotros/Nosotros";
 
 function VentanaCliente() {
   const { productos, tiposProductos } = useContext(funcionesContext);
@@ -45,6 +46,7 @@ function VentanaCliente() {
           paginaActual={paginaActual}
           setPaginaActual={setPaginaActual}
         />
+        <Nosotros/>
         <Footer />
         <Carrito />
       </div>

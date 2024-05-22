@@ -15,49 +15,12 @@ const Footer = () => {
           <div className="container text-center text-md-start mt-4">
             <div className="row mt-3">
               <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold">Tienda Humilde</h6>
-                <hr
-                  className="mb-4 mt-6 d-inline-block mx-auto"
-                  style={{ width: "60px", backgroundColor: '#7c4dff', height: '2px' }}
-                />
-                <p>
-                  Una tienda donde el dueño de la tienda puede agregar productos y venderlos a través
-                  del contacto directo con el vendedor.
-                </p>
+                <h6 className="text-uppercase fw-bold">Desarrollado Por</h6>
               </div>
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold">Giovanni Sia</h6>
-                <hr
-                  className="mb-4 mt-0 d-inline-block mx-auto"
-                  style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }}
-                />
-                <p>
-                  <a href="#!" className="text-white me-4">
-                    <i className="bi bi-linkedin"></i> Linkedln
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-white me-4">
-                    <i className="bi bi-github"></i> Github
-                  </a>
-                </p>
-              </div>
-              <div className="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                <h6 className="text-uppercase fw-bold">Leonel subelza</h6>
-                <hr
-                  className="mb-4 mt-0 d-inline-block mx-auto"
-                  style={{ width: '60px', backgroundColor: '#7c4dff', height: '2px' }}
-                />
-                <p>
-                  <a href="#!" className="text-white me-4">
-                    <i className="bi bi-linkedin"></i> Linkedln
-                  </a>
-                </p>
-                <p>
-                  <a href="#!" className="text-white me-4">
-                    <i className="bi bi-github"></i> Github
-                  </a>
-                </p>
+                <a href="https://giovannisia.github.io/portfolio/">
+                <h6 className="text-uppercase link-your-software">Your Software</h6>
+                </a>
               </div>
             </div>
           </div>
