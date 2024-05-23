@@ -33,9 +33,11 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
         <p className="card-price">
           {precio ? `$ ${precio}` : "Sin precio"}
         </p>
+        <div className="card-button">
         <button className="card-btn btn-dark" onClick={manejarClick}>
           AÑADIR AL CARRITO
         </button>
+        </div>
       </div>
     </div>
   );
