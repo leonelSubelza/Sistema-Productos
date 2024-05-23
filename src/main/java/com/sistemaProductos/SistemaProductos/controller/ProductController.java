@@ -40,6 +40,17 @@ public class ProductController {
 		return new ResponseEntity<>(this.productService.findAll(pageable), HttpStatus.OK);
 	}
 
+	@GetMapping("/byProductType")
+	public ResponseEntity<Page<ProductResponseDTO>> findAllByProductType(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "2") int size,
+			@RequestParam(defaultValue = "1") int productTypeId
+	){
+		Pageable pageable = PageRequest.of(page, size);
+		return new ResponseEntity<>(this.productService.findAllByProductType((long)productTypeId,pageable), HttpStatus.OK);
+	}
+
+
 	//Se agrega responseEntity para manejar los codigos de error al crear un nuevo producto
 	//Valid indica que se deben validar antes de procesar los datos recibidos dado que el nombre de producto
 	//no puede ser null

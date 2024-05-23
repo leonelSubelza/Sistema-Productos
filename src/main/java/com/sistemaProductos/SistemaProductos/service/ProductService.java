@@ -28,6 +28,7 @@ public class ProductService implements IProductService {
 	@Autowired
 	private IProductTypeService productTypeService;
 
+
 	@Override
 	public Product create(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
 		ProductType tipoProducto = this.productTypeService.findById(product.getProductTypeId());
@@ -35,6 +36,20 @@ public class ProductService implements IProductService {
         imageObj.ifPresent(multipartFile -> saveImage(productToSave, multipartFile));
 		return this.productRepo.save(productToSave);
 	}
+
+	@Override
+	public Page<ProductResponseDTO> findAll(Pageable pageable) {
+		Page<Product> listProducts= productRepo.findAll(pageable);
+		return listProducts.map(product -> mapProductToProductResponseDTO(product));
+	}
+
+	public Page<ProductResponseDTO> findAllByProductType(Long productTypeId, Pageable pageable){
+		ProductType productType = productTypeService.findById(productTypeId);
+		Page<Product> listProducts= productRepo.findByTipoProducto(productType,pageable);
+//		System.out.println(listProducts.getContent());
+		return listProducts.map(this::mapProductToProductResponseDTO);
+	}
+
 
 	@Override
 	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
@@ -53,33 +68,17 @@ public class ProductService implements IProductService {
 	}
 
 	@Override
-	public Product findById(Long id) {
-		return this.productRepo.findById(id)
-				.orElseThrow(() -> new ModelNotFoundException("El producto solicitado no existe"));
-	}
-
-	@Override
-	public Page<ProductResponseDTO> findAll(Pageable pageable) {
-		Page<Product> listProducts= productRepo.findAll(pageable);
-		return listProducts.map(product -> ProductResponseDTO
-				.builder()
-				.id(product.getId())
-				.nombre(product.getNombre())
-				.descripcion(product.getDescripcion())
-				.imagen(product.getImagen())
-				.precio(product.getPrecio())
-				.genero(product.getGenero())
-				.productTypeId(product.getTipoProducto().getId())
-				.build());
-	}
-
-	@Override
 	public void delete(Long id) {
 		Product productToDelete = this.productRepo.findById(id)
 				.orElseThrow(() -> new ModelNotFoundException("El producto a borrar no existe"));
 		this.productRepo.delete(productToDelete);
 	}
 
+	@Override
+	public Product findById(Long id) {
+		return this.productRepo.findById(id)
+				.orElseThrow(() -> new ModelNotFoundException("El producto solicitado no existe"));
+	}
 
 	//Save the image in the project directory
 	public void saveImage(Product product, MultipartFile imageObj){
@@ -110,6 +109,19 @@ public class ProductService implements IProductService {
 				.precio(productResponseDTO.getPrecio())
 				.genero(productResponseDTO.getGenero())
 				.tipoProducto(productType)
+				.build();
+	}
+
+	public ProductResponseDTO mapProductToProductResponseDTO(Product product){
+		return ProductResponseDTO
+				.builder()
+				.id(product.getId())
+				.nombre(product.getNombre())
+				.descripcion(product.getDescripcion())
+				.imagen(product.getImagen())
+				.precio(product.getPrecio())
+				.genero(product.getGenero())
+				.productTypeId(product.getTipoProducto().getId())
 				.build();
 	}
 }
