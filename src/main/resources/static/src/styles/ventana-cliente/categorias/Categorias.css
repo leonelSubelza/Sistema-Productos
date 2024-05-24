@@ -1,10 +1,14 @@
 .categorias-container{
     width: 80%;
     /*min-height: 80dvh;*/
-    display: flex;
+    display: none;
     border: 1px solid blue;
     flex-direction: column;
     margin: 20px auto;
+}
+
+.categorias-container.show{
+    display: flex;
 }
 
 .categorias-container h1{

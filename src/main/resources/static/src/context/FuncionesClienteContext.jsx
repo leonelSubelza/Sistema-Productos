@@ -50,7 +50,7 @@ export function FuncionesClienteContext({ children }) {
     keyProductoFiltrado.pagActual = nroPagina;
 
     //guardamos los cambios
-    setProductosFiltrados(productosFiltrados);
+    setProductosFiltrados(new Map(productosFiltrados));
 
     keyProductoFiltrado = getKeyProdFiltrado(idTipoProducto);
     return productosFiltrados.get(keyProductoFiltrado);
@@ -80,6 +80,7 @@ export function FuncionesClienteContext({ children }) {
   return (<clienteContext.Provider
     value={{
       productosFiltrados,
+      setProductosFiltrados,
       cargarProductosFiltrados
     }}
   >

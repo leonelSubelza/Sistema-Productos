@@ -1,24 +1,57 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import Articulo from "./Articulo.jsx";
-import Paginacion from "../Paginacion.jsx";
+// import Paginacion from "../Paginacion.jsx";
 import { URLImagenes } from '../../../../service/Configuracion.js'
-import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
+// import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import "../../../../styles/ventana-cliente/articulos.css";
+import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 
 window.timestamp = 123456;
 
-function Articulos({ show,productosMostrados}) {
+function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
-/*  const ultimoIndex = paginaActual * productosPorPagina;
-  const primerIndex = ultimoIndex - productosPorPagina;
-  const { productos } =
-    useContext(funcionesContext);*/
-//console.log(productos);
+  const {productosFiltrados,cargarProductosFiltrados} = useContext(clienteContext);
+
+  const [detallesProdFiltrados, setDetallesProdFiltrados] = useState({})
+
+  // const [paginadorProductosFiltrados, setPaginadorProductosFiltrados] = useState(new Map)
+
+  const [pagActual, setPagActual] = useState(0)
+
+  const getKeyProductosFiltrados = (id) => {
+    return Array.from(productosFiltrados.keys()).find(pf => pf.id === id);
+  }
+
+  const existenProductosCargadosParaEstaPagina = (keyProdCard) => {
+    return productosFiltrados.get(keyProdCard) && productosFiltrados.get(keyProdCard).get(pagActual);
+  }
+
+  const handleClickVolver = () => {
+    // let paginadorProdAux = new Map;
+    // setPaginadorProductosFiltrados(paginadorProdAux);
+    return handleShowArticulos();
+  }
+
+  useEffect(() => {
+    if(!tipoProductoAMostrar) return;
+    if(show){
+      let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
+      if(!keyProdCard) return;
+      if(!existenProductosCargadosParaEstaPagina(keyProdCard)){
+        cargarProductosFiltrados(pagActual,tipoProductoAMostrar.id)
+      }
+      setDetallesProdFiltrados(keyProdCard);
+    }
+  });
+
   return (
     <>
+      <button onClick={handleClickVolver}>volver</button>
       <div className={`articulos ${show&&'show'}`}>
-            {(totalProductos) !== 0 ? productosMostrados &&
-              productosMostrados
+        {productosFiltrados.get(detallesProdFiltrados) &&
+          productosFiltrados.get(detallesProdFiltrados).get(pagActual) &&
+        productosFiltrados.get(detallesProdFiltrados).get(pagActual).length !== 0 ?
+          productosFiltrados.get(detallesProdFiltrados).get(pagActual)
                 .map((prod, index) => (
                     <Articulo key={index}
                       imageSource={

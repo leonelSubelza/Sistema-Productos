@@ -1,27 +1,34 @@
-import React from 'react';
-import Filtro from './Filtro';
+import React, { useState} from 'react';
 import Articulos from './articulos/Articulos.jsx';
 import '../../../styles/ventana-cliente/contenido.css';
 import CategoriasContainer from "./categorias/CategoriasContainer.jsx";
 
-const Contenido = ({productos,productosMostrados,setProductosMostrados,tiposProductos,totalProductos,settotalProductos,productosPorPagina,paginaActual,setPaginaActual}) => {
+const Contenido = () => {
+
+  const [tipoProductoMostrar, setTipoProductoMostrar] = useState(undefined);
+
+  const [showCategorias, setShowCategorias] = useState(true)
+
+  const handleCategoriaShow = (tipoProducto) => {
+    setTipoProductoMostrar(tipoProducto)
+    setShowCategorias(false);
+  }
+
+  const handleShowArticulos = () => {
+    setShowCategorias(true);
+  }
+
   return (
     <section className='section'>
-{/*      <Filtro
-        productos={productos}
-        setProductosMostrados={setProductosMostrados}
-        tiposProductos={tiposProductos}
-        settotalProductos={settotalProductos}
-        setPaginaActual={setPaginaActual}
-      />*/}
-{/*      <Articulos
-        productosMostrados={productosMostrados}
-        totalProductos={totalProductos}
-        productosPorPagina={productosPorPagina}
-        paginaActual={paginaActual}
-        setPaginaActual={setPaginaActual}
-      />*/}
-      <CategoriasContainer />
+      <CategoriasContainer
+        show={showCategorias}
+        handleCategoriaShow = {handleCategoriaShow}
+      />
+      <Articulos
+        show={!showCategorias}
+        tipoProductoAMostrar={tipoProductoMostrar}
+        handleShowArticulos={handleShowArticulos}
+      />
     </section>
   );
 }
