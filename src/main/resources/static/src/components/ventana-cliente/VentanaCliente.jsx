@@ -28,13 +28,13 @@ function VentanaCliente() {
     <ElementosCarritoContext>
       <div style={{display: 'flex', flexDirection: 'column' }}>
         <Inicio/>
-        <Header
+{/*        <Header
           productos={productos}
           setProductosMostrados={setProductosMostrados}
           tiposProductos={tiposProductos}
           settotalProductos={settotalProductos}
           setPaginaActual={setPaginaActual}
-        />
+        />*/}
         <Contenido
           productos={productos}
           productosMostrados={productosMostrados}

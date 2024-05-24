@@ -1,9 +1,13 @@
 import { URL } from "./Configuracion";
 
 //GET retorna un listado de prod dada una pag y una cantidad
-export const cargarObjetosConPaginacion = async (direccion,page,size) => {
+export const cargarObjetosConPaginacion = async (direccion,page,size,idTipoProducto) => {
   try {
-    const request = await fetch(URL + "/" + direccion+"?page="+page+"&size="+size, {
+    let url = URL + "/" + direccion+"?page="+page+"&size="+size;
+    if(idTipoProducto){
+      url =url+"&productTypeId="+idTipoProducto;
+    }
+    const request = await fetch(url, {
       method: "GET",
       headers: {
         Accept: "application/json",
@@ -34,7 +38,6 @@ export const cargarTodosLosObjetos = async (direccion) => {
     throw error;
   }
 };
-
 
 //Este metodo se puede usar para actualizar=PUT y crear=POST, POST retorna el obj agregado, PUT no
 export const crearObjeto = async (direccion, obj, imagen, metodo) => {

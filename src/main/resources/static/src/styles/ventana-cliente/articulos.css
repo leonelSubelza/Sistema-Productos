@@ -1,7 +1,11 @@
 .articulos {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10PX;
+}
+
+.articulos.show{
+    display: flex;
 }

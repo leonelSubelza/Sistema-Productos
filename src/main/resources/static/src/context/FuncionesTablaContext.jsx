@@ -7,11 +7,19 @@ import MensajeToast from "../components/utils/MensajeToast.jsx";
 import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 export const funcionesContext = React.createContext();
 
+export const datosPagina = {
+  id: 0,
+  nombre: "",
+  totalPaginas:0,
+  pagActual:0
+}
+
 export function FuncionesTablaContext({ children }) {
   //Spinner
   const [showSpinner, setShowSpinner] = useState(false);
   const [mensajeSpinner, setMensajeSpinner] = useState(""); //el msj del spinner puede variar
 
+  //Contiene los productos que se reciben en cada request o.O
   const [productos, setProductos] = useState([]);
   const [tiposProductos, setTiposProductos] = useState([]);
 
@@ -23,7 +31,22 @@ export function FuncionesTablaContext({ children }) {
   const [paginaActualProductos,setPaginaActualProductos] = useState(1)
 
   //Guarda los productos ya cargados
+  //Es un Map<TipoProducto, Map<NumPagina,Productos>>
   const [productosCargados, setProductosCargados] = useState(new Map());
+
+
+
+  //NUEVO
+  const [todosLosProductosConPaginacion, setTodosLosProductosConPaginacion] = useState(new Map());
+
+  const [productosFiltrados, setProductosFiltrados] = useState(new Map());
+
+  const cargarTodosLosProductosConPaginacion = () => {
+
+  }
+
+
+
 
     //Toast
     const [toast, setToast] = useState({
@@ -193,7 +216,8 @@ export function FuncionesTablaContext({ children }) {
         sesionIniciada, setSesionIniciada,
         cantPaginasPorProducto,
         paginaActualProductos,setPaginaActualProductos,
-        productosCargados, setProductosCargados
+        productosCargados, setProductosCargados,
+        cargarTipoProductoAProductos
       }}
     >
       <SpinnerLoading />

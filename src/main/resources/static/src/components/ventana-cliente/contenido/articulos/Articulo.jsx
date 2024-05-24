@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import "../../../styles/ventana-cliente/articulo.css";
-import { carritoContext } from "../../../context/ElementosCarritoContext";
+import "../../../../styles/ventana-cliente/articulo.css";
+import { carritoContext } from "../../../../context/ElementosCarritoContext.jsx";
 
 const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,producto }) => {
   const {agregarProducto,setShowCarrito} = useContext(carritoContext);
