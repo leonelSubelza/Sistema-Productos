@@ -54,26 +54,14 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     if(!existenProductosCargadosParaEstaPagina(keyProdCard,nroPagina)){
       cargarProductosFiltrados(nroPagina,tipoProductoAMostrar.id)
         .then(res => {
-          // console.log("no habia prod cargados, se hace request")
-          // console.log(res)
-
-/*          let productosCargados = res.get(nroPagina);
-          paginadorProductosFiltrados.set(nroPagina,productosCargados)
-          setPaginadorProductosFiltrados(new Map(paginadorProductosFiltrados))*/
           setProductosMostrar(res.get(nroPagina));
 
           setProductosCargados(res.get(nroPagina))
-/*          console.log("paginadorProductosFIltrados:")
-          console.log(paginadorProductosFiltrados)*/
       })
     }else{
-      // console.log("habia prod ya cargados, se cargan:")
-/*      let productosCargados = productosFiltrados.get(keyProdCard);
-      paginadorProductosFiltrados.set(nroPagina,productosCargados)
-      setPaginadorProductosFiltrados(new Map(paginadorProductosFiltrados))*/
       let productosCargados = productosFiltrados.get(keyProdCard);
-      // console.log(productosCargados.get(nroPagina))
       setProductosMostrar(productosCargados.get(nroPagina));
+
       setProductosCargados(productosCargados.get(nroPagina))
     }
     setPagActual(nroPaginaAux);
@@ -88,12 +76,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   }
 
   useEffect(() => {
-    // if(!tipoProductoAMostrar) return;
     if(show){
       let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
       actualizarPaginadorProductosFiltrados(1);
       setDetallesProdFiltrados(keyProdCard);
-      // console.log(keyProdCard)
     }
   },[show]);
 
@@ -109,10 +95,6 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
           </button>
         </div>
-{/*        {paginadorProductosFiltrados &&
-        paginadorProductosFiltrados.get(pagActual) &&
-        paginadorProductosFiltrados.get(pagActual).length !== 0 ?
-          paginadorProductosFiltrados.get(pagActual)*/}
         {productosMostrar &&
         productosMostrar.length !== 0 ?
           productosMostrar
@@ -148,8 +130,3 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 }
 
 export default Articulos;
-/*
-{productosFiltrados.get(detallesProdFiltrados) &&
-productosFiltrados.get(detallesProdFiltrados).get(pagActual) &&
-productosFiltrados.get(detallesProdFiltrados).get(pagActual).length !== 0 ?
-  productosFiltrados.get(detallesProdFiltrados).get(pagActual)*/

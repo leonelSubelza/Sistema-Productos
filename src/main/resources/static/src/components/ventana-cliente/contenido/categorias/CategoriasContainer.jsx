@@ -11,27 +11,6 @@ export default function CategoriasContainer({show,handleCategoriaShow}){
 
   const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
 
-
-  // const [paginadorProductosMostrar, setPaginadorProductosMostrar] = useState(new Map);
-  /*
-    const getKeyProductosFiltrados = (id) => {
-      return Array.from(productosFiltrados.keys()).find(pf => pf.id === id);
-    }
-
-    const handleCardSet = (tipoProducto) => {
-      let keyProdCard = getKeyProductosFiltrados(tipoProducto.id);
-      if(productosFiltrados.get(keyProdCard) && productosFiltrados.get(keyProdCard).get(0)){
-        let productosParaEstaCategoria = productosFiltrados.get(keyProdCard).get(0);
-        //si ya hay prod filtrados para esta pag
-        if(productosParaEstaCategoria){
-          paginadorProductosMostrar.set(pagActual,productosParaEstaPagina);
-          setPaginadorProductos(paginadorProductos);
-        }
-      }else{
-        cargarPaginadorProductos();
-      }
-    }*/
-
   const handleCardSet = (tipoProducto) => {
     return handleCategoriaShow(tipoProducto);
   }
