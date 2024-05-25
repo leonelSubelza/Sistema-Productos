@@ -1,7 +1,8 @@
 import React, {useContext, useEffect, useState} from "react";
 import Articulo from "./Articulo.jsx";
 // import Paginacion from "../Paginacion.jsx";
-import {administradorCantObjPorTabla, URLImagenes} from '../../../../service/Configuracion.js'
+import { MdKeyboardBackspace } from "react-icons/md";
+import {URLImagenes} from '../../../../service/Configuracion.js'
 // import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
@@ -66,7 +67,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       paginadorProductosFiltrados.set(nroPagina,productosCargados)
       setPaginadorProductosFiltrados(new Map(paginadorProductosFiltrados))*/
       let productosCargados = productosFiltrados.get(keyProdCard);
-      console.log(productosCargados.get(nroPagina))
+      // console.log(productosCargados.get(nroPagina))
       setProductosMostrar(productosCargados.get(nroPagina));
     }
     setPagActual(nroPaginaAux);
@@ -85,7 +86,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
-        <button onClick={handleClickVolver}>volver</button>
+        <div className={'articulos-btn-container'}>
+          <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
+          </button>
+        </div>
 {/*        {paginadorProductosFiltrados &&
         paginadorProductosFiltrados.get(pagActual) &&
         paginadorProductosFiltrados.get(pagActual).length !== 0 ?
@@ -116,6 +120,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           numeroTotalDePaginas={detallesProdFiltrados.totalPaginas}
           paginaActual={pagActual}
           show={ ((detallesProdFiltrados.totalPaginas > 0) && show) }
+          color={"#6ba488"}
         />
           </div>
 

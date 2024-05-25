@@ -117,6 +117,7 @@ const TablaProductos = ({show}) => {
              numeroTotalDePaginas={cantPaginasPorProducto}
              paginaActual={paginaActualProductos}
              show={show}
+             color={"#0d6efd"}
         />
       </div>
       <ModalAgregarProducto

@@ -9,3 +9,24 @@
 .articulos.show{
     display: flex;
 }
+
+.articulos-btn-container{
+    width: 80%;
+    /*max-width: 700px;*/
+    display: flex;
+
+}
+
+.articulos-btn-container button {
+    background-color: transparent;
+    border: 1px solid #585958;
+/*rgba(88, 89, 88, 0.3)*/
+    color: rgb(88, 89, 88);
+    border-radius: 4px;
+    padding: 4px;
+    font-family:  "Proxima Nova", -apple-system, "Helvetica Neue", helvetica, roboto, arial, sans-serif;
+}
+
+.articulos-btn-container button:hover {
+    filter: brightness(140%);
+}
