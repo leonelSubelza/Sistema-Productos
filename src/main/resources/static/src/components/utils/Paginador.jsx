@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-
+import '../../styles/ventana-cliente/paginacion.css'
 // function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual, totalProductos }) {
 function Paginador({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
                               numeroTotalDePaginas, paginaActual, show}) {
@@ -20,6 +20,10 @@ function Paginador({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
   const onEspecificarPagina = (num) => {
     return setPaginaActual(num);
   }
+
+  useEffect(() => {
+    console.log("pagina actual: "+paginaActual);
+  });
 
   return (
     <nav aria-label="Page navigation">
