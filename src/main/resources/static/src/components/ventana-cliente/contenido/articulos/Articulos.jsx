@@ -7,6 +7,7 @@ import {URLImagenes} from '../../../../service/Configuracion.js'
 import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
+import Header from "../../header/Header.jsx";
 
 window.timestamp = 123456;
 
@@ -19,6 +20,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   // const [paginadorProductosFiltrados, setPaginadorProductosFiltrados] = useState(new Map)
 
   const [productosMostrar, setProductosMostrar] = useState([])
+
+  const [productosCargados, setProductosCargados] = useState()
 
   const [pagActual, setPagActual] = useState(1)
 
@@ -58,6 +61,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           paginadorProductosFiltrados.set(nroPagina,productosCargados)
           setPaginadorProductosFiltrados(new Map(paginadorProductosFiltrados))*/
           setProductosMostrar(res.get(nroPagina));
+
+          setProductosCargados(res.get(nroPagina))
 /*          console.log("paginadorProductosFIltrados:")
           console.log(paginadorProductosFiltrados)*/
       })
@@ -69,8 +74,17 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       let productosCargados = productosFiltrados.get(keyProdCard);
       // console.log(productosCargados.get(nroPagina))
       setProductosMostrar(productosCargados.get(nroPagina));
+      setProductosCargados(productosCargados.get(nroPagina))
     }
     setPagActual(nroPaginaAux);
+  }
+
+  const handleProductosMostrar = (productosMostrarFiltrados) => {
+    if(productosMostrarFiltrados){
+      setProductosMostrar(productosMostrarFiltrados)
+    }else{
+      actualizarPaginadorProductosFiltrados(pagActual);
+    }
   }
 
   useEffect(() => {
@@ -86,6 +100,11 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
+        <Header
+          productos={productosCargados}
+          setProductosMostrados = {handleProductosMostrar}
+          nombreCategoria={detallesProdFiltrados.nombre}
+        />
         <div className={'articulos-btn-container'}>
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
           </button>

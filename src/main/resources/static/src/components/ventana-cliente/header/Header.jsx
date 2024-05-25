@@ -1,25 +1,32 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "../../../styles/ventana-cliente/header.css";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 // import { BsFillCartFill } from "react-icons/bs";
 // import { carritoContext } from "../../../context/ElementosCarritoContext";
 
 const Header = ({
   productos,
   setProductosMostrados,
-  tiposProductos,
-  settotalProductos,
-  setPaginaActual,
+  nombreCategoria
+  // settotalProductos,
+  // setPaginaActual,
 }) => {
   // const { setShowCarrito } = useContext(carritoContext);
 
+  const {tiposProductos} = useContext(funcionesContext);
+
   // filtra genero o tipoProducto
   const filtrar = (valor, tipo = "genero") => {
-    setProductosMostrados(productos);
+    // setProductosMostrados(productos);
+    if(productos===undefined) return;
     let productosFiltrados = [];
+    if(valor===''){
+      return setProductosMostrados();
+    }
     if (tipo === "tipoProducto") {
       // una expresion regular extricta donde solo filtra exactamnete el valor que se le pasa
       let palabra = new RegExp(`^${valor}$`, "i");
@@ -31,19 +38,14 @@ const Header = ({
         producto[tipo].includes(valor)
       );
     }
-    console.log();
-    setProductosMostrados(productosFiltrados);
-    settotalProductos(productosFiltrados.length);
-    setPaginaActual(1);
+    return setProductosMostrados(productosFiltrados);
+    // settotalProductos(productosFiltrados.length);
+    // setPaginaActual(1);
   };
-
-  const handleLoginScreen = () => {
-    navigate("login");
-  }
 
   return (
     <header className="header" id="producto-link">
-      <h1 className="titulo-productos">Productos</h1>
+      <h1 className="titulo-productos">{nombreCategoria}</h1>
       <Navbar
         bg="light"
         className="custom-navbar navbar-header-cliente"
