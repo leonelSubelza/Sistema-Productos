@@ -10,4 +10,6 @@ import com.sistemaProductos.SistemaProductos.model.Product;
 public interface IProductRepository extends JpaRepository<Product, Long>{
     Page<Product> findByTipoProducto(ProductType productType, Pageable pageable);
 
+
+
 }

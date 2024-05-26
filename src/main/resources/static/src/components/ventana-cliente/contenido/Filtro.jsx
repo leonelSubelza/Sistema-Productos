@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-const Filtro = ({productos,setProductosMostrados,settotalProductos,setPaginaActual}) => {
+const Filtro = ({productos,setProductosMostrados}) => {
 
   const [busqueda, setBusqueda] = useState('');   
 
@@ -9,8 +9,6 @@ const Filtro = ({productos,setProductosMostrados,settotalProductos,setPaginaActu
     setProductosMostrados(productos)
     let productosFiltrados = productos.filter(producto => producto.nombre.toLowerCase().includes(busqueda.toLowerCase()));
     setProductosMostrados(productosFiltrados)
-    settotalProductos(productosFiltrados.length)
-    setPaginaActual(1);
   }
 
   const handleInputChange = (event) => {

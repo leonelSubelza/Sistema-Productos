@@ -8,6 +8,7 @@ import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
 import Header from "../../header/Header.jsx";
+import Filtro from "../Filtro.jsx";
 
 window.timestamp = 123456;
 
@@ -90,6 +91,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           productos={productosCargados}
           setProductosMostrados = {handleProductosMostrar}
           nombreCategoria={detallesProdFiltrados.nombre}
+        />
+        <Filtro
+          productos={productosMostrar}
+          setProductosMostrados={(res)=>setProductosMostrar(res)}
         />
         <div className={'articulos-btn-container'}>
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
