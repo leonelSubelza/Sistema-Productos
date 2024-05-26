@@ -88,6 +88,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
+        <div className={'articulos-btn-container'}>
+          <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
+          </button>
+        </div>
         <Filtro
           productos={productosCargados}
           setProductosMostrados = {handleProductosMostrar}
@@ -97,10 +101,6 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           productos={productosMostrar}
           setProductosMostrados={(res)=>setProductosMostrar(res)}
         />
-        <div className={'articulos-btn-container'}>
-          <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
-          </button>
-        </div>
         {productosMostrar &&
         productosMostrar.length !== 0 ?
           productosMostrar

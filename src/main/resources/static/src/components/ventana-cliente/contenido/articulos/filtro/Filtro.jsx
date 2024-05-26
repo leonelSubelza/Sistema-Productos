@@ -3,7 +3,6 @@ import "../../../../../styles/ventana-cliente/header.css";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
 import {funcionesContext} from "../../../../../context/FuncionesTablaContext.jsx";
 
 const Filtro = ({
@@ -44,13 +43,9 @@ const Filtro = ({
       <Navbar
         bg="light"
         className="custom-navbar navbar-header-cliente"
-        expand="md"
       >
         <div className="container-fluid">
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mx-auto div-a-centrar">
+            <Nav className="">
               <Nav.Link
                 onClick={() => filtrar("FEMENINO", "genero")}
                 className="custom-nav-link"
@@ -65,25 +60,6 @@ const Filtro = ({
               >
                 hombre
               </Nav.Link>
-              <NavDropdown
-                className="custom-nav-link"
-                title="productos"
-                id="basic-nav-dropdown"
-              >
-                {tiposProductos &&
-                  tiposProductos.map((tipoProducto) => (
-                    <NavDropdown.Item
-                      onClick={() =>
-                        filtrar(tipoProducto.nombre, "tipoProducto")
-                      }
-                      key={tipoProducto.id}
-                      className="custom-nav-link-item"
-                      href="#!"
-                    >
-                      {tipoProducto.nombre}
-                    </NavDropdown.Item>
-                  ))}
-              </NavDropdown>
               <Nav.Link
                 onClick={() => filtrar("")}
                 className="custom-nav-link"
@@ -92,16 +68,6 @@ const Filtro = ({
                 Quitar Filtro
               </Nav.Link>
             </Nav>
-          </Navbar.Collapse>
-          {/* <div>
-            <p className="carrito-txt" onClick={() => setShowCarrito(true)}>
-              Carrito <BsFillCartFill className="icon-carrito" />
-            </p>
-          </div> */}
-
-          {/* <Nav.Link className="custom-nav-link ml-auto" href="/login">
-            Inicio sesión
-          </Nav.Link> */}
         </div>
       </Navbar>
     </header>
