@@ -51,7 +51,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/byProductTypeAndGenero")
-	public ResponseEntity<Page<ProductResponseDTO>> findAllByProductType(
+	public ResponseEntity<Page<ProductResponseDTO>> findAllByProductTypeAndGenero(
 			@RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "2") int size,
 			@RequestParam(defaultValue = "1") int productTypeId,
@@ -60,6 +60,20 @@ public class ProductController {
 		Pageable pageable = PageRequest.of(page, size);
 		return new ResponseEntity<>(this.productService.findByGeneroAndTipoProducto(
 				genero,
+				(long)productTypeId,
+				pageable), HttpStatus.OK);
+	}
+
+	@GetMapping("/byProductTypeAndNombre")
+	public ResponseEntity<Page<ProductResponseDTO>> findAllByProductTypeAndNombre(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "2") int size,
+			@RequestParam(defaultValue = "1") int productTypeId,
+			@RequestParam String nombre
+	){
+		Pageable pageable = PageRequest.of(page, size);
+		return new ResponseEntity<>(this.productService.findByNombreAndTipoProducto(
+				nombre,
 				(long)productTypeId,
 				pageable), HttpStatus.OK);
 	}

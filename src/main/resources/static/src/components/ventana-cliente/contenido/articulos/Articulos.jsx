@@ -7,8 +7,8 @@ import {URLImagenes} from '../../../../service/Configuracion.js'
 import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
-import Filtro from "../../header/Filtro.jsx";
-import Buscador from "../Buscador.jsx";
+import Filtro from "./filtro/Filtro.jsx";
+import Buscador from "./buscador/Buscador.jsx";
 
 window.timestamp = 123456;
 
@@ -69,6 +69,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   }
 
   const handleProductosMostrar = (productosMostrarFiltrados) => {
+    //si es undefined es porque se borro el filtro
     if(productosMostrarFiltrados){
       setProductosMostrar(productosMostrarFiltrados)
     }else{

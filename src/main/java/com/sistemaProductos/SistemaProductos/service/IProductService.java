@@ -20,6 +20,8 @@ public interface IProductService {
 
 	public Page<ProductResponseDTO> findByGeneroAndTipoProducto(String genero,Long productTypeId,Pageable pageable);
 
+	public Page<ProductResponseDTO> findByNombreAndTipoProducto(String nombre,Long productTypeId,Pageable pageable);
+
 	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj);
 
 	public void delete(Long id);

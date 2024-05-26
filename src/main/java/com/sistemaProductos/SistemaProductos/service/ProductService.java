@@ -61,6 +61,12 @@ public class ProductService implements IProductService {
 		return listProducts.map(this::mapProductToProductResponseDTO);
 	}
 
+	public Page<ProductResponseDTO> findByNombreAndTipoProducto(String nombre,Long productTypeId,Pageable pageable) {
+		ProductType productType = productTypeService.findById(productTypeId);
+		Page<Product> listProducts= productRepo.findByNombreAndTipoProducto(nombre,productType,pageable);
+		return listProducts.map(this::mapProductToProductResponseDTO);
+	}
+
 	@Override
 	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
 		Product productSaved = this.productRepo.findById(product.getId())
