@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-const Filtro = ({productos,setProductosMostrados}) => {
+const Buscador = ({productos,setProductosMostrados}) => {
 
   const [busqueda, setBusqueda] = useState('');   
 
@@ -33,4 +33,4 @@ const Filtro = ({productos,setProductosMostrados}) => {
   );
 }
 
-export default Filtro;
+export default Buscador;

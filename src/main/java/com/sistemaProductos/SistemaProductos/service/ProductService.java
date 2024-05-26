@@ -50,6 +50,16 @@ public class ProductService implements IProductService {
 		return listProducts.map(this::mapProductToProductResponseDTO);
 	}
 
+	@Override
+	public Page<ProductResponseDTO> findByGeneroAndTipoProducto(
+			String genero,
+			Long productTypeId,
+			Pageable pageable
+	) {
+		ProductType productType = productTypeService.findById(productTypeId);
+		Page<Product> listProducts= productRepo.findByGeneroAndTipoProducto(genero,productType,pageable);
+		return listProducts.map(this::mapProductToProductResponseDTO);
+	}
 
 	@Override
 	public Product update(ProductResponseDTO product, Optional<MultipartFile> imageObj) {

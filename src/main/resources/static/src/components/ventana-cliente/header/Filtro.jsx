@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 
-const Header = ({
+const Filtro = ({
   productos,
   setProductosMostrados,
   nombreCategoria
@@ -108,4 +108,4 @@ const Header = ({
   );
 };
 
-export default Header;
+export default Filtro;

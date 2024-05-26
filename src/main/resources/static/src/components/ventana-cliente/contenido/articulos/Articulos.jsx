@@ -7,8 +7,8 @@ import {URLImagenes} from '../../../../service/Configuracion.js'
 import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
-import Header from "../../header/Header.jsx";
-import Filtro from "../Filtro.jsx";
+import Filtro from "../../header/Filtro.jsx";
+import Buscador from "../Buscador.jsx";
 
 window.timestamp = 123456;
 
@@ -87,12 +87,12 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
-        <Header
+        <Filtro
           productos={productosCargados}
           setProductosMostrados = {handleProductosMostrar}
           nombreCategoria={detallesProdFiltrados.nombre}
         />
-        <Filtro
+        <Buscador
           productos={productosMostrar}
           setProductosMostrados={(res)=>setProductosMostrar(res)}
         />
