@@ -10,6 +10,8 @@ import Paginador from "../../../utils/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
 import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 window.timestamp = 123456;
 
@@ -26,6 +28,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   const [productosMostrar, setProductosMostrar] = useState([])
 
   const [productosCargados, setProductosCargados] = useState()
+
+  const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const [pagActual, setPagActual] = useState(1)
 
@@ -56,11 +60,13 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     }
     // console.log("pag que se va a pedir en la req: "+nroPagina)
     if(!existenProductosCargadosParaEstaPagina(keyProdCard,nroPagina)){
+      setIsProductsLoading(true);
       cargarProductosFiltrados(nroPagina,tipoProductoAMostrar.id)
         .then(res => {
           setProductosMostrar(res.get(nroPagina));
 
           setProductosCargados(res.get(nroPagina))
+          setIsProductsLoading(false);
       })
     }else{
       let productosCargados = productosFiltrados.get(keyProdCard);
@@ -162,7 +168,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
                     />
                 ))
               :
-              <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
+          isProductsLoading ?
+            <Spinner animation="border" />
+            :
+            <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
         }
         <Paginador
           setPaginaAnterior={actualizarPaginadorProductosFiltrados}
