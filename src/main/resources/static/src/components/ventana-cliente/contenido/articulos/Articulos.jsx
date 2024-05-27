@@ -94,7 +94,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       nroPaginaAux=0;
     }
 
-    if(value===''){
+    if(value==='' || value===undefined){
       //limpiar busqueda
       let keyProdCard = Array.from(productosFiltrados.keys()).find(k => k.id === tipoProductoAMostrar.id);
 
@@ -105,8 +105,18 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       setProductosMostrar(productosCompletos);
 
     }else{
+      let url;
+      let nombreCampo;
+      if(value==="MASCULINO" || value==="FEMENINO"){
+        url="productos/byProductTypeAndGenero";
+        nombreCampo="genero";
+      }else{
+        url="productos/byProductTypeAndNombre";
+        nombreCampo="nombre"
+      }
+
       //realizar busqueda
-      cargarProductosPorCampoYTipoProducto("productos/byProductTypeAndNombre","nombre",value,
+      cargarProductosPorCampoYTipoProducto(url,nombreCampo,value,
         nroPaginaAux,detallesProdFiltrados.id)
         .then(res => {
           //Actualizamos a detalles el total De paginas
@@ -144,9 +154,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           </button>
         </div>
         <Filtro
-          productos={productosCargados}
-          setProductosMostrados = {handleProductosMostrar}
-          nombreCategoria={detallesProdFiltrados.nombre}
+            nombreCategoria={detallesProdFiltrados.nombre}
+            setBusqueda={handleBusquedaARealizar}
         />
         <Buscador
           setBusquedaARealizar={handleBusquedaARealizar}
