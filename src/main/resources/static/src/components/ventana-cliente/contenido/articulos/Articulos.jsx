@@ -9,12 +9,17 @@ import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
+import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 window.timestamp = 123456;
 
 function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
-  const {productosFiltrados,cargarProductosFiltrados} = useContext(clienteContext);
+  const {productosFiltrados,cargarProductosFiltrados,cargarProductosPorCampoYTipoProducto} = useContext(clienteContext);
+
+  const {cargarTipoProductoAProductos,tiposProductos} = useContext(funcionesContext);
 
   const [detallesProdFiltrados, setDetallesProdFiltrados] = useState({})
 
@@ -23,6 +28,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   const [productosMostrar, setProductosMostrar] = useState([])
 
   const [productosCargados, setProductosCargados] = useState()
+
+  const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const [pagActual, setPagActual] = useState(1)
 
@@ -53,11 +60,13 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     }
     // console.log("pag que se va a pedir en la req: "+nroPagina)
     if(!existenProductosCargadosParaEstaPagina(keyProdCard,nroPagina)){
+      setIsProductsLoading(true);
       cargarProductosFiltrados(nroPagina,tipoProductoAMostrar.id)
         .then(res => {
           setProductosMostrar(res.get(nroPagina));
 
           setProductosCargados(res.get(nroPagina))
+          setIsProductsLoading(false);
       })
     }else{
       let productosCargados = productosFiltrados.get(keyProdCard);
@@ -74,6 +83,48 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       setProductosMostrar(productosMostrarFiltrados)
     }else{
       actualizarPaginadorProductosFiltrados(pagActual);
+    }
+  }
+
+  const handleBusquedaARealizar = (value) => {
+    let nroPaginaAux = pagActual;
+    if(nroPaginaAux>=1){
+      nroPaginaAux=nroPaginaAux-1;
+    }else{
+      nroPaginaAux=0;
+    }
+
+    if(value===''){
+      //limpiar busqueda
+      let keyProdCard = Array.from(productosFiltrados.keys()).find(k => k.id === tipoProductoAMostrar.id);
+
+      let productosCompletos = productosFiltrados.get(keyProdCard).get(nroPaginaAux);
+      detallesProdFiltrados.totalPaginas = keyProdCard.totalPaginas;
+
+      setDetallesProdFiltrados(detallesProdFiltrados);
+      setProductosMostrar(productosCompletos);
+
+    }else{
+      //realizar busqueda
+      cargarProductosPorCampoYTipoProducto("productos/byProductTypeAndNombre","nombre",value,
+        nroPaginaAux,detallesProdFiltrados.id)
+        .then(res => {
+          //Actualizamos a detalles el total De paginas
+          let detallesProductosFiltradosAux = {};
+          detallesProductosFiltradosAux.id = detallesProdFiltrados.id;
+          detallesProductosFiltradosAux.nombre = detallesProdFiltrados.nombre;
+          detallesProductosFiltradosAux.totalPaginas = res.totalPages;
+          detallesProductosFiltradosAux.pagActual = 0;
+
+          setDetallesProdFiltrados(detallesProductosFiltradosAux)
+
+          //Cargamos los productos con su tipoProducto obj
+          let productosCompletos = cargarTipoProductoAProductos(res.content,tiposProductos)
+          setProductosMostrar(productosCompletos);
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   }
 
@@ -98,8 +149,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           nombreCategoria={detallesProdFiltrados.nombre}
         />
         <Buscador
-          productos={productosMostrar}
-          setProductosMostrados={(res)=>setProductosMostrar(res)}
+          setBusquedaARealizar={handleBusquedaARealizar}
         />
         {productosMostrar &&
         productosMostrar.length !== 0 ?
@@ -118,7 +168,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
                     />
                 ))
               :
-              <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
+          isProductsLoading ?
+            <Spinner animation="border" />
+            :
+            <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
         }
         <Paginador
           setPaginaAnterior={actualizarPaginadorProductosFiltrados}

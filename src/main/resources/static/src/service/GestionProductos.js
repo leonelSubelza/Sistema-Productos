@@ -91,3 +91,24 @@ export const borrarObjeto = async (direccion, id) => {
     console.log(error);
   }
 };
+
+export const cargarObjetosPorCampoYTipoProductoConPaginacion = async (direccion,nombreCampo,valorCampo,page,size,idTipoProducto) => {
+  try {
+    //byProductTypeAndNombre?page=0&size=2&productTypeId=1&nombre=PRUEBA
+    // console.log("request que se hace:")
+    // console.log(URL + "/" + direccion+"?page="+page+"&size="+size+"&productTypeId="+idTipoProducto+"&"+nombreCampo+"="+valorCampo)
+    let url = URL + "/" + direccion+"?page="+page+"&size="+size+"&productTypeId="+idTipoProducto+"&"+nombreCampo+"="+valorCampo;
+    const request = await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+
+    let prod = await request.json();
+    return prod;
+  } catch (error) {
+    throw error;
+  }
+}

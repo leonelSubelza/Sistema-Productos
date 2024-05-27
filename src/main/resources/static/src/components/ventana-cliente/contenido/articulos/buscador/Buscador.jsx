@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-const Buscador = ({productos,setProductosMostrados}) => {
+const Buscador = ({setBusquedaARealizar}) => {
 
   const [busqueda, setBusqueda] = useState('');   
 
   const filtrar = () => {
-    setProductosMostrados(productos)
+/*    setProductosMostrados(productos)
     let productosFiltrados = productos.filter(producto => producto.nombre.toLowerCase().includes(busqueda.toLowerCase()));
-    setProductosMostrados(productosFiltrados)
+    setProductosMostrados(productosFiltrados)*/
+    return setBusquedaARealizar(busqueda);
   }
 
   const handleInputChange = (event) => {

@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sistemaProductos.SistemaProductos.model.Product;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface IProductRepository extends JpaRepository<Product, Long>{
     Page<Product> findByTipoProducto(ProductType productType, Pageable pageable);
@@ -14,6 +15,9 @@ public interface IProductRepository extends JpaRepository<Product, Long>{
 //    @Query("SELECT p FROM Product p WHERE p.genero = :genero AND p.tipoProducto = :tipoProducto")
     Page<Product> findByGeneroAndTipoProducto(String genero, ProductType tipoProducto, Pageable pageable);
 
-    Page<Product> findByNombreAndTipoProducto(String nombre, ProductType tipoProducto, Pageable pageable);
+    @Query("SELECT p FROM Product p WHERE p.nombre LIKE %:nombre% AND p.tipoProducto = :tipoProducto")
+    Page<Product> findByNombreAndTipoProducto(@Param("nombre") String nombre,
+                                              @Param("tipoProducto") ProductType tipoProducto,
+                                              Pageable pageable);
 
 }
