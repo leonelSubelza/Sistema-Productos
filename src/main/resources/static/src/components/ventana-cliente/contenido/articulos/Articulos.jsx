@@ -9,12 +9,15 @@ import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
+import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
 
 window.timestamp = 123456;
 
 function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
-  const {productosFiltrados,cargarProductosFiltrados} = useContext(clienteContext);
+  const {productosFiltrados,cargarProductosFiltrados,cargarProductosPorCampoYTipoProducto} = useContext(clienteContext);
+
+  const {cargarTipoProductoAProductos,tiposProductos} = useContext(funcionesContext);
 
   const [detallesProdFiltrados, setDetallesProdFiltrados] = useState({})
 
@@ -77,6 +80,55 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     }
   }
 
+  const handleBusquedaARealizar = (value) => {
+    let nroPaginaAux = pagActual;
+    if(nroPaginaAux>=1){
+      nroPaginaAux=nroPaginaAux-1;
+    }else{
+      nroPaginaAux=0;
+    }
+
+    if(value===''){
+      //limpiar busqueda
+      console.log("limpia la busqueda")
+      let keyProdCard = Array.from(productosFiltrados.keys()).find(k => k.id === tipoProductoAMostrar.id);
+
+      console.log("key a buscar:")
+      console.log(keyProdCard)
+      let productosCompletos = productosFiltrados.get(keyProdCard).get(nroPaginaAux);
+      console.log("productos AMOstrar")
+      console.log(productosCompletos);
+
+
+      detallesProdFiltrados.totalPaginas = keyProdCard.totalPaginas;
+      setDetallesProdFiltrados(detallesProdFiltrados);
+
+      console.log("detalles cambiados:")
+      console.log(detallesProdFiltrados)
+      setProductosMostrar(productosCompletos);
+
+    }else{
+      //realizar busqueda
+      cargarProductosPorCampoYTipoProducto("productos/byProductTypeAndNombre","nombre",value,
+        nroPaginaAux,detallesProdFiltrados.id)
+        .then(res => {
+          console.log("response:")
+          console.log(res.content)
+          //Actualizamos a detalles el total De paginas
+          let detallesProductosFiltrados = detallesProdFiltrados;
+          detallesProductosFiltrados.totalPaginas = res.totalPages;
+          setDetallesProdFiltrados(detallesProductosFiltrados)
+
+          //Cargamos los productos con su tipoProducto obj
+          let productosCompletos = cargarTipoProductoAProductos(res.content,tiposProductos)
+          setProductosMostrar(productosCompletos);
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
+  }
+
   useEffect(() => {
     if(show){
       let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
@@ -94,8 +146,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           nombreCategoria={detallesProdFiltrados.nombre}
         />
         <Buscador
-          productos={productosMostrar}
-          setProductosMostrados={(res)=>setProductosMostrar(res)}
+          setBusquedaARealizar={handleBusquedaARealizar}
         />
         <div className={'articulos-btn-container'}>
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver

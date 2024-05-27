@@ -1,6 +1,9 @@
 import React, {useContext, useEffect, useState} from "react";
 import {funcionesContext} from "./FuncionesTablaContext.jsx";
-import {cargarObjetosConPaginacion} from "../service/GestionProductos.js";
+import {
+  cargarObjetosConPaginacion,
+  cargarObjetosPorCampoYTipoProductoConPaginacion
+} from "../service/GestionProductos.js";
 import {clienteCantObjParaMostrar} from "../service/Configuracion.js";
 
 export const clienteContext = React.createContext();
@@ -56,6 +59,19 @@ export function FuncionesClienteContext({ children }) {
     return productosFiltrados.get(keyProductoFiltrado);
   }
 
+  const cargarProductosPorCampoYTipoProducto = async (direccion,nombreCampo,valorCampo,
+                                                      page,idTipoProducto) => {
+    let keyProductoFiltrado = getKeyProdFiltrado(idTipoProducto);
+    if (!keyProductoFiltrado) return;
+
+    try {
+      const response = await cargarObjetosPorCampoYTipoProductoConPaginacion(direccion, nombreCampo,
+        valorCampo, page, clienteCantObjParaMostrar, idTipoProducto);
+      return response
+    } catch (error) {
+      throw error;
+    }
+  }
   //Carga todos los tiposProductos como keys a los productosFiltrados
   const cargarProductosFiltradosBase = () => {
     if(tiposProductos===undefined){
@@ -81,7 +97,8 @@ export function FuncionesClienteContext({ children }) {
     value={{
       productosFiltrados,
       setProductosFiltrados,
-      cargarProductosFiltrados
+      cargarProductosFiltrados,
+      cargarProductosPorCampoYTipoProducto
     }}
   >
     {children}
