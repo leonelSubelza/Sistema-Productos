@@ -84,8 +84,6 @@ export function FuncionesClienteContext({ children }) {
       tpAux.pagActual = 0;
       productosFiltradosAux.set(tpAux,new Map)
     });
-    console.log("productosFiltradosBase:")
-    console.log(Array.from(productosFiltradosAux.keys()));
     setProductosFiltrados(productosFiltradosAux);
   }
 

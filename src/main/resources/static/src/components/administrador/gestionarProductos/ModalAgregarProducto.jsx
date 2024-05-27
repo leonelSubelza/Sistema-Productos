@@ -82,7 +82,7 @@ export default function ModalAgregarProducto({
       return;
     }
 
-    let productoTipoId = (prod === undefined) ? tipoProductoId : prod.tipoProducto.id;
+    // let productoTipoId = (prod === undefined) ? tipoProductoId : prod.tipoProducto.id;
     const producto = {
       id: prod === undefined ? 0 : prod.id,
       nombre: nombre.toUpperCase(),
@@ -90,7 +90,7 @@ export default function ModalAgregarProducto({
       imagen: imagenNombre,
       precio: precio,
       genero: genero,
-      productTypeId: productoTipoId
+      productTypeId: tipoProductoId
     };
     agregarProductoGenerico("productos", producto, imagenArchivo, method)
       .then(() => {
@@ -154,132 +154,6 @@ export default function ModalAgregarProducto({
         </ModalHeader>
 
         <ModalBody>
-          {/*
-          <div style={{display:"flex", width:"100%"}}>
-            <FormGroup>
-              <label>Imagen</label>
-              <img
-                src={(prod===undefined||prod.imagen === 'null') ?
-                  ''
-                  : `${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`}
-                alt="foto-del-producto"
-                className=""
-              />
-              <input
-                className="form-control"
-                name="imagen"
-                onChange={(ev) => setImagen(ev.target)}
-                type="file"
-                color="dark"
-              />
-            </FormGroup>
-
-            <div style={{
-              display: "flex", flexDirection:"column"
-            }
-            }>
-              <FormGroup>
-                <label>Nombre:</label>
-                <input
-                  className="form-control"
-                  name="nombre"
-                  placeholder="Escriba el nombre del producto"
-                  autoComplete="off"
-                  value={nombre}
-                  onChange={(ev) => {
-                    const { value } = ev.target;
-                    if(value.length>50){
-                      return;
-                    }
-                    setNombre(value)
-                  }}
-                  type="text"
-                />
-                {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
-              </FormGroup>
-
-              <FormGroup>
-                <label>Descripcion:</label>
-                <input
-                  className="form-control"
-                  name="descripcion"
-                  placeholder="Escriba una descripcion para el prod"
-                  autoComplete="off"
-                  value={descripcion}
-                  onChange={(ev) => {
-                    const { value } = ev.target;
-                    if(value.length>100){
-                      return;
-                    }
-                    setDescripcion(ev.target.value)
-                  }}
-                  type="text"
-                />
-              </FormGroup>
-            </div>
-          </div>
-
-          <div style={{display:"flex"}}>
-            <FormGroup>
-              <label>Precio:</label>
-              <input
-                className="form-control"
-                name="precio"
-                type="number"
-                placeholder="Escriba el precio del producto"
-                autoComplete="off"
-                value={precio}
-                onChange={(ev) => {
-                  const { value } = ev.target;
-                  if(value.length>100){
-                    return;
-                  }
-                  setPrecio(ev.target.value)
-                }}
-              />
-              {errors.precio && <Alert key="danger" variant="danger" className="p-1">{errors.precio}</Alert>}
-            </FormGroup>
-
-            <FormGroup>
-              <label>Tipo:</label>
-
-              <select
-                className="form-control"
-                name="tipo"
-                value={tipo}
-                onChange={(ev) => {
-                  const {value} = ev.target;
-                  setTipo(value);
-                }}
-              >
-                <option>Sin seleccionar</option>
-                {tiposProductos.map((prod, i) => (
-                  <option key={i} value={prod.id} selected={tipo===prod.id}>
-                    {prod.nombre}
-                  </option>
-                ))}
-              </select>
-              {errors.tipo && <Alert key="danger" variant="danger" className="p-1">{errors.tipo}</Alert>}
-            </FormGroup>
-
-            <FormGroup>
-              <label>Genero:</label>
-
-              <select
-                className="form-control"
-                name="genero"
-                value={genero}
-                onChange={(ev) => setGenero(ev.target.value)}
-              >
-                <option>Sin seleccionar</option>
-                <option value={"MASCULINO"}>MASCULINO</option>
-                <option value={"FEMENINO"}>FEMENINO</option>
-              </select>
-              {errors.genero && <Alert key="danger" variant="danger" className="p-1">{errors.genero}</Alert>}
-            </FormGroup>
-          </div>
-
-          */}
           <div
             className={"modal-input-containers"}
             style={{display:"flex",flexDirection:"column", width:"100%",height:"100%", margin:"auto"}}
