@@ -90,21 +90,12 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
     if(value===''){
       //limpiar busqueda
-      console.log("limpia la busqueda")
       let keyProdCard = Array.from(productosFiltrados.keys()).find(k => k.id === tipoProductoAMostrar.id);
 
-      console.log("key a buscar:")
-      console.log(keyProdCard)
       let productosCompletos = productosFiltrados.get(keyProdCard).get(nroPaginaAux);
-      console.log("productos AMOstrar")
-      console.log(productosCompletos);
-
-
       detallesProdFiltrados.totalPaginas = keyProdCard.totalPaginas;
-      setDetallesProdFiltrados(detallesProdFiltrados);
 
-      console.log("detalles cambiados:")
-      console.log(detallesProdFiltrados)
+      setDetallesProdFiltrados(detallesProdFiltrados);
       setProductosMostrar(productosCompletos);
 
     }else{
@@ -112,12 +103,14 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       cargarProductosPorCampoYTipoProducto("productos/byProductTypeAndNombre","nombre",value,
         nroPaginaAux,detallesProdFiltrados.id)
         .then(res => {
-          console.log("response:")
-          console.log(res.content)
           //Actualizamos a detalles el total De paginas
-          let detallesProductosFiltrados = detallesProdFiltrados;
-          detallesProductosFiltrados.totalPaginas = res.totalPages;
-          setDetallesProdFiltrados(detallesProductosFiltrados)
+          let detallesProductosFiltradosAux = {};
+          detallesProductosFiltradosAux.id = detallesProdFiltrados.id;
+          detallesProductosFiltradosAux.nombre = detallesProdFiltrados.nombre;
+          detallesProductosFiltradosAux.totalPaginas = res.totalPages;
+          detallesProductosFiltradosAux.pagActual = 0;
+
+          setDetallesProdFiltrados(detallesProductosFiltradosAux)
 
           //Cargamos los productos con su tipoProducto obj
           let productosCompletos = cargarTipoProductoAProductos(res.content,tiposProductos)
