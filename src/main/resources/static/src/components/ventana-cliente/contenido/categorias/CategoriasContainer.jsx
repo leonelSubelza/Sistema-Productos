@@ -18,7 +18,7 @@ export default function CategoriasContainer({show,handleCategoriaShow}){
   return(
     <>
       <div className={`categorias-container ${show&&'show'}`}>
-        <h1>Categorías</h1>
+        <h1 style={{paddingTop:"60px"}}>Categorías</h1>
         <div className={'card-categoria-container'}>
           {tiposProductos.map((tipoProducto, index=1) => (
             <CardCategoria

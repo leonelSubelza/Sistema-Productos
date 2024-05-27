@@ -18,7 +18,7 @@ const Filtro = ({nombreCategoria,setBusqueda}) => {
   };
 
   return (
-      <header className="header" id="producto-link">
+      <header className="header">
         <h1 className="titulo-productos">{nombreCategoria}</h1>
         <Navbar
             bg="light"
