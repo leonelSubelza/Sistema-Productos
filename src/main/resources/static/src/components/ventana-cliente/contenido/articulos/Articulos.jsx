@@ -29,6 +29,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
   const [productosCargados, setProductosCargados] = useState()
 
+  const [valorFiltro, setValorFiltro] = useState('');
+
   const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const [pagActual, setPagActual] = useState(1)
@@ -49,6 +51,10 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   }
 
   const actualizarPaginadorProductosFiltrados = (nroPagina) => {
+    if(valorFiltro!==''){
+      handleBusquedaARealizar(valorFiltro,nroPagina)
+      return;
+    }
     // console.log("se pide pag: "+nroPagina)
     let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
     if(!keyProdCard) return;
@@ -77,25 +83,33 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     setPagActual(nroPaginaAux);
   }
 
-  const handleProductosMostrar = (productosMostrarFiltrados) => {
+/*  const handleProductosMostrar = (productosMostrarFiltrados) => {
     //si es undefined es porque se borro el filtro
     if(productosMostrarFiltrados){
       setProductosMostrar(productosMostrarFiltrados)
     }else{
       actualizarPaginadorProductosFiltrados(pagActual);
     }
-  }
+  }*/
 
-  const handleBusquedaARealizar = (value) => {
-    let nroPaginaAux = pagActual;
+  const handleBusquedaARealizar = (value,nroPaginaBuscar) => {
+    let nroPaginaAux;
+    if(nroPaginaBuscar){
+      nroPaginaAux = nroPaginaBuscar;
+      setPagActual(nroPaginaBuscar)
+    }else{
+      nroPaginaAux = pagActual;
+    }
+
     if(nroPaginaAux>=1){
       nroPaginaAux=nroPaginaAux-1;
     }else{
       nroPaginaAux=0;
     }
 
+    setValorFiltro(value);
     if(value==='' || value===undefined){
-      //limpiar busqueda
+      //limpiar busqueda, pone lo que iba antes en tal pagina sin filtro
       let keyProdCard = Array.from(productosFiltrados.keys()).find(k => k.id === tipoProductoAMostrar.id);
 
       let productosCompletos = productosFiltrados.get(keyProdCard).get(nroPaginaAux);
@@ -116,6 +130,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       }
 
       //realizar busqueda
+      setIsProductsLoading(true)
       cargarProductosPorCampoYTipoProducto(url,nombreCampo,value,
         nroPaginaAux,detallesProdFiltrados.id)
         .then(res => {
@@ -124,16 +139,18 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           detallesProductosFiltradosAux.id = detallesProdFiltrados.id;
           detallesProductosFiltradosAux.nombre = detallesProdFiltrados.nombre;
           detallesProductosFiltradosAux.totalPaginas = res.totalPages;
-          detallesProductosFiltradosAux.pagActual = 0;
+          detallesProductosFiltradosAux.pagActual = pagActual;
 
           setDetallesProdFiltrados(detallesProductosFiltradosAux)
 
           //Cargamos los productos con su tipoProducto obj
           let productosCompletos = cargarTipoProductoAProductos(res.content,tiposProductos)
           setProductosMostrar(productosCompletos);
+          setIsProductsLoading(false)
         })
         .catch(error => {
           console.log(error)
+          setIsProductsLoading(false)
         })
     }
   }
@@ -161,7 +178,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           setBusquedaARealizar={handleBusquedaARealizar}
         />
         {productosMostrar &&
-        productosMostrar.length !== 0 ?
+        productosMostrar.length !== 0 &&
+          !isProductsLoading ?
           productosMostrar
                 .map((prod, index) => (
                     <Articulo key={index}
