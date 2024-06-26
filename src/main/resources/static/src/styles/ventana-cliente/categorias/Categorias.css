@@ -29,14 +29,12 @@
 }
 
 .card-categoria-container-item {
-    /*width: 23%;*/
-    /*height: 33%;*/
     height: 100px;
     width: 210px;
     margin: auto;
     display: flex;
     border-radius: 6px;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid #ccc;
     cursor: pointer;
     box-shadow: rgba(211, 211, 211, 0.35) 0 5px 15px;
 }
@@ -79,4 +77,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.swiper-pagination{
+    position: relative !important;
+}
+
+.swiper-wrapper{
+    margin-bottom: 5px;
 }

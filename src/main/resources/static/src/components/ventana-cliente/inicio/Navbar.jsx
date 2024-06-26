@@ -11,7 +11,9 @@ const Navbar = () => {
     <div className="header-inicio">
       <div className="logo-inicio">
         <a href="/#!">
-          <img src={logo} alt="Logo" />
+          {/* <img src={logo} alt="Logo" /> */}
+          <h1>Tienda Humilde</h1>
+          <p>Humildad Ante Todo</p>
         </a>
       </div>
       <nav className="navbar-inicio">
