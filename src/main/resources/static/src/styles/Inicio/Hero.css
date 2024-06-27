@@ -23,14 +23,15 @@
 }
 
 .hero-text button {
-  background-color: #6ba488;
+  background-color: var(--color-button);
   padding: 10px 40px;
   color: white;
   border: transparent;
+  border-radius: 7px;
 }
 
 .hero-text button:hover {
-  background-color: #4a7f4c;
+  background-color: var(--color-button-hover);
 }
 
 .hero-section img {

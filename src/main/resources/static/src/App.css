@@ -8,5 +8,6 @@
   --color-primary: #333;
   --color-white: #FFFFFF;
   --color-letter-title: #ccc;
-  --color-accent: #007BFF;
+  --color-button: #007BFF;
+  --color-button-hover: #0056b3;
 }
