@@ -17,7 +17,7 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @Size(max=50, message = "Email is too large")
     private String email;
 

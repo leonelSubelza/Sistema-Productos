@@ -4,6 +4,7 @@ import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
 import com.sistemaProductos.SistemaProductos.repository.IProductTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,10 @@ import java.util.Optional;
 
 @Service
 public class ProductTypeService implements IProductTypeService {
+
+  @Value("${images.file.productsTypes.name}")
+  private String productsTypeFileName;
+
   @Autowired
   private IProductTypeRepository productTypeRepository;
 

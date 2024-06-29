@@ -1,16 +1,14 @@
 package com.sistemaProductos.SistemaProductos.service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
+import com.sistemaProductos.SistemaProductos.utils.ImageUtils;
+import com.sistemaProductos.SistemaProductos.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,32 +20,37 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ProductService implements IProductService {
 
+	@Value("${images.file.products.name}")
+	private String productsFileName;
+
 	@Autowired
 	private IProductRepository productRepo;
 
 	@Autowired
 	private IProductTypeService productTypeService;
 
-
 	@Override
 	public Product create(ProductResponseDTO product, Optional<MultipartFile> imageObj) {
 		ProductType tipoProducto = this.productTypeService.findById(product.getProductTypeId());
-		Product productToSave = mapProductResponseDTOToProduct(product,tipoProducto);
-        imageObj.ifPresent(multipartFile -> saveImage(productToSave, multipartFile));
+		Product productToSave = ObjectMapper.mapProductResponseDTOToProduct(product,tipoProducto);
+        imageObj.ifPresent(multipartFile -> {
+			ImageUtils.saveImage(multipartFile,productsFileName);
+			product.setImagen(imageObj.get().getOriginalFilename());
+		});
 		return this.productRepo.save(productToSave);
 	}
 
 	@Override
 	public Page<ProductResponseDTO> findAll(Pageable pageable) {
 		Page<Product> listProducts= productRepo.findAll(pageable);
-		return listProducts.map(product -> mapProductToProductResponseDTO(product));
+		return listProducts.map(product -> ObjectMapper.mapProductToProductResponseDTO(product));
 	}
 
 	public Page<ProductResponseDTO> findAllByProductType(Long productTypeId, Pageable pageable){
 		ProductType productType = productTypeService.findById(productTypeId);
 		Page<Product> listProducts= productRepo.findByTipoProducto(productType,pageable);
 //		System.out.println(listProducts.getContent());
-		return listProducts.map(this::mapProductToProductResponseDTO);
+		return listProducts.map(ObjectMapper::mapProductToProductResponseDTO);
 	}
 
 	@Override
@@ -58,13 +61,13 @@ public class ProductService implements IProductService {
 	) {
 		ProductType productType = productTypeService.findById(productTypeId);
 		Page<Product> listProducts= productRepo.findByGeneroAndTipoProducto(genero,productType,pageable);
-		return listProducts.map(this::mapProductToProductResponseDTO);
+		return listProducts.map(ObjectMapper::mapProductToProductResponseDTO);
 	}
 
 	public Page<ProductResponseDTO> findByNombreAndTipoProducto(String nombre,Long productTypeId,Pageable pageable) {
 		ProductType productType = productTypeService.findById(productTypeId);
 		Page<Product> listProducts= productRepo.findByNombreAndTipoProducto(nombre,productType,pageable);
-		return listProducts.map(this::mapProductToProductResponseDTO);
+		return listProducts.map(ObjectMapper::mapProductToProductResponseDTO);
 	}
 
 	@Override
@@ -75,10 +78,13 @@ public class ProductService implements IProductService {
 		ProductType productTypeSaved = this.productTypeService.findById(product.getProductTypeId());
 		System.out.println("producto a actualizar:");
 		System.out.println(product);
-		Product productToSave = mapProductResponseDTOToProduct(product,productTypeSaved);
+		Product productToSave = ObjectMapper.mapProductResponseDTOToProduct(product,productTypeSaved);
 
 		productToSave.setId(productSaved.getId());
-        imageObj.ifPresent(multipartFile -> saveImage(productSaved, multipartFile));
+		imageObj.ifPresent(multipartFile -> {
+			ImageUtils.saveImage(multipartFile,productsFileName);
+			product.setImagen(imageObj.get().getOriginalFilename());
+		});
 
 		return this.productRepo.save(productToSave);
 	}
@@ -96,7 +102,7 @@ public class ProductService implements IProductService {
 				.orElseThrow(() -> new ModelNotFoundException("El producto solicitado no existe"));
 	}
 
-	//Save the image in the project directory
+/*	//Save the image in the project directory
 	public void saveImage(Product product, MultipartFile imageObj){
 		String currentDirectory = System.getProperty("user.dir").replace( "\\" , "/");
 		File file = new File(currentDirectory+"/src/main/resources/static/images");
@@ -115,9 +121,9 @@ public class ProductService implements IProductService {
 		}catch (IOException e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 
-	public Product mapProductResponseDTOToProduct(ProductResponseDTO productResponseDTO,ProductType productType){
+/*	public Product mapProductResponseDTOToProduct(ProductResponseDTO productResponseDTO,ProductType productType){
 		return Product.builder()
 				.nombre(productResponseDTO.getNombre())
 				.descripcion(productResponseDTO.getDescripcion())
@@ -139,5 +145,5 @@ public class ProductService implements IProductService {
 				.genero(product.getGenero())
 				.productTypeId(product.getTipoProducto().getId())
 				.build();
-	}
+	}*/
 }
