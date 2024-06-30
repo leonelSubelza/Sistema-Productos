@@ -49,7 +49,7 @@ const Carrito = () => {
 
     mensaje += `\nTotal: $${total}`;
 
-    let numeroTelefono = '+5491168708775'; // Reemplaza con el número de teléfono del dueño de la tienda
+    let numeroTelefono = '+5491168708775';
     let url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, '_blank');
