@@ -36,6 +36,25 @@ const Carrito = () => {
     }
   }, [productos, productosEnCarrito, setProductosEnCarrito]);
 
+  const enviarPedidoPorWhatsApp = () => {
+    let mensaje = 'Buenas, me gustaría ordenar los siguientes productos:\n\n';
+
+    productosEnCarrito.forEach((elemento) => {
+      mensaje += `${elemento.producto.nombre} - $${elemento.producto.precio}`;
+      if (elemento.cantidad > 1) {
+        mensaje += ` x${elemento.cantidad}`;
+      }
+      mensaje += '\n';
+    });
+
+    mensaje += `\nTotal: $${total}`;
+
+    let numeroTelefono = '+5491168708775'; // Reemplaza con el número de teléfono del dueño de la tienda
+    let url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
+
+    window.open(url, '_blank');
+  };
+
   return (
     <>
       <div className={`carrito ${showCarrito ? "carrito-show" : ""}`}>
@@ -54,8 +73,7 @@ const Carrito = () => {
                   src={
                     elemento.producto.imagen === "null"
                       ? ""
-                      : `${URLImagenes}${elemento.producto.imagen
-                      }?timestamp=${new Date().getTime()}`
+                      : `${URLImagenes}${elemento.producto.imagen}?timestamp=${new Date().getTime()}`
                   }
                   alt="Imágen-producto"
                 />
@@ -67,9 +85,8 @@ const Carrito = () => {
                 <p>Tipo de producto: {elemento.producto.tipoProducto.nombre}</p>
                 <div className="carrito-precio">
                   <p className="precio">Precio: ${elemento.producto.precio}</p>
-                  <p className="cantidad">{elemento.cantidad > 1 ? ` x${elemento.cantidad}` : ''} </p>
+                  <p className="cantidad">{elemento.cantidad > 1 ? ` x${elemento.cantidad}` : ''}</p>
                 </div>
-
               </div>
               <p
                 onClick={() => quitarProducto(index, elemento.producto)}
@@ -78,7 +95,6 @@ const Carrito = () => {
                 <BsTrash />
               </p>
             </div>
-
           ))}
         {productosEnCarrito.length >= 1 ? (
           <div className="carrito-total">
@@ -86,7 +102,7 @@ const Carrito = () => {
               <p>Total</p>
               <p>${total}</p>
             </div>
-            <Button variant="dark">IR A PAGAR</Button>
+            <Button variant="dark" onClick={enviarPedidoPorWhatsApp}>Ordenar</Button>
           </div>
         ) : (
           <p className="carrito-vacio">No hay productos en el carrito</p>
@@ -99,4 +115,5 @@ const Carrito = () => {
     </>
   );
 };
+
 export default Carrito;
