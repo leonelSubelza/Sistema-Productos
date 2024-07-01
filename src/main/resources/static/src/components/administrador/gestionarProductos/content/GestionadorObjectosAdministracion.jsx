@@ -26,8 +26,9 @@ export default function GestionadorObjectosAdministracion({show,titulo,objectNam
       <div className={'gestionador-tabla-container'}>
         <div className={'gestionador-tabla-scroll'}>
             {objects &&
-              objects.map((obj)=>(
+              objects.map((obj, i)=>(
                 <CardAdministracion
+                  key={i}
                   prod={obj}
                   removeObj={handleRemove}
                   editObj={handleEdit}

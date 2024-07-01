@@ -20,7 +20,7 @@ function Login() {
       if(iniciarSesion(email, password)){
         setSesionIniciada(true);
         console.log("se debería iniciar sesion en true");
-        navigate("/administrador")
+        navigate("/administrador/productos")
       }
     } else {
       alert("Las credenciales son incorrectas. Por favor intente nuevamente.");

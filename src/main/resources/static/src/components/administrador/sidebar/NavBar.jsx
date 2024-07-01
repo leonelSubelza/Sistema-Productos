@@ -7,12 +7,12 @@ import { IoMenu } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router";
 
-function Navbar({ onNavbarItemClick }) {
+function Navbar() {
     const [showItems, setShowItems] = useState(false);
     const navigate = useNavigate();
 
     const handleNavbarItemClick = (item) => {
-        onNavbarItemClick(item.title);
+        // onNavbarItemClick(item.title);
         if (item.path) {
             navigate(item.path);
         }

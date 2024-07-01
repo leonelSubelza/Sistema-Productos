@@ -4,7 +4,7 @@ import {createSlice} from "@reduxjs/toolkit";
 //PRODUCTOS CON PAGINACION
 
 const INITIAL_STATE = {
-  value: new Map,
+  value: {},
   loading: false,
 }
 
@@ -13,23 +13,25 @@ export const productsSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setProducts: (state, action) => {
-      return {value: action.payload, loading: false};
+      state.value = action.payload;
+      state.loading = false;
     },
-    resetProductsSlice(state, action) {
-      return INITIAL_STATE;
+    resetProductsSlice: (state) => {
+      state.value = INITIAL_STATE.value;
+      state.loading = INITIAL_STATE.loading;
     },
     addPageToProducts: (state, action) => {
       const { key, products } = action.payload;
-      if (!state.has(key)) {
-        state.set(key, []);
+      if (!state.value[key]) {
+        state.value[key] = [];
       }
-      state.get(key).push(products);
+      state.value[key].push(...products);
     },
-    removeProductKey(state, action) {
+    removeProductKey: (state, action) => {
       const { key } = action.payload;
-      state.delete(key);
+      delete state.value[key];
     },
-    setIsDataLoading(state,action) {
+    setIsDataLoading: (state, action) => {
       state.loading = action.payload;
     }
   }

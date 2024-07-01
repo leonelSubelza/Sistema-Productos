@@ -18,7 +18,7 @@ export const SideBarData = [
   },
   {
     title: 'Numero de Whatsapp',
-    path: '/administrador/NumeroWhatsapp',
+    path: '/administrador/numeroWhatsapp',
     icon: <FaWhatsapp />,
     cName: 'nav-text'
   },

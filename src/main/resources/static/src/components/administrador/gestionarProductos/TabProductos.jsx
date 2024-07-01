@@ -5,12 +5,13 @@ import { funcionesContext } from "../../../context/FuncionesTablaContext";
 import ModalAgregarProducto from "../modals/ModalAgregarProducto.jsx";
 
 import "../../../styles/ventana-productos/Tabla.css";
-
+import "../../../styles/ventana-productos/Pantallas.css";
 
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import '../../../styles/ventana-productos/Tabla.css'
+import Navbar from "../sidebar/NavBar.jsx";
 
 const TabProductos = ({show}) => {
   const { borrarProductoGenerico
@@ -72,36 +73,41 @@ const TabProductos = ({show}) => {
   },[]);
 
     return (
-    <>
-      <div className={`tabla-productos-container ${show&&'show'}`}>
-        <GestionadorObjectosAdministracion
-          show={show}
-          titulo={"Gestion de Productos"}
-          objectName={`Producto`}
-          objects={productosCargados.get(paginaActualProductos)}
-          addObject={agregarProd}
-          editObject={editarProducto}
-          removeObject={borrarProducto}
-        />
+      <>
+        <div className="contenedor-pantalla-productos">
+          <Navbar />
+          {/*<div className={`tabla-productos-container ${show && 'show'}`}>*/}
+          <div className={`tabla-productos-container show`}>
+            <GestionadorObjectosAdministracion
+              // show={show}
+              show={true}
+              titulo={"Gestion de Productos"}
+              objectName={`Producto`}
+              objects={productosCargados.get(paginaActualProductos)}
+              addObject={agregarProd}
+              editObject={editarProducto}
+              removeObject={borrarProducto}
+            />
 
-         <Paginador
-             setPaginaAnterior={handlePaginaNueva}
-             setPaginaSiguiente={handlePaginaNueva}
-             setPaginaActual={handlePaginaNueva}
-             numeroTotalDePaginas={cantPaginasPorProducto}
-             paginaActual={paginaActualProductos}
-             show={show}
-             color={"#0d6efd"}
+            <Paginador
+              setPaginaAnterior={handlePaginaNueva}
+              setPaginaSiguiente={handlePaginaNueva}
+              setPaginaActual={handlePaginaNueva}
+              numeroTotalDePaginas={cantPaginasPorProducto}
+              paginaActual={paginaActualProductos}
+              show={show}
+              color={"#0d6efd"}
+            />
+          </div>
+        </div>
+        <ModalAgregarProducto
+          mostrarVentana={showModalAgregar}
+          cerrarVentana={manejarModalAgregar}
+          prod={prodAEditar}
+          esAgregar={esAgregar}
+          tiposProductos={tiposProductos}
         />
-      </div>
-      <ModalAgregarProducto
-        mostrarVentana={showModalAgregar}
-        cerrarVentana={manejarModalAgregar}
-        prod={prodAEditar}
-        esAgregar={esAgregar}
-        tiposProductos={tiposProductos}
-      />
-    </>
+      </>
   );
 };
 export default TabProductos;

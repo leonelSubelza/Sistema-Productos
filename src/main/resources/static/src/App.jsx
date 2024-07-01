@@ -5,13 +5,14 @@ import { FuncionesClienteContext}  from "./context/FuncionesClienteContext.jsx";
 import VentanaCliente from "./components/ventana-cliente/VentanaCliente";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import PantallaAdministrador from "./components/administrador/PantallaAdministrador";
 import Login from "./components/login/Login";
 import {useEffect} from "react";
 import {usePageDetailsActions} from "./redux/slices/pageDetails/usePageDetailsActions.js";
-import {useSelector} from "react-redux";
 import {loadUserDetailsValues} from "./service/GestionPageDetails.js";
 import {EntityLoaderContext} from "./context/EntityLoaderContext.jsx";
+import TabProductos from "./components/administrador/gestionarProductos/TabProductos.jsx";
+import TabTipoProducto from "./components/administrador/gestionarTipoProductos/TabTipoProductos.jsx";
+import TabNumeroWhatsapp from "./components/administrador/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
 
 function App() {
   const { setPageDetails } = usePageDetailsActions();
@@ -19,7 +20,6 @@ function App() {
   const cargarPageDetails = () => {
     loadUserDetailsValues()
       .then(res => {
-        console.log(res[0])
         setPageDetails(res[0])
       })
       .catch(e => {
@@ -47,7 +47,10 @@ function App() {
             <Routes>
               <Route exact path="/" element={<VentanaCliente />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/administrador/*" element={<PantallaAdministrador />} />
+              <Route path={'/administrador/productos'} element={<TabProductos />} />
+              <Route path={'/administrador/tablaTipoProductos'} element={<TabTipoProducto />} />
+              <Route path={'/administrador/numeroWhatsapp'} element={<TabNumeroWhatsapp />} />
+              <Route path="/administrador/*" element={<TabProductos />} />
               <Route path='*' element={<VentanaCliente />} />
             </Routes>
           </FuncionesClienteContext>
