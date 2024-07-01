@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React, {useContext, useEffect, useState} from "react";
 import "../../../styles/Inicio/Navbar.css";
 import logo from "../../../img/TiendaHumilde-logo.png";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
 import Cart from "../../svg/Cart";
 
 const Navbar = () => {
-  const { setShowCarrito, calcularTotalProductos } = useContext(carritoContext);
+  const { setShowCarrito, totalElementosEnCarrito } = useContext(carritoContext);
 
   return (
     <div className="header-inicio">
@@ -32,7 +32,7 @@ const Navbar = () => {
       <div className="button-nav-inicio">
         <button onClick={() => setShowCarrito(true)}>
           <Cart />
-          <p>{calcularTotalProductos}</p>
+          <p>{totalElementosEnCarrito}</p>
         </button>
       </div>
     </div>

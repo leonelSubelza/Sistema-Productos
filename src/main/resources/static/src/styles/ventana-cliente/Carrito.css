@@ -101,6 +101,10 @@
     line-height: 20px;
 }
 
+.producto-info p {
+  word-break: break-word;
+}
+
 .carrito-precio{
     display: flex;
 }
