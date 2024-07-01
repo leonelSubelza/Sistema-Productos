@@ -19,7 +19,7 @@ const Contenido = () => {
   }
 
   return (
-    <section className='section'>
+    <section className='section' id="producto-link">
       <CategoriasContainer
         show={showCategorias}
         handleCategoriaShow = {handleCategoriaShow}

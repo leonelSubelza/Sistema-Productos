@@ -174,3 +174,78 @@ tbody td{
         font-size: 14px;
     }
 }
+/* CSS existente no se cambia */
+
+.contenedor-sin-fondo {
+    background: none;
+    padding: 20px;
+    box-shadow: none;
+}
+
+.contenedor-input {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.contenedor-input input {
+    margin-right: 10px;
+    width: 60%;
+}
+
+.contenedor-input input:disabled {
+    background-color: #e9ecef; /* Color de fondo para campo deshabilitado */
+    color: #6c757d; /* Color del texto para campo deshabilitado */
+    cursor: not-allowed; /* Cursor no permitido */
+}
+
+.boton-agregar {
+    width: auto;
+    min-height: 31px;
+    border-radius: 25px;
+    padding: 8px 18px;
+    background-color: #28a745;
+    color: white;
+    border: 1px solid transparent;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+}
+
+.boton-agregar svg {
+    margin-right: 5px;
+}
+
+.boton-agregar:hover {
+    background-color: #218838;
+    border: 1px solid #28a745;
+}
+
+/* Botón de borrar más notable */
+.boton-borrar {
+    background-color: #dc3545;
+    color: white;
+    border: 1px solid transparent;
+    margin-left: 10px;
+    transition: background-color 0.3s ease, border 0.3s ease;
+}
+
+.boton-borrar:hover {
+    background-color: #c82333;
+    border: 1px solid #dc3545;
+}
+
+@media screen and (max-width: 768px) {
+    .titulo-tabla h1 {
+        font-size: 16px;
+    }
+    .titulo-tabla p {
+        display: none;
+    }
+    .boton-agregar {
+        font-size: 14px;
+    }
+    .contenedor-input input {
+        width: 100%;
+    }
+}

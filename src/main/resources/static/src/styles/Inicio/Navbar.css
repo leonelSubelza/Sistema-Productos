@@ -3,7 +3,7 @@
 }
 
 .header-inicio {
-  background-color: #F9C1C5;
+  background-color: var(--color-primary);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,14 +22,25 @@
   align-items: center;
 }
 
-.logo-inicio a img {
+.logo-inicio a {
   height: auto;
-  width: 60%;
+  width: 100%;
   transition: all 0.3s;
+  text-decoration: none;
+  color: var(--color-letter-title);
 }
 
-.logo-inicio a img:hover {
+.logo-inicio a:hover {
   transform: scale(1.1);
+}
+
+.logo-inicio a h1{
+  font-size: 22px;
+  margin: 0;
+}
+.logo-inicio a p{
+  font-size: 10px;
+  margin: 0;
 }
 
 .navbar-inicio ul {
@@ -60,7 +71,7 @@
   left: 50%;
   transform: translateX(-50%);
   height: 2px;
-  background-color: black;
+  background-color: var(--color-white);
   transition: width 0.1s;
   width: 0;
 }
@@ -73,7 +84,7 @@
 .navbar-inicio a {
   font-size: 1.5em;
   text-decoration: none;
-  color: black;
+  color: var(--color-white);
 }
 
 .button-nav-inicio {
@@ -97,9 +108,14 @@
   font-size: 1.5em;
 }
 
-.button-nav-inicio .icon-carrito {
-  font-size: 2em;
+.button-nav-inicio button p {
+  color: var(--color-white);
 }
+
+.button-nav-inicio button svg{
+  fill: var(--color-white);
+}
+
 
 @media only screen and (max-width: 768px) {
   .logo-inicio,
@@ -120,7 +136,7 @@
   }
 }
 
-@media only screen and (max-width: 458px){
+@media only screen and (max-width: 448px){
   .logo-inicio a img {
     width: 90%;
 
@@ -128,7 +144,7 @@
   
 } 
 
-@media only screen and (max-width: 390px){
+@media only screen and (max-width: 440px){
   .header-inicio{
     justify-content: center;
   }

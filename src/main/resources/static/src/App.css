@@ -3,3 +3,11 @@
   padding: 0px;
   box-sizing: border-box;
 }
+
+:root {
+  --color-primary: #333;
+  --color-white: #FFFFFF;
+  --color-letter-title: #ccc;
+  --color-button: #007BFF;
+  --color-button-hover: #0056b3;
+}

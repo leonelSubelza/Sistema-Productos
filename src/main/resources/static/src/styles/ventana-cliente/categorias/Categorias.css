@@ -5,6 +5,7 @@
     /*border: 1px solid blue;*/
     flex-direction: column;
     margin: 20px auto;
+    height: auto;
 }
 
 .categorias-container.show{
@@ -12,12 +13,11 @@
 }
 
 .categorias-container h1{
-    height: 5%;
     width: auto;
-    /*border: 1px solid black;*/
     margin: auto auto auto 0;
     font-family: "Proxima Nova", -apple-system, "Helvetica Neue", helvetica, roboto, arial, sans-serif;
     font-size: 20px;
+    padding: 25px 0;
 }
 .card-categoria-container {
     width: 100%;
@@ -29,14 +29,12 @@
 }
 
 .card-categoria-container-item {
-    /*width: 23%;*/
-    /*height: 33%;*/
     height: 100px;
     width: 210px;
-    margin: 3%;
+    margin: auto;
     display: flex;
     border-radius: 6px;
-    border: 1px solid rgba(0,0,0,.1);
+    border: 1px solid #ccc;
     cursor: pointer;
     box-shadow: rgba(211, 211, 211, 0.35) 0 5px 15px;
 }
@@ -56,4 +54,35 @@
     .card-categoria-container-item{
         margin: 3% auto;
     }
+}
+
+.contenedor {
+    height: 500px;
+}
+.swiper {
+    height: 100%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    height: calc((100% - 30px) / 2) !important;
+    background: white;
+    /* Center slide text vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-pagination{
+    position: relative !important;
+}
+
+.swiper-wrapper{
+    margin-bottom: 5px;
 }

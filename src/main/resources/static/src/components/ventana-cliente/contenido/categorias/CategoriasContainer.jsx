@@ -1,35 +1,64 @@
-import {useContext, useState} from "react";
-import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
-// import {funcionesClienteContext} from "../../../../context/FuncionesClienteContext.jsx";
+import { useContext, useState } from "react";
+import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import CardCategoria from "./CardCategoria.jsx";
 
 import '../../../../styles/ventana-cliente/categorias/Categorias.css'
 
-export default function CategoriasContainer({show,handleCategoriaShow}){
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-  const { tiposProductos } = useContext(funcionesContext);
+import 'swiper/css';
+import 'swiper/css/grid';
+import 'swiper/css/pagination';
+import { Grid, Pagination } from 'swiper/modules';
 
-  const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
+export default function CategoriasContainer({ show, handleCategoriaShow }) {
+    const { tiposProductos } = useContext(funcionesContext);
+    const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
 
-  const handleCardSet = (tipoProducto) => {
-    return handleCategoriaShow(tipoProducto);
-  }
+    const handleCardSet = (tipoProducto) => {
+        return handleCategoriaShow(tipoProducto);
+    }
 
-  return(
-    <>
-      <div className={`categorias-container ${show&&'show'}`}>
-        <h1>Categorías</h1>
-        <div className={'card-categoria-container'}>
-          {tiposProductos.map((tipoProducto, index=1) => (
-            <CardCategoria
-              key={index}
-              show={indexCategoriaShow===tipoProducto.id}
-              handleCardSet = {()=> handleCardSet(tipoProducto)}
-              tipoProducto = {tipoProducto}
-            />
-          ))}
-        </div>
-      </div>
-  </>
-  );
+    return (
+        <>
+            <div className={`categorias-container ${show && 'show'}`}>
+                <h1 style={{ paddingTop: "60px" }}>Categorías</h1>
+                <div className={'card-categoria-container'}>
+                    <Swiper
+                        slidesPerView={3}
+                        grid={{
+                          rows: 1,
+                        }}
+                        spaceBetween={30}
+                        pagination={{
+                          clickable: true,
+                        }}
+                        breakpoints={{
+                            0: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
+                            700: {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            },
+                        }}
+                        modules={[Grid, Pagination]}
+                        className="mySwiper"
+                    >
+                        {tiposProductos.map((tipoProducto, index) => (
+                            <SwiperSlide key={index}>
+                                <CardCategoria
+                                    show={indexCategoriaShow === tipoProducto.id}
+                                    handleCardSet={() => handleCardSet(tipoProducto)}
+                                    tipoProducto={tipoProducto}
+                                />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+            </div>
+        </>
+    );
 }
