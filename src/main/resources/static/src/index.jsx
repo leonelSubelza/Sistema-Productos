@@ -7,6 +7,8 @@ import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 // import PantallaGestionTipoProducto from './components/gestion-productos/PantallaGestionTipoProducto';
 // import PantallaGestionProductos from './components/gestion-productos/PantallaGestionProductos';
 import App from './App.jsx';
+import store from "./redux/store.js";
+import {Provider} from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const AppLayout = () => (
@@ -44,9 +46,11 @@ const AppLayout = () => (
 ]);*/
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <FuncionesTablaContext>
       {/* <RouterProvider router={router} /> */}
       <App />
     </FuncionesTablaContext>
+    </Provider>
   </React.StrictMode>
 );

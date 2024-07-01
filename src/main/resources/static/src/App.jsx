@@ -7,9 +7,37 @@ import VentanaCliente from "./components/ventana-cliente/VentanaCliente";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PantallaAdministrador from "./components/administrador/PantallaAdministrador";
 import Login from "./components/login/Login";
+import {useEffect} from "react";
+import {usePageDetailsActions} from "./redux/slices/pageDetails/usePageDetailsActions.js";
+import {useSelector} from "react-redux";
+import {loadUserDetailsValues} from "./service/GestionPageDetails.js";
 
 function App() {
+  const { setPageDetails } = usePageDetailsActions();
+
+  const cargarPageDetails = () => {
+    loadUserDetailsValues()
+      .then(res => {
+        console.log(res)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+  }
+
+/*  useEffect(() => {
+    (async () => {
+        await cargarPageDetails();
+      console.log(appDetails)
+    })();
+  }, []);*/
+
+  useEffect(() => {
+    cargarPageDetails();
+  }, []);
+
   return (
+
       <Router>
         <FuncionesTablaContext>
           <FuncionesClienteContext>
