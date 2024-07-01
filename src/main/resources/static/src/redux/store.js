@@ -7,8 +7,8 @@ import {pageDetailsSlice} from "./slices/pageDetails/pageDetailsSlice.js";
 export const store = configureStore({
   reducer: {
     pageDetails: pageDetailsSlice.reducer,
-    // products: productsSlice,
-    // productsType: productsTypeSlice,
+    products: productsSlice.reducer,
+    productsType: productsTypeSlice.reducer,
     // filteredProducts: filteredProductsSlice
   }
 })

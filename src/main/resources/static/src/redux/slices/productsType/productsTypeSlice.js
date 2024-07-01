@@ -1,21 +1,26 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  productsType: [],
+  value: [],
   loading: false,
 }
 
 export const productsTypeSlice = createSlice({
   name: 'productsType',
-  initialState: [],
+  initialState: INITIAL_STATE,
   reducers: {
     setProductsType: (state, action) => {
-      return action.payload ;
+      console.log("se agrega productsType:")
+      console.log(action.payload)
+      state.value = action.payload;
     },
-    resetProductsType: () => {
+    resetProductsTypeSlice: () => {
       return INITIAL_STATE;
+    },
+    setIsDataLoading: (state, action) => {
+      state.loading = action.payload;
     }
   }
 })
 
-export const { setProductsType,resetProductsType } = productsTypeSlice.actions;
+export const { setProductsType,resetProductsTypeSlice,setIsDataLoading } = productsTypeSlice.actions;

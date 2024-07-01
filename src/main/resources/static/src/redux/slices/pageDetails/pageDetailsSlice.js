@@ -7,6 +7,7 @@ const INITIAL_STATE = {
   //solo de la pag
   paginaActual: 0,
   sessionStarted: false,
+  nroWhatsapp: '',
   loading: true,
 }
 
@@ -21,7 +22,7 @@ export const pageDetailsSlice = createSlice({
       return INITIAL_STATE;
     },
     setLoadingPageDetails: (state, action) => {
-      return [...state, action.payload];
+      state.loading = action.payload;
     }
 
   }

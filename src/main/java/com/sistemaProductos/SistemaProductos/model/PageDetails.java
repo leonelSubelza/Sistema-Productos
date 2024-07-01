@@ -19,5 +19,5 @@ public class PageDetails {
     private String title;
     private String description;
     private String frontPageImage;
-
+    private String nroWhatsapp;
 }

@@ -11,6 +11,7 @@ import {useEffect} from "react";
 import {usePageDetailsActions} from "./redux/slices/pageDetails/usePageDetailsActions.js";
 import {useSelector} from "react-redux";
 import {loadUserDetailsValues} from "./service/GestionPageDetails.js";
+import {EntityLoaderContext} from "./context/EntityLoaderContext.jsx";
 
 function App() {
   const { setPageDetails } = usePageDetailsActions();
@@ -18,7 +19,8 @@ function App() {
   const cargarPageDetails = () => {
     loadUserDetailsValues()
       .then(res => {
-        console.log(res)
+        console.log(res[0])
+        setPageDetails(res[0])
       })
       .catch(e => {
         console.log(e)
@@ -39,6 +41,7 @@ function App() {
   return (
 
       <Router>
+        <EntityLoaderContext>
         <FuncionesTablaContext>
           <FuncionesClienteContext>
             <Routes>
@@ -49,6 +52,7 @@ function App() {
             </Routes>
           </FuncionesClienteContext>
         </FuncionesTablaContext>
+        </EntityLoaderContext>
       </Router>
     );
 }

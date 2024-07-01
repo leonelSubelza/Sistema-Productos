@@ -1,6 +1,6 @@
 import {useDispatch} from "react-redux";
 import {setProducts,
-  resetProducts,
+  resetProductsSlice,
   addPageToProducts,
   removeProductKey,
   setIsDataLoading} from "./productsSlice.js";
@@ -12,22 +12,22 @@ export const useProductsActions = () => {
     dispatcher(setProducts(newProducts));
   };
 
-  const resetProductsPages = () => {
-    dispatcher(resetProducts());
+  const resetProducts = () => {
+    dispatcher(resetProductsSlice());
   }
 
-  const addNewPageToProductsPages = (nroPag, products) => {
+  const addNewPageToProducts = (nroPag, products) => {
     dispatcher(addPageToProducts({key: nroPag, products: products}));
   }
 
-  const removePageFromProductsPage = (key) => {
+  const removePageFromProducts = (key) => {
     dispatcher(removeProductKey(key));
   }
 
-  const updateIsDataLoading = (value) => {
+  const updateProductsIsDataLoading = (value) => {
     dispatcher(setIsDataLoading(value));
   }
 
 //   LO DEMÁS CREATE, UPDAATE, DELETE Debería estar en el Tablacontext porque eso se hace en la parte de admin nomas
-  return { updateProducts,resetProductsPages,addNewPageToProductsPages,removePageFromProductsPage,updateIsDataLoading }
+  return { updateProducts,resetProducts,addNewPageToProducts,removePageFromProducts,updateProductsIsDataLoading }
 }

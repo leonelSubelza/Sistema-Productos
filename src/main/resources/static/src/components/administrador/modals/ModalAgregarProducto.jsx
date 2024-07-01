@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { funcionesContext } from "../../../context/FuncionesTablaContext";
+import { funcionesContext } from "../../../context/FuncionesTablaContext.jsx";
 import {
   Button,
   Modal,
@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 
 import Alert from "react-bootstrap/Alert";
-import {URLImagenes} from "../../../service/Configuracion";
+import {URLImagenes} from "../../../service/Configuracion.js";
 
 // import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
 

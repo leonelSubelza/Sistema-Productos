@@ -60,16 +60,15 @@ export function FuncionesTablaContext({ children }) {
 /*  const manejarMsjRecibido = (payload)=>{
     actualizarValores(paginaActualProductos);
   };*/
-
-  const getTipoProducto = (id,tiposProduct) => {
-    return tiposProduct.find(tipoProd => tipoProd.id === id);
-  }
-
   const reiniciarProductosCargadosMap = () => {
     let prodCargadosAux= productosCargados;
     for (var obj of prodCargadosAux) {
       productosCargados.delete(obj[0]);
     }
+  }
+
+  const getTipoProducto = (id,tiposProduct) => {
+    return tiposProduct.find(tipoProd => tipoProd.id === id);
   }
 
   //A cada objeto se le asigna su objeto tipoProducto correspondiente

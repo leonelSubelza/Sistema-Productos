@@ -43,13 +43,13 @@ function Login() {
           <img src={logo} alt="" className='login-logo' />
           <form className='form-login'>
             <div className="mb-3">
-              <label for="form-email" className="form-label">Email</label>
+              <label htmlFor={"form-email"} className="form-label">Email</label>
 
               <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" className="form-control" id="form-email" placeholder="name@example.com" />
 
             </div>
             <div className="mb-3">
-              <label for="form-password" className="form-label">Contraseña</label>
+              <label htmlFor={"form-password"} className="form-label">Contraseña</label>
 
               <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className="form-control" id="form-password" placeholder='Contraseña' />
 

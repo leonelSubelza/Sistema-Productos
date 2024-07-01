@@ -2,17 +2,17 @@ import { useContext, useEffect, useState } from "react";
 
 import { funcionesContext } from "../../../context/FuncionesTablaContext";
 
-import ModalAgregarProducto from "./ModalAgregarProducto";
+import ModalAgregarProducto from "../modals/ModalAgregarProducto.jsx";
 
 import "../../../styles/ventana-productos/Tabla.css";
 
 
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import Paginador from "../../utils/Paginador";
-import GestionadorObjectosAdministracion from "./GestionadorObjectosAdministracion";
+import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import '../../../styles/ventana-productos/Tabla.css'
 
-const TablaProductos = ({show}) => {
+const TabProductos = ({show}) => {
   const { borrarProductoGenerico
     ,tiposProductos,
     cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
@@ -130,4 +130,4 @@ const TablaProductos = ({show}) => {
     </>
   );
 };
-export default TablaProductos;
+export default TabProductos;

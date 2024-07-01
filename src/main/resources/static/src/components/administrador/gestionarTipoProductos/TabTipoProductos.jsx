@@ -2,26 +2,26 @@ import { useEffect, useState, useContext } from "react";
 
 import { funcionesContext } from "../../../context/FuncionesTablaContext";
 
-import { Table, Button, Container } from "reactstrap";
-
-import ModalAgregarTipoProducto from "./ModalAgregarTipoProducto";
+import ModalAgregarTipoProducto from "../modals/ModalAgregarTipoProducto.jsx";
 
 import "../../../styles/ventana-productos/Tabla.css";
 
 //Iconos
-import { IoAddCircleOutline } from "react-icons/io5";
-import { AiFillEdit } from "react-icons/ai";
-import { BsTrash } from "react-icons/bs";
-import { AiOutlineNumber } from "react-icons/ai";
 import { MdLabelImportant } from "react-icons/md";
 // import PaginadorTipoProductos from "./PaginadorTipoProductos";
 // import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
-import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import TablaAdministrador from "../../utils/TablaAdministrador";
-import {GiClothes} from "react-icons/gi";
+import {useSelector} from "react-redux";
 
-const TablaTipoProducto = ({show}) => {
-  const { borrarProductoGenerico,tiposProductos,actualizarTipoProductos } =
+const TabTipoProducto = ({show}) => {
+
+  const tiposProductos = useSelector(store => store.productsType.value)
+
+  const {
+    borrarProductoGenerico,
+    // tiposProductos,
+    // actualizarTipoProductos
+  } =
     useContext(funcionesContext);
 
   //variables de paginacion
@@ -74,11 +74,6 @@ const TablaTipoProducto = ({show}) => {
 
   }
 
-/*  useEffect(() => {
-    setTotalTiposProductos(tiposProductos.length);
-    setpaginaActual(1)
-  }, [tiposProductos]);*/
-
   return (
     <>
       <TablaAdministrador
@@ -113,4 +108,4 @@ const TablaTipoProducto = ({show}) => {
     </>
   );
 };
-export default TablaTipoProducto;
+export default TabTipoProducto;
