@@ -3,8 +3,6 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
-import { GiClothes } from "react-icons/gi";
-import {useEffect, useState} from "react";
 
 import '../../styles/ventana-productos/Tabla.css'
 
@@ -31,7 +29,6 @@ const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObje
     <div className={`contenedor-tabla ${show && 'show'}`}>
     <Container>
       <div className="contenedor-titulo-tabla">
-        {/*<GiClothes style={{ height: "100%", width: "4rem" }} />*/}
         {titleIcon}
         <div className="titulo-tabla">
           <h1>{title}</h1>

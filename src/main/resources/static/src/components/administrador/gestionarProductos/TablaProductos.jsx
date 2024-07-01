@@ -63,19 +63,6 @@ const TablaProductos = ({show}) => {
     setPaginaActualProductos(nPagina);
   }
 
-/*  const getTableData = (prod) => {
-    return(<>
-          <td className={"table-data"}>{prod.id}</td>
-          <td className={"table-data"}>{prod.nombre}</td>
-          <td className={"table-data"}>{prod.descripcion}</td>
-          <td className={"table-data"} style={{ color: "green" }}>$ {prod.precio}</td>
-          <td className={"table-data"}>{prod.tipoProducto.nombre}</td>
-          <td className={"table-data"}>{prod.genero}</td>
-          <td className={"table-data"}>{prod.imagen}</td>
-        </>
-    )
-  }*/
-
   useEffect(() => {
     // settotalProductos(productos.length)
     if(paginaActualProductos>1){
@@ -86,19 +73,6 @@ const TablaProductos = ({show}) => {
 
     return (
     <>
-{/*      <TablaAdministrador
-          show={show}
-          titleIcon={<GiClothes style={{ height: "100%", width: "4rem" }} />}
-          title={"Gestion de Productos"}
-          description={"Listado de los productos cargados en el sistema"}
-          addObject={agregarProd}
-          editObject={editarProducto}
-          removeObject={borrarProducto}
-          textButtonAdd={"Agregar Producto"}
-          columnNames={["Nombre","Descripción","Precio","Tipo","Género","Imágen","Acciones"]}
-          objects={productosCargados.get(paginaActualProductos)}
-          objectTD={getTableData}
-      />*/}
       <div className={`tabla-productos-container ${show&&'show'}`}>
         <GestionadorObjectosAdministracion
           show={show}

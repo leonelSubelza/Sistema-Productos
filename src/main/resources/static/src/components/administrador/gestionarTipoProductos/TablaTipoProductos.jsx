@@ -74,11 +74,6 @@ const TablaTipoProducto = ({show}) => {
 
   }
 
-/*  useEffect(() => {
-    setTotalTiposProductos(tiposProductos.length);
-    setpaginaActual(1)
-  }, [tiposProductos]);*/
-
   return (
     <>
       <TablaAdministrador

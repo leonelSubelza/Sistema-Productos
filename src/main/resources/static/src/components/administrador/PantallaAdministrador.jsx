@@ -5,6 +5,7 @@ import TablaProductos from "./gestionarProductos/TablaProductos.jsx";
 import TablaTipoProducto from "./gestionarTipoProductos/TablaTipoProductos.jsx"; // Importar el nuevo componente
 import Navbar from "./dashboard/NavBar";
 import '../../styles/ventana-productos/Pantallas.css';
+import TablaNumeroWhatsapp from "./gestionarWhatsapp/TablaNumeroWhatsapp.jsx";
 
 export default function PantallaAdministrador() {
     const [showTablaProductos, setShowTablaProductos] = useState(true);
@@ -49,6 +50,7 @@ export default function PantallaAdministrador() {
                     />
                     <TablaProductos show={showTablaProductos} />
                     <TablaTipoProducto show={showTablaTipoProductos} />
+                    <TablaNumeroWhatsapp show={showTablaNumeroWhatsapp}/>
                 </div>
             }
         </>
