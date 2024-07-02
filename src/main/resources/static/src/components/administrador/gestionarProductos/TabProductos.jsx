@@ -13,8 +13,22 @@ import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdmi
 import '../../../styles/ventana-productos/Tabla.css'
 import Navbar from "../sidebar/NavBar.jsx";
 import {useNavigate} from "react-router";
+import {useSelector} from "react-redux";
+import {entityLoaderContextProvider} from "../../../context/EntityLoaderContext.jsx";
+import {useEntityLoaderFunction} from "../../../hooks/useEntityLoaderFunction.js";
+import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
 
-const TabProductos = ({show}) => {
+const TabProductos = () => {
+
+  const pageDetails = useSelector(store => store.pageDetails);
+  const products = useSelector(store => store.products.value);
+  const productsType = useSelector(store => store.productsType.value)
+
+  // const { cargarEntidadSinPaginacion,actualizarEntidadConPaginacion} = useContext(entityLoaderContextProvider);
+  const { cargarEntidadSinPaginacion,cargarEntidadConPaginacion,isPageLoaded} = useEntityLoaderFunction();
+  const { updateValuePageDetail } = usePageDetailsActions();
+
+
   const { borrarProductoGenerico
     ,tiposProductos,
     cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
@@ -52,30 +66,57 @@ const TabProductos = ({show}) => {
   };
 
   //Paginacion
-  const handlePaginaNueva = (nPagina) => {
-    if(productosCargados.has(nPagina)){
-      setPaginaActualProductos(nPagina);
+  const handlePaginaNueva = async (nPagina) => {
+    // if(productosCargados.has(nPagina)){
+    //   setPaginaActualProductos(nPagina);
+    //   return;
+    // }
+    // if(nPagina>=1){
+    //   actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
+    // }else{
+    //   actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos)
+    // }
+    // setPaginaActualProductos(nPagina);
+    if(isPageLoaded(products.pages,nPagina)){
+      console.log("ya esta cargada esta pagina: "+nPagina)
+      updateValuePageDetail("paginaActual",nPagina);
       return;
+    }else{
+      console.log("esta pagina: "+nPagina+", no esta cargada,se hace la request")
     }
     if(nPagina>=1){
-      actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
+      // actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
+      await cargarEntidadConPaginacion("productos",nPagina-1,administradorCantObjPorTabla,productsType);
     }else{
-      actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos)
+      await cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
     }
-    setPaginaActualProductos(nPagina);
+    // setPaginaActualProductos(nPagina);
+    updateValuePageDetail("paginaActual",nPagina);
   }
 
   useEffect(() => {
-    if(!sesionIniciada){
+    if (!sesionIniciada) {
       navigate('/login');
       return;
     }
     // settotalProductos(productos.length)
-    if(paginaActualProductos>1){
-      setPaginaActualProductos(1)
-      actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos);
+    if (paginaActualProductos > 1) {
+      // setPaginaActualProductos(1)
+      updateValuePageDetail("paginaActual",1);
+      // cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
+      // actualizarProductos("productos", 0, administradorCantObjPorTabla, tiposProductos);
     }
-  },[]);
+/*    if (productsType && productsType.length < 1 &&
+      products.totalPag === 0) {
+      cargarEntidadSinPaginacion('tiposProductos')
+        .then(response => {
+          cargarEntidadConPaginacion("productos", 0, administradorCantObjPorTabla, response);
+        })
+        .then(res => {
+          console.log(products)
+        })
+    }*/
+  }, []);
 
     return (
       <>
@@ -88,7 +129,8 @@ const TabProductos = ({show}) => {
               show={true}
               titulo={"Gestion de Productos"}
               objectName={`Producto`}
-              objects={productosCargados.get(paginaActualProductos)}
+              // objects={productosCargados.get(paginaActualProductos)}
+              objects={products.pages[pageDetails.paginaActual]?.products}
               addObject={agregarProd}
               editObject={editarProducto}
               removeObject={borrarProducto}
@@ -98,8 +140,10 @@ const TabProductos = ({show}) => {
               setPaginaAnterior={handlePaginaNueva}
               setPaginaSiguiente={handlePaginaNueva}
               setPaginaActual={handlePaginaNueva}
-              numeroTotalDePaginas={cantPaginasPorProducto}
-              paginaActual={paginaActualProductos}
+              // numeroTotalDePaginas={cantPaginasPorProducto}
+              numeroTotalDePaginas={products.totalPag}
+              // paginaActual={paginaActualProductos}
+              paginaActual={pageDetails.paginaActual}
               show={true}
               color={"#0d6efd"}
             />
@@ -112,6 +156,7 @@ const TabProductos = ({show}) => {
           esAgregar={esAgregar}
           tiposProductos={tiposProductos}
         />
+        {/*<p>{JSON.stringify(products.pages[0]?.products)}</p>*/}
       </>
   );
 };

@@ -47,10 +47,8 @@ const AppLayout = () => (
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-    <FuncionesTablaContext>
       {/* <RouterProvider router={router} /> */}
       <App />
-    </FuncionesTablaContext>
     </Provider>
   </React.StrictMode>
 );

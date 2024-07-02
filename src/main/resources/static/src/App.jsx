@@ -13,51 +13,34 @@ import {EntityLoaderContext} from "./context/EntityLoaderContext.jsx";
 import TabProductos from "./components/administrador/gestionarProductos/TabProductos.jsx";
 import TabTipoProducto from "./components/administrador/gestionarTipoProductos/TabTipoProductos.jsx";
 import TabNumeroWhatsapp from "./components/administrador/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
+import {useEntityLoaderFunction} from "./hooks/useEntityLoaderFunction.js";
 
 function App() {
-  const { setPageDetails } = usePageDetailsActions();
-
-  const cargarPageDetails = () => {
-    loadUserDetailsValues()
-      .then(res => {
-        setPageDetails(res[0])
-      })
-      .catch(e => {
-        console.log(e)
-      })
-  }
-
-/*  useEffect(() => {
-    (async () => {
-        await cargarPageDetails();
-      console.log(appDetails)
-    })();
-  }, []);*/
+  const { cargarValoresIniciales } = useEntityLoaderFunction();
 
   useEffect(() => {
-    cargarPageDetails();
+    cargarValoresIniciales();
   }, []);
 
   return (
-
-      <Router>
-        <EntityLoaderContext>
+    <Router>
+      {/*<EntityLoaderContext>*/}
         <FuncionesTablaContext>
           <FuncionesClienteContext>
             <Routes>
-              <Route exact path="/" element={<VentanaCliente />} />
-              <Route path="/login" element={<Login />} />
-              <Route path={'/administrador/productos'} element={<TabProductos />} />
-              <Route path={'/administrador/tablaTipoProductos'} element={<TabTipoProducto />} />
-              <Route path={'/administrador/numeroWhatsapp'} element={<TabNumeroWhatsapp />} />
-              <Route path="/administrador/*" element={<TabProductos />} />
-              <Route path='*' element={<VentanaCliente />} />
+              <Route exact path="/" element={<VentanaCliente/>}/>
+              <Route path="/login" element={<Login/>}/>
+              <Route path={'/administrador/productos'} element={<TabProductos/>}/>
+              <Route path={'/administrador/tablaTipoProductos'} element={<TabTipoProducto/>}/>
+              <Route path={'/administrador/numeroWhatsapp'} element={<TabNumeroWhatsapp/>}/>
+              <Route path="/administrador/*" element={<TabProductos/>}/>
+              <Route path='*' element={<VentanaCliente/>}/>
             </Routes>
           </FuncionesClienteContext>
         </FuncionesTablaContext>
-        </EntityLoaderContext>
-      </Router>
-    );
+      {/*</EntityLoaderContext>*/}
+    </Router>
+  );
 }
 
 export default App;

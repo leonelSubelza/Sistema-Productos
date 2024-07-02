@@ -1,5 +1,5 @@
 import {useDispatch} from "react-redux";
-import {modifyPageDetails,resetPageDetailsReducer,setLoadingPageDetails} from "./pageDetailsSlice.js";
+import {modifyPageDetails,resetPageDetailsReducer,setLoadingPageDetails,updateValueSlice} from "./pageDetailsSlice.js";
 
 export const usePageDetailsActions = () => {
   const dispatcher = useDispatch();
@@ -16,5 +16,9 @@ export const usePageDetailsActions = () => {
     dispatcher(setLoadingPageDetails(value));
   }
 
-  return { setPageDetails,resetPageDetails,updateLoadingPageDetails };
+  const updateValuePageDetail = (name,value) => {
+    dispatcher(updateValueSlice({name:name,value:value}));
+  }
+
+  return { setPageDetails,resetPageDetails,updateLoadingPageDetails,updateValuePageDetail };
 }

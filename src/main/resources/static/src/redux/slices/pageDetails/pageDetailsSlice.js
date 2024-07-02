@@ -23,9 +23,22 @@ export const pageDetailsSlice = createSlice({
     },
     setLoadingPageDetails: (state, action) => {
       state.loading = action.payload;
+    },
+    updateValueSlice: (state, action) => {
+      const {name, value} = action.payload;
+      // if (state.hasOwnProperty(name)) {
+        state[name] = value;
+      // } else {
+      //   console.warn(`Property ${name} does not exist in the state.`);
+      // }
     }
 
   }
 })
 
-export const { modifyPageDetails,resetPageDetailsReducer,setLoadingPageDetails } = pageDetailsSlice.actions;
+export const {
+  modifyPageDetails,
+  resetPageDetailsReducer,
+  setLoadingPageDetails,
+  updateValueSlice
+} = pageDetailsSlice.actions;
