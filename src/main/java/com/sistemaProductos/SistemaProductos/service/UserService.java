@@ -1,5 +1,6 @@
 package com.sistemaProductos.SistemaProductos.service;
 
+import com.sistemaProductos.SistemaProductos.dto.UserDTO;
 import com.sistemaProductos.SistemaProductos.model.User;
 import com.sistemaProductos.SistemaProductos.repository.IUserRepository;
 import de.mkammerer.argon2.Argon2;
@@ -44,11 +45,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUser(User user) {
+    public User getUser(UserDTO user) {
         User userFounded = this.userRepository.findUserByEmail(user.getEmail());
-        if(!userFounded.getPassword().equals(userFounded.getPassword())){
-            throw new NotFoundException("El usuario solicitado no existe");
-        }
         String passwordHashed = userFounded.getPassword();
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         if (!argon2.verify(passwordHashed, user.getPassword().toCharArray())) {

@@ -12,16 +12,17 @@ import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import '../../../styles/ventana-productos/Tabla.css'
 import Navbar from "../sidebar/NavBar.jsx";
+import {useNavigate} from "react-router";
 
 const TabProductos = ({show}) => {
   const { borrarProductoGenerico
     ,tiposProductos,
     cantPaginasPorProducto,paginaActualProductos,setPaginaActualProductos,
-    actualizarProductos,productosCargados } =
+    actualizarProductos,productosCargados,sesionIniciada } =
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
-
+  const navigate = useNavigate();
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
@@ -65,6 +66,10 @@ const TabProductos = ({show}) => {
   }
 
   useEffect(() => {
+    if(!sesionIniciada){
+      navigate('/login');
+      return;
+    }
     // settotalProductos(productos.length)
     if(paginaActualProductos>1){
       setPaginaActualProductos(1)

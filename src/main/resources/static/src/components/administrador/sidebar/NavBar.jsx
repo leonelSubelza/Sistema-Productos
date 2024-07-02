@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { SideBarData } from "./SideBarData";
 import "../../../styles/ventana-productos/NavBar.css";
 
@@ -6,13 +6,19 @@ import "../../../styles/ventana-productos/NavBar.css";
 import { IoMenu } from "react-icons/io5";
 import { IoMdClose } from "react-icons/io";
 import { useNavigate } from "react-router";
+import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 
 function Navbar() {
     const [showItems, setShowItems] = useState(false);
     const navigate = useNavigate();
+    const { setSesionIniciada } = useContext(funcionesContext);
 
     const handleNavbarItemClick = (item) => {
         // onNavbarItemClick(item.title);
+        if(item.title === "Salir"){
+            setSesionIniciada(false);
+        }
+
         if (item.path) {
             navigate(item.path);
         }

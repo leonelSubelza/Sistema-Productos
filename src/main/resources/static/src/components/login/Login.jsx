@@ -17,13 +17,19 @@ function Login() {
 
   const manejarSesion = () => {
     if (email !== "") {
-      if(iniciarSesion(email, password)){
-        setSesionIniciada(true);
-        console.log("se debería iniciar sesion en true");
-        navigate("/administrador/productos")
-      }
-    } else {
-      alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
+      iniciarSesion(email, password)
+        .then(res => {
+          if(res){
+            setSesionIniciada(true);
+            console.log("se debería iniciar sesion en true");
+            navigate("/administrador/productos")
+          }else{
+            alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
+          }
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   }
 

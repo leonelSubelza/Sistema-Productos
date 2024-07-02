@@ -1,14 +1,18 @@
 import "../../../styles/ventana-productos/Tabla.css";
 import { Container, Button, Input } from "reactstrap";
 import { FaWhatsapp, FaPlusCircle } from "react-icons/fa";
-import { useState } from "react";
+import {useContext, useEffect, useState} from "react";
 import Navbar from "../sidebar/NavBar.jsx";
 import "../../../styles/ventana-productos/Pantallas.css";
+import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
+import {useNavigate} from "react-router";
 
 const TabNumeroWhatsapp = ({ show }) => {
   const [number, setNumber] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
+  const { sesionIniciada } = useContext(funcionesContext);
+  const navigate = useNavigate();
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -22,6 +26,13 @@ const TabNumeroWhatsapp = ({ show }) => {
     setNumber("");
     setIsEditing(false);
   };
+
+  useEffect(() => {
+    if(!sesionIniciada){
+      navigate('/login');
+      return;
+    }
+  }, []);
 
   return (
     <div className="contenedor-pantalla-productos">

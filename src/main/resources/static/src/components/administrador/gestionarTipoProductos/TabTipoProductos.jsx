@@ -13,15 +13,17 @@ import {MdLabelImportant} from "react-icons/md";
 import TablaAdministrador from "../../utils/TablaAdministrador";
 import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
+import {useNavigate} from "react-router";
 
 const TabTipoProducto = ({show}) => {
 
   // const tiposProductos = useSelector(store => store.productsType.value)
-
+  const navigate = useNavigate();
   const {
     borrarProductoGenerico,
     tiposProductos,
-    actualizarTipoProductos
+    actualizarTipoProductos,
+    sesionIniciada
   } =
     useContext(funcionesContext);
 
@@ -74,6 +76,13 @@ const TabTipoProducto = ({show}) => {
     );
 
   }
+
+  useEffect(() => {
+    if(!sesionIniciada){
+      navigate('/login');
+      return;
+    }
+  }, []);
 
   return (
     <>

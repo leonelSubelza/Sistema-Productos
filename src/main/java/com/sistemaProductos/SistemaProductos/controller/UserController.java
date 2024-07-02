@@ -3,6 +3,7 @@ package com.sistemaProductos.SistemaProductos.controller;
 import java.net.URI;
 import java.util.List;
 
+import com.sistemaProductos.SistemaProductos.dto.UserDTO;
 import com.sistemaProductos.SistemaProductos.model.User;
 import com.sistemaProductos.SistemaProductos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class UserController {
   public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
     this.userService.deleteById(id);
     return new ResponseEntity<>("Autor eliminado con éxito", HttpStatus.OK);
+  }
+
+  @PostMapping("/login")
+  public ResponseEntity<User> login(@RequestBody @Valid UserDTO userDTO){
+    return new ResponseEntity<User>(this.userService.getUser(userDTO), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
