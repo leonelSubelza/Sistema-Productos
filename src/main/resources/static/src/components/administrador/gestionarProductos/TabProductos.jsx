@@ -100,7 +100,7 @@ const TabProductos = ({show}) => {
               setPaginaActual={handlePaginaNueva}
               numeroTotalDePaginas={cantPaginasPorProducto}
               paginaActual={paginaActualProductos}
-              show={show}
+              show={true}
               color={"#0d6efd"}
             />
           </div>
