@@ -3,7 +3,6 @@ import {setProducts,
   resetProductsSlice,
   addPageToProducts,
   removePageSlice,
-  setIsDataLoadingSlice,
   setTotalPagesSlice} from "./productsSlice.js";
 
 export const useProductsActions = () => {
@@ -24,10 +23,6 @@ export const useProductsActions = () => {
     dispatcher(removePageSlice(nroPag));
   }
 
-  const updateProductsIsDataLoading = (value) => {
-    dispatcher(setIsDataLoadingSlice(value));
-  }
-
   const updateTotalPages = (value) => {
     dispatcher(setTotalPagesSlice(value))
   }
@@ -38,6 +33,5 @@ export const useProductsActions = () => {
     resetProducts,
     addNewPageToProducts,
     removePageFromProducts,
-    updateProductsIsDataLoading,
     updateTotalPages }
 }

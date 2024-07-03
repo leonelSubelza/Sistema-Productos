@@ -1,26 +1,27 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 
 import '../../styles/login/Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
 import { iniciarSesion } from '../../service/GestionUsuarios';
-import { funcionesContext } from '../../context/FuncionesTablaContext';
 import { useNavigate } from 'react-router';
+import {usePageDetailsActions} from "../../redux/slices/pageDetails/usePageDetailsActions.js";
 
 function Login() {
   const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin1234");
 
-  const { sesionIniciada, setSesionIniciada } =
-  useContext(funcionesContext);
+  // const { sesionIniciada, setSesionIniciada } =
+  // useContext(funcionesContext);
   const navigate = useNavigate();
-  
 
+  const { updateValuePageDetail } = usePageDetailsActions();
   const manejarSesion = () => {
     if (email !== "") {
       iniciarSesion(email, password)
         .then(res => {
           if(res){
-            setSesionIniciada(true);
+            // setSesionIniciada(true);
+            updateValuePageDetail("sessionStarted",true)
             console.log("se debería iniciar sesion en true");
             navigate("/administrador/productos")
           }else{

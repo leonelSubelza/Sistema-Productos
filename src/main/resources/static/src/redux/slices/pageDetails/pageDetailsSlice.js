@@ -9,6 +9,7 @@ const INITIAL_STATE = {
   sessionStarted: false,
   nroWhatsapp: '',
   loading: true,
+  loadingMessage: ''
 }
 
 export const pageDetailsSlice = createSlice({
@@ -22,7 +23,9 @@ export const pageDetailsSlice = createSlice({
       return INITIAL_STATE;
     },
     setLoadingPageDetails: (state, action) => {
-      state.loading = action.payload;
+      const {value,message} = action.payload;
+      state.loading = value;
+      state.loadingMessage = message;
     },
     updateValueSlice: (state, action) => {
       const {name, value} = action.payload;

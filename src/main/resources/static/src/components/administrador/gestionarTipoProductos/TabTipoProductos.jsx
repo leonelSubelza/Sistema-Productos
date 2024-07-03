@@ -14,23 +14,29 @@ import TablaAdministrador from "../../utils/TablaAdministrador";
 import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
 import {useNavigate} from "react-router";
+import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
 
-const TabTipoProducto = ({show}) => {
+const TabTipoProducto = () => {
 
   // const tiposProductos = useSelector(store => store.productsType.value)
   const navigate = useNavigate();
   const {
     borrarProductoGenerico,
-    tiposProductos,
-    actualizarTipoProductos,
-    sesionIniciada
+    // tiposProductos,
+    // actualizarTipoProductos,
+    // sesionIniciada
   } =
     useContext(funcionesContext);
+
+  const pageDetails = useSelector(store => store.pageDetails);
+  const productsType = useSelector(store => store.productsType.value)
+
+  const { updateValuePageDetail } = usePageDetailsActions();
 
   //variables de paginacion
   // const [totalTipoProductos, setTotalTiposProductos] = useState(tiposProductos.length);
   // const [tipoProductosPorPagina] = useState(5);
-  const [paginaActual, setPaginaActual] = useState(1);
+  // const [paginaActual, setPaginaActual] = useState(1);
   // const ultimoIndex = paginaActual * tipoProductosPorPagina;
   // const primerIndex = ultimoIndex - tipoProductosPorPagina;
 
@@ -62,11 +68,6 @@ const TabTipoProducto = ({show}) => {
     borrarProductoGenerico("tiposProductos", prod.id);
   };
 
-  const handlePaginaNueva = (nPagina) => {
-    actualizarTipoProductos()
-    setPaginaActual(nPagina);
-  }
-
   const getTableData = (tipoProd) => {
     return (
       <>
@@ -74,14 +75,15 @@ const TabTipoProducto = ({show}) => {
         <td>{tipoProd.nombre}</td>
       </>
     );
-
   }
 
   useEffect(() => {
-    if(!sesionIniciada){
+    // if(!sesionIniciada){
+    if(!pageDetails.sessionStarted) {
       navigate('/login');
       return;
     }
+    updateValuePageDetail("paginaActual",1);
   }, []);
 
   return (
@@ -99,7 +101,8 @@ const TabTipoProducto = ({show}) => {
           removeObject={borrarProducto}
           textButtonAdd={"Agregar"}
           columnNames={["Nombre", "Acciones"]}
-          objects={tiposProductos}
+          // objects={tiposProductos}
+          objects={productsType}
           objectTD={getTableData}
         />
       </div>

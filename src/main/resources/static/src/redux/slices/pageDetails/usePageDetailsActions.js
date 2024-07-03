@@ -12,8 +12,8 @@ export const usePageDetailsActions = () => {
     dispatcher(resetPageDetailsReducer());
   }
 
-  const updateLoadingPageDetails = (value) => {
-    dispatcher(setLoadingPageDetails(value));
+  const updateLoadingPageDetails = (value,message) => {
+    dispatcher(setLoadingPageDetails({value: value,message: message}));
   }
 
   const updateValuePageDetail = (name,value) => {

@@ -1,17 +1,19 @@
 import "../../../styles/ventana-productos/Tabla.css";
 import { Container, Button, Input } from "reactstrap";
 import { FaWhatsapp, FaPlusCircle } from "react-icons/fa";
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import Navbar from "../sidebar/NavBar.jsx";
 import "../../../styles/ventana-productos/Pantallas.css";
-import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 import {useNavigate} from "react-router";
+import {useSelector} from "react-redux";
 
-const TabNumeroWhatsapp = ({ show }) => {
+const TabNumeroWhatsapp = () => {
   const [number, setNumber] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  const { sesionIniciada } = useContext(funcionesContext);
+  // const { sesionIniciada } = useContext(funcionesContext);
+  const pageDetails = useSelector(store => store.pageDetails);
+
   const navigate = useNavigate();
   const handleEditClick = () => {
     setIsEditing(true);
@@ -28,9 +30,8 @@ const TabNumeroWhatsapp = ({ show }) => {
   };
 
   useEffect(() => {
-    if(!sesionIniciada){
+    if(!pageDetails.sessionStarted) {
       navigate('/login');
-      return;
     }
   }, []);
 

@@ -4,11 +4,9 @@ import {createSlice} from "@reduxjs/toolkit";
 //PRODUCTOS CON PAGINACION
 
 const INITIAL_STATE = {
-  value: {
-    totalPag: 0,
-    pages: []
-  },
-  loading: false,
+  totalPag: 0,
+  // pages: [page{nroPagina:0,products:[]}]
+  pages: [],
 }
 
 export const productsSlice = createSlice({
@@ -17,12 +15,11 @@ export const productsSlice = createSlice({
   reducers: {
     setProducts: (state, action) => {
       const {totalPag, products} = action.payload;
-      state.value.totalPag = totalPag;
-      state.value.pages.push(products);
+      state.totalPag = totalPag;
+      state.pages.push(products);
     },
-    resetProductsSlice: (state) => {
-      state.value = INITIAL_STATE.value;
-      state.loading = INITIAL_STATE.loading;
+    resetProductsSlice: () => {
+      return INITIAL_STATE;
     },
     // Enviar {nroPag:0, products: []}
     addPageToProducts: (state, action) => {
@@ -31,20 +28,17 @@ export const productsSlice = createSlice({
         nroPag: nroPag,
         products: products
       }
-      if (state.value.pages[nroPag]) {
-        state.value.pages[nroPag] = [];
+      if (state.pages[nroPag]) {
+        state.pages[nroPag] = [];
       }
-      state.value.pages[nroPag] = newPage;
+      state.pages[nroPag] = newPage;
     },
     removePageSlice: (state, action) => {
       const { nroPag } = action.payload;
-      state.value.pages = state.value.pages.filter(p => p.nroPag!==nroPag);
-    },
-    setIsDataLoadingSlice: (state, action) => {
-      state.loading = action.payload;
+      state.pages = state.pages.filter(p => p.nroPag!==nroPag);
     },
     setTotalPagesSlice: (state, action) => {
-      state.value.totalPag = action.payload;
+      state.totalPag = action.payload;
     }
   }
 })
@@ -54,6 +48,5 @@ export const {
   resetProductsSlice,
   addPageToProducts,
   removePageSlice,
-  setIsDataLoadingSlice,
   setTotalPagesSlice
 } = productsSlice.actions;

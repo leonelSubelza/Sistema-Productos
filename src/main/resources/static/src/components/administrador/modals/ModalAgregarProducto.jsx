@@ -146,7 +146,7 @@ export default function ModalAgregarProducto({
 
   return (
     <>
-      <Modal isOpen={mostrarVentana} size={'lg'}>
+      <Modal isOpen={mostrarVentana} size={'lg'} >
         <ModalHeader>
           <div>
             <h3>{`${esAgregar ? "Agregar Producto" : "Editar Producto"}`}</h3>
@@ -263,7 +263,7 @@ export default function ModalAgregarProducto({
                 >
                   <option>Sin seleccionar</option>
                   {tiposProductos.map((prod, i) => (
-                    <option key={i} value={prod.id} selected={tipoProductoId===prod.id}>
+                    <option key={i} value={prod.id} defaultChecked={tipoProductoId===prod.id}>
                       {prod.nombre}
                     </option>
                   ))}

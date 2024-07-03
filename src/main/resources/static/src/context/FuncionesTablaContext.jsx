@@ -5,6 +5,9 @@ import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
 import MensajeToast from "../components/utils/MensajeToast.jsx";
 
 import { administradorCantObjPorTabla } from "../service/Configuracion.js";
+import {useEntityLoaderFunction} from "../hooks/useEntityLoaderFunction.js";
+import {useSelector} from "react-redux";
+import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
 export const funcionesContext = React.createContext();
 
 export const datosPagina = {
@@ -34,20 +37,18 @@ export function FuncionesTablaContext({ children }) {
   //Es un Map<TipoProducto, Map<NumPagina,Productos>>
   const [productosCargados, setProductosCargados] = useState(new Map());
 
-
+  // const { updateProducts,updateProductsIsDataLoading } = useProductsActions();
+  const {    cargarTipoProductoYTodosLosProductos, cargarEntidadConPaginacion} = useEntityLoaderFunction();
 
   //NUEVO
-  const [todosLosProductosConPaginacion, setTodosLosProductosConPaginacion] = useState(new Map());
+/*  const [todosLosProductosConPaginacion, setTodosLosProductosConPaginacion] = useState(new Map());
+  const [productosFiltrados, setProductosFiltrados] = useState(new Map());*/
 
-  const [productosFiltrados, setProductosFiltrados] = useState(new Map());
+  const pageDetails = useSelector(store => store.pageDetails);
+  // const products = useSelector(store => store.products);
+  const productsType = useSelector(store => store.productsType.value)
 
-  const cargarTodosLosProductosConPaginacion = () => {
-
-  }
-
-
-
-
+  const { updateLoadingPageDetails } = usePageDetailsActions();
     //Toast
     const [toast, setToast] = useState({
       show: false,
@@ -60,12 +61,12 @@ export function FuncionesTablaContext({ children }) {
 /*  const manejarMsjRecibido = (payload)=>{
     actualizarValores(paginaActualProductos);
   };*/
-  const reiniciarProductosCargadosMap = () => {
+/*  const reiniciarProductosCargadosMap = () => {
     let prodCargadosAux= productosCargados;
     for (var obj of prodCargadosAux) {
       productosCargados.delete(obj[0]);
     }
-  }
+  }*/
 
   const getTipoProducto = (id,tiposProduct) => {
     return tiposProduct.find(tipoProd => tipoProd.id === id);
@@ -141,42 +142,41 @@ export function FuncionesTablaContext({ children }) {
   };
 
   const borrarProductoGenerico = async (direccion, idEntidad) => {
-    setMensajeSpinner("Borrando de DB");
-    setShowSpinner(true);
-    borrarObjeto(direccion, idEntidad)
-        .then(() => {
-          setShowSpinner(false);
-          reiniciarProductosCargadosMap();
-          //Al borrar un prod se deben volver a actualizar los valores
-          actualizarValores(paginaActualProductos);
-        })
-        .catch((error) => {
-          console.log(error)
-          setShowSpinner(false);
-          setToast({
-            show: true,
-            msjBody: "Se ha producido un error al borrar",
-            color: "#dc1717",
-          });
-        });
+    try{
+      updateLoadingPageDetails(true,"Borrando de DB");
+      await borrarObjeto(direccion, idEntidad);
+      if(direccion === "productos"){
+        await cargarEntidadConPaginacion("productos",pageDetails.paginaActual,administradorCantObjPorTabla,productsType);
+      }
+      if(direccion === 'tiposProductos'){
+        await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual);
+      }
+    }catch (err) {
+      updateLoadingPageDetails(false,"")
+      console.log(err)
+    }
   }
 
   const agregarProductoGenerico = async (direccion,objeto,imagen,method) => {
-    setMensajeSpinner("Guardando en DB");
-    setShowSpinner(true);
+    // setMensajeSpinner("Guardando en DB");
+    // setShowSpinner(true);
+    updateLoadingPageDetails(true,"Guardando en DB");
     try{
       await crearObjeto(direccion,objeto, imagen,method)
-      setShowSpinner(false);
-      reiniciarProductosCargadosMap();
-      actualizarValores(paginaActualProductos);
+      updateLoadingPageDetails(false,"");
+      await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual);
+      // setShowSpinner(false);
+      // reiniciarProductosCargadosMap();
+      // actualizarValores(paginaActualProductos);
     }catch(e){
       console.log("error en agregarProductoGenerico: "+e)
-      setShowSpinner(false)
+      updateLoadingPageDetails(false,"");
+      /*setShowSpinner(false)
       setToast({
         show: true,
         msjBody: "Se ha producido un error al agregar",
         color: "#dc1717",
-      });
+      });*/
     }
   };
 

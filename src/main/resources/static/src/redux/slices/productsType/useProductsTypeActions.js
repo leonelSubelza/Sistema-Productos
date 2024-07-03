@@ -1,5 +1,4 @@
-import {cargarTodosLosObjetos} from "../../../service/GestionProductos.js";
-import { setProductsType,resetProductsTypeSlice,setIsDataLoading} from "./productsTypeSlice.js";
+import { setProductsType,resetProductsTypeSlice} from "./productsTypeSlice.js";
 import {useDispatch} from "react-redux";
 
 export const useProductsTypeActions = () => {
@@ -13,9 +12,5 @@ export const useProductsTypeActions = () => {
     dispatcher(resetProductsTypeSlice());
   }
 
-  const updateProductTypeIsDataLoading = (value) => {
-    dispatcher(setIsDataLoading(value));
-  }
-
-  return { updateProductsType,resetProductsType,updateProductTypeIsDataLoading };
+  return { updateProductsType,resetProductsType };
 }

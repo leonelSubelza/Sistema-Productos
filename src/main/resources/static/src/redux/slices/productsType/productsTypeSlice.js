@@ -2,7 +2,6 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
   value: [],
-  loading: false,
 }
 
 export const productsTypeSlice = createSlice({
@@ -16,11 +15,8 @@ export const productsTypeSlice = createSlice({
     },
     resetProductsTypeSlice: () => {
       return INITIAL_STATE;
-    },
-    setIsDataLoading: (state, action) => {
-      state.loading = action.payload;
     }
   }
 })
 
-export const { setProductsType,resetProductsTypeSlice,setIsDataLoading } = productsTypeSlice.actions;
+export const { setProductsType,resetProductsTypeSlice } = productsTypeSlice.actions;
