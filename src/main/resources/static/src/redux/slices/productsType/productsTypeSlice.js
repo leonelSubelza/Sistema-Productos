@@ -9,8 +9,6 @@ export const productsTypeSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setProductsType: (state, action) => {
-      console.log("se agrega productsType:")
-      console.log(action.payload)
       state.value = action.payload;
     },
     resetProductsTypeSlice: () => {
