@@ -15,8 +15,8 @@ export const useProductsActions = () => {
   const resetProducts = () => {
     dispatcher(resetProductsSlice());
   }
-  const addNewPageToProducts = (nroPag, products) => {
-    dispatcher(addPageToProducts({nroPag: nroPag, products: products}));
+  const addNewPageToProducts = (nroPag, totalPag, pageToSave) => {
+    dispatcher(addPageToProducts({nroPag: nroPag, totalPag: totalPag, pageToSave: pageToSave}));
   }
 
   const removePageFromProducts = (nroPag) => {

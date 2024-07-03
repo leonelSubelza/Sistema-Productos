@@ -16,22 +16,19 @@ export const productsSlice = createSlice({
     setProducts: (state, action) => {
       const {totalPag, products} = action.payload;
       state.totalPag = totalPag;
-      state.pages.push(products);
+      state.pages = products;
     },
     resetProductsSlice: () => {
       return INITIAL_STATE;
     },
-    // Enviar {nroPag:0, products: []}
+    // Enviar {nroPag: nroPag, totalPag: totalPag, products: products}
     addPageToProducts: (state, action) => {
-      const { nroPag, products } = action.payload;
-      const newPage = {
-        nroPag: nroPag,
-        products: products
-      }
-      if (state.pages[nroPag]) {
-        state.pages[nroPag] = [];
-      }
-      state.pages[nroPag] = newPage;
+      const { nroPag, totalPag, pageToSave } = action.payload;
+      // if (state.pages[nroPag]) {
+      //   state.pages[nroPag] = {};
+      // }
+      state.totalPag = totalPag;
+      state.pages[nroPag] = pageToSave;
     },
     removePageSlice: (state, action) => {
       const { nroPag } = action.payload;

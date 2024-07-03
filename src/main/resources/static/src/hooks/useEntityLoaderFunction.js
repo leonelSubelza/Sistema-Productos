@@ -8,13 +8,13 @@ import {administradorCantObjPorTabla} from "../service/Configuracion.js";
 
 export const useEntityLoaderFunction = () => {
 /*  const pageDetails = useSelector(store => store.pageDetails);
-  const products = useSelector(store => store.products);
+
   const productsType = useSelector(store => store.productsType)*/
 
   const { setPageDetails,updateLoadingPageDetails } = usePageDetailsActions();
   const { updateProductsType } = useProductsTypeActions();
   const {
-    updateProducts,
+    addNewPageToProducts
   } = useProductsActions();
 
   //Actualiza la entidad tipoProducto
@@ -49,9 +49,10 @@ export const useEntityLoaderFunction = () => {
           nroPag: page,
           products: productosCargadosCompletos
         }
-        console.log("se guardan prod de pag: "+page)
-        console.log(pageToSave)
-        updateProducts(response.totalPages,pageToSave)
+        // console.log("se guardan prod de pag: "+page)
+        // console.log(pageToSave)
+        // updateProducts(response.totalPages,pageToSave)
+        addNewPageToProducts(page,response.totalPages,pageToSave);
         updateLoadingPageDetails(false,"");
         return productosCargadosCompletos;
       }

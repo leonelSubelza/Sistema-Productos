@@ -65,7 +65,14 @@ const TabTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico("tiposProductos", prod.id);
+    borrarProductoGenerico("tiposProductos", prod.id)
+      .then(() => {
+        updateValuePageDetail("paginaActual", 1);
+        // resetProducts();
+      })
+      .catch(e => {
+        console.log(e)
+      })
   };
 
   const getTableData = (tipoProd) => {
@@ -121,6 +128,7 @@ const TabTipoProducto = () => {
         tipoProd={prodAEditar}
         esAgregar={esAgregar}
       />
+      <p>{JSON.stringify(pageDetails)}</p>
     </>
   );
 };

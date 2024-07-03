@@ -35,7 +35,6 @@ export const pageDetailsSlice = createSlice({
       //   console.warn(`Property ${name} does not exist in the state.`);
       // }
     }
-
   }
 })
 

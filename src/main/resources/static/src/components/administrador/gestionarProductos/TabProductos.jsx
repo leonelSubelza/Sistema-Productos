@@ -107,7 +107,7 @@ const TabProductos = () => {
     // settotalProductos(productos.length)
     // if (paginaActualProductos > 1) {
       // setPaginaActualProductos(1)
-      updateValuePageDetail("paginaActual",1);
+    handlePaginaNueva(1);
       // cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
       // actualizarProductos("productos", 0, administradorCantObjPorTabla, tiposProductos);
     // }
@@ -135,7 +135,7 @@ const TabProductos = () => {
               titulo={"Gestion de Productos"}
               objectName={`Producto`}
               // objects={productosCargados.get(paginaActualProductos)}
-              objects={products.pages[pageDetails.paginaActual]?.products}
+              objects={products.pages[pageDetails.paginaActual-1]?.products}
               addObject={agregarProd}
               editObject={editarProducto}
               removeObject={borrarProducto}
@@ -163,7 +163,9 @@ const TabProductos = () => {
           // tiposProductos={tiposProductos}
           tiposProductos={productsType}
         />
-        {/*<p>{JSON.stringify(pageDetails)}</p>*/}
+        <p>{JSON.stringify(pageDetails)}</p>
+        <br />
+        <p>{JSON.stringify(products.pages)}</p>
       </>
   );
 };

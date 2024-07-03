@@ -8,6 +8,8 @@ import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 import {useEntityLoaderFunction} from "../hooks/useEntityLoaderFunction.js";
 import {useSelector} from "react-redux";
 import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
+import {useProductsActions} from "../redux/slices/products/useProductsActions.js";
+import {useProductsTypeActions} from "../redux/slices/productsType/useProductsTypeActions.js";
 export const funcionesContext = React.createContext();
 
 export const datosPagina = {
@@ -49,6 +51,10 @@ export function FuncionesTablaContext({ children }) {
   const productsType = useSelector(store => store.productsType.value)
 
   const { updateLoadingPageDetails } = usePageDetailsActions();
+  const { resetProducts } = useProductsActions();
+  const { resetProductsType } = useProductsTypeActions();
+
+
     //Toast
     const [toast, setToast] = useState({
       show: false,
@@ -145,10 +151,14 @@ export function FuncionesTablaContext({ children }) {
     try{
       updateLoadingPageDetails(true,"Borrando de DB");
       await borrarObjeto(direccion, idEntidad);
+      updateLoadingPageDetails(false,"")
       if(direccion === "productos"){
-        await cargarEntidadConPaginacion("productos",pageDetails.paginaActual,administradorCantObjPorTabla,productsType);
+        resetProducts();
+        await cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
       }
       if(direccion === 'tiposProductos'){
+        resetProducts();
+        resetProductsType()
         await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual);
       }
     }catch (err) {
@@ -164,7 +174,15 @@ export function FuncionesTablaContext({ children }) {
     try{
       await crearObjeto(direccion,objeto, imagen,method)
       updateLoadingPageDetails(false,"");
-      await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual);
+      if(direccion === "productos"){
+        resetProducts();
+        await cargarEntidadConPaginacion("productos",pageDetails.paginaActual-1,administradorCantObjPorTabla,productsType);
+      }
+      if(direccion === 'tiposProductos'){
+        resetProducts();
+        resetProductsType()
+        await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual-1);
+      }
       // setShowSpinner(false);
       // reiniciarProductosCargadosMap();
       // actualizarValores(paginaActualProductos);
