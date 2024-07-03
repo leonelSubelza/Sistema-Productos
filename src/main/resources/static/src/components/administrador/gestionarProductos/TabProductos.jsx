@@ -52,7 +52,6 @@ const TabProductos = () => {
   };
   const borrarProducto = (prod) => {
     let opc = window.confirm("Estáis seguro que desáis borrar vuestro producto?");
-    console.log(opc)
     if(opc){
       borrarProductoGenerico("productos", prod.id,pageDetails.paginaActual,productsType)
         .then(() => {
@@ -64,7 +63,6 @@ const TabProductos = () => {
     }
   };
   const editarProducto = (prod) => {
-    console.log("se hizo click en editar")
     setEsAgregar(false);
     // prod.tipoProd = tipoProd; //Se agrega a la fuerza el obj tipoProd para mostrar
     setProdAEditar(prod);
@@ -85,10 +83,12 @@ const TabProductos = () => {
     //   actualizarProductos("productos",0,administradorCantObjPorTabla, tiposProductos)
     // }
     // setPaginaActualProductos(nPagina);
-    if(isPageLoaded(products.pages,nPagina)){
+    if(isPageLoaded(products.pages,nPagina-1)){
+      console.log("existe pagina cargada")
       updateValuePageDetail("paginaActual",nPagina);
       return;
     }
+    console.log("no existe pagina cargada, se hace la busqueda")
     if(nPagina>1){
       // actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
       await cargarEntidadConPaginacion("productos",nPagina-1,administradorCantObjPorTabla,productsType);

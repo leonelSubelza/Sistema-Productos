@@ -20,6 +20,7 @@ const ModalAgregarTipoProducto = ({
   const { agregarProductoGenerico } = useContext(funcionesContext);
   const [errors, setErrors] = useState({});
   const [nombre, setNombre] = useState("");
+  const [sendBtnIsDisabled, setSendBtnIsDisabled] = useState(false)
 
   const vaciarCampos = () => {
     if (esAgregar) {
@@ -53,9 +54,15 @@ const ModalAgregarTipoProducto = ({
       id: tipoProd !== null ? tipoProd.id : 0,
       nombre: nombre.toUpperCase(),
     };
-    agregarProductoGenerico("tiposProductos", tipoProducto,null, method).then(() =>
-      cerrarModal(true)
-    ).catch(e =>{cerrarModal(true);alert('error al agregar')});
+    setSendBtnIsDisabled(true);
+    agregarProductoGenerico("tiposProductos", tipoProducto, null, method).then(() => {
+        setSendBtnIsDisabled(false);
+        cerrarModal(true)
+      }
+    ).catch(e => {
+      cerrarModal(true);
+      console.log(e)
+    });
   };
 
   useEffect(() => {
@@ -89,19 +96,18 @@ const ModalAgregarTipoProducto = ({
                 if(value.length>50){
                   return;
                 }
-                setNombre(ev.target.value);
+                setNombre(ev.target.value.toUpperCase());
               }}
               type="text"
             />
             {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
           </FormGroup>
-
         </ModalBody>
-
         <ModalFooter>
           <Button onClick={cerrarModal}>Cancelar</Button>
           <Button
             color="primary"
+            disabled={sendBtnIsDisabled}
             onClick={(e) => agregarProducto(e, esAgregar ? "POST" : "PUT")}
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}

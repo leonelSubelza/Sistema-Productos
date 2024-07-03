@@ -14,6 +14,16 @@ import {URLImagenes} from "../../../service/Configuracion.js";
 
 // import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
 
+const product_initialValue = {
+  id: 0,
+  nombre: "",
+  descripcion: "",
+  imagen: "",
+  precio: 0,
+  genero: "Sin seleccionar",
+  productTypeId: "Sin seleccionar",
+}
+
 export default function ModalAgregarProducto({
   mostrarVentana,
   cerrarVentana,
@@ -21,26 +31,18 @@ export default function ModalAgregarProducto({
   esAgregar,
   tiposProductos,
 }) {
-  const [nombre, setNombre] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [tipoProductoId, setTipoProductoId] = useState("Sin seleccionar");
-  const [precio, setPrecio] = useState("");
-  const [genero, setGenero] = useState("");
-  //guarda el nombre de la imagen o el archivo img
-  const [imagenNombre, setImagenNombre] = useState("");
+  const [productoAGuardar, setProductoAGuardar] = useState(product_initialValue);
+  const [sendBtnIsDisabled, setSendBtnIsDisabled] = useState(false)
+  // contiene el archivo img
   const [imagenArchivo, setImagenArchivo] = useState();
+  // contiene una url generada por si se agrega una img para vista previa
   const [urlImg, setUrlImg] = useState('');
 
   const [errors, setErrors] = useState({});
   const { agregarProductoGenerico } = useContext(funcionesContext);
 
   const vaciarCampos = () => {
-      setNombre("");
-      setDescripcion("");
-      setTipoProductoId("");
-      setPrecio("");
-      setGenero("");
-      setImagenNombre("");
+      setProductoAGuardar(product_initialValue);
       setImagenArchivo(undefined)
       setUrlImg('')
       setErrors({})
@@ -54,19 +56,19 @@ export default function ModalAgregarProducto({
 
   const sonValoresValidos = () => {
     let errores = {};
-    if(!/^[a-zA-Z\s]{1,140}$/.test(nombre) && nombre.length<=50){
+    if(!/^[a-zA-Z\s]{1,140}$/.test(productoAGuardar.nombre) && productoAGuardar.nombre.length<=50){
       errores.nombre = 'El nombre es incorrecto'
     }
-    if(!/^[0-9]{1,220}$/.test(parseInt(precio)) && precio.toString().length>100){
+    if(!/^[0-9]{1,220}$/.test(parseInt(productoAGuardar.precio)) && productoAGuardar.precio.toString().length>100){
       errores.precio = 'El valor de precio es incorrecto';
     }
-    if(tipoProductoId === 'Sin seleccionar'){
+    if(productoAGuardar.productTypeId === 'Sin seleccionar'){
       errores.tipo = 'Debe seleccionar un tipo de producto';
     }
-    if(genero === 'Sin seleccionar'){
+    if(productoAGuardar.genero === 'Sin seleccionar'){
       errores.genero = 'Debe seleccionar un género'
     }
-    if(imagenNombre==='' && imagenArchivo === undefined){
+    if(productoAGuardar.imagen==='' && imagenArchivo === undefined){
       errores.imagen = 'Debe seleccionar una imágen';
     }
     setErrors(errores);
@@ -83,17 +85,12 @@ export default function ModalAgregarProducto({
     }
 
     // let productoTipoId = (prod === undefined) ? tipoProductoId : prod.tipoProducto.id;
-    const producto = {
-      id: prod === undefined ? 0 : prod.id,
-      nombre: nombre.toUpperCase(),
-      descripcion: descripcion,
-      imagen: imagenNombre,
-      precio: precio,
-      genero: genero,
-      productTypeId: tipoProductoId
-    };
-    agregarProductoGenerico("productos", producto, imagenArchivo, method)
+    productoAGuardar.id = prod === undefined ? 0 : prod.id
+
+    setSendBtnIsDisabled(true);
+    agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method)
       .then(() => {
+        setSendBtnIsDisabled(false);
         console.log("se recibio una respuesta")
         cerrarModal()
       })
@@ -111,34 +108,53 @@ export default function ModalAgregarProducto({
       const lector = new FileReader();
       lector.onload = () => {
         setUrlImg(lector.result);
-        setImagenNombre(archivo.name);
+        productoAGuardar.imagen = archivo.name
+        setProductoAGuardar(productoAGuardar);
     };
     lector.readAsDataURL(archivo);
   }
 }
 
-  useEffect(() => {
-    if(prod !== undefined){
-      //si el prod tiene una img le generamos el path para la primer img
-      setUrlImg(`${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`)
+  const handleInputChange = (ev) => {
+    const { name, value } = ev.target;
+    if (name === "nombre" && value.length > 50) {
+      return;
     }
+    if (name === "descripcion" && value.length>100) {
+      return;
+    }
+    if (name === "precio" && value.toString().length>100) {
+      return;
+    }
+/*    if (name === "tipo" && value.toString().length>100) {
+      return;
 
+    }*/
+    setProductoAGuardar(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  useEffect(() => {
+    console.log("se abre modal agregar prod, prod:")
+    console.log(prod)
     if (prod === undefined) {
-      setNombre("");
-      setDescripcion("");
-      setTipoProductoId("Sin seleccionar");
-      setPrecio("");
-      setGenero("Sin seleccionar");
-      setImagenNombre('');
+      setProductoAGuardar(product_initialValue)
       setImagenArchivo(undefined);
       setUrlImg('')
     } else {
-      setNombre(prod.nombre);
-      setDescripcion(prod.descripcion);
-      setTipoProductoId(prod.tipoProducto.id);
-      setPrecio(prod.precio);
-      setGenero(prod.genero);
-      setImagenNombre(prod.imagen);
+      productoAGuardar.nombre = prod.nombre;
+      productoAGuardar.descripcion = prod.descripcion;
+      productoAGuardar.productTypeId = prod.tipoProducto.id;
+      productoAGuardar.precio = prod.precio;
+      productoAGuardar.genero = prod.genero;
+      productoAGuardar.imagen = prod.imagen;
+      setProductoAGuardar(productoAGuardar)
+
+      if(prod.imagen){
+        setUrlImg(`${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`)
+      }
       setImagenArchivo(undefined)
     }
 
@@ -192,35 +208,22 @@ export default function ModalAgregarProducto({
                     name="nombre"
                     placeholder="Escriba el nombre del producto"
                     autoComplete="off"
-                    value={nombre}
-                    onChange={(ev) => {
-                      const { value } = ev.target;
-                      if(value.length>50){
-                        return;
-                      }
-                      setNombre(value)
-                    }}
+                    value={productoAGuardar.nombre}
+                    onChange={handleInputChange}
                     type="text"
                   />
                   {errors.nombre && <Alert key="danger" variant="danger" className="p-1">{errors.nombre}</Alert>}
                 </FormGroup>
                 <FormGroup className={"modal-input-element"} style={{height:"100%"}}>
-                  <label>Descripcion:</label>
+                  <label>Descripción:</label>
                   <textarea
                     className="form-control"
                     name="descripcion"
                     placeholder="Escriba una descripcion para el prod"
                     // autoComplete="off"
-                    value={descripcion}
+                    value={productoAGuardar.descripcion}
                     style={{height:"80%"}}
-                    onChange={(ev) => {
-                      const { value } = ev.target;
-                      if(value.length>100){
-                        return;
-                      }
-                      setDescripcion(ev.target.value)
-                    }}
-                    // type="text"
+                    onChange={handleInputChange}
                     >
                   </textarea>
                 </FormGroup>
@@ -238,32 +241,22 @@ export default function ModalAgregarProducto({
                   type="number"
                   placeholder="Escriba el precio del producto"
                   autoComplete="off"
-                  value={precio}
-                  onChange={(ev) => {
-                    const { value } = ev.target;
-                    if(value.toString().length>100){
-                      return;
-                    }
-                    setPrecio(ev.target.value)
-                  }}
+                  value={productoAGuardar.precio}
+                  onChange={handleInputChange}
                 />
                 {errors.precio && <Alert key="danger" variant="danger" className="p-1">{errors.precio}</Alert>}
               </FormGroup>
               <FormGroup className={"modal-input-element"} style={{width:"33%"}}>
                 <label>Tipo:</label>
-
                 <select
                   className="form-control"
                   name="tipo"
-                  value={tipoProductoId}
-                  onChange={(ev) => {
-                    const {value} = ev.target;
-                    setTipoProductoId(value);
-                  }}
+                  value={productoAGuardar.productTypeId}
+                  onChange={handleInputChange}
                 >
                   <option>Sin seleccionar</option>
                   {tiposProductos.map((prod, i) => (
-                    <option key={i} value={prod.id} defaultChecked={tipoProductoId===prod.id}>
+                    <option key={i} value={prod.id} defaultChecked={productoAGuardar.productTypeId===prod.id}>
                       {prod.nombre}
                     </option>
                   ))}
@@ -271,13 +264,12 @@ export default function ModalAgregarProducto({
                 {errors.tipo && <Alert key="danger" variant="danger" className="p-1">{errors.tipo}</Alert>}
               </FormGroup>
               <FormGroup className={"modal-input-element"} style={{width:"33%"}}>
-                <label>Genero:</label>
-
+                <label>Género:</label>
                 <select
                   className="form-control"
                   name="genero"
-                  value={genero}
-                  onChange={(ev) => setGenero(ev.target.value)}
+                  value={productoAGuardar.genero}
+                  onChange={handleInputChange}
                 >
                   <option>Sin seleccionar</option>
                   <option value={"MASCULINO"}>MASCULINO</option>
@@ -288,13 +280,13 @@ export default function ModalAgregarProducto({
 
             </div>
           </div>
-
-        </ModalBody>
+          </ModalBody>
 
         <ModalFooter>
           <Button onClick={() => cerrarModal()}>Cancelar</Button>
           <Button
             color="primary"
+            disabled={sendBtnIsDisabled}
             onClick={(e) => agregarProducto(e, esAgregar ? "POST" : "PUT")}
           >
             {`${esAgregar ? "Insertar" : "Editar"}`}
