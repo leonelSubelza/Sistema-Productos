@@ -31,7 +31,7 @@ export default function ModalAgregarProducto({
   esAgregar,
   tiposProductos,
 }) {
-  const [productoAGuardar, setProductoAGuardar] = useState(product_initialValue);
+  const [productoAGuardar, setProductoAGuardar] = useState({ ...product_initialValue });
   const [sendBtnIsDisabled, setSendBtnIsDisabled] = useState(false)
   // contiene el archivo img
   const [imagenArchivo, setImagenArchivo] = useState();
@@ -42,7 +42,7 @@ export default function ModalAgregarProducto({
   const { agregarProductoGenerico } = useContext(funcionesContext);
 
   const vaciarCampos = () => {
-      setProductoAGuardar(product_initialValue);
+      setProductoAGuardar({ ...product_initialValue });
       setImagenArchivo(undefined)
       setUrlImg('')
       setErrors({})
@@ -140,9 +140,9 @@ export default function ModalAgregarProducto({
     console.log("se abre modal agregar prod, prod:")
     console.log(prod)
     if (prod === undefined) {
-      setProductoAGuardar(product_initialValue)
+      setProductoAGuardar({ ...product_initialValue })
       setImagenArchivo(undefined);
-      setUrlImg('')
+      setUrlImg('');
     } else {
       productoAGuardar.nombre = prod.nombre;
       productoAGuardar.descripcion = prod.descripcion;
@@ -250,7 +250,7 @@ export default function ModalAgregarProducto({
                 <label>Tipo:</label>
                 <select
                   className="form-control"
-                  name="tipo"
+                  name="productTypeId"
                   value={productoAGuardar.productTypeId}
                   onChange={handleInputChange}
                 >

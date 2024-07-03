@@ -128,7 +128,7 @@ const TabTipoProducto = () => {
         tipoProd={prodAEditar}
         esAgregar={esAgregar}
       />
-      <p>{JSON.stringify(pageDetails)}</p>
+      {/*<p>{JSON.stringify(pageDetails)}</p>*/}
     </>
   );
 };

@@ -163,9 +163,9 @@ const TabProductos = () => {
           // tiposProductos={tiposProductos}
           tiposProductos={productsType}
         />
-        <p>{JSON.stringify(pageDetails)}</p>
+{/*        <p>{JSON.stringify(pageDetails)}</p>
         <br />
-        <p>{JSON.stringify(products.pages)}</p>
+        <p>{JSON.stringify(products.pages)}</p>*/}
       </>
   );
 };
