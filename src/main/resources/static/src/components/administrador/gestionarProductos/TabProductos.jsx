@@ -10,12 +10,12 @@ import "../../../styles/ventana-productos/Pantallas.css";
 import {administradorCantObjPorTabla} from "../../../service/Configuracion";
 import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
-import '../../../styles/ventana-productos/Tabla.css'
 import Navbar from "../sidebar/NavBar.jsx";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 import {useEntityLoaderFunction} from "../../../hooks/useEntityLoaderFunction.js";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
+import { toast } from 'sonner'
 
 const TabProductos = () => {
 
@@ -52,16 +52,36 @@ const TabProductos = () => {
   };
   const borrarProducto = (prod) => {
     let opc = window.confirm("Estáis seguro que desáis borrar vuestro producto?");
-    if(opc){
-      borrarProductoGenerico("productos", prod.id,pageDetails.paginaActual,productsType)
+
+    if(opc) {
+/*      const toastId = toast.loading("Borrando producto");
+      borrarProductoGenerico("productos", prod.id, pageDetails.paginaActual, productsType)
         .then(() => {
-          updateValuePageDetail("paginaActual",1);
+          updateValuePageDetail("paginaActual", 1);
+          toast.success(`Producto ${prod.nombre} borrado con éxito`);
+          toast.dismiss(toastId);
         })
         .catch(e => {
-          console.log(e)
-        })
+          console.log(e);
+          toast.dismiss(toastId);
+          toast.error('Error al borrar producto ' + prod.nombre);
+        })*/
+      try {
+        const promise = borrarProductoGenerico("productos", prod.id, pageDetails.paginaActual, productsType);
+        toast.promise(promise, {
+          loading: "Borrando producto",
+          success: () => {
+            updateValuePageDetail("paginaActual", 1);
+            return `Producto ${prod.nombre} borrado`;
+          },
+          error: 'Error al cargar productos',
+        });
+      }catch (e){
+        console.log(e);
+        // toast.error('Error al borrar producto ' + prod.nombre);
+      }
     }
-  };
+};
   const editarProducto = (prod) => {
     setEsAgregar(false);
     // prod.tipoProd = tipoProd; //Se agrega a la fuerza el obj tipoProd para mostrar
@@ -88,15 +108,36 @@ const TabProductos = () => {
       updateValuePageDetail("paginaActual",nPagina);
       return;
     }
-    console.log("no existe pagina cargada, se hace la busqueda")
+    console.log("no existe pagina cargada, se hace la busqueda");
     if(nPagina>1){
       // actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
       await cargarEntidadConPaginacion("productos",nPagina-1,administradorCantObjPorTabla,productsType);
     }else{
       await cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
     }
+/*    const promise = () => new Promise((resolve) => setTimeout(() => {
+      resolve({ name: 'Sonner' })
+    }, 2000));*/
+
+/*    toast.promise(promise, {
+      loading: pageDetails.loadingMessage,
+      success: (data) => {
+        return `Productos cargados`;
+      },
+      error: 'Error al cargar productos',
+    });*/
+
     // setPaginaActualProductos(nPagina);
   }
+
+/*  const [toastId, setToastId] = useState(0|'')
+    useEffect(() => {
+      if(pageDetails.loading) {
+        setToastId(toast.loading(pageDetails.loadingMessage));
+      }else{
+        toast.dismiss(toastId);
+      }
+    }, [pageDetails]);*/
 
   useEffect(() => {
     // if (!sesionIniciada) {
@@ -163,7 +204,8 @@ const TabProductos = () => {
           // tiposProductos={tiposProductos}
           tiposProductos={productsType}
         />
-{/*        <p>{JSON.stringify(pageDetails)}</p>
+        <p>{JSON.stringify(pageDetails)}</p>
+        {/*
         <br />
         <p>{JSON.stringify(products.pages)}</p>*/}
       </>

@@ -3,7 +3,7 @@ import {useEffect, useState, useContext} from "react";
 import {funcionesContext} from "../../../context/FuncionesTablaContext";
 import "../../../styles/ventana-productos/Pantallas.css";
 import ModalAgregarTipoProducto from "../modals/ModalAgregarTipoProducto.jsx";
-
+import { toast } from 'sonner'
 import "../../../styles/ventana-productos/Tabla.css";
 
 //Iconos
@@ -65,14 +65,46 @@ const TabTipoProducto = () => {
   };
 
   const borrarProducto = (prod) => {
-    borrarProductoGenerico("tiposProductos", prod.id)
+    try {
+      const promise = borrarProductoGenerico("tiposProductos", prod.id);
+      toast.promise(promise, {
+        loading: "Borrando Tipo de Producto",
+        success: () => {
+          updateValuePageDetail("paginaActual", 1);
+          return `Tipo de Producto ${prod.nombre} borrado`;
+        },
+        error: 'Error al borrar Tipo de Productos ' + prod.nombre,
+      });
+    } catch (e) {
+      console.log(e)
+      // toast.error('Error al borrar Tipo de Productos ' + prod.nombre);
+    }
+/*    borrarProductoGenerico("tiposProductos", prod.id)
       .then(() => {
         updateValuePageDetail("paginaActual", 1);
         // resetProducts();
       })
       .catch(e => {
         console.log(e)
-      })
+      })*/
+
+    /*
+    *       try {
+        const promise = borrarProductoGenerico("productos", prod.id, pageDetails.paginaActual, productsType);
+        toast.promise(promise, {
+          loading: "Borrando producto",
+          success: (data) => {
+            updateValuePageDetail("paginaActual", 1);
+            return `Producto ${JSON.stringify(data)} borrado`;
+          },
+          error: 'Error al cargar productos',
+        });
+      }catch (e){
+        console.log(e);
+        toast.error('Error al borrar producto ' + prod.nombre);
+    * */
+
+
   };
 
   const getTableData = (tipoProd) => {

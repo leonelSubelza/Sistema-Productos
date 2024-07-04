@@ -5,11 +5,13 @@ import {cargarObjetosConPaginacion, cargarTodosLosObjetos} from "../service/Gest
 import {cargarTipoProductoAProductos} from "./utils/entityLoaderUtils.js";
 import {loadUserDetailsValues} from "../service/GestionPageDetails.js";
 import {administradorCantObjPorTabla} from "../service/Configuracion.js";
+import {toast} from "sonner";
+import {useSelector} from "react-redux";
 
 export const useEntityLoaderFunction = () => {
-/*  const pageDetails = useSelector(store => store.pageDetails);
-
-  const productsType = useSelector(store => store.productsType)*/
+  // const pageDetails = useSelector(store => store.pageDetails);
+  /*
+    const productsType = useSelector(store => store.productsType)*/
 
   const { setPageDetails,updateLoadingPageDetails } = usePageDetailsActions();
   const { updateProductsType } = useProductsTypeActions();
@@ -27,22 +29,31 @@ export const useEntityLoaderFunction = () => {
         updateLoadingPageDetails(true,"Actualizando productsType");
       }
     // }
+    let toastId = toast.loading("Actualizando productsType")
     try{
       const response = await cargarTodosLosObjetos(endpointName);
+      toast.dismiss(toastId);
       if (endpointName === "tiposProductos") {
         updateLoadingPageDetails(false,"");
         updateProductsType(response)
         return response;
       }
     } catch (e){
-      console.log(e)
+      console.log(e);
+      toast.dismiss(toastId);
+      toast.error("Error al actualizar",{
+        duration: Infinity,
+        position: 'top-right',
+      })
     }
   };
 
   const cargarEntidadConPaginacion =  async (direccion,page,size, tiposProductos) => {
+    let toastId = toast.loading("Actualizando products")
     try{
       updateLoadingPageDetails(true,"Actualizando products");
       const response = await cargarObjetosConPaginacion(direccion,page,size);
+      toast.dismiss(toastId);
       if(direccion === 'productos'){
         const productosCargadosCompletos = cargarTipoProductoAProductos(response.content,tiposProductos);
         const pageToSave = {
@@ -60,6 +71,11 @@ export const useEntityLoaderFunction = () => {
     }catch(e) {
       updateLoadingPageDetails(false,"");
       console.log(e)
+      toast.dismiss(toastId);
+      toast.error("Error al actualizar",{
+        duration: Infinity,
+        position: 'top-right',
+      })
     }
   };
 

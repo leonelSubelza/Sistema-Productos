@@ -8,7 +8,7 @@ import {
   FormGroup,
   ModalFooter,
 } from "reactstrap";
-
+import {toast} from "sonner";
 import Alert from "react-bootstrap/Alert";
 
 const ModalAgregarTipoProducto = ({
@@ -27,6 +27,7 @@ const ModalAgregarTipoProducto = ({
       setNombre("");
       setErrors({})
     }
+    setSendBtnIsDisabled(false)
   };
 
   const cerrarModal = () => {
@@ -55,14 +56,30 @@ const ModalAgregarTipoProducto = ({
       nombre: nombre.toUpperCase(),
     };
     setSendBtnIsDisabled(true);
-    agregarProductoGenerico("tiposProductos", tipoProducto, null, method).then(() => {
+
+    try{
+      const promise = agregarProductoGenerico("tiposProductos", tipoProducto, null, method);
+      toast.promise(promise, {
+        loading: "Guardando nuevo Tipo de Producto",
+        success: () => {
+          setSendBtnIsDisabled(false);
+          cerrarModal()
+          return `Tipo producto ${tipoProducto.nombre} guardado con éxito`;
+        },
+        error: `Error al guardar el tipo producto ${tipoProducto.nombre}`,
+      });
+    }catch (e) {
+      // toast.error(`Error al guardar el tipo producto ${tipoProducto.nombre}`);
+      console.log("error en agregar prod");
+    }
+/*    agregarProductoGenerico("tiposProductos", tipoProducto, null, method).then(() => {
         setSendBtnIsDisabled(false);
         cerrarModal(true)
       }
     ).catch(e => {
       cerrarModal(true);
       console.log(e)
-    });
+    });*/
   };
 
   useEffect(() => {

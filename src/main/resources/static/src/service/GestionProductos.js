@@ -69,9 +69,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       let prod = await request.json();
       return prod;
     }
-    return;
   } catch (error) {
-    console.log(error)
     throw error;
   }
 };

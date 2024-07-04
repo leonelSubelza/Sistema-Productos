@@ -249,3 +249,26 @@ tbody td{
         width: 100%;
     }
 }
+
+/*
+
+
+.sonner-lista {
+    !*border: 1px solid red;*!
+    width: auto;
+}
+
+.sonner-lista div:first-child {
+    padding: 5px;
+    width: 100%;
+    height: 100%;
+    !*border: 1px solid blue;*!
+}
+
+.sonner-lista div:first-child:after {
+    display: none;
+}
+
+.sonner-lista div:last-child {
+    !*display: none;*!
+}*/

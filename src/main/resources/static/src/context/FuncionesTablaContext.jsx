@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { cargarObjetosConPaginacion, borrarObjeto,crearObjeto, cargarTodosLosObjetos } from "../service/GestionProductos";
 
-import SpinnerLoading from "../components/utils/SpinnerLoading.jsx";
-import MensajeToast from "../components/utils/MensajeToast.jsx";
-
 import { administradorCantObjPorTabla } from "../service/Configuracion.js";
 import {useEntityLoaderFunction} from "../hooks/useEntityLoaderFunction.js";
 import {useSelector} from "react-redux";
 import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
 import {useProductsActions} from "../redux/slices/products/useProductsActions.js";
 import {useProductsTypeActions} from "../redux/slices/productsType/useProductsTypeActions.js";
+import {Toaster} from "sonner";
 export const funcionesContext = React.createContext();
 
 export const datosPagina = {
@@ -42,6 +40,9 @@ export function FuncionesTablaContext({ children }) {
   // const { updateProducts,updateProductsIsDataLoading } = useProductsActions();
   const {    cargarTipoProductoYTodosLosProductos, cargarEntidadConPaginacion} = useEntityLoaderFunction();
 
+
+
+
   //NUEVO
 /*  const [todosLosProductosConPaginacion, setTodosLosProductosConPaginacion] = useState(new Map());
   const [productosFiltrados, setProductosFiltrados] = useState(new Map());*/
@@ -56,11 +57,11 @@ export function FuncionesTablaContext({ children }) {
 
 
     //Toast
-    const [toast, setToast] = useState({
+/*    const [toast, setToast] = useState({
       show: false,
       msjBody: "",
       color: "#dc1717",
-    });
+    });*/
   //Carga las variables productos y tiposProductos
 
   //msj recibido del ws que dice qué actualizar
@@ -110,11 +111,11 @@ export function FuncionesTablaContext({ children }) {
     } catch(e){
       setShowSpinner(false);
       console.error("Error al actualizar tipo productos:", e);
-      setToast({
+/*      setToast({
         show: true,
         msjBody: "Error conectando al servidor",
         color: "#dc1717",
-      });
+      });*/
     }
   };
 
@@ -139,11 +140,11 @@ export function FuncionesTablaContext({ children }) {
       }catch(e) {
           setShowSpinner(false);
           console.log("callo act prod: "+e);
-          setToast({
+/*          setToast({
               show: true,
               msjBody: "Error contectando al servidor",
               color: "#dc1717",
-          });
+          });*/
       }
   };
 
@@ -163,7 +164,8 @@ export function FuncionesTablaContext({ children }) {
       }
     }catch (err) {
       updateLoadingPageDetails(false,"")
-      console.log(err)
+      // console.log(err)
+      throw err;
     }
   }
 
@@ -183,12 +185,14 @@ export function FuncionesTablaContext({ children }) {
         resetProductsType()
         await cargarTipoProductoYTodosLosProductos(pageDetails.paginaActual-1);
       }
+
       // setShowSpinner(false);
       // reiniciarProductosCargadosMap();
       // actualizarValores(paginaActualProductos);
     }catch(e){
-      console.log("error en agregarProductoGenerico: "+e)
+      // console.log("error en agregarProductoGenerico: "+e)
       updateLoadingPageDetails(false,"");
+      throw err;
       /*setShowSpinner(false)
       setToast({
         show: true,
@@ -207,6 +211,18 @@ export function FuncionesTablaContext({ children }) {
       tiposProductosAct);
   }
 
+/*  useEffect(() => {
+    if(pageDetails.loading) {
+      if (pageDetails.loadingMessage === 'Borrando de DB' ||
+        pageDetails.loadingMessage === 'Borrando de DB') {
+        return;
+      }
+      toast.loading(pageDetails.loadingMessage)
+    }else{
+      toast.dismiss();
+    }
+  }, [pageDetails]);*/
+
   useEffect(()=>{
     actualizarValores(paginaActualProductos);
   },[])
@@ -222,8 +238,8 @@ export function FuncionesTablaContext({ children }) {
         setShowSpinner,
         mensajeSpinner,
         setMensajeSpinner,
-        toast,
-        setToast,
+/*        toast,
+        setToast,*/
         // actualizarTablaGenerica,
         borrarProductoGenerico,
         agregarProductoGenerico,
@@ -237,8 +253,9 @@ export function FuncionesTablaContext({ children }) {
         cargarTipoProductoAProductos
       }}
     >
-      <SpinnerLoading />
-      <MensajeToast />
+{/*      <SpinnerLoading />
+      <MensajeToast />*/}
+      <Toaster richColors position="bottom-left"/>
       {/*<WebSocket mensajeRecibido={manejarMsjRecibido}/>*/}
       {children}
     </funcionesContext.Provider>

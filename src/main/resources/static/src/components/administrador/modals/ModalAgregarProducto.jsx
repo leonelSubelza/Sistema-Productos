@@ -11,6 +11,7 @@ import {
 
 import Alert from "react-bootstrap/Alert";
 import {URLImagenes} from "../../../service/Configuracion.js";
+import {toast} from "sonner";
 
 // import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
 
@@ -43,7 +44,8 @@ export default function ModalAgregarProducto({
 
   const vaciarCampos = () => {
       setProductoAGuardar({ ...product_initialValue });
-      setImagenArchivo(undefined)
+      setImagenArchivo(undefined);
+    setSendBtnIsDisabled(false)
       setUrlImg('')
       setErrors({})
   };
@@ -76,29 +78,6 @@ export default function ModalAgregarProducto({
     return Object.values(errores).length === 0;
   };
 
-  const agregarProducto = (e, method) => {
-    e.preventDefault();
-
-    if (!sonValoresValidos()) {
-      alert("Valores erroneos");
-      return;
-    }
-
-    // let productoTipoId = (prod === undefined) ? tipoProductoId : prod.tipoProducto.id;
-    productoAGuardar.id = prod === undefined ? 0 : prod.id
-
-    setSendBtnIsDisabled(true);
-    agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method)
-      .then(() => {
-        setSendBtnIsDisabled(false);
-        console.log("se recibio una respuesta")
-        cerrarModal()
-      })
-      .catch((e) => {
-        console.log(e)
-        cerrarModal();
-      });
-  };
 
   const handleImagenAgregada = (event) => {
     //Cargamos el archivo img
@@ -135,6 +114,54 @@ export default function ModalAgregarProducto({
       [name]: value
     }));
   };
+
+
+  const agregarProducto = (e, method) => {
+    e.preventDefault();
+
+    if (!sonValoresValidos()) {
+      alert("Valores erroneos");
+      return;
+    }
+
+    // let productoTipoId = (prod === undefined) ? tipoProductoId : prod.tipoProducto.id;
+    productoAGuardar.id = prod === undefined ? 0 : prod.id
+
+    setSendBtnIsDisabled(true);
+    try {
+      const promise = agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method);
+      toast.promise(promise, {
+        loading: "Guardando nuevo producto",
+        success: () => {
+          setSendBtnIsDisabled(false);
+          console.log("se recibio una respuesta")
+          cerrarModal()
+          return `Producto ${productoAGuardar.nombre} guardado con éxito`;
+        },
+        error: 'Error al guardar producto ' + productoAGuardar.nombre,
+      });
+    } catch (e) {
+      // toast.error('Error al guardar producto ' + productoAGuardar.nombre);
+      console.log("error en agregar prod");
+    }
+
+/*    const toastId = toast.loading("Guardando nuevo producto");
+    agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method)
+      .then(() => {
+        setSendBtnIsDisabled(false);
+        console.log("se recibio una respuesta")
+        toast.success(`Producto ${productoAGuardar.nombre} guardado con éxito`);
+        cerrarModal()
+        toast.dismiss(toastId)
+      })
+      .catch((e) => {
+        console.log(e);
+        toast.dismiss(toastId);
+        toast.error('Error al guardar producto ' + productoAGuardar.nombre);
+        cerrarModal();
+      });*/
+  };
+
 
   useEffect(() => {
     console.log("se abre modal agregar prod, prod:")
