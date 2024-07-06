@@ -15,3 +15,28 @@ export const cargarTipoProductoAProductos = (productosBD,tiposProduct) => {
   })
   return productosAux;
 }
+
+export const getKeyFilteredProductsByType = (idTipoProducto,filteredProductByType) => {
+  return filteredProductByType.find(filteredProductByTypeKey => filteredProductByTypeKey.id===idTipoProducto);
+}
+
+export const genereteFilteredProductByTypeKey = (tiposProductos,idTipoProducto,totalPages) => {
+  const productTypeToAdd = tiposProductos.find(tipoProducto => tipoProducto === idTipoProducto);
+  return {
+    id: productTypeToAdd.id,
+    nombre: productTypeToAdd.nombre,
+    totalPag: totalPages,
+    pages: []
+  };
+}
+
+export const generatePageToSave = (productsToSave, nroPag) => {
+  return {
+    nroPag: nroPag,
+    products:productsToSave
+  }
+}
+
+export const getPagFilteredProduct = (idTipoProducto,filteredProducts) => {
+  return filteredProducts.find(filteredProduct => filteredProduct.id === idTipoProducto);
+}

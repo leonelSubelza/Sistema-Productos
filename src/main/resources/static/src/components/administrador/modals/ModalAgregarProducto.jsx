@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 
 import Alert from "react-bootstrap/Alert";
-import {URLImagenes} from "../../../service/Configuracion.js";
+import {IMAGES_URL} from "../../../service/Configuracion.js";
 import {toast} from "sonner";
 
 // import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
@@ -180,7 +180,7 @@ export default function ModalAgregarProducto({
       setProductoAGuardar(productoAGuardar)
 
       if(prod.imagen){
-        setUrlImg(`${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`)
+        setUrlImg(`${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`)
       }
       setImagenArchivo(undefined)
     }

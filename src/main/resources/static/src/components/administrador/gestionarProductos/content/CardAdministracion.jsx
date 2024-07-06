@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {URLImagenes} from "../../../../service/Configuracion.js";
+import {IMAGES_URL} from "../../../../service/Configuracion.js";
 import '../../../../styles/ventana-productos/GestionadorObjectosAdministracion.css'
 import { IoClose } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
@@ -18,7 +18,7 @@ export default function CardAdministracion({prod,removeObj,editObj}){
   }
 
   useEffect(() => {
-    setUrlImg(`${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`)
+    setUrlImg(`${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`)
   }, []);
 
   return (

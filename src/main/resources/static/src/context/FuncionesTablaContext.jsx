@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { cargarObjetosConPaginacion, borrarObjeto,crearObjeto, cargarTodosLosObjetos } from "../service/GestionProductos";
 
-import { administradorCantObjPorTabla } from "../service/Configuracion.js";
+import { ADMIN_CANT_OBJ_TO_SHOW } from "../service/Configuracion.js";
 import {useEntityLoaderFunction} from "../hooks/useEntityLoaderFunction.js";
 import {useSelector} from "react-redux";
 import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
@@ -155,7 +155,7 @@ export function FuncionesTablaContext({ children }) {
       updateLoadingPageDetails(false,"")
       if(direccion === "productos"){
         resetProducts();
-        await cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
+        await cargarEntidadConPaginacion("productos",0,ADMIN_CANT_OBJ_TO_SHOW,productsType);
       }
       if(direccion === 'tiposProductos'){
         resetProducts();
@@ -178,7 +178,8 @@ export function FuncionesTablaContext({ children }) {
       updateLoadingPageDetails(false,"");
       if(direccion === "productos"){
         resetProducts();
-        await cargarEntidadConPaginacion("productos",pageDetails.paginaActual-1,administradorCantObjPorTabla,productsType);
+        // Luego habría que reiniciar tambien los productos de carrito, de productosFiltradosPorTipoProducto
+        await cargarEntidadConPaginacion("productos",pageDetails.paginaActual-1,ADMIN_CANT_OBJ_TO_SHOW,productsType);
       }
       if(direccion === 'tiposProductos'){
         resetProducts();
@@ -207,7 +208,7 @@ export function FuncionesTablaContext({ children }) {
     await actualizarProductos(
       "productos",
       pagActual - 1,
-      administradorCantObjPorTabla,
+      ADMIN_CANT_OBJ_TO_SHOW,
       tiposProductosAct);
   }
 

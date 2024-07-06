@@ -1,16 +1,19 @@
 package com.sistemaProductos.SistemaProductos.service;
 
+import java.util.Map;
 import java.util.Optional;
 
 import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
 import com.sistemaProductos.SistemaProductos.exception.ModelNotFoundException;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
+import com.sistemaProductos.SistemaProductos.repository.specification.ProductSpecification;
 import com.sistemaProductos.SistemaProductos.utils.ImageUtils;
 import com.sistemaProductos.SistemaProductos.utils.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.sistemaProductos.SistemaProductos.model.Product;
@@ -46,7 +49,12 @@ public class ProductService implements IProductService {
 		return listProducts.map(product -> ObjectMapper.mapProductToProductResponseDTO(product));
 	}
 
-	public Page<ProductResponseDTO> findAllByProductType(Long productTypeId, Pageable pageable){
+	public Page<ProductResponseDTO> searchProducts(Map<String, String> params, Pageable pageable) {
+		Specification<Product> spec = ProductSpecification.getProducts(params);
+		return productRepo.findAll(spec, pageable).map(prod -> ObjectMapper.mapProductToProductResponseDTO(prod));
+	}
+
+		public Page<ProductResponseDTO> findAllByProductType(Long productTypeId, Pageable pageable){
 		ProductType productType = productTypeService.findById(productTypeId);
 		Page<Product> listProducts= productRepo.findByTipoProducto(productType,pageable);
 //		System.out.println(listProducts.getContent());

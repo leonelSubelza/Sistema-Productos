@@ -5,8 +5,8 @@ import {useProductsActions} from "../redux/slices/products/useProductsActions.js
 import {useSelector} from "react-redux";
 import {cargarTipoProductoAProductos} from "../hooks/utils/entityLoaderUtils.js";
 import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
-import {loadUserDetailsValues} from "../service/GestionPageDetails.js";
-import {administradorCantObjPorTabla} from "../service/Configuracion.js";
+import {loadUserDetailsValues} from "../service/pageDetailsService.js";
+import {ADMIN_CANT_OBJ_TO_SHOW} from "../service/Configuracion.js";
 
 export const entityLoaderContextProvider = React.createContext();
 
@@ -111,7 +111,7 @@ export function EntityLoaderContext({ children }) {
     await actualizarEntidadConPaginacion(
       "productos",
       0,
-      administradorCantObjPorTabla,
+      ADMIN_CANT_OBJ_TO_SHOW,
       tiposProductosAct);
   }
 

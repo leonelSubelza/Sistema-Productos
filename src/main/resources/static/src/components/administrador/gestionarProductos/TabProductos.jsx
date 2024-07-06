@@ -7,7 +7,7 @@ import ModalAgregarProducto from "../modals/ModalAgregarProducto.jsx";
 import "../../../styles/ventana-productos/Tabla.css";
 import "../../../styles/ventana-productos/Pantallas.css";
 
-import {administradorCantObjPorTabla} from "../../../service/Configuracion";
+import {ADMIN_CANT_OBJ_TO_SHOW} from "../../../service/Configuracion";
 import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import Navbar from "../sidebar/NavBar.jsx";
@@ -111,9 +111,9 @@ const TabProductos = () => {
     console.log("no existe pagina cargada, se hace la busqueda");
     if(nPagina>1){
       // actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
-      await cargarEntidadConPaginacion("productos",nPagina-1,administradorCantObjPorTabla,productsType);
+      await cargarEntidadConPaginacion("productos",nPagina-1,ADMIN_CANT_OBJ_TO_SHOW,productsType);
     }else{
-      await cargarEntidadConPaginacion("productos",0,administradorCantObjPorTabla,productsType);
+      await cargarEntidadConPaginacion("productos",0,ADMIN_CANT_OBJ_TO_SHOW,productsType);
     }
 /*    const promise = () => new Promise((resolve) => setTimeout(() => {
       resolve({ name: 'Sonner' })

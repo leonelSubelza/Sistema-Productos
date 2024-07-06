@@ -4,7 +4,7 @@ import {
   cargarObjetosConPaginacion,
   cargarObjetosPorCampoYTipoProductoConPaginacion
 } from "../service/GestionProductos.js";
-import {clienteCantObjParaMostrar} from "../service/Configuracion.js";
+import {CLIENT_CANT_OBJ_TO_SHOW} from "../service/Configuracion.js";
 
 export const clienteContext = React.createContext();
 
@@ -38,7 +38,7 @@ export function FuncionesClienteContext({ children }) {
     let response = await cargarObjetosConPaginacion(
       "productos/byProductType",
       nroPagina,
-      clienteCantObjParaMostrar,
+      CLIENT_CANT_OBJ_TO_SHOW,
       idTipoProducto
     );
     let prodCargadosCompletos = cargarTipoProductoAProductos(response.content,tiposProductos);
@@ -66,7 +66,7 @@ export function FuncionesClienteContext({ children }) {
 
     try {
       const response = await cargarObjetosPorCampoYTipoProductoConPaginacion(direccion, nombreCampo,
-        valorCampo, page, clienteCantObjParaMostrar, idTipoProducto);
+        valorCampo, page, CLIENT_CANT_OBJ_TO_SHOW, idTipoProducto);
       return response
     } catch (error) {
       throw error;

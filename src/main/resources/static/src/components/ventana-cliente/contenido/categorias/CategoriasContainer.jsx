@@ -11,10 +11,14 @@ import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/pagination';
 import { Grid, Pagination } from 'swiper/modules';
+import {useSelector} from "react-redux";
 
 export default function CategoriasContainer({ show, handleCategoriaShow }) {
     const { tiposProductos } = useContext(funcionesContext);
-    const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
+
+    // const tiposProductos = useSelector(store => store.productsType.value);
+
+    // const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
 
     const handleCardSet = (tipoProducto) => {
         return handleCategoriaShow(tipoProducto);
@@ -47,10 +51,11 @@ export default function CategoriasContainer({ show, handleCategoriaShow }) {
                         modules={[Grid, Pagination]}
                         className="mySwiper"
                     >
+                        {/*{tiposProductos && tiposProductos.length>0 &&*/}
                         {tiposProductos.map((tipoProducto, index) => (
                             <SwiperSlide key={index}>
                                 <CardCategoria
-                                    show={indexCategoriaShow === tipoProducto.id}
+                                    // show={indexCategoriaShow === tipoProducto.id}
                                     handleCardSet={() => handleCardSet(tipoProducto)}
                                     tipoProducto={tipoProducto}
                                 />

@@ -1,23 +1,64 @@
 import {usePageDetailsActions} from "../redux/slices/pageDetails/usePageDetailsActions.js";
 import {useProductsTypeActions} from "../redux/slices/productsType/useProductsTypeActions.js";
 import {useProductsActions} from "../redux/slices/products/useProductsActions.js";
-import {cargarObjetosConPaginacion, cargarTodosLosObjetos} from "../service/GestionProductos.js";
-import {cargarTipoProductoAProductos} from "./utils/entityLoaderUtils.js";
-import {loadUserDetailsValues} from "../service/GestionPageDetails.js";
-import {administradorCantObjPorTabla} from "../service/Configuracion.js";
+import {cargarObjetosConPaginacion, cargarTodosLosObjetos, loadFilteredProducts} from "../service/GestionProductos.js";
+import {
+  cargarTipoProductoAProductos, generatePageToSave,
+  genereteFilteredProductByTypeKey,
+  getKeyFilteredProductsByType
+} from "./utils/entityLoaderUtils.js";
+import {loadUserDetailsValues} from "../service/pageDetailsService.js";
+import { ADMIN_CANT_OBJ_TO_SHOW } from "../service/Configuracion.js";
 import {toast} from "sonner";
 import {useSelector} from "react-redux";
+import {
+  useFilteredProductsActions
+} from "../redux/slices/filteredProductsByType/useFilteredProductsActions.js";
 
 export const useEntityLoaderFunction = () => {
   // const pageDetails = useSelector(store => store.pageDetails);
   /*
     const productsType = useSelector(store => store.productsType)*/
+  const filteredProductsByType = useSelector(store => store.filteredProductsByType);
 
   const { setPageDetails,updateLoadingPageDetails } = usePageDetailsActions();
   const { updateProductsType } = useProductsTypeActions();
-  const {
-    addNewPageToProducts
-  } = useProductsActions();
+  const { addNewPageToProducts } = useProductsActions();
+  const { addPageToFilteredProductByType } = useFilteredProductsActions();
+
+  //Carga Productos Filtrados solo por tipoProducto. Posiblemente lo saque
+  const cargarPaginaPorTipoProducto = async (values,nroPagina,size,tiposProductos) => {
+    let location = window.location.href;
+    let toastId;
+    if(location.includes('/administrador')){
+      toastId = toast.loading("Actualizando filteredProductsType")
+    }
+    try{
+/*      const response = await cargarObjetosConPaginacion(
+        "productos/byProductType",
+        nroPagina,
+        CLIENT_CANT_OBJ_TO_SHOW,
+        idTipoProducto
+      );*/
+      const response = loadFilteredProducts(values,nroPagina,size);
+      toast.dismiss(toastId);
+      let prodCargadosCompletos = cargarTipoProductoAProductos(response.content,tiposProductos);
+      let keyFilteredProductByType = getKeyFilteredProductsByType(idTipoProducto,filteredProductsByType);
+      if (!keyFilteredProductByType) {
+        keyFilteredProductByType = genereteFilteredProductByTypeKey(tiposProductos,idTipoProducto,response.totalPages);
+      }
+      const pageToSave = generatePageToSave(prodCargadosCompletos,nroPagina);
+      addPageToFilteredProductByType(keyFilteredProductByType,nroPagina,pageToSave);
+      return prodCargadosCompletos;
+    }catch (e) {
+      toast.dismiss(toastId);
+      toast.error("Error al actualizar filteredProductsType",{
+        duration: Infinity,
+        position: 'top-right',
+      })
+      console.log(e)
+    }
+  }
 
   //Actualiza la entidad tipoProducto
   const cargarEntidadSinPaginacion = async (endpointName) => {
@@ -29,7 +70,11 @@ export const useEntityLoaderFunction = () => {
         updateLoadingPageDetails(true,"Actualizando productsType");
       }
     // }
-    let toastId = toast.loading("Actualizando productsType")
+    let location = window.location.href;
+    let toastId;
+    if(location.includes('/administrador')){
+      toastId = toast.loading("Actualizando productsType")
+    }
     try{
       const response = await cargarTodosLosObjetos(endpointName);
       toast.dismiss(toastId);
@@ -49,7 +94,11 @@ export const useEntityLoaderFunction = () => {
   };
 
   const cargarEntidadConPaginacion =  async (direccion,page,size, tiposProductos) => {
-    let toastId = toast.loading("Actualizando products")
+    let location = window.location.href;
+    let toastId;
+    if(location.includes('/administrador')){
+      toastId = toast.loading("Actualizando products")
+    }
     try{
       updateLoadingPageDetails(true,"Actualizando products");
       const response = await cargarObjetosConPaginacion(direccion,page,size);
@@ -97,7 +146,7 @@ export const useEntityLoaderFunction = () => {
     await cargarEntidadConPaginacion(
       "productos",
       pagActual,
-      administradorCantObjPorTabla,
+      ADMIN_CANT_OBJ_TO_SHOW,
       tiposProductosAct);
   }
 
@@ -117,6 +166,7 @@ export const useEntityLoaderFunction = () => {
     cargarEntidadConPaginacion,
     cargarEntidadSinPaginacion,
     cargarValoresIniciales,
-    isPageLoaded
+    isPageLoaded,
+    cargarPaginaPorTipoProducto
   };
 }

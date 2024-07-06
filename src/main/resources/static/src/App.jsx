@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./components/login/Login";
 import {useEffect} from "react";
 import {usePageDetailsActions} from "./redux/slices/pageDetails/usePageDetailsActions.js";
-import {loadUserDetailsValues} from "./service/GestionPageDetails.js";
+import {loadUserDetailsValues} from "./service/pageDetailsService.js";
 import {EntityLoaderContext} from "./context/EntityLoaderContext.jsx";
 import TabProductos from "./components/administrador/gestionarProductos/TabProductos.jsx";
 import TabTipoProducto from "./components/administrador/gestionarTipoProductos/TabTipoProductos.jsx";

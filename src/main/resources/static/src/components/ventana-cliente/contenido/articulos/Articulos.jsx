@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from "react";
 import Articulo from "./Articulo.jsx";
 // import Paginacion from "../Paginacion.jsx";
 import { MdKeyboardBackspace } from "react-icons/md";
-import {URLImagenes} from '../../../../service/Configuracion.js'
+import {IMAGES_URL} from '../../../../service/Configuracion.js'
 // import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import "../../../../styles/ventana-cliente/articulos.css";
 import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
@@ -11,6 +11,8 @@ import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
 import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
 import Spinner from 'react-bootstrap/Spinner';
+import {useSelector} from "react-redux";
+import {getPagFilteredProduct} from "../../../../hooks/utils/entityLoaderUtils.js";
 
 
 window.timestamp = 123456;
@@ -21,10 +23,12 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
   const {cargarTipoProductoAProductos,tiposProductos} = useContext(funcionesContext);
 
+  //sacar, se tiene esto dentro del obj que devuelve el filteredProductsByType
   const [detallesProdFiltrados, setDetallesProdFiltrados] = useState({})
 
   // const [paginadorProductosFiltrados, setPaginadorProductosFiltrados] = useState(new Map)
 
+  //Productos que se mostraran
   const [productosMostrar, setProductosMostrar] = useState([])
 
   const [productosCargados, setProductosCargados] = useState()
@@ -34,6 +38,19 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const [pagActual, setPagActual] = useState(1)
+
+
+
+
+  const filteredProducts = useSelector(store => store.filteredProducts);
+
+  const [productsToShow, setProductsToShow] = useState([]);
+
+
+
+
+
+
 
   const getKeyProductosFiltrados = (id) => {
     return Array.from(productosFiltrados.keys()).find(pf => pf.id === id);
@@ -160,6 +177,9 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
       let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
       actualizarPaginadorProductosFiltrados(1);
       setDetallesProdFiltrados(keyProdCard);
+
+/*      const pageFilteredProduct = getPagFilteredProduct(tipoProductoAMostrar.id,filteredProducts);
+      setProductsToShow(pageFilteredProduct.pages);*/
     }
   },[show]);
 
@@ -170,6 +190,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
           </button>
         </div>
+        {/*Filtra por hombre-mujer y tiene el titulo*/}
         <Filtro
             nombreCategoria={detallesProdFiltrados.nombre}
             setBusqueda={handleBusquedaARealizar}
@@ -186,7 +207,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
                       imageSource={
                         prod.imagen === 'null' ?
                           ''
-                          : `${URLImagenes}${prod.imagen}?timestamp=${new Date().getTime()}`
+                          : `${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`
                       }
                       nombreProducto={prod.nombre}
                       nombreCategoria={prod.tipoProducto.nombre}
@@ -207,7 +228,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           numeroTotalDePaginas={detallesProdFiltrados.totalPaginas}
           paginaActual={pagActual}
           show={ ((detallesProdFiltrados.totalPaginas > 0) && show) }
-          color={"#6ba488"}
+          color={"#007BFF"}
         />
           </div>
 

@@ -1,4 +1,4 @@
-import { URLImagenes } from "../../../service/Configuracion";
+import { IMAGES_URL } from "../../../service/Configuracion";
 import Button from "react-bootstrap/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import "../../../styles/ventana-cliente/Carrito.css";
@@ -73,7 +73,7 @@ const Carrito = () => {
                   src={
                     elemento.producto.imagen === "null"
                       ? ""
-                      : `${URLImagenes}${elemento.producto.imagen}?timestamp=${new Date().getTime()}`
+                      : `${IMAGES_URL}${elemento.producto.imagen}?timestamp=${new Date().getTime()}`
                   }
                   alt="Imágen-producto"
                 />

@@ -1,4 +1,4 @@
-import { URL } from "./Configuracion";
+import {CLIENT_CANT_OBJ_TO_SHOW, URL} from "./Configuracion";
 
 //GET retorna un listado de prod dada una pag y una cantidad
 export const cargarObjetosConPaginacion = async (direccion,page,size,idTipoProducto) => {
@@ -108,5 +108,29 @@ export const cargarObjetosPorCampoYTipoProductoConPaginacion = async (direccion,
     return prod;
   } catch (error) {
     throw error;
+  }
+}
+
+export const loadFilteredProducts = async (valuesToAdd,page,size) => {
+  try{
+    const params = {
+      page: page,
+      size: size,
+      ...valuesToAdd
+    };
+
+// Construir la URL con los parámetros de consulta
+    const queryString = new URLSearchParams(params).toString();
+
+    const response = await fetch(`${URL}/search?${queryString}`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    });
+    return response.json();
+  }catch(err) {
+    throw err;
   }
 }

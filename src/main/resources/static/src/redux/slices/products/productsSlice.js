@@ -1,6 +1,22 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 // initialState: Map<key: {totalPaginas: 0}, valor: Products[]>
+/*
+const productos = {
+	totalPag: 2,
+	pages:[
+      {
+        nroPag: 0,
+        products: [...productos]
+      },
+      {
+        nroPag: 1,
+        products: [...productos]
+      }
+		]
+	}
+* */
+
 //PRODUCTOS CON PAGINACION
 
 const INITIAL_STATE = {

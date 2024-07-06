@@ -1,6 +1,7 @@
 package com.sistemaProductos.SistemaProductos.controller;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.Optional;
 
 import com.sistemaProductos.SistemaProductos.dto.ProductResponseDTO;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -38,6 +40,18 @@ public class ProductController {
 	){
 		Pageable pageable = PageRequest.of(page, size);
 		return new ResponseEntity<>(this.productService.findAll(pageable), HttpStatus.OK);
+	}
+
+	@GetMapping("/search")
+	public ResponseEntity<Page<ProductResponseDTO>> findByDinamicValues(
+			@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "2") int size,
+			@RequestParam Map<String, String> allParams) {
+
+		Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+		Page<ProductResponseDTO> products = productService.searchProducts(allParams, pageable);
+
+		return ResponseEntity.ok(products);
 	}
 
 	@GetMapping("/byProductType")
