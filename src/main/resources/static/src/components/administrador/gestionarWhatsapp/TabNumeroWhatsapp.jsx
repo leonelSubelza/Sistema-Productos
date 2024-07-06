@@ -6,6 +6,7 @@ import Navbar from "../sidebar/NavBar.jsx";
 import "../../../styles/ventana-productos/Pantallas.css";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
+import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
 
 const TabNumeroWhatsapp = () => {
   const [number, setNumber] = useState("");
@@ -13,6 +14,7 @@ const TabNumeroWhatsapp = () => {
 
   // const { sesionIniciada } = useContext(funcionesContext);
   const pageDetails = useSelector(store => store.pageDetails);
+  const { updateValuePageDetail } = usePageDetailsActions();
 
   const navigate = useNavigate();
   const handleEditClick = () => {
@@ -22,6 +24,9 @@ const TabNumeroWhatsapp = () => {
   const handleSaveClick = () => {
     setIsEditing(false);
     // Lógica para guardar el número
+
+    //ESTO ES PARA GUARDAR EL VALOR DE PAGE DETAILS EN REDUX. Aca guardar, por ejemplo nroWhatsapp
+    updateValuePageDetail("nroWhatsapp","112222")
   };
 
   const handleDeleteClick = () => {
