@@ -21,11 +21,12 @@ const TabNumeroWhatsapp = () => {
 
   const handleSaveClick = async() => {
     setIsEditing(false);
-    // Lógica para guardar el número
+
     const pageDetailsObj = {
+      id: pageDetails.id,
       title: pageDetails.title,
       description: pageDetails.description,
-      frontPageImage: undefined,
+      frontPageImage: "",
       nroWhatsapp: number
     }
 
@@ -33,7 +34,7 @@ const TabNumeroWhatsapp = () => {
 
     //contruyo el objeto
 
-    updateValuePageDetail("nroWhatsapp",pageDetails.nroWhatsapp)
+    updateValuePageDetail("nroWhatsapp",number)
 
 
 

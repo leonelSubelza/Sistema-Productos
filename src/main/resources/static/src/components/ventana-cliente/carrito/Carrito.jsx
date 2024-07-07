@@ -52,9 +52,8 @@ const Carrito = () => {
 
     mensaje += `\nTotal: $${total}`;
 
-    let numeroTelefono = pageDetails.nroWhatsapp;
+    let numeroTelefono = pageDetails.nroWhatsapp.trim();
     let url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
-
     window.open(url, '_blank');
   };
 

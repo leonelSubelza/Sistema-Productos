@@ -24,12 +24,11 @@ export const guardarPageDetail = async (obj) => {
       formData.append("description", obj.description);
       formData.append("frontPageImage", obj.frontPageImage);
       formData.append("nroWhatsapp", obj.nroWhatsapp);
+      formData.append("imagenObj", undefined);
     const request = await fetch(URL + "/pageDetails", {
       method: "PUT",
       body: formData,
     });
-      let pageDetailSaved = await request.json();
-      return pageDetailSaved;
   } catch (error) {
     throw error;
   }
