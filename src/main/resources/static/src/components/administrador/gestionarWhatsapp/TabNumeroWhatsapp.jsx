@@ -6,22 +6,37 @@ import Navbar from "../sidebar/NavBar.jsx";
 import "../../../styles/ventana-productos/Pantallas.css";
 import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
+import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
+import {guardarPageDetail} from "../../../service/pageDetailsService.js";
 
 const TabNumeroWhatsapp = () => {
-  const [number, setNumber] = useState("");
   const [isEditing, setIsEditing] = useState(false);
-
-  // const { sesionIniciada } = useContext(funcionesContext);
-  const pageDetails = useSelector(store => store.pageDetails);
-
+  const {updateValuePageDetail} = usePageDetailsActions(); // actualizar el objeto
+  const pageDetails = useSelector(store => store.pageDetails); // obtengo el objeto
+  const [number, setNumber] = useState(pageDetails.nroWhatsapp);
   const navigate = useNavigate();
   const handleEditClick = () => {
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = async() => {
     setIsEditing(false);
     // Lógica para guardar el número
+    const pageDetailsObj = {
+      title: pageDetails.title,
+      description: pageDetails.description,
+      frontPageImage: undefined,
+      nroWhatsapp: number
+    }
+
+    const response = await guardarPageDetail(pageDetailsObj);
+
+    //contruyo el objeto
+
+    updateValuePageDetail("nroWhatsapp",pageDetails.nroWhatsapp)
+
+
+
   };
 
   const handleDeleteClick = () => {

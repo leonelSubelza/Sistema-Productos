@@ -7,6 +7,7 @@ import { useContext, useEffect } from "react";
 import { BsTrash } from "react-icons/bs";
 
 import { funcionesContext } from "../../../context/FuncionesTablaContext";
+import {useSelector} from "react-redux";
 
 const Carrito = () => {
   const {
@@ -19,6 +20,8 @@ const Carrito = () => {
     setShowCarrito,
   } = useContext(carritoContext);
   const { productos } = useContext(funcionesContext);
+  const pageDetails = useSelector(store => store.pageDetails);
+
 
   useEffect(() => {
     let carritoActualizado = [];
@@ -49,7 +52,7 @@ const Carrito = () => {
 
     mensaje += `\nTotal: $${total}`;
 
-    let numeroTelefono = '+5491164246777';
+    let numeroTelefono = pageDetails.nroWhatsapp;
     let url = `https://wa.me/${numeroTelefono}?text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, '_blank');

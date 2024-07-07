@@ -16,7 +16,7 @@ import {
 } from "../redux/slices/filteredProductsByType/useFilteredProductsActions.js";
 
 export const useEntityLoaderFunction = () => {
-  // const pageDetails = useSelector(store => store.pageDetails);
+  const pageDetails = useSelector(store => store.pageDetails);
   /*
     const productsType = useSelector(store => store.productsType)*/
   const filteredProductsByType = useSelector(store => store.filteredProductsByType);
