@@ -218,13 +218,9 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
   const handleNuevaPagina = (nroPag) => {
     let nroPagParaBD = getNroPagParaBD(nroPag);
-    console.log("estado pagina actual:");
-    console.log(pageToShow)
     if(pageToShow.pages[nroPagParaBD]){
-      console.log("pag cargada")
       setProductsToShow(pageToShow.pages[nroPagParaBD].products);
     }else{
-      console.log("se hace la request")
       const campos = {
         tipoProducto: tipoProductoAMostrar.id
       };
@@ -265,13 +261,12 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
   const handleBusqueda = async (campos,nroPagBD) => {
     setIsProductsLoading(true);
-
     const camposSinObjVacios = eliminarCamposVacios({...campos});
-    console.log("campos a buscar en bd");
-    console.log(camposSinObjVacios)
     const pagGenerada = await cargarPaginaProductosFiltrados(
       camposSinObjVacios,nroPagBD,CLIENT_CANT_OBJ_TO_SHOW,tiposProductos);
     setIsProductsLoading(false);
+    console.log("parámetros de busqueda:");
+    console.log(camposSinObjVacios)
     if(Object.keys(pageToShow).length===0 || esNuevaBusqueda(campos)){
       console.log("es nueva busqueda")
       // Si la busqueda es nueva sobreescribimos sobre la antigua pag. pagGenerada solo tiene la pag que se pidio

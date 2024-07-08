@@ -66,10 +66,17 @@
 
 .nav-link{
   color: black;
+  border-radius: 7px;
 }
 
-.nav-link.active {
-  border-bottom: 1px solid #007BFF;
+.nav-link:hover:not(.remove-filter-btn) {
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.custom-nav-link.nav-link.activo {
+  /*box-shadow: #007BFF 0 1px 5px;*/
+  background-color: #007BFF;
+  color: #fff;
 }
 
 .div-a-centrar {
