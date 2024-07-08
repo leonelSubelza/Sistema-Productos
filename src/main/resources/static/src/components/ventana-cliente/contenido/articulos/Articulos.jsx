@@ -1,25 +1,23 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Articulo from "./Articulo.jsx";
 // import Paginacion from "../Paginacion.jsx";
 import { MdKeyboardBackspace } from "react-icons/md";
-import {IMAGES_URL} from '../../../../service/Configuracion.js'
+import {CLIENT_CANT_OBJ_TO_SHOW, IMAGES_URL} from '../../../../service/Configuracion.js'
 // import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import "../../../../styles/ventana-cliente/articulos.css";
-import {clienteContext} from "../../../../context/FuncionesClienteContext.jsx";
 import Paginador from "../../../utils/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
-import {funcionesContext} from "../../../../context/FuncionesTablaContext.jsx";
 import Spinner from 'react-bootstrap/Spinner';
+import {useEntityLoaderFunction} from "../../../../hooks/useEntityLoaderFunction.js";
 import {useSelector} from "react-redux";
-import {getPagFilteredProduct} from "../../../../hooks/utils/entityLoaderUtils.js";
 
 
 window.timestamp = 123456;
 
 function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
-  const {productosFiltrados,cargarProductosFiltrados,cargarProductosPorCampoYTipoProducto} = useContext(clienteContext);
+/*  const {productosFiltrados,cargarProductosFiltrados,cargarProductosPorCampoYTipoProducto} = useContext(clienteContext);
 
   const {cargarTipoProductoAProductos,tiposProductos} = useContext(funcionesContext);
 
@@ -33,25 +31,33 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
 
   const [productosCargados, setProductosCargados] = useState()
 
-  const [valorFiltro, setValorFiltro] = useState('');
+  const [valorFiltro, setValorFiltro] = useState('');*/
 
   const [isProductsLoading, setIsProductsLoading] = useState(false);
 
   const [pagActual, setPagActual] = useState(1)
 
+  const tiposProductos = useSelector(store => store.productsType.value);
+  // const {tiposProductos} = useContext(funcionesContext);
 
-
-
-  const filteredProducts = useSelector(store => store.filteredProducts);
-
+  // const filteredProducts = useSelector(store => store.filteredProducts);
+  const [pageToShow, setPageToShow] = useState({})
   const [productsToShow, setProductsToShow] = useState([]);
+  const [valorBuscador, setValorBuscador] = useState('');
+  const [valorGenero, setValorGenero] = useState('');
+
+  const { cargarPaginaProductosFiltrados } = useEntityLoaderFunction();
 
 
+  const handleClickVolver = () => {
+/*    let paginadorProdAux = new Map;
+    setPaginadorProductosFiltrados(paginadorProdAux);
+    setProductosMostrar([]);*/
+    return handleShowArticulos();
+  }
 
 
-
-
-
+/*
   const getKeyProductosFiltrados = (id) => {
     return Array.from(productosFiltrados.keys()).find(pf => pf.id === id);
   }
@@ -60,12 +66,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     return productosFiltrados.get(keyProdCard) && productosFiltrados.get(keyProdCard).get(nroPag);
   }
 
-  const handleClickVolver = () => {
-/*    let paginadorProdAux = new Map;
-    setPaginadorProductosFiltrados(paginadorProdAux);*/
-    setProductosMostrar([]);
-    return handleShowArticulos();
-  }
+
 
   const actualizarPaginadorProductosFiltrados = (nroPagina) => {
     if(valorFiltro!==''){
@@ -100,14 +101,14 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
     setPagActual(nroPaginaAux);
   }
 
-/*  const handleProductosMostrar = (productosMostrarFiltrados) => {
+/!*  const handleProductosMostrar = (productosMostrarFiltrados) => {
     //si es undefined es porque se borro el filtro
     if(productosMostrarFiltrados){
       setProductosMostrar(productosMostrarFiltrados)
     }else{
       actualizarPaginadorProductosFiltrados(pagActual);
     }
-  }*/
+  }*!/
 
   const handleBusquedaARealizar = (value,nroPaginaBuscar) => {
     let nroPaginaAux;
@@ -171,15 +172,131 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
         })
     }
   }
+*/
+
+
+  const eliminarCamposVacios = (obj) => {
+    Object.keys(obj).forEach(key => {
+      if (obj[key] === null || obj[key] === undefined || obj[key] === '') {
+        delete obj[key];
+      }
+    });
+    return obj;
+  };
+
+  const getNroPagParaBD = (nroPag) => {
+    let nroPagParaBD;
+    if(nroPag>1){
+      nroPagParaBD=nroPag-1
+    }else{
+      nroPagParaBD=0;
+    }
+    return nroPagParaBD;
+  }
+
+  const esNuevaBusqueda = (campos) => {
+    let ret=false;
+    Object.keys(campos).forEach( nombreCampo => {
+      if(nombreCampo === 'nombre') {
+        if(campos[nombreCampo] !== valorBuscador){
+          ret = true;
+        }
+      }
+      if(nombreCampo === 'genero') {
+        if(campos[nombreCampo] !== valorGenero){
+          ret = true;
+        }
+      }
+      if(nombreCampo === 'tipoProducto') {
+        if(campos[nombreCampo] !== tipoProductoAMostrar.id){
+          ret = true;
+        }
+      }
+    })
+    return ret;
+  }
+
+  const handleNuevaPagina = (nroPag) => {
+    let nroPagParaBD = getNroPagParaBD(nroPag);
+    console.log("estado pagina actual:");
+    console.log(pageToShow)
+    if(pageToShow.pages[nroPagParaBD]){
+      console.log("pag cargada")
+      setProductsToShow(pageToShow.pages[nroPagParaBD].products);
+    }else{
+      console.log("se hace la request")
+      const campos = {
+        tipoProducto: tipoProductoAMostrar.id
+      };
+      if(valorBuscador!==''){
+        campos.nombre = valorBuscador
+      }
+      if(valorGenero!==''){
+        campos.genero = valorGenero;
+      }
+      handleBusqueda(campos,nroPagParaBD);
+    }
+    setPagActual(nroPag);
+  }
+
+  const handleFiltroPorNombre = (value) => {
+    setValorBuscador(value)
+    let nroPagParaBD = getNroPagParaBD(pagActual);
+    const campos = {
+      tipoProducto: tipoProductoAMostrar.id,
+      nombre: value,
+      genero: valorGenero
+    }
+/*    if(valorGenero!==''){
+      campos.genero = valorGenero;
+    }*/
+    handleBusqueda(campos,nroPagParaBD);
+  }
+  const handleFiltroPorGenero = (value) => {
+    setValorGenero(value)
+    let nroPagParaBD = getNroPagParaBD(pagActual);
+    const campos = {
+      tipoProducto: tipoProductoAMostrar.id,
+      genero: value,
+      nombre: valorBuscador
+    }
+    handleBusqueda(campos,nroPagParaBD);
+  }
+
+  const handleBusqueda = async (campos,nroPagBD) => {
+    setIsProductsLoading(true);
+
+    const camposSinObjVacios = eliminarCamposVacios({...campos});
+    console.log("campos a buscar en bd");
+    console.log(camposSinObjVacios)
+    const pagGenerada = await cargarPaginaProductosFiltrados(
+      camposSinObjVacios,nroPagBD,CLIENT_CANT_OBJ_TO_SHOW,tiposProductos);
+    setIsProductsLoading(false);
+    if(Object.keys(pageToShow).length===0 || esNuevaBusqueda(campos)){
+      console.log("es nueva busqueda")
+      // Si la busqueda es nueva sobreescribimos sobre la antigua pag. pagGenerada solo tiene la pag que se pidio
+      setPageToShow(pagGenerada);
+    }else{
+      console.log("se sigue con los mismos parametros")
+      //si se sigue con los mismos parametros de busqueda, entonces se agrega al arreglo de paginas
+      pageToShow.pages[nroPagBD] = {
+        nroPag: nroPagBD,
+        products: pagGenerada.pages[nroPagBD].products
+      };
+      setPageToShow(pageToShow);
+    }
+    setProductsToShow(pagGenerada.pages[nroPagBD].products);
+
+  }
 
   useEffect(() => {
     if(show){
-      let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
+/*      let keyProdCard = getKeyProductosFiltrados(tipoProductoAMostrar.id);
       actualizarPaginadorProductosFiltrados(1);
-      setDetallesProdFiltrados(keyProdCard);
+      setDetallesProdFiltrados(keyProdCard);*/
 
-/*      const pageFilteredProduct = getPagFilteredProduct(tipoProductoAMostrar.id,filteredProducts);
-      setProductsToShow(pageFilteredProduct.pages);*/
+      handleBusqueda({tipoProducto:tipoProductoAMostrar.id},0);
+      // handleNuevaPagina(1);
     }
   },[show]);
 
@@ -192,13 +309,14 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
         </div>
         {/*Filtra por hombre-mujer y tiene el titulo*/}
         <Filtro
-            nombreCategoria={detallesProdFiltrados.nombre}
-            setBusqueda={handleBusquedaARealizar}
+          // nombreCategoria={detallesProdFiltrados.nombre}
+          nombreCategoria={pageToShow.nombre}
+          setBusqueda={handleFiltroPorGenero}
         />
         <Buscador
-          setBusquedaARealizar={handleBusquedaARealizar}
+          setBusquedaARealizar={handleFiltroPorNombre}
         />
-        {productosMostrar &&
+{/*        {productosMostrar &&
         productosMostrar.length !== 0 &&
           !isProductsLoading ?
           productosMostrar
@@ -220,14 +338,44 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
             <Spinner animation="border" />
             :
             <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
+        }*/}
+        {
+          productsToShow && productsToShow.length>0 &&
+          !isProductsLoading ?
+          productsToShow.map(prod => (
+            <Articulo key={prod.id}
+                      imageSource={
+                        prod.imagen === 'null' ?
+                          ''
+                          : `${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`
+                      }
+                      nombreProducto={prod.nombre}
+                      nombreCategoria={prod.tipoProducto.nombre}
+                      precio={prod.precio}
+                      producto={prod}
+            />
+          ))
+          :
+          isProductsLoading ?
+          <Spinner animation="border" />
+          :
+          <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
         }
         <Paginador
-          setPaginaAnterior={actualizarPaginadorProductosFiltrados}
-          setPaginaSiguiente={actualizarPaginadorProductosFiltrados}
-          setPaginaActual={actualizarPaginadorProductosFiltrados}
-          numeroTotalDePaginas={detallesProdFiltrados.totalPaginas}
+          // setPaginaAnterior={actualizarPaginadorProductosFiltrados}
+          // setPaginaSiguiente={actualizarPaginadorProductosFiltrados}
+          // setPaginaActual={actualizarPaginadorProductosFiltrados}
+
+          setPaginaAnterior={handleNuevaPagina}
+          setPaginaSiguiente={handleNuevaPagina}
+          setPaginaActual={handleNuevaPagina}
+
+
+          // numeroTotalDePaginas={detallesProdFiltrados.totalPaginas}
+          numeroTotalDePaginas={pageToShow.totalPag }
           paginaActual={pagActual}
-          show={ ((detallesProdFiltrados.totalPaginas > 0) && show) }
+          // show={ ((detallesProdFiltrados.totalPaginas > 0) && show) }
+          show={ pageToShow.totalPag > 0 && show}
           color={"#007BFF"}
         />
           </div>

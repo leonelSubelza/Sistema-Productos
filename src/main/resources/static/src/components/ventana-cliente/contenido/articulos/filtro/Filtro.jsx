@@ -1,21 +1,23 @@
-import React, {useContext} from "react";
+import React from "react";
 import "../../../../../styles/ventana-cliente/header.css";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import {funcionesContext} from "../../../../../context/FuncionesTablaContext.jsx";
+// import {funcionesContext} from "../../../../../context/FuncionesTablaContext.jsx";
 
 const Filtro = ({nombreCategoria,setBusqueda}) => {
 
-  const {tiposProductos} = useContext(funcionesContext);
+  // const {tiposProductos} = useContext(funcionesContext);
+  // const [nombreGeneroActive, setNombreGeneroActive] = useState('');
 
-  const filtrar = (valor, tipo = "genero") => {
-    if(valor===""){
-      return setBusqueda();
-    }else{
-      return setBusqueda(valor);
-    }
+  const filtrar = (valor) => {
+    return setBusqueda(valor);
   };
+
+  const handleClickGenero = (nombreGenero) => {
+    // setNombreGeneroActive(nombreGenero);
+    filtrar(nombreGenero);
+  }
 
   return (
       <header className="header">
@@ -27,21 +29,21 @@ const Filtro = ({nombreCategoria,setBusqueda}) => {
           <div className="container-fluid">
             <Nav className="">
               <Nav.Link
-                  onClick={() => filtrar("FEMENINO", "genero")}
-                  className="custom-nav-link"
+                  onClick={() => handleClickGenero("FEMENINO")}
+                  className={`custom-nav-link `}
                   href="#!"
               >
                 mujer
               </Nav.Link>
               <Nav.Link
-                  onClick={() => filtrar("MASCULINO", "genero")}
-                  className="custom-nav-link"
+                  onClick={() => handleClickGenero("MASCULINO")}
+                  className={`custom-nav-link`}
                   href="#!"
               >
                 hombre
               </Nav.Link>
               <Nav.Link
-                  onClick={() => filtrar("")}
+                  onClick={() => handleClickGenero("")}
                   className="custom-nav-link"
                   href="#!"
               >

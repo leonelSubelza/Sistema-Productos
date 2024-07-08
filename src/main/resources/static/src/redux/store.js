@@ -9,7 +9,7 @@ export const store = configureStore({
     pageDetails: pageDetailsSlice.reducer,
     products: productsSlice.reducer,
     productsType: productsTypeSlice.reducer,
-    filteredProducts: filteredProductsSlice
+    filteredProducts: filteredProductsSlice.reducer
   }
 })
 export default store;

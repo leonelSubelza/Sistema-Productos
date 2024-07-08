@@ -1,5 +1,3 @@
-import { useContext, useState } from "react";
-import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
 import CardCategoria from "./CardCategoria.jsx";
 
 import '../../../../styles/ventana-cliente/categorias/Categorias.css'
@@ -14,9 +12,9 @@ import { Grid, Pagination } from 'swiper/modules';
 import {useSelector} from "react-redux";
 
 export default function CategoriasContainer({ show, handleCategoriaShow }) {
-    const { tiposProductos } = useContext(funcionesContext);
+    // const { tiposProductos } = useContext(funcionesContext);
 
-    // const tiposProductos = useSelector(store => store.productsType.value);
+    const tiposProductos = useSelector(store => store.productsType.value);
 
     // const [indexCategoriaShow, setIndexCategoriaShow] = useState(0);
 

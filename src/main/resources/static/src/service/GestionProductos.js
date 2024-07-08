@@ -1,4 +1,4 @@
-import {CLIENT_CANT_OBJ_TO_SHOW, URL} from "./Configuracion";
+import {URL} from "./Configuracion";
 
 //GET retorna un listado de prod dada una pag y una cantidad
 export const cargarObjetosConPaginacion = async (direccion,page,size,idTipoProducto) => {
@@ -15,8 +15,7 @@ export const cargarObjetosConPaginacion = async (direccion,page,size,idTipoProdu
       },
     });
 
-    let prod = await request.json();
-    return prod;
+    return await request.json();
   } catch (error) {
     throw error;
   }
@@ -32,8 +31,7 @@ export const cargarTodosLosObjetos = async (direccion) => {
       },
     });
 
-    let prod = await request.json();
-    return prod;
+    return await request.json();
   } catch (error) {
     throw error;
   }
@@ -58,6 +56,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       formData.append("nombre", obj.nombre);
     }
 
+
     if(imagen!==undefined){
       formData.append("imagenObj", imagen);
     }
@@ -66,8 +65,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
       body: formData,
     });
     if (metodo === "POST") {
-      let prod = await request.json();
-      return prod;
+      return await request.json();
     }
   } catch (error) {
     throw error;
@@ -104,8 +102,7 @@ export const cargarObjetosPorCampoYTipoProductoConPaginacion = async (direccion,
       },
     });
 
-    let prod = await request.json();
-    return prod;
+    return await request.json();
   } catch (error) {
     throw error;
   }
@@ -122,7 +119,7 @@ export const loadFilteredProducts = async (valuesToAdd,page,size) => {
 // Construir la URL con los parámetros de consulta
     const queryString = new URLSearchParams(params).toString();
 
-    const response = await fetch(`${URL}/search?${queryString}`, {
+    const response = await fetch(`${URL}/productos/search?${queryString}`, {
       method: "GET",
       headers: {
         Accept: "application/json",

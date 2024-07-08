@@ -16,12 +16,12 @@ export const cargarTipoProductoAProductos = (productosBD,tiposProduct) => {
   return productosAux;
 }
 
-export const getKeyFilteredProductsByType = (idTipoProducto,filteredProductByType) => {
+/*export const getKeyFilteredProducts = (idTipoProducto,filteredProductByType) => {
   return filteredProductByType.find(filteredProductByTypeKey => filteredProductByTypeKey.id===idTipoProducto);
-}
+}*/
 
-export const genereteFilteredProductByTypeKey = (tiposProductos,idTipoProducto,totalPages) => {
-  const productTypeToAdd = tiposProductos.find(tipoProducto => tipoProducto === idTipoProducto);
+export const genereteFilteredProductKey = (tiposProductos,idTipoProducto,totalPages) => {
+  const productTypeToAdd = tiposProductos.find(tipoProducto => tipoProducto.id === idTipoProducto);
   return {
     id: productTypeToAdd.id,
     nombre: productTypeToAdd.nombre,

@@ -1,28 +1,36 @@
 import {useDispatch} from "react-redux";
 import {
-  setFilteredProductsByTypeSlice,
-  addPageToFilteredProductByTypeSlice,
-  removePageToFilteredProductByTypeSlice,
-  resetFilteredProductByTypeSlice
+  setFilteredProductsSlice,
+  addPageToFilteredProductSlice,
+  removePageToFilteredProductSlice,
+  resetFilteredProductSlice
 } from './filteredProductsSlice.js'
 
 export const useFilteredProductsActions = () => {
   const dispatcher = useDispatch();
 
   const setFilteredProductsByType = (filteredProducts) => {
-    dispatcher(setFilteredProductsByTypeSlice(filteredProducts));
+    dispatcher(setFilteredProductsSlice(filteredProducts));
   }
 
+  // keyValues = {id: 0, nombre: '', totalPag: 0}
   const addPageToFilteredProductByType = (keyValues, nroPag, pageToSave) => {
-    dispatcher(addPageToFilteredProductByTypeSlice(keyValues, nroPag, pageToSave));
+    const values = {
+      id:keyValues.id,
+      nombre:keyValues.nombre,
+      totalPag: keyValues.totalPag,
+      pageToSave:pageToSave,
+      nroPag: nroPag
+    }
+    dispatcher(addPageToFilteredProductSlice(values));
   }
 
   const removePageToFilteredProductByType = (indexProductTypeFiltered, nroPag) => {
-    dispatcher(removePageToFilteredProductByTypeSlice(indexProductTypeFiltered, nroPag))
+    dispatcher(removePageToFilteredProductSlice(indexProductTypeFiltered, nroPag))
   }
 
   const resetFilteredPagesByType = () => {
-    dispatcher(resetFilteredProductByTypeSlice());
+    dispatcher(resetFilteredProductSlice());
   }
 
   return {

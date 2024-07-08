@@ -40,7 +40,7 @@ public class PageDetailsService implements IPageDetailsService{
             ImageUtils.saveImage(multipartFile,pageDetailsFileName);
             pageDetailsSaved.setFrontPageImage(frontPageImageObj.get().getOriginalFilename());
         });
-        return this.pageDetailsRepository.save(pageDetailsSaved);
+        return this.pageDetailsRepository.save(pageDetails);
     }
 
     @Override
