@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Input } from "reactstrap";
+import { IMAGES_URL_PAGEDETAILS } from "../../../../service/Configuracion.js";
+import { useSelector } from "react-redux";
 
 const EditableField = ({ label, value, onSave, inputType = "text" }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(value);
     const [imageFile, setImageFile] = useState(null); // Estado para almacenar el archivo de imagen
+    const [URL, setURL] = useState();
+    const pageDetails = useSelector((store) => store.pageDetails);
 
     const handleEditClick = () => {
         setIsEditing(true);
@@ -29,7 +33,9 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
             if (file) {
                 const reader = new FileReader();
                 reader.onloadend = () => {
-                    setInputValue(reader.result); // Establecer la vista previa de la imagen
+                    setInputValue(file.name); // Establecer la vista previa de la imagen
+                    setURL(reader.result);
+                    onSave(file.name, file); // Guardar directamente al elegir la imagen
                 };
                 reader.readAsDataURL(file);
             }
@@ -38,13 +44,17 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
         }
     };
 
+    useEffect(() => {
+        setURL(`${IMAGES_URL_PAGEDETAILS}${inputValue}?timestamp=${new Date().getTime()}`);
+    }, [pageDetails]);
+
     return (
         <div className="contenedor-seccion">
             <h2>{label}</h2>
             <div className="contenedor-input">
                 {inputType === "file" && inputValue ? (
                     <img
-                        src={inputValue}
+                        src={`${IMAGES_URL_PAGEDETAILS}${inputValue}?timestamp=${new Date().getTime()}`}
                         alt="Preview"
                         onClick={() => document.getElementById(`fileInput-${label}`).click()}
                         style={{ cursor: "pointer", width: "200px", height: "auto" }}
@@ -66,9 +76,16 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
                         style={{ display: "none" }}
                     />
                 )}
-                <Button color="primary" onClick={isEditing ? handleSaveClick : handleEditClick}>
-                    {isEditing ? "Guardar" : "Editar"}
-                </Button>
+                {isEditing && inputType !== "file" && (
+                    <Button color="primary" onClick={handleSaveClick}>
+                        Guardar
+                    </Button>
+                )}
+                {!isEditing && (
+                    <Button color="primary" onClick={handleEditClick}>
+                        Editar
+                    </Button>
+                )}
                 <Button className="boton-borrar" onClick={handleDeleteClick} disabled={!isEditing}>
                     Borrar
                 </Button>

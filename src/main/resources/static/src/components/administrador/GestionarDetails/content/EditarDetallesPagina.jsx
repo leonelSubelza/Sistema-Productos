@@ -5,19 +5,21 @@ import { useSelector } from "react-redux";
 import { usePageDetailsActions } from "../../../../redux/slices/pageDetails/usePageDetailsActions.js";
 import { guardarPageDetail } from "../../../../service/pageDetailsService.js";
 import EditableField from "./EditableField.jsx";
+import {IMAGES_URL_PAGEDETAILS} from "../../../../service/Configuracion.js";
 
 const EditarDetallesPagina = () => {
     const { updateValuePageDetail } = usePageDetailsActions();
     const pageDetails = useSelector((store) => store.pageDetails);
     const navigate = useNavigate();
     const [previewDetails, setPreviewDetails] = useState(pageDetails);
+    const [URL_IMG, setURL_IMG] = useState();
+
 
     const handleSave = async (field, value, imgArchivo) => {
         const pageDetailsObj = {
             ...pageDetails,
             [field]: value,
         };
-
         await guardarPageDetail(pageDetailsObj, imgArchivo);
 
         updateValuePageDetail(field, value);
@@ -29,6 +31,10 @@ const EditarDetallesPagina = () => {
             navigate("/login");
         }
     }, [navigate, pageDetails.sessionStarted]);
+
+    useEffect(() => {
+        setURL_IMG(`${IMAGES_URL_PAGEDETAILS}${pageDetails.frontPageImage}?timestamp=${new Date().getTime()}`)
+    }, [pageDetails,previewDetails]);
 
     return (
         <>
@@ -61,8 +67,9 @@ const EditarDetallesPagina = () => {
                 onSave={(value, imgArchivo) => handleSave("frontPageImage", value, imgArchivo)}
                 inputType="file"
             />
+
             <h2>Vista Preliminar</h2>
-            <div className="preview-section" style={{backgroundImage: `url(${pageDetails.frontPageImage})`}}>
+            <div className="preview-section" style={{backgroundImage: `url(${URL_IMG})`}}>
                 <div className="preview-content">
                     <h3>{previewDetails.title}</h3>
                     <p>{previewDetails.description}</p>

@@ -16,15 +16,15 @@ export async function loadUserDetailsValues() {
   }
 }
 
-export const guardarPageDetail = async (obj,imgeArchivo) => {
+export const guardarPageDetail = async (obj,imageArchivo) => {
   try {
+    console.log(imageArchivo)
     const formData = new FormData();
-      formData.append("imagenObj", imgeArchivo);
-
+      formData.append("imagenObj", imageArchivo);
       formData.append("id", obj.id);
       formData.append("title", obj.title);
       formData.append("description", obj.description);
-      formData.append("frontPageImage", imgeArchivo.name );
+      formData.append("frontPageImage", obj.frontPageImage);
       formData.append("nroWhatsapp", obj.nroWhatsapp);
     const request = await fetch(URL + "/pageDetails", {
       method: "PUT",
