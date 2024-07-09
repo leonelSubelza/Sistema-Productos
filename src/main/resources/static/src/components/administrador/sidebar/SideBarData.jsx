@@ -1,7 +1,8 @@
 //Iconos
 import { MdLabelImportant } from "react-icons/md";
-import { FaTshirt,FaWhatsapp } from "react-icons/fa";
+import { FaTshirt} from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
+import {GoGear} from "react-icons/all.js";
 
 export const SideBarData = [
   {
@@ -17,9 +18,9 @@ export const SideBarData = [
     cName: 'nav-text'
   },
   {
-    title: 'Numero de Whatsapp',
-    path: '/administrador/numeroWhatsapp',
-    icon: <FaWhatsapp />,
+    title: 'Configuración',
+    path: '/administrador/configuracion',
+    icon: <GoGear />,
     cName: 'nav-text'
   },
   {

@@ -12,8 +12,9 @@ import {loadUserDetailsValues} from "./service/pageDetailsService.js";
 import {EntityLoaderContext} from "./context/EntityLoaderContext.jsx";
 import TabProductos from "./components/administrador/gestionarProductos/TabProductos.jsx";
 import TabTipoProducto from "./components/administrador/gestionarTipoProductos/TabTipoProductos.jsx";
-import TabNumeroWhatsapp from "./components/administrador/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
+import EditarDetallesPagina from "./components/administrador/GestionarDetails/content/EditarDetallesPagina.jsx";
 import {useEntityLoaderFunction} from "./hooks/useEntityLoaderFunction.js";
+import TabDetails from "./components/administrador/GestionarDetails/TabDetails.jsx";
 
 function App() {
   const { cargarValoresIniciales } = useEntityLoaderFunction();
@@ -32,7 +33,7 @@ function App() {
               <Route path="/login" element={<Login/>}/>
               <Route path={'/administrador/productos'} element={<TabProductos/>}/>
               <Route path={'/administrador/tablaTipoProductos'} element={<TabTipoProducto/>}/>
-              <Route path={'/administrador/numeroWhatsapp'} element={<TabNumeroWhatsapp/>}/>
+              <Route path={'/administrador/configuracion'} element={<TabDetails/>}/>
               <Route path="/administrador/*" element={<TabProductos/>}/>
               <Route path='*' element={<VentanaCliente/>}/>
             </Routes>
