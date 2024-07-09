@@ -6,6 +6,7 @@ import { carritoContext } from "../../../context/ElementosCarritoContext";
 import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
+import InputSpinner from "../../utils/InputSpinner.jsx";
 
 const Carrito = () => {
   const {
@@ -13,6 +14,7 @@ const Carrito = () => {
     quitarProducto,
     total,
     showCarrito,
+    agregarProducto,
     setShowCarrito,
   } = useContext(carritoContext);
 
@@ -53,7 +55,7 @@ const Carrito = () => {
 
   return (
     <>
-      <div className={`carrito ${showCarrito ? "carrito-show" : ""}`}>
+      <div className={`carrito ${showCarrito && "show"}`}>
         <div className="carrito-info-titulo">
           <p onClick={() => setShowCarrito(false)}>
             <IoIosArrowBack />
@@ -79,6 +81,11 @@ const Carrito = () => {
                 <p>Descripcion: {elemento.producto.descripcion}</p>
                 <p>Género: {elemento.producto.genero}</p>
                 <p>Tipo de producto: {elemento.producto.tipoProducto.nombre}</p>
+                <InputSpinner
+                  initialValue={elemento.cantidad}
+                  addElement={()=>agregarProducto(elemento.producto)}
+                  removeElement={()=>quitarProducto(elemento.producto)}
+                />
                 <div className="carrito-precio">
                   <p className="precio">Precio: ${elemento.producto.precio}</p>
                   <p className="cantidad">{elemento.cantidad > 1 ? ` x${elemento.cantidad}` : ''}</p>

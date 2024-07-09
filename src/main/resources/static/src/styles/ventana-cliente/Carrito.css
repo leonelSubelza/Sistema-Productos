@@ -20,7 +20,7 @@
   min-height: 100vh;
 
   background-color: #fff;
-  width: 350px;
+  width: 450px;
   display: flex;
   flex-direction: column;
   right: -1000%;
@@ -29,7 +29,7 @@
   z-index: 1001;
 }
 
-.carrito-show {
+.carrito.show {
   right: 0;
   transition: 450ms;
 }
@@ -157,12 +157,12 @@
   color: #000;
 }
 
-.tn btn-dark {
+/*.tn btn-dark {
   margin: 10px auto;
   font-family: "Montserrat", sans-serif;
   font-size: 13px;
   line-height: 20px;
-}
+}*/
 
 .carrito-vacio {
   font-size: 13px;

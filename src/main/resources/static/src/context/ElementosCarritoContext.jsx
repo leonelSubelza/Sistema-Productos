@@ -12,11 +12,13 @@ const ElementosCarritoContext = ({ children }) => {
     let index = productosEnCarrito.findIndex(e => e.producto.id === prod.id);
     if(productosEnCarrito[index]){
       productosEnCarrito[index].cantidad++;
+      console.log("se suma +1 a "+prod.nombre)
     }else{
       const objCarrito = {
         producto: prod,
         cantidad: 1
       }
+      console.log("se agrega nuevo "+prod.nombre)
       productosEnCarrito.push(objCarrito);
     }
     setProductosEnCarrito([...productosEnCarrito]);

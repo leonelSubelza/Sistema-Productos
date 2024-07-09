@@ -109,6 +109,7 @@ export default function ModalAgregarProducto({
       return;
 
     }*/
+    console.log("se guarda valor "+value)
     setProductoAGuardar(prevState => ({
       ...prevState,
       [name]: value
@@ -129,6 +130,8 @@ export default function ModalAgregarProducto({
 
     setSendBtnIsDisabled(true);
     try {
+      console.log("producto a guardar")
+      console.log(productoAGuardar)
       const promise = agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method);
       toast.promise(promise, {
         loading: "Guardando nuevo producto",
@@ -301,6 +304,7 @@ export default function ModalAgregarProducto({
                   <option>Sin seleccionar</option>
                   <option value={"MASCULINO"}>MASCULINO</option>
                   <option value={"FEMENINO"}>FEMENINO</option>
+                  <option value={"UNISEX"}>UNISEX</option>
                 </select>
                 {errors.genero && <Alert key="danger" variant="danger" className="p-1">{errors.genero}</Alert>}
               </FormGroup>

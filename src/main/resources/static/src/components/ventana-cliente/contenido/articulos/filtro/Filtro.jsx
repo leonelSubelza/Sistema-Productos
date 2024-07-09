@@ -44,6 +44,13 @@ const Filtro = ({nombreCategoria,setBusqueda}) => {
                 hombre
               </Nav.Link>
               <Nav.Link
+                onClick={() => handleClickGenero("UNISEX")}
+                className={`custom-nav-link ${nombreGeneroActive==='UNISEX'&&'activo'}`}
+                href="#!"
+              >
+                UNISEX
+              </Nav.Link>
+              <Nav.Link
                   onClick={() => handleClickGenero("")}
                   className="custom-nav-link remove-filter-btn"
                   href="#!"
