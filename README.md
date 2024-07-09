@@ -1,15 +1,19 @@
-# Proyecto Sistema de productos
-:star: Proyecto realizado por [Leonel Subelza](https://github.com/leonelSubelza) y [Giovanni Sia](https://github.com/GiovanniSia)
---
-Es una página web donde poder realizar pedidos de diversos productos los cuales son cargados manualmente por el vendedor, los clientes tienen un carrito y al terminar pueden contactarse con el vendedor para finalizar la compra.
+# :star: Sistema de productos :star: :shirt:
+<!--:star: Proyecto realizado por [Leonel Subelza](https://github.com/leonelSubelza) y [Giovanni Sia](https://github.com/GiovanniSia)-->
+Aplicación web donde el usuario podrá cargar los productos que venda en su negocio y mostrarlos al público. Se podrá modificar además distintos parámetros de la página, como la foto de portada, el título la descripción, etc. Aademás se tendrá un apartado especial para administrador donde podrá realizar la modificación de toda la página, como agregar nuevos productos, agregar nuevas categorias para los productos y modificar los detalles de la página, etc. Para acceder a la sección de administrador se contará con un usuario y contraseña previamente configurado para quien posea el sistema.
 
-`Cliente`:
-- Tiene un carrito donde poder elegir sus productos.
-- Puede filtrar tanto el tipo de producto, género y palabras claves.
+## Características :pencil:
 
-`Vendedor`:
-- Inicia sesión y puede crear, leer, actualizar y borrar productos y/o tipos de productos
+### Ventana de Cliente :man:
 
+- **Visualización de Productos:** Los usuarios pueden ver una lista de productos disponibles en la tienda.
+- **Búsqueda Filtrada:** Los usuarios pueden buscar productos filtrados por categoría,por distintos parámetros del producto o mediante un buscador.
+
+### Sección de Administración :computer:
+
+- **Gestión de Productos:** El usuario puede agregar, modificar y eliminar productos.
+- **Gestión de Categorías:** El usuario puede agregar nuevas categorías para los productos.
+- **Configuración de Página:** El usuario puede modificar parámetros de la página como el título, la descripción, la foto de portada, el icono, entre otros.
 
 
 ## :hammer:Tecnologías utilizadas:
@@ -30,9 +34,9 @@ Es una página web donde poder realizar pedidos de diversos productos los cuales
         </td>
         <td align="center" width="100">
       <a href="#">
-        <img src="https://user-images.githubusercontent.com/76817363/227748354-a1a784c1-0416-4848-944e-ae09a8dd9bc2.svg" width="50" height="50" alt="Spring Boot"/>
+        <img src="https://www.vectorlogo.zone/logos/js_redux/js_redux-icon.svg" width="50" height="50" alt="Redux"/>
       </a>
-      <br>WebSocket
+      <br>Redux
     </td>
         <td align="center" width="100">
       <a href="#">
@@ -46,8 +50,6 @@ Es una página web donde poder realizar pedidos de diversos productos los cuales
       </a>
       <br>MySQL
     </td>
-</tr>
-    <tr>
     <td align="center" width="100">
       <a href="#">
         <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg" width="50" height="50" alt="JavaScript" />
@@ -96,3 +98,7 @@ Es una página web donde poder realizar pedidos de diversos productos los cuales
 
 - `Vista de agregar producto`
 ![victoria](https://user-images.githubusercontent.com/76817363/227748070-975f1413-087c-40c5-9baf-2348d5bb530f.png)
+
+
+### Desarrolladores:
+[Leonel Subelza](https://www.linkedin.com/in/leonel-subelza-4b57a1215/) - [Giovanni Sia](https://www.linkedin.com/in/giovanni-sia/)
