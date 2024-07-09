@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from "react";
+import React, {useState} from "react";
 
 export const carritoContext = React.createContext();
 
@@ -8,20 +8,19 @@ const ElementosCarritoContext = ({ children }) => {
   const [showCarrito, setShowCarrito] = useState(false);
   const [totalElementosEnCarrito, setTotalElementosEnCarrito] = useState(0)
 
-  const getProdDeCarrito = (prod) => {
-    return productosEnCarrito.find(elemCarrito => elemCarrito.producto.id === prod.id);
-  }
-
   const agregarProducto = (prod) => {
-    let indiceCarrito = productosEnCarrito.findIndex(e => e.producto.id === prod.id);
-    let elemCarrito = getProdDeCarrito(prod);
-    if(elemCarrito){
-      elemCarrito.cantidad++;
+    let index = productosEnCarrito.findIndex(e => e.producto.id === prod.id);
+    if(productosEnCarrito[index]){
+      productosEnCarrito[index].cantidad++;
     }else{
-      productosEnCarrito.push({ producto: prod, cantidad: 1 });
+      const objCarrito = {
+        producto: prod,
+        cantidad: 1
+      }
+      productosEnCarrito.push(objCarrito);
     }
-    setProductosEnCarrito(productosEnCarrito)
-    setTotal(parseInt(total) + parseInt(prod.precio));
+    setProductosEnCarrito([...productosEnCarrito]);
+    setTotal(total + parseInt(prod.precio));
     actualizarCantidadTotalElem();
   };
 
@@ -31,7 +30,8 @@ const ElementosCarritoContext = ({ children }) => {
     actualizarCantidadTotalElem();
   };
 
-  const quitarProducto = (index, prod) => {
+  const quitarProducto = (prod) => {
+    let index = productosEnCarrito.findIndex(e => e.producto.id === prod.id);
     productosEnCarrito[index].cantidad -= 1;
     if (productosEnCarrito[index].cantidad <= 0) {
       setProductosEnCarrito(productosEnCarrito.filter(e => e.producto.id !== prod.id));
@@ -46,8 +46,6 @@ const ElementosCarritoContext = ({ children }) => {
     const totalElem = productosEnCarrito.reduce((acc, item) => acc + item.cantidad, 0);
     setTotalElementosEnCarrito(totalElem);
   }
-
-  // const calcularTotalProductos = useMemo(() => {
 
   return (
     <carritoContext.Provider

@@ -3,7 +3,7 @@ import "../../../../styles/ventana-cliente/articulo.css";
 import { carritoContext } from "../../../../context/ElementosCarritoContext.jsx";
 
 const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,producto }) => {
-  const {agregarProducto,setShowCarrito} = useContext(carritoContext);
+  const {agregarProducto} = useContext(carritoContext);
 
 
   const cargarAnimacion = (e) => {
@@ -15,8 +15,9 @@ const Articulo = ({ imageSource, nombreProducto, nombreCategoria, precio,product
   }
 
   const manejarClick = (e) => {
+    e.preventDefault();
     agregarProducto(producto);
-    cargarAnimacion(e)
+    cargarAnimacion(e);
   }
   return (
     <div className="card">

@@ -3,24 +3,20 @@ import Button from "react-bootstrap/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import "../../../styles/ventana-cliente/Carrito.css";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
-
-import { funcionesContext } from "../../../context/FuncionesTablaContext";
+import { v4 as uuidv4 } from 'uuid';
 
 const Carrito = () => {
   const {
     productosEnCarrito,
-    setProductosEnCarrito,
-    limpiarCarrito,
     quitarProducto,
     total,
     showCarrito,
     setShowCarrito,
   } = useContext(carritoContext);
-  const { productos } = useContext(funcionesContext);
 
-  useEffect(() => {
+/*  useEffect(() => {
     let carritoActualizado = [];
     productosEnCarrito.forEach((e) => {
       productos.forEach((prodNuevo) => {
@@ -34,7 +30,7 @@ const Carrito = () => {
     ) {
       setProductosEnCarrito(carritoActualizado);
     }
-  }, [productos, productosEnCarrito, setProductosEnCarrito]);
+  }, [productos, productosEnCarrito, setProductosEnCarrito]);*/
 
   const enviarPedidoPorWhatsApp = () => {
     let mensaje = 'Buenas, me gustaría ordenar los siguientes productos:\n\n';
@@ -65,8 +61,8 @@ const Carrito = () => {
           <h1>CARRITO DE COMPRAS</h1>
         </div>
         {productosEnCarrito &&
-          productosEnCarrito.map((elemento, index) => (
-            <div className="contenedor-producto" key={index}>
+          productosEnCarrito.map((elemento) => (
+            <div className="contenedor-producto" key={uuidv4()}>
               <span className="producto-img">
                 <img
                   className=""
@@ -89,7 +85,7 @@ const Carrito = () => {
                 </div>
               </div>
               <p
-                onClick={() => quitarProducto(index, elemento.producto)}
+                onClick={() => quitarProducto(elemento.producto)}
                 className="boton-borrar-producto"
               >
                 <BsTrash />
