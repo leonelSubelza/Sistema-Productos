@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
 import InputSpinner from "../../utils/InputSpinner.jsx";
+import {IoMaleFemale} from "react-icons/io5";
 
 const Carrito = () => {
   const {
@@ -78,31 +79,33 @@ const Carrito = () => {
               </span>
               <div className="producto-info">
                 <h1>{elemento.producto.nombre}</h1>
-                <p>Descripcion: {elemento.producto.descripcion}</p>
-                <p>Género: {elemento.producto.genero}</p>
-                <p>Tipo de producto: {elemento.producto.tipoProducto.nombre}</p>
+                <p>{elemento.producto.descripcion}</p>
+                <p><IoMaleFemale /> {elemento.producto.genero}</p>
+                {/*<p>Tipo de producto: {elemento.producto.tipoProducto.nombre}</p>*/}
+                <p>Precio x unidad: $ {elemento.producto.precio}</p>
                 <InputSpinner
                   initialValue={elemento.cantidad}
                   addElement={()=>agregarProducto(elemento.producto)}
                   removeElement={()=>quitarProducto(elemento.producto)}
                 />
                 <div className="carrito-precio">
-                  <p className="precio">Precio: ${elemento.producto.precio}</p>
-                  <p className="cantidad">{elemento.cantidad > 1 ? ` x${elemento.cantidad}` : ''}</p>
+                  <p className="precio">Total: $ {elemento.producto.precio*elemento.cantidad}</p>
+                  {/*<p className="cantidad">{elemento.cantidad > 1 ? ` x${elemento.cantidad}` : ''}</p>*/}
                 </div>
               </div>
-              <p
-                onClick={() => quitarProducto(elemento.producto)}
-                className="boton-borrar-producto"
-              >
-                <BsTrash />
-              </p>
+              <div className={"boton-borrar-producto-container"}>
+                <button
+                  onClick={() => quitarProducto(elemento.producto)}
+                  className="boton-borrar-producto">
+                  <BsTrash/>
+                </button>
+              </div>
             </div>
           ))}
         {productosEnCarrito.length >= 1 ? (
           <div className="carrito-total">
             <div className="carrito-total-precio">
-              <p>Total</p>
+              <p>Total a pagar</p>
               <p>${total}</p>
             </div>
             <Button variant="dark" onClick={enviarPedidoPorWhatsApp}>Ordenar</Button>
