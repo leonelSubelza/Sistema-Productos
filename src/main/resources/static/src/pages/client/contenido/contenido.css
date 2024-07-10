@@ -1,7 +1,7 @@
 .section {
   height: 95dvh;
-  border:1px solid red;
   display: flex;
+  border:1px solid red;
 }
 
 .section div {

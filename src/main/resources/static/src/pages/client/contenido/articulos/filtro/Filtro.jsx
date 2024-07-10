@@ -5,7 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 // import {funcionesContext} from "../../../../../context/FuncionesTablaContext.jsx";
 
-const Filtro = ({nombreCategoria,setBusqueda}) => {
+const Filtro = ({setBusqueda}) => {
 
   // const {tiposProductos} = useContext(funcionesContext);
   const [nombreGeneroActive, setNombreGeneroActive] = useState('');
@@ -21,8 +21,7 @@ const Filtro = ({nombreCategoria,setBusqueda}) => {
   }
 
   return (
-      <header className="header">
-        <h1 className="titulo-productos">{nombreCategoria}</h1>
+      <div className="header">
         <Navbar
             bg="light"
             className="custom-navbar navbar-header-cliente"
@@ -60,7 +59,7 @@ const Filtro = ({nombreCategoria,setBusqueda}) => {
             </Nav>
           </div>
         </Navbar>
-      </header>
+      </div>
   );
 };
 

@@ -3,12 +3,6 @@
   flex-direction: column;
 }
 
-.titulo-productos{
-  font-size: 80px;
-  margin: 0 auto;
-  margin-top: 50px;
-}
-
 .container-fluid{
   z-index: 1;
   background-color: white;
@@ -40,7 +34,7 @@
   display: flex;
   justify-content: center;
   gap: 600px;
-  height: 5vh !important;
+  /*height: 5vh !important;*/
 }
 
 .custom-nav-link {

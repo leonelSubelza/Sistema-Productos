@@ -299,16 +299,18 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
         <div className={'articulos-btn-container'}>
           <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
           </button>
+          <h1 className="titulo-productos">{tipoProductoAMostrar?.nombre}</h1>
         </div>
         {/*Filtra por hombre-mujer y tiene el titulo*/}
-        <Filtro
-          // nombreCategoria={detallesProdFiltrados.nombre}
-          nombreCategoria={pageToShow.nombre}
-          setBusqueda={handleFiltroPorGenero}
-        />
-        <Buscador
-          setBusquedaARealizar={handleFiltroPorNombre}
-        />
+        <div className={'filtros-container'}>
+          <Filtro
+            setBusqueda={handleFiltroPorGenero}
+          />
+          <Buscador
+            setBusquedaARealizar={handleFiltroPorNombre}
+          />
+        </div>
+
 {/*        {productosMostrar &&
         productosMostrar.length !== 0 &&
           !isProductsLoading ?
@@ -332,28 +334,30 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
             :
             <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
         }*/}
-        {
-          productsToShow && productsToShow.length>0 &&
-          !isProductsLoading ?
-          productsToShow.map(prod => (
-            <Articulo key={prod.id}
-                      imageSource={
-                        prod.imagen === 'null' ?
-                          ''
-                          : `${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`
-                      }
-                      nombreProducto={prod.nombre}
-                      nombreCategoria={prod.tipoProducto.nombre}
-                      precio={prod.precio}
-                      producto={prod}
-            />
-          ))
-          :
-          isProductsLoading ?
-          <Spinner animation="border" />
-          :
-          <h4 className="text-uppercase text-center" style={{ color: "red" }}>No hay productos en venta</h4>
+        <div className={'articulos-container'}>
+          {
+            productsToShow && productsToShow.length > 0 &&
+            !isProductsLoading ?
+              productsToShow.map(prod => (
+                <Articulo key={prod.id}
+                          imageSource={
+                            prod.imagen === 'null' ?
+                              ''
+                              : `${IMAGES_URL}${prod.imagen}?timestamp=${new Date().getTime()}`
+                          }
+                          nombreProducto={prod.nombre}
+                          nombreCategoria={prod.tipoProducto.nombre}
+                          precio={prod.precio}
+                          producto={prod}
+                />
+              ))
+              :
+              isProductsLoading ?
+                <div className={'spinner-container'}><Spinner animation="border"/></div>
+                :
+                <div className={'no-content-container'}><h4 className="text-uppercase text-center" style={{color: "red"}}>No hay productos en venta</h4></div>
         }
+        </div>
         <Paginador
           // setPaginaAnterior={actualizarPaginadorProductosFiltrados}
           // setPaginaSiguiente={actualizarPaginadorProductosFiltrados}
