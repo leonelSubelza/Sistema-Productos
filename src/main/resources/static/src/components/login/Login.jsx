@@ -1,14 +1,17 @@
-import React, { useState } from 'react'
+import React, {useEffect, useState} from 'react'
 
 import '../../styles/login/Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
 import { iniciarSesion } from '../../service/GestionUsuarios';
 import { useNavigate } from 'react-router';
 import {usePageDetailsActions} from "../../redux/slices/pageDetails/usePageDetailsActions.js";
+import {useSelector} from "react-redux";
+import {PrivateRoutes} from "../../router/routes.js";
 
 function Login() {
   const [email, setEmail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin1234");
+  const pageDetails = useSelector(store => store.pageDetails);
 
   // const { sesionIniciada, setSesionIniciada } =
   // useContext(funcionesContext);
@@ -23,7 +26,7 @@ function Login() {
             // setSesionIniciada(true);
             updateValuePageDetail("sessionStarted",true)
             console.log("se debería iniciar sesion en true");
-            navigate("/administrador/productos")
+            navigate(PrivateRoutes.PRODUCTS)
           }else{
             alert("Las credenciales son incorrectas. Por favor intente nuevamente.");
           }
@@ -38,6 +41,12 @@ function Login() {
     navigate("/")
   }
 
+  useEffect(() => {
+    if (pageDetails && pageDetails.sessionStarted) {
+      // Si ya inicio sesion se le redirige a /administrador/products
+      navigate(PrivateRoutes.PRODUCTS)
+    }
+  }, []);
 
   return (
     <div className="fondo">

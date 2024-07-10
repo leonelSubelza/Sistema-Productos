@@ -1,11 +1,11 @@
 import "../../../styles/ventana-productos/Tabla.css";
 import { Container, Button, Input } from "reactstrap";
 import { FaWhatsapp, FaPlusCircle } from "react-icons/fa";
-import { useEffect, useState} from "react";
+import { useState} from "react";
 import Navbar from "../sidebar/NavBar.jsx";
 import "../../../styles/ventana-productos/Pantallas.css";
-import {useNavigate} from "react-router";
-import {useSelector} from "react-redux";
+// import {useNavigate} from "react-router";
+// import {useSelector} from "react-redux";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
 
 const TabNumeroWhatsapp = () => {
@@ -13,10 +13,10 @@ const TabNumeroWhatsapp = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   // const { sesionIniciada } = useContext(funcionesContext);
-  const pageDetails = useSelector(store => store.pageDetails);
+  // const pageDetails = useSelector(store => store.pageDetails);
   const { updateValuePageDetail } = usePageDetailsActions();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleEditClick = () => {
     setIsEditing(true);
   };
@@ -34,11 +34,11 @@ const TabNumeroWhatsapp = () => {
     setIsEditing(false);
   };
 
-  useEffect(() => {
+/*  useEffect(() => {
     if(!pageDetails.sessionStarted) {
       navigate('/login');
     }
-  }, []);
+  }, []);*/
 
   return (
     <div className="contenedor-pantalla-productos">

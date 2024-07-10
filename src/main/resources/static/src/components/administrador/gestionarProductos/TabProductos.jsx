@@ -11,7 +11,6 @@ import {ADMIN_CANT_OBJ_TO_SHOW} from "../../../service/Configuracion";
 import Paginador from "../../utils/Paginador";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import Navbar from "../sidebar/NavBar.jsx";
-import {useNavigate} from "react-router";
 import {useSelector} from "react-redux";
 import {useEntityLoaderFunction} from "../../../hooks/useEntityLoaderFunction.js";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
@@ -36,7 +35,7 @@ const TabProductos = () => {
     useContext(funcionesContext);
 
   const [showModalAgregar, setShowModalAgregar] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   //Agregar-Editar
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
@@ -141,10 +140,10 @@ const TabProductos = () => {
 
   useEffect(() => {
     // if (!sesionIniciada) {
-    if(!pageDetails.sessionStarted) {
+/*    if(!pageDetails.sessionStarted) {
       navigate('/login');
       return;
-    }
+    }*/
     // settotalProductos(productos.length)
     // if (paginaActualProductos > 1) {
       // setPaginaActualProductos(1)

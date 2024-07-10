@@ -13,13 +13,13 @@ import {MdLabelImportant} from "react-icons/md";
 import TablaAdministrador from "../../utils/TablaAdministrador";
 import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
-import {useNavigate} from "react-router";
+// import {useNavigate} from "react-router";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
 
 const TabTipoProducto = () => {
 
   // const tiposProductos = useSelector(store => store.productsType.value)
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const {
     borrarProductoGenerico,
     // tiposProductos,
@@ -28,7 +28,7 @@ const TabTipoProducto = () => {
   } =
     useContext(funcionesContext);
 
-  const pageDetails = useSelector(store => store.pageDetails);
+  // const pageDetails = useSelector(store => store.pageDetails);
   const productsType = useSelector(store => store.productsType.value)
 
   const { updateValuePageDetail } = usePageDetailsActions();
@@ -118,10 +118,10 @@ const TabTipoProducto = () => {
 
   useEffect(() => {
     // if(!sesionIniciada){
-    if(!pageDetails.sessionStarted) {
+/*    if(!pageDetails.sessionStarted) {
       navigate('/login');
       return;
-    }
+    }*/
     updateValuePageDetail("paginaActual",1);
   }, []);
 

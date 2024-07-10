@@ -1,12 +1,13 @@
 import React from "react";
 import "../../../styles/ventana-cliente/nosotros.css";
 import {useNavigate} from "react-router";
+import {PublicRoutes} from "../../../router/routes.js";
 
 const Nosotros = () => {
   const navigate = useNavigate();
 
   const handleUnirse = () => {
-    navigate('/login')
+    navigate(PublicRoutes.LOGIN)
   }
 
   return (
