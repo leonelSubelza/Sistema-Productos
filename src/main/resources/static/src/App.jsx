@@ -3,14 +3,11 @@ import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import { FuncionesClienteContext}  from "./context/FuncionesClienteContext.jsx";
 import VentanaCliente from "./pages/client/VentanaCliente.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Login from "./pages/login/Login";
 import {Suspense, lazy, useEffect} from "react";
-import TabProductos from "./pages/admin/gestionarProductos/TabProductos.jsx";
-import TabTipoProducto from "./pages/admin/gestionarTipoProductos/TabTipoProductos.jsx";
-import TabNumeroWhatsapp from "./pages/admin/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
 import {useEntityLoaderFunction} from "./hooks/useEntityLoaderFunction.js";
 import {PrivateRoutes, PublicRoutes} from "./router/routes.js";
 import AuthGuard from "./router/guards/auth.guard.jsx";
+import TabDetails from "./pages/admin/gestionarDetails/TabDetails.jsx";
 
 function App() {
   const {cargarValoresIniciales} = useEntityLoaderFunction();
@@ -36,7 +33,7 @@ function App() {
                 <Route element={<AuthGuard/>}>
                   <Route exact path={PrivateRoutes.PRODUCTS} element={<TabProductos/>}/>
                   <Route exact path={PrivateRoutes.PRODUCT_TYPES} element={<TabTipoProducto/>}/>
-                  <Route exact path={PrivateRoutes.PAGE_DETAILS} element={<TabNumeroWhatsapp/>}/>
+                  <Route exact path={PrivateRoutes.PAGE_DETAILS} element={<TabDetails/>}/>
                 </Route>
                 <Route path="*" element={<VentanaCliente/>}/>
               </Routes>
