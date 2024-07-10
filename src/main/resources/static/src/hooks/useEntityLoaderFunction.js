@@ -11,6 +11,7 @@ import {toast} from "sonner";
 import {
   useFilteredProductsActions
 } from "../redux/slices/filteredProductsByType/useFilteredProductsActions.js";
+import {useSelector} from "react-redux";
 
 export const useEntityLoaderFunction = () => {
   const pageDetails = useSelector(store => store.pageDetails);

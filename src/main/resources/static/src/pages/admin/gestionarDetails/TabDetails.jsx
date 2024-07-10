@@ -1,5 +1,6 @@
-import "../../../styles/ventana-productos/Tabla.css";
-import "../../../styles/ventana-productos/Pantallas.css";
+import '../../../components/adminTable/Tabla.css'
+import '../Pantallas.css'
+
 import Navbar from "../sidebar/NavBar.jsx";
 import EditarDetallesPagina from "./content/EditarDetallesPagina.jsx";
 import { Container } from "reactstrap";
