@@ -22,6 +22,7 @@
 
 .contenedor-tabla.show {
     display: flex;
+    margin-bottom: 10px;
 }
 
 .contenedor-titulo-tabla{
@@ -140,10 +141,13 @@ tbody td{
     margin:auto 0;
     height: auto;
 }
+.contenedor-tabla .container{
+         height: auto;
+     }
 
 @media screen and (max-width: 1000px){
     .contenedor-tabla .container{
-        height: 100%;
+        height: auto;
     }
 
     .contenedor-tabla.container, .tabla-productos-container{

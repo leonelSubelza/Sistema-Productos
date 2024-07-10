@@ -61,7 +61,8 @@
 }
 
 .contenedor-input input,
-.contenedor-input textarea {
+.contenedor-input textarea,
+.contenedor-input img {
     flex-grow: 1;
     margin-right: 10px;
 }
@@ -80,7 +81,8 @@
 }
 
 .preview-section {
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom:20px;
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;

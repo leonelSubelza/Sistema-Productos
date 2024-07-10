@@ -3,15 +3,12 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 30px;
   margin: auto;
   color: white;
-  padding-left: 130px;
 }
 
 .hero-text {
-  width: 100%;
-  padding: 100px;
+  width: 65%;
   z-index: 10;
 }
 .hero-text h1 {

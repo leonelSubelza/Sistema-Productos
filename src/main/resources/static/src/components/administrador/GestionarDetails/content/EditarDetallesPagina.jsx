@@ -67,14 +67,6 @@ const EditarDetallesPagina = () => {
                 onSave={(value, imgArchivo) => handleSave("frontPageImage", value, imgArchivo)}
                 inputType="file"
             />
-
-            <h2>Vista Preliminar</h2>
-            <div className="preview-section" style={{backgroundImage: `url(${URL_IMG})`}}>
-                <div className="preview-content">
-                    <h3>{previewDetails.title}</h3>
-                    <p>{previewDetails.description}</p>
-                </div>
-            </div>
         </>
     );
 };

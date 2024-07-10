@@ -53,12 +53,14 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
             <h2>{label}</h2>
             <div className="contenedor-input">
                 {inputType === "file" && inputValue ? (
+                    <div>
                     <img
                         src={`${IMAGES_URL_PAGEDETAILS}${inputValue}?timestamp=${new Date().getTime()}`}
                         alt="Preview"
                         onClick={() => document.getElementById(`fileInput-${label}`).click()}
                         style={{ cursor: "pointer", width: "200px", height: "auto" }}
                     />
+                    </div>
                 ) : (
                     <Input
                         type={inputType}
@@ -76,7 +78,7 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
                         style={{ display: "none" }}
                     />
                 )}
-                {isEditing && inputType !== "file" && (
+                {isEditing && inputType && (
                     <Button color="primary" onClick={handleSaveClick}>
                         Guardar
                     </Button>
