@@ -1,10 +1,10 @@
-import { Table, Button, Container } from "reactstrap";
+import { Table, Container } from "reactstrap";
 import { IoAddCircleOutline } from "react-icons/io5";
 import { AiFillEdit } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { AiOutlineNumber } from "react-icons/ai";
 
-import '../../styles/ventana-productos/Tabla.css'
+import './Tabla.css'
 
 const TablaAdministrador = ({show,titleIcon,title,description,addObject,editObject,removeObject,
                             textButtonAdd, columnNames, objects,objectTD}) => {

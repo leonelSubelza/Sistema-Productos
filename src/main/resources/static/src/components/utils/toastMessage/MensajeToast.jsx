@@ -1,10 +1,10 @@
-import React,{useContext,useEffect} from "react";
+import React,{useContext} from "react";
 import Toast from "react-bootstrap/Toast";
 
-import '../../styles/ventana-productos/toast.css'
+import './toast.css'
 import { CgDanger } from "react-icons/cg";
 
-import { funcionesContext } from '../../context/FuncionesTablaContext';
+import { funcionesContext } from '../../../context/FuncionesTablaContext.jsx';
 //onClose={() => setShow(false)} show={show}
 //delay={10000} autohide
 

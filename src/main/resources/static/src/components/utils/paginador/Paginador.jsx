@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../styles/ventana-cliente/paginacion.css'
+import './paginacion.css'
 // function PaginadorProductos({ productosPorPagina, paginaActual, setpaginaActual, totalProductos }) {
 function Paginador({ setPaginaAnterior, setPaginaSiguiente, setPaginaActual,
                               numeroTotalDePaginas, paginaActual, show, color}) {

@@ -1,5 +1,5 @@
 import React from "react";
-import "../../../styles/ventana-cliente/nosotros.css";
+import "./nosotros.css";
 import {useNavigate} from "react-router";
 import {PublicRoutes} from "../../../router/routes.js";
 

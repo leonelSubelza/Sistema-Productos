@@ -1,12 +1,12 @@
 import { IMAGES_URL } from "../../../service/Configuracion";
 import Button from "react-bootstrap/Button";
 import { IoIosArrowBack } from "react-icons/io";
-import "../../../styles/ventana-cliente/Carrito.css";
+import "./Carrito.css";
 import { carritoContext } from "../../../context/ElementosCarritoContext";
 import { useContext } from "react";
 import { BsTrash } from "react-icons/bs";
 import { v4 as uuidv4 } from 'uuid';
-import InputSpinner from "../../utils/InputSpinner.jsx";
+import InputSpinner from "../../utils/input.spinner/InputSpinner.jsx";
 import {IoMaleFemale} from "react-icons/io5";
 
 const Carrito = () => {

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import '../../styles/login/Login.css'
+import './Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
 import { iniciarSesion } from '../../service/GestionUsuarios';
 import { useNavigate } from 'react-router';

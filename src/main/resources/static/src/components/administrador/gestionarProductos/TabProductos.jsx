@@ -4,11 +4,11 @@ import { funcionesContext } from "../../../context/FuncionesTablaContext";
 
 import ModalAgregarProducto from "../modals/ModalAgregarProducto.jsx";
 
-import "../../../styles/ventana-productos/Tabla.css";
-import "../../../styles/ventana-productos/Pantallas.css";
+// import "../../../styles/ventana-productos/Tabla.css";
+import "../Pantallas.css";
 
 import {ADMIN_CANT_OBJ_TO_SHOW} from "../../../service/Configuracion";
-import Paginador from "../../utils/Paginador";
+import Paginador from "../../utils/paginador/Paginador.jsx";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import Navbar from "../sidebar/NavBar.jsx";
 import {useSelector} from "react-redux";
@@ -203,10 +203,6 @@ const TabProductos = () => {
           // tiposProductos={tiposProductos}
           tiposProductos={productsType}
         />
-        <p>{JSON.stringify(pageDetails)}</p>
-        {/*
-        <br />
-        <p>{JSON.stringify(products.pages)}</p>*/}
       </>
   );
 };

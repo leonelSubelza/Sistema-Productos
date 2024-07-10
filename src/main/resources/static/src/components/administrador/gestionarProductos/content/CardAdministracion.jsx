@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {IMAGES_URL} from "../../../../service/Configuracion.js";
-import '../../../../styles/ventana-productos/GestionadorObjectosAdministracion.css'
+import './GestionadorObjectosAdministracion.css'
 import { IoClose } from "react-icons/io5";
 import { GiClothes } from "react-icons/gi";
 import { IoMaleFemale } from "react-icons/io5";

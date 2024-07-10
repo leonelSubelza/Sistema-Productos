@@ -1,9 +1,9 @@
-import "../../../styles/ventana-productos/Tabla.css";
+import "../../utils/adminTable/Tabla.css";
 import { Container, Button, Input } from "reactstrap";
 import { FaWhatsapp, FaPlusCircle } from "react-icons/fa";
 import { useState} from "react";
 import Navbar from "../sidebar/NavBar.jsx";
-import "../../../styles/ventana-productos/Pantallas.css";
+import "../Pantallas.css";
 // import {useNavigate} from "react-router";
 // import {useSelector} from "react-redux";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";

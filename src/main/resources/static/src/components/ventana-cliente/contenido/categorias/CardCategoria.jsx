@@ -1,4 +1,3 @@
-
 export default function CardCategoria({handleCardSet,tipoProducto}) {
   const handleClick = () => {
     return handleCardSet(tipoProducto);

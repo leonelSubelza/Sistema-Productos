@@ -4,8 +4,9 @@
     display: none;
     /*border: 1px solid blue;*/
     flex-direction: column;
-    margin: 20px auto;
-    height: auto;
+    margin: auto;
+    height: 80%;
+    border:1px solid red;
 }
 
 .categorias-container.show{
@@ -72,7 +73,6 @@
     font-size: 18px;
     background: #fff;
     height: calc((100% - 30px) / 2) !important;
-    background: white;
     /* Center slide text vertically */
     display: flex;
     justify-content: center;

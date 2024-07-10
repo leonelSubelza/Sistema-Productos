@@ -1,5 +1,5 @@
 import CardAdministracion from "./CardAdministracion.jsx";
-import '../../../../styles/ventana-productos/GestionadorObjectosAdministracion.css'
+import './GestionadorObjectosAdministracion.css'
 import { IoMdAdd } from "react-icons/io";
 
 export default function GestionadorObjectosAdministracion({show,titulo,objectName, objects

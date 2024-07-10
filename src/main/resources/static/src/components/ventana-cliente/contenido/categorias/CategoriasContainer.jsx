@@ -1,6 +1,6 @@
 import CardCategoria from "./CardCategoria.jsx";
 
-import '../../../../styles/ventana-cliente/categorias/Categorias.css'
+import './Categorias.css'
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';

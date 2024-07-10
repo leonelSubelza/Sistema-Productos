@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
-import Articulo from "./Articulo.jsx";
-// import Paginacion from "../Paginacion.jsx";
+import Articulo from "./articulo/Articulo.jsx";
 import { MdKeyboardBackspace } from "react-icons/md";
 import {CLIENT_CANT_OBJ_TO_SHOW, IMAGES_URL} from '../../../../service/Configuracion.js'
-// import { funcionesContext } from "../../../../context/FuncionesTablaContext.jsx";
-import "../../../../styles/ventana-cliente/articulos.css";
-import Paginador from "../../../utils/Paginador.jsx";
+import "./articulos.css";
+import Paginador from "../../../utils/paginador/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
 import Spinner from 'react-bootstrap/Spinner';

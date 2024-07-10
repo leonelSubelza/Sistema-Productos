@@ -5,7 +5,6 @@ import Carrito from './carrito/Carrito';
 import ElementosCarritoContext from "../../context/ElementosCarritoContext";
 import Inicio from "./inicio/Inicio";
 import Nosotros from "./nosotros/Nosotros";
-import {Navigate} from "react-router-dom";
 
 function VentanaCliente() {
   return (

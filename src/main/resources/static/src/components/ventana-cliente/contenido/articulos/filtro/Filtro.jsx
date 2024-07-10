@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "../../../../../styles/ventana-cliente/header.css";
+import "./filtro.css";
 
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";

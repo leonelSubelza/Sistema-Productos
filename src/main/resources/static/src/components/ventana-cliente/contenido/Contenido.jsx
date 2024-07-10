@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import Articulos from './articulos/Articulos.jsx';
-import '../../../styles/ventana-cliente/contenido.css';
+import './contenido.css';
 import CategoriasContainer from "./categorias/CategoriasContainer.jsx";
 
 const Contenido = () => {

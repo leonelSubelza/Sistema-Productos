@@ -1,7 +1,7 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Hero from './Hero';
-import '../../../styles/Inicio/Inicio.css';
+import Navbar from './navbar/Navbar.jsx';
+import Hero from './hero/Hero.jsx';
+import './Inicio.css';
 
 const Inicio = () => {
   return (

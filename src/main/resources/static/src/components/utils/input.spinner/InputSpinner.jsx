@@ -1,4 +1,4 @@
-import '../../styles/utils/InputSpinner.css';
+import './InputSpinner.css';
 const InputSpinner = ({initialValue= 0,addElement, removeElement}) => {
   return (
     <div className={'input-spinner'}>

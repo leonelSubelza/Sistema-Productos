@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { SideBarData } from "./SideBarData";
-import "../../../styles/ventana-productos/NavBar.css";
+import "./NavBar.css";
 
 //Iconos
 import { IoMenu } from "react-icons/io5";

@@ -1,5 +1,6 @@
 .section {
-  height: 100dvh;
+  height: 95dvh;
+  border:1px solid red;
 }
 
 .filtro {
