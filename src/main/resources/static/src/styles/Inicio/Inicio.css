@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   position: relative; /* Añade posición relativa para posicionar el pseudo-elemento */
-  background-image: url("../../img/fondo2.jpg");
+  /*background-image: url("../../img/fondo2.jpg");*/
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

@@ -1,20 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import "../../../styles/Inicio/Hero.css";
+import {useSelector} from "react-redux";
+
+
 
 const Inicio = () => {
+  const pageDetails = useSelector((store) => store.pageDetails);
+  const [previewDetails, setPreviewDetails] = useState(pageDetails);
   return (
     <div className="hero-section">
       <div className="hero-text">
-        <h1>Tus productos a la vista</h1>
+        <h1>{pageDetails.title}</h1>
         <p>
-          ¡Bienvenidos! Aqui podran subir sus productos
-          <br></br>para ser mostrador al publico.
+          {pageDetails.description}
         </p>
         <a href="#producto-link">
         <button>Catálogo</button>
         </a>
       </div>
-
     </div>
   );
 };
