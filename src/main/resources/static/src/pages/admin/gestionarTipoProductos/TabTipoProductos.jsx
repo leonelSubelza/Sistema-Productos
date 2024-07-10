@@ -1,16 +1,16 @@
 import {useEffect, useState, useContext} from "react";
 
-import {funcionesContext} from "../../../context/FuncionesTablaContext";
+import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 import "../Pantallas.css";
 import ModalAgregarTipoProducto from "../modals/ModalAgregarTipoProducto.jsx";
 import { toast } from 'sonner'
-import "../../utils/adminTable/Tabla.css";
+import "../../../components/adminTable/Tabla.css";
 
 //Iconos
 import {MdLabelImportant} from "react-icons/md";
 // import PaginadorTipoProductos from "./PaginadorTipoProductos";
 // import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
-import TablaAdministrador from "../../utils/adminTable/TablaAdministrador.jsx";
+import TablaAdministrador from "../../../components/adminTable/TablaAdministrador.jsx";
 import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
 // import {useNavigate} from "react-router";

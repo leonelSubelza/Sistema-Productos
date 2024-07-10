@@ -1,7 +1,7 @@
 import React, {useContext} from "react";
 import "./Navbar.css";
 import { carritoContext } from "../../../../context/ElementosCarritoContext.jsx";
-import Cart from "../../../svg/Cart.jsx";
+import Cart from "./svg/Cart.jsx";
 
 const Navbar = () => {
   const { setShowCarrito, totalElementosEnCarrito } = useContext(carritoContext);

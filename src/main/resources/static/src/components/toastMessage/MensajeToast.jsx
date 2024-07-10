@@ -4,7 +4,7 @@ import Toast from "react-bootstrap/Toast";
 import './toast.css'
 import { CgDanger } from "react-icons/cg";
 
-import { funcionesContext } from '../../../context/FuncionesTablaContext.jsx';
+import { funcionesContext } from '../../context/FuncionesTablaContext.jsx';
 //onClose={() => setShow(false)} show={show}
 //delay={10000} autohide
 

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import Button from 'react-bootstrap/Button';
 import Spinner from 'react-bootstrap/Spinner';
 import './SpinnerLoading.css';
-import { funcionesContext } from '../../../context/FuncionesTablaContext.jsx';
+import { funcionesContext } from '../../context/FuncionesTablaContext.jsx';
 
 function SpinnerLoading() {
 

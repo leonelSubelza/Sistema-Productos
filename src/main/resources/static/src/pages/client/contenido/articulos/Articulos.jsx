@@ -3,7 +3,7 @@ import Articulo from "./articulo/Articulo.jsx";
 import { MdKeyboardBackspace } from "react-icons/md";
 import {CLIENT_CANT_OBJ_TO_SHOW, IMAGES_URL} from '../../../../service/Configuracion.js'
 import "./articulos.css";
-import Paginador from "../../../utils/paginador/Paginador.jsx";
+import Paginador from "../../../../components/paginador/Paginador.jsx";
 import Filtro from "./filtro/Filtro.jsx";
 import Buscador from "./buscador/Buscador.jsx";
 import Spinner from 'react-bootstrap/Spinner';

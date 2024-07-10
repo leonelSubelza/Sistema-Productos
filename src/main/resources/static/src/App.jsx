@@ -1,43 +1,50 @@
 import "./App.css";
 import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import { FuncionesClienteContext}  from "./context/FuncionesClienteContext.jsx";
-import VentanaCliente from "./components/ventana-cliente/VentanaCliente";
+import VentanaCliente from "./pages/client/VentanaCliente.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Login from "./components/login/Login";
-import {useEffect} from "react";
-import TabProductos from "./components/administrador/gestionarProductos/TabProductos.jsx";
-import TabTipoProducto from "./components/administrador/gestionarTipoProductos/TabTipoProductos.jsx";
-import TabNumeroWhatsapp from "./components/administrador/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
+import Login from "./pages/login/Login";
+import {Suspense, lazy, useEffect} from "react";
+import TabProductos from "./pages/admin/gestionarProductos/TabProductos.jsx";
+import TabTipoProducto from "./pages/admin/gestionarTipoProductos/TabTipoProductos.jsx";
+import TabNumeroWhatsapp from "./pages/admin/gestionarWhatsapp/TabNumeroWhatsapp.jsx";
 import {useEntityLoaderFunction} from "./hooks/useEntityLoaderFunction.js";
 import {PrivateRoutes, PublicRoutes} from "./router/routes.js";
 import AuthGuard from "./router/guards/auth.guard.jsx";
 
 function App() {
-  const { cargarValoresIniciales } = useEntityLoaderFunction();
+  const {cargarValoresIniciales} = useEntityLoaderFunction();
 
   useEffect(() => {
     cargarValoresIniciales();
   }, []);
 
+  const Login = lazy(() => import('./pages/login/Login.jsx'));
+  const TabProductos = lazy(() => import('./pages/admin/gestionarProductos/TabProductos.jsx'));
+  const TabTipoProducto = lazy(() => import('./pages/admin/gestionarTipoProductos/TabTipoProductos.jsx'));
+  const TabNumeroWhatsapp = lazy(() => import('./pages/admin/gestionarWhatsapp/TabNumeroWhatsapp.jsx'));
+
   return (
     <>
-      <FuncionesTablaContext>
-        <FuncionesClienteContext>
-          <BrowserRouter>
-            <Routes>
-              <Route exact path="/" element={<VentanaCliente />} />
-              <Route path={PublicRoutes.LOGIN} element={<Login />} />
-              <Route element={<AuthGuard />}>
-                <Route exact path={PrivateRoutes.PRODUCTS} element={<TabProductos />} />
-                <Route exact path={PrivateRoutes.PRODUCT_TYPES} element={<TabTipoProducto />} />
-                <Route exact path={PrivateRoutes.PAGE_DETAILS} element={<TabNumeroWhatsapp />} />
-              </Route>
-              <Route path="*" element={<VentanaCliente />} />
-            </Routes>
-          </BrowserRouter>
-        </FuncionesClienteContext>
-      </FuncionesTablaContext>
-      </>
+      <Suspense fallback={<>Cargando...</>}>
+        <FuncionesTablaContext>
+          <FuncionesClienteContext>
+            <BrowserRouter>
+              <Routes>
+                <Route exact path="/" element={<VentanaCliente/>}/>
+                <Route path={PublicRoutes.LOGIN} element={<Login/>}/>
+                <Route element={<AuthGuard/>}>
+                  <Route exact path={PrivateRoutes.PRODUCTS} element={<TabProductos/>}/>
+                  <Route exact path={PrivateRoutes.PRODUCT_TYPES} element={<TabTipoProducto/>}/>
+                  <Route exact path={PrivateRoutes.PAGE_DETAILS} element={<TabNumeroWhatsapp/>}/>
+                </Route>
+                <Route path="*" element={<VentanaCliente/>}/>
+              </Routes>
+            </BrowserRouter>
+          </FuncionesClienteContext>
+        </FuncionesTablaContext>
+      </Suspense>
+    </>
   );
 }
 

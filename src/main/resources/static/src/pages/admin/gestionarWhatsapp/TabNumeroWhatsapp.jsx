@@ -1,4 +1,4 @@
-import "../../utils/adminTable/Tabla.css";
+import "../../../components/adminTable/Tabla.css";
 import { Container, Button, Input } from "reactstrap";
 import { FaWhatsapp, FaPlusCircle } from "react-icons/fa";
 import { useState} from "react";

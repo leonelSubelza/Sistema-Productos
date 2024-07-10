@@ -1,14 +1,14 @@
 import {useContext, useEffect, useState} from "react";
 
-import { funcionesContext } from "../../../context/FuncionesTablaContext";
+import { funcionesContext } from "../../../context/FuncionesTablaContext.jsx";
 
 import ModalAgregarProducto from "../modals/ModalAgregarProducto.jsx";
 
 // import "../../../styles/ventana-productos/Tabla.css";
 import "../Pantallas.css";
 
-import {ADMIN_CANT_OBJ_TO_SHOW} from "../../../service/Configuracion";
-import Paginador from "../../utils/paginador/Paginador.jsx";
+import {ADMIN_CANT_OBJ_TO_SHOW} from "../../../service/Configuracion.js";
+import Paginador from "../../../components/paginador/Paginador.jsx";
 import GestionadorObjectosAdministracion from "./content/GestionadorObjectosAdministracion.jsx";
 import Navbar from "../sidebar/NavBar.jsx";
 import {useSelector} from "react-redux";

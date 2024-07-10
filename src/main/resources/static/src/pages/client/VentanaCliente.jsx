@@ -1,10 +1,10 @@
 import React from "react";
-import Contenido from "./contenido/Contenido";
-import Footer from "./footer/Footer";
-import Carrito from './carrito/Carrito';
-import ElementosCarritoContext from "../../context/ElementosCarritoContext";
-import Inicio from "./inicio/Inicio";
-import Nosotros from "./nosotros/Nosotros";
+import Contenido from "./contenido/Contenido.jsx";
+import Footer from "./footer/Footer.jsx";
+import Carrito from './carrito/Carrito.jsx';
+import ElementosCarritoContext from "../../context/ElementosCarritoContext.jsx";
+import Inicio from "./inicio/Inicio.jsx";
+import Nosotros from "./nosotros/Nosotros.jsx";
 
 function VentanaCliente() {
   return (

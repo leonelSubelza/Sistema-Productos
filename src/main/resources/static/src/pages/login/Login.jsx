@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import './Login.css'
 import logo from "../../img/TiendaHumilde-logo.png";
-import { iniciarSesion } from '../../service/GestionUsuarios';
+import { iniciarSesion } from '../../service/GestionUsuarios.js';
 import { useNavigate } from 'react-router';
 import {usePageDetailsActions} from "../../redux/slices/pageDetails/usePageDetailsActions.js";
 import {useSelector} from "react-redux";

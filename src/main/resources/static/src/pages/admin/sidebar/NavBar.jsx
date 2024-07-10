@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { SideBarData } from "./SideBarData";
+import { SideBarData } from "./SideBarData.jsx";
 import "./NavBar.css";
 
 //Iconos
