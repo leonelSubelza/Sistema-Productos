@@ -3,7 +3,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10PX;
+    padding: 10px;
+    border:1px solid red;
 }
 
 .articulos.show{
@@ -14,7 +15,7 @@
     width: 80%;
     /*max-width: 700px;*/
     display: flex;
-    border:1px solid red;
+
 
 }
 

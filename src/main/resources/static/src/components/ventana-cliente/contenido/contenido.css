@@ -1,6 +1,11 @@
 .section {
   height: 95dvh;
   border:1px solid red;
+  display: flex;
+}
+
+.section div {
+  margin: auto;
 }
 
 .filtro {
