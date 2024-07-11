@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-      <Suspense fallback={<div className={'spinner-container'}><Spinner variant={"light"} animation="border"/></div>}>
+      <Suspense fallback={<div className={'spinner-container-login'}><Spinner variant={"light"} animation="border"/></div>}>
         <FuncionesTablaContext>
           <FuncionesClienteContext>
             <BrowserRouter>

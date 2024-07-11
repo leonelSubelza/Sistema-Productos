@@ -40,7 +40,7 @@ export default function CategoriasContainer({ show, handleCategoriaShow }) {
                     <Swiper
                         slidesPerView={3}
                         grid={{
-                          rows: rows,
+                          rows: 1,
                         }}
                         spaceBetween={30}
                         pagination={{

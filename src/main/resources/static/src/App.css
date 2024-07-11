@@ -11,7 +11,7 @@
   --color-button: #007BFF;
   --color-button-hover: #0056b3;
 }
-.spinner-container {
+.spinner-container-login {
   width: 100%;
   height: 100dvh;
   display: flex;
