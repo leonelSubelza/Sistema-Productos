@@ -296,13 +296,8 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
-        <div className={'articulos-btn-container'}>
-          <button onClick={handleClickVolver}><MdKeyboardBackspace /> Volver
-          </button>
-          <h1 className="titulo-productos">{tipoProductoAMostrar?.nombre}</h1>
-        </div>
-        {/*Filtra por hombre-mujer y tiene el titulo*/}
         <div className={'filtros-container'}>
+          <button className={'articulos-btn-volver'} onClick={handleClickVolver}><MdKeyboardBackspace />Volver</button>
           <Filtro
             setBusqueda={handleFiltroPorGenero}
           />
@@ -310,7 +305,11 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
             setBusquedaARealizar={handleFiltroPorNombre}
           />
         </div>
+        <div className={'articulos-btn-container'}>
 
+          <h1 className="titulo-productos">{tipoProductoAMostrar?.nombre}</h1>
+        </div>
+        {/*Filtra por hombre-mujer y tiene el titulo*/}
 {/*        {productosMostrar &&
         productosMostrar.length !== 0 &&
           !isProductsLoading ?

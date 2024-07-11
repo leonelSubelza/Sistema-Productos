@@ -1,6 +1,7 @@
 .section {
-  height: 95dvh;
+  height: 100dvh;
   display: flex;
+  padding-top: 52px;
 }
 
 .section div {
@@ -26,6 +27,11 @@
 }
 
 @media (max-width: 776px) {
+  .section {
+    height: auto;
+    max-width: 100%;
+  }
+
   .row [class*="col-"] {
     width: 47% !important;
     float: none !important;

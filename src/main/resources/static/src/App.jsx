@@ -3,11 +3,14 @@ import { FuncionesTablaContext } from "./context/FuncionesTablaContext";
 import { FuncionesClienteContext}  from "./context/FuncionesClienteContext.jsx";
 import VentanaCliente from "./pages/client/VentanaCliente.jsx";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {Suspense, lazy, useEffect} from "react";
+import React, {Suspense, lazy, useEffect} from "react";
 import {useEntityLoaderFunction} from "./hooks/useEntityLoaderFunction.js";
 import {PrivateRoutes, PublicRoutes} from "./router/routes.js";
 import AuthGuard from "./router/guards/auth.guard.jsx";
 import TabDetails from "./pages/admin/gestionarDetails/TabDetails.jsx";
+import TabProductos from "./pages/admin/gestionarProductos/TabProductos.jsx";
+import TabTipoProducto from "./pages/admin/gestionarTipoProductos/TabTipoProductos.jsx";
+import Spinner from "react-bootstrap/Spinner";
 
 function App() {
   const {cargarValoresIniciales} = useEntityLoaderFunction();
@@ -17,13 +20,13 @@ function App() {
   }, []);
 
   const Login = lazy(() => import('./pages/login/Login.jsx'));
-  const TabProductos = lazy(() => import('./pages/admin/gestionarProductos/TabProductos.jsx'));
+  /*const TabProductos = lazy(() => import('./pages/admin/gestionarProductos/TabProductos.jsx'));
   const TabTipoProducto = lazy(() => import('./pages/admin/gestionarTipoProductos/TabTipoProductos.jsx'));
-  const TabNumeroWhatsapp = lazy(() => import('./pages/admin/gestionarWhatsapp/TabNumeroWhatsapp.jsx'));
+  const TabNumeroWhatsapp = lazy(() => import('./pages/admin/gestionarWhatsapp/TabNumeroWhatsapp.jsx'));*/
 
   return (
     <>
-      <Suspense fallback={<>Cargando...</>}>
+      <Suspense fallback={<div className={'spinner-container'}><Spinner variant={"light"} animation="border"/></div>}>
         <FuncionesTablaContext>
           <FuncionesClienteContext>
             <BrowserRouter>
