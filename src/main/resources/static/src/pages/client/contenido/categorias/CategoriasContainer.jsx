@@ -10,44 +10,45 @@ import 'swiper/css/grid';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { v4 as uuidv4 } from 'uuid';
+import {useSelector} from "react-redux";
 export default function CategoriasContainer({ show, handleCategoriaShow }) {
     // const { tiposProductos } = useContext(funcionesContext);
 
-    // const tiposProductos = useSelector(store => store.productsType.value);
-    const tiposProductos = [
-        {
-            "id": 1,
-            "nombre": "REMERA PARA PUTITAS BARATAS"
-        },
-        {
-            "id": 2,
-            "nombre": "REMERA"
-        },
-        {
-            "id": 3,
-            "nombre": "PANTALON"
-        },
-        {
-            "id": 4,
-            "nombre": "ZAPATILLAS"
-        },
-        {
-            "id": 5,
-            "nombre": "REMERA XD"
-        },
-        {
-            "id": 6,
-            "nombre": "REMERA WORLD"
-        },
-        {
-            "id": 7,
-            "nombre": "REMERA FOX SPORTS PLAY +"
-        },
-        {
-            "id": 8,
-            "nombre": "REMERA LIGTH"
-        }
-    ]
+    const tiposProductos = useSelector(store => store.productsType.value);
+    // const tiposProductos = [
+    //     {
+    //         "id": 1,
+    //         "nombre": "REMERA PARA PUTITAS BARATAS"
+    //     },
+    //     {
+    //         "id": 2,
+    //         "nombre": "REMERA"
+    //     },
+    //     {
+    //         "id": 3,
+    //         "nombre": "PANTALON"
+    //     },
+    //     {
+    //         "id": 4,
+    //         "nombre": "ZAPATILLAS"
+    //     },
+    //     {
+    //         "id": 5,
+    //         "nombre": "REMERA XD"
+    //     },
+    //     {
+    //         "id": 6,
+    //         "nombre": "REMERA WORLD"
+    //     },
+    //     {
+    //         "id": 7,
+    //         "nombre": "REMERA FOX SPORTS PLAY +"
+    //     },
+    //     {
+    //         "id": 8,
+    //         "nombre": "REMERA LIGTH"
+    //     }
+    // ]
 
     const handleCardSet = (tipoProducto) => {
         return handleCategoriaShow(tipoProducto);

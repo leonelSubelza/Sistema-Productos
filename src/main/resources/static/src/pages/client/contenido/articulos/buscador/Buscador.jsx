@@ -19,17 +19,17 @@ const Buscador = ({setBusquedaARealizar}) => {
   };
 
   return (
-    < div className='filtro'>
-      <Form className="d-flex">
+    < div className='d-flex'>
+      <Form className="d-flex m-auto">
         <Form.Control
           type="search"
           placeholder="Buscar"
-          className="me-2"
+          className="me-2 "
           aria-label="Search"
           value={busqueda}
           onChange={handleInputChange} // actualiza el estado cada vez que se escribe algo
         />
-        <Button onClick={filtrar} variant="outline-success">Buscar</Button>
+        <Button onClick={filtrar} variant="dark">Buscar</Button>
       </Form>
     </div>
   );

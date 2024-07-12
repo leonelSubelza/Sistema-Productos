@@ -4,3 +4,11 @@
 .link-your-software{
     color: #ccc;
 }
+
+.footer-link {
+    text-decoration: none;
+}
+
+.footer-link:visited {
+    color: #ccc;
+}

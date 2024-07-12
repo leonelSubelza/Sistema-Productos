@@ -27,7 +27,7 @@ const Filtro = ({setBusqueda}) => {
             className="custom-navbar navbar-header-cliente"
         >
           <div className="container-fluid">
-            <Nav className="">
+            <Nav className="d-flex">
               <Nav.Link
                   onClick={() => handleClickGenero("FEMENINO")}
                   className={`custom-nav-link ${nombreGeneroActive==='FEMENINO'&&'activo'}`}

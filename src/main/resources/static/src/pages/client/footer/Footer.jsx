@@ -18,7 +18,7 @@ const Footer = () => {
                 <h6 className="text-uppercase fw-bold">Desarrollado Por</h6>
               </div>
               <div className="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                <a href="https://giovannisia.github.io/portfolio/">
+                <a className={'footer-link'} href="https://giovannisia.github.io/portfolio/">
                 <h6 className="text-uppercase link-your-software">Your Software</h6>
                 </a>
               </div>
@@ -27,7 +27,7 @@ const Footer = () => {
         </section >
         <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }} >
           © 2022 Copyright:
-          <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licencia Creative Commons" style={{ borderWidth: '0' }} src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional</a>
+          <a className={'footer-link'} rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licencia Creative Commons" style={{ borderWidth: '0' }} src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />Esta obra está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional</a>
         </div>
       </footer >
     </div >

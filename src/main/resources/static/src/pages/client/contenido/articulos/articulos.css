@@ -1,16 +1,13 @@
-
-.articulos-container {
-    height: 85%;
-    width: 100%;
-}
 .articulos {
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    /*padding: 10px;*/
     width: 99%;
-    height: 100%;
+    /*height: 90%;*/
+    min-height: 90dvh;
+    margin: 51px auto auto 0;
 }
 
 .articulos.show{
@@ -25,34 +22,56 @@
 
 
 
-.articulos-btn-container button:hover {
+/*.articulos-btn-container button:hover {
     filter: brightness(140%);
+}*/
+
+.articulos-header-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 95%;
+    min-height: 5%;
+    margin: 0 auto auto auto;
+    justify-content: space-around;
+    background-color: rgb(248, 249, 250);
+    border-radius: 6px;
+    padding: 10px 0;
+}
+
+.articulos-btn-volver-container, .titulo-productos-container {
+    display: flex;
+}
+
+.titulo-productos-container svg, .titulo-productos {
+    margin:auto;
+    font-size: 16px;
 }
 
 .titulo-productos{
-    font-size: 26px;
     margin: auto auto auto 0;
+    word-break:break-word;
+    /*width: 90%;*/
 }
 
-.filtros-container {
+/*.filtros-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: rgb(248, 249, 250);
     padding: 0 15px;
     border-radius: 20px;
     min-height:10%;
-}
+}*/
 
 .articulos-btn-volver {
     margin:auto;
     text-align: center;
-    /*height: 27px;*/
+    height: 27px;
     background-color: #fff;
     border: 1px solid rgb(88, 89, 88);
     /*rgba(88, 89, 88, 0.3)*/
     color: rgb(88, 89, 88);
     border-radius: 4px;
-    padding: 8px;
+    padding: 0 8px;
+    /*height: 100%;*/
     font-family:  "Proxima Nova", -apple-system, "Helvetica Neue", helvetica, roboto, arial, sans-serif;
 }
 
@@ -65,9 +84,44 @@
     text-align: center;
 }
 
-@media screen and (max-width: 1000px){
-    .articulos{
+.articulos-container {
+    min-height: 50dvh;
+    height: 85%;
+    width: 100%;
+    display: flex;
+    margin:0 auto auto auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    min-height: 283px;
+}
+
+.card-image {
+    min-width: 271px;
+    min-height: 271px;
+}
+
+.card-body {
+    margin: auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .articulos {
         min-height: 100%;
         height: auto;
+    }
+
+    .articulos-container .card {
+        width: 80%;
+        /*height: 60dvh;*/
+        height: auto;
+    }
+
+
+    .card-body{
+        height: 40% !important;
     }
 }

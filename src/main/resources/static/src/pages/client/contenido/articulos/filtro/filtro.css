@@ -1,11 +1,28 @@
 .header{
   display: flex;
   flex-direction: column;
+  height: 100%;
+  margin: 10px 0;
 }
 
 .container-fluid{
   z-index: 1;
-  background-color: white;
+  height: 100%;
+}
+
+.navbar-nav{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav a {
+  font-size: 16px;
+  padding: 7px;
+  margin:auto;
+  text-align: center;
 }
 
 .cabecera {
@@ -34,6 +51,8 @@
   display: flex;
   justify-content: center;
   gap: 600px;
+  height: 100%;
+padding:0;
   /*height: 5vh !important;*/
 }
 
@@ -94,11 +113,11 @@
 }
 
 @media all and (max-width:1918px) {
-  .div-a-centrar {
+/*  .div-a-centrar {
     position: unset;
     transform: unset;
     margin: 0 !important;
-  }
+  }*/
 
   .navbar-collapse {
     justify-content: center !important;
@@ -116,9 +135,6 @@
 }
 
 @media screen and (max-width:377px) {
-  .titulo-productos{
-    font-size: 60px;
-  }
   .custom-nav-link{
     font-size: 11px;
     white-space: nowrap;

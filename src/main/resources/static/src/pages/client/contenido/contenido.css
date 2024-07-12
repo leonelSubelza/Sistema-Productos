@@ -1,7 +1,13 @@
 .section {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
-  padding-top: 52px;
+  /*margin-top: 52px;*/
+}
+
+.section.show-articulos{
+  /*height: 100dvh;*/
+  height: auto !important;
+  padding-top: 10px;
 }
 
 .section div {
@@ -28,7 +34,7 @@
 
 @media (max-width: 776px) {
   .section {
-    height: auto;
+    height: 100vh;
     max-width: 100%;
   }
 

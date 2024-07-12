@@ -9,8 +9,7 @@ import Buscador from "./buscador/Buscador.jsx";
 import Spinner from 'react-bootstrap/Spinner';
 import {useEntityLoaderFunction} from "../../../../hooks/useEntityLoaderFunction.js";
 import {useSelector} from "react-redux";
-
-
+import { MdOutlineLabelImportant } from "react-icons/md";
 window.timestamp = 123456;
 
 function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
@@ -296,19 +295,25 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
   return (
     <>
       <div className={`articulos ${show&&'show'}`}>
-        <div className={'filtros-container'}>
-          <button className={'articulos-btn-volver'} onClick={handleClickVolver}><MdKeyboardBackspace />Volver</button>
-          <Filtro
-            setBusqueda={handleFiltroPorGenero}
-          />
-          <Buscador
-            setBusquedaARealizar={handleFiltroPorNombre}
-          />
+        <div className={'articulos-header-container'}>
+          <div className={'articulos-btn-volver-container'}>
+            <button className={'articulos-btn-volver'} onClick={handleClickVolver}><MdKeyboardBackspace />Volver</button>
+          </div>
+          <div className={'titulo-productos-container'}>
+            <MdOutlineLabelImportant />
+            <h1 className="titulo-productos">{tipoProductoAMostrar?.nombre}</h1>
+          </div>
+          {/*<div className={'filtros-container'}>*/}
+            <Filtro
+              setBusqueda={handleFiltroPorGenero}
+            />
+            <Buscador
+              setBusquedaARealizar={handleFiltroPorNombre}
+            />
+          {/*</div>*/}
         </div>
-        <div className={'articulos-btn-container'}>
-
-          <h1 className="titulo-productos">{tipoProductoAMostrar?.nombre}</h1>
-        </div>
+        {/*<div className={'articulos-btn-container'}>*/}
+        {/*</div>*/}
         {/*Filtra por hombre-mujer y tiene el titulo*/}
 {/*        {productosMostrar &&
         productosMostrar.length !== 0 &&
@@ -371,7 +376,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           numeroTotalDePaginas={pageToShow.totalPag }
           paginaActual={pagActual}
           // show={ ((detallesProdFiltrados.totalPaginas > 0) && show) }
-          show={ pageToShow.totalPag > 0 && show}
+          show={ pageToShow.totalPag > 1}
           color={"#007BFF"}
         />
           </div>

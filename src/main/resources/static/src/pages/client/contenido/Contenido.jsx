@@ -19,7 +19,7 @@ const Contenido = () => {
   }
 
   return (
-    <section className='section' id="producto-link">
+    <section className={`section ${!showCategorias && 'show-articulos'}`} id="producto-link">
       <CategoriasContainer
         show={showCategorias}
         handleCategoriaShow = {handleCategoriaShow}
