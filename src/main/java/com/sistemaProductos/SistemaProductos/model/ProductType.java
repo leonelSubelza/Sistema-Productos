@@ -29,6 +29,8 @@ public class ProductType {
   @Size(max=50, message = "Nombre of TypeProduct is too large")
   private String nombre;
 
+  private String imagen;
+
   // FetchType.LAZY = La peticion se hará de tipo lazy para consumir menos
   // recursos
   // mappedBy = nombre del atributo al que se hace referencia en la clase Producto

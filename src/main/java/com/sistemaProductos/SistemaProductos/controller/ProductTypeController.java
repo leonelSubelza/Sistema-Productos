@@ -9,11 +9,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/tiposProductos")
@@ -22,8 +23,8 @@ public class ProductTypeController {
   @Autowired
   private IProductTypeService productTypeService;
 
-  @Autowired
-  private SimpMessagingTemplate simpMessagingTemplate;
+/*  @Autowired
+  private SimpMessagingTemplate simpMessagingTemplate;*/
 
   @GetMapping("/paginated")
   public ResponseEntity<Page<ProductType>> findAll(
@@ -40,16 +41,27 @@ public class ProductTypeController {
   }
 
   @PutMapping
-  public ResponseEntity<Object> update(@Valid @ModelAttribute ProductType productType) {
-    this.productTypeService.update(productType);
-    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
+  public ResponseEntity<Object> update(
+          @Valid @ModelAttribute ProductType tipoProd,
+          @RequestParam("imagenObj") Optional<MultipartFile> imageObj
+  ) {
+    this.productTypeService.update(tipoProd,imageObj);
+//    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
     return new ResponseEntity<>(HttpStatus.OK);
   }
 
+  /*
+  *    @Valid @ModelAttribute PageDetailsDTO pageDetailsDTO,
+            @RequestParam("imagenObj") Optional<MultipartFile> imageObj
+  * */
+
   @PostMapping
-  public ResponseEntity<ProductType> create(@Valid @ModelAttribute ProductType tipoProd) {
-    ProductType productTypeCreated = this.productTypeService.create(tipoProd);
-    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
+  public ResponseEntity<ProductType> create(
+          @Valid @ModelAttribute ProductType tipoProd,
+          @RequestParam("imagenObj") Optional<MultipartFile> imageObj
+  ) {
+    ProductType productTypeCreated = this.productTypeService.create(tipoProd,imageObj);
+//    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
     return new ResponseEntity<>(productTypeCreated, HttpStatus.CREATED);
   }
 
@@ -59,7 +71,7 @@ public class ProductTypeController {
       throw new ModelNotFoundException("El tipo de prod que desea eliminar no existe");
     }
     this.productTypeService.deleteById(id);
-    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
+//    simpMessagingTemplate.convertAndSend("/topic/notification", "Refresh table");
     return new ResponseEntity<>(HttpStatus.OK);
   }
 

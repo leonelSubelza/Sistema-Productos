@@ -12,7 +12,7 @@ const EditarDetallesPagina = () => {
     const pageDetails = useSelector((store) => store.pageDetails);
     const navigate = useNavigate();
     const [previewDetails, setPreviewDetails] = useState(pageDetails);
-    const [URL_IMG, setURL_IMG] = useState();
+    const [setURL_IMG] = useState();
 
 
     const handleSave = async (field, value, imgArchivo) => {
@@ -62,7 +62,7 @@ const EditarDetallesPagina = () => {
                 inputType="textarea"
             />
             <EditableField
-                label="Imagen"
+                label="Imagen de portada"
                 value={pageDetails.frontPageImage}
                 onSave={(value, imgArchivo) => handleSave("frontPageImage", value, imgArchivo)}
                 inputType="file"

@@ -54,6 +54,7 @@ export const crearObjeto = async (direccion, obj, imagen, metodo) => {
     if (direccion === "tiposProductos") {
       formData.append("id", obj.id);
       formData.append("nombre", obj.nombre);
+      formData.append("imagen", obj.imagen);
     }
 
 

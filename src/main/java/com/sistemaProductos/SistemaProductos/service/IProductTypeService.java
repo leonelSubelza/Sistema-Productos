@@ -3,19 +3,21 @@ package com.sistemaProductos.SistemaProductos.service;
 import com.sistemaProductos.SistemaProductos.model.ProductType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IProductTypeService {
 
-  public ProductType create(ProductType productType);
+  ProductType create(ProductType productType, Optional<MultipartFile> imageObj);
 
-  public ProductType update(ProductType productType);
+  ProductType update(ProductType productType,Optional<MultipartFile> imageObj);
 
-  public ProductType findById(Long id);
+  ProductType findById(Long id);
 
-  public Page<ProductType> findAll(Pageable pageable);
-  public List<ProductType> readAll();
-  public void deleteById(Long id);
+  Page<ProductType> findAll(Pageable pageable);
+  List<ProductType> readAll();
+  void deleteById(Long id);
 }
 
