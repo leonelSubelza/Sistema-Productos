@@ -362,6 +362,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
                 <div className={'no-content-container'}><h4 className="text-uppercase text-center" style={{color: "red"}}>No hay productos en venta</h4></div>
         }
         </div>
+        <a href='#producto-link' className={'paginador-a-container'}>
         <Paginador
           // setPaginaAnterior={actualizarPaginadorProductosFiltrados}
           // setPaginaSiguiente={actualizarPaginadorProductosFiltrados}
@@ -379,6 +380,7 @@ function Articulos({ show,tipoProductoAMostrar, handleShowArticulos}) {
           show={ pageToShow.totalPag > 1}
           color={"#007BFF"}
         />
+        </a>
           </div>
 
     </>

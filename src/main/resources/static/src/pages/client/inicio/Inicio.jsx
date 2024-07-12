@@ -11,7 +11,7 @@ const Inicio = () => {
 
 
   return (
-    <div className='inicio'   style={{backgroundImage: `url(${`${IMAGES_URL_PAGEDETAILS}${pageDetails.frontPageImage}?timestamp=${new Date().getTime()}`})`}}>
+    <div className='inicio' style={{backgroundImage: `url(${`${IMAGES_URL_PAGEDETAILS}${pageDetails.frontPageImage}?timestamp=${new Date().getTime()}`})`}}>
         <Navbar/>
         <Hero/>
     </div >

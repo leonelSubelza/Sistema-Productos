@@ -95,6 +95,10 @@
     align-items: center;
 }
 
+.paginador-a-container {
+    text-decoration: none;
+}
+
 .card {
     min-height: 283px;
 }
