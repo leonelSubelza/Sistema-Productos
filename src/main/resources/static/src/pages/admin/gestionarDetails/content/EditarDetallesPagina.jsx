@@ -12,7 +12,7 @@ const EditarDetallesPagina = () => {
     const pageDetails = useSelector((store) => store.pageDetails);
     const navigate = useNavigate();
     const [previewDetails, setPreviewDetails] = useState(pageDetails);
-    const [setURL_IMG] = useState();
+    const [URL_IMG,setURL_IMG] = useState();
 
 
     const handleSave = async (field, value, imgArchivo) => {

@@ -5,5 +5,5 @@ export const PublicRoutes = {
 export const PrivateRoutes = {
   PRODUCTS: '/administrador/productos',
   PRODUCT_TYPES: '/administrador/tablaTipoProductos',
-  PAGE_DETAILS: '/administrador/numeroWhatsapp'
+  PAGE_DETAILS: '/administrador/configuracion'
 }

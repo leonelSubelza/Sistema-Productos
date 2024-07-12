@@ -1,5 +1,5 @@
 .section {
-  min-height: 100dvh;
+  /*min-height: 100dvh;*/
   display: flex;
   /*margin-top: 52px;*/
 }
