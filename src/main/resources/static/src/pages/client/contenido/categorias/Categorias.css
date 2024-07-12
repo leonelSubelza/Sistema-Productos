@@ -36,7 +36,8 @@
 .card-categoria-container {
     width: 100%;
     /*height: 75%;*/
-    height: auto;
+    /*height: auto;*/
+    min-height: 246px;
     display: flex;
     flex-wrap: wrap;
     margin: auto;
@@ -157,4 +158,13 @@
         height: 20%;
     }
 
+}
+
+.spinner-container {
+    width: 100%;
+    height: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
