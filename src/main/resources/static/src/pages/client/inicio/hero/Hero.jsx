@@ -12,7 +12,7 @@ const Inicio = () => {
       <div className="hero-text">
         <h1>{pageDetails.title}</h1>
         <p>
-          {pageDetails.description}
+          {pageDetails.descriptionTitle}
         </p>
         <a href="#producto-link">
         <button>Catálogo</button>
