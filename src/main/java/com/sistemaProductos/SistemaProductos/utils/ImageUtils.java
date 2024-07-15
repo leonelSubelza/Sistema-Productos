@@ -1,6 +1,5 @@
 package com.sistemaProductos.SistemaProductos.utils;
 
-import com.sistemaProductos.SistemaProductos.model.Product;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -42,6 +41,19 @@ public class ImageUtils {
 //            product.setImagen(imageObj.getOriginalFilename());
             return true;
         }catch (IOException e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean deleteImageSaved(String imgName,String fileName) {
+        Path path = ImageUtils.getImagePath(fileName);
+        String absolutePath = path.toFile().getAbsolutePath();
+        try {
+            Path completePath = Paths.get(absolutePath + "//" + imgName);
+            Files.deleteIfExists(completePath);
+            return true;
+        } catch (IOException e) {
             e.printStackTrace();
             return false;
         }

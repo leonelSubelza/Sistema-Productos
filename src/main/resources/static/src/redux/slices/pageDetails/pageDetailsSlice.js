@@ -1,13 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
-  tituloPagina: '',
-  descripcionPagina: '',
-  imagenPortada: '',
+  title: '',
+  descriptionTitle: '',
+  pageLogo: '',
+  frontPageImage: '',
+  nroWhatsapp: '',
+  pageDescription: '',
   //solo de la pag
   paginaActual: 0,
   sessionStarted: false,
-  nroWhatsapp: '',
   loading: true,
   loadingMessage: ''
 }
@@ -16,7 +18,9 @@ export const pageDetailsSlice = createSlice({
   name: 'pageDetails',
   initialState: INITIAL_STATE,
   reducers: {
-    modifyPageDetails: (state, action) => action.payload,
+    modifyPageDetails: (state, action) => {
+      return {...state, ...action.payload}
+    },
     resetPageDetailsReducer: () => INITIAL_STATE,
     setLoadingPageDetails: (state, action) => {
       const {value,message} = action.payload;

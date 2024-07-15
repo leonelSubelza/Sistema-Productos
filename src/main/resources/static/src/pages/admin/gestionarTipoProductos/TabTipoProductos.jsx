@@ -15,6 +15,7 @@ import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
 // import {useNavigate} from "react-router";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
+import {IMAGES_URL_PRODUCT_TYPE} from "../../../service/Configuracion.js";
 
 const TabTipoProducto = () => {
 
@@ -108,10 +109,22 @@ const TabTipoProducto = () => {
   };
 
   const getTableData = (tipoProd) => {
+    let urlImgProductType;
+    if(tipoProd.imagen && tipoProd.imagen !== '') {
+      urlImgProductType = `${IMAGES_URL_PRODUCT_TYPE}${tipoProd.imagen}?timestamp=${new Date().getTime()}`;
+    }else{
+      urlImgProductType = 'https://static.vecteezy.com/system/resources/previews/000/581/914/non_2x/tshirt-icon-vector-illustration.jpg';
+    }
     return (
       <>
         <td>{tipoProd.id}</td>
         <td>{tipoProd.nombre}</td>
+        <td className={'td-img-container'}>
+          <img
+            src={urlImgProductType}
+            alt={'Img de tipo producto'}
+          />
+        </td>
       </>
     );
   }
@@ -139,7 +152,7 @@ const TabTipoProducto = () => {
           editObject={editarProducto}
           removeObject={borrarProducto}
           textButtonAdd={"Agregar"}
-          columnNames={["Nombre", "Acciones"]}
+          columnNames={["Nombre","Imágen", "Acciones"]}
           // objects={tiposProductos}
           objects={productsType}
           objectTD={getTableData}

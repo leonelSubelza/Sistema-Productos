@@ -5,8 +5,6 @@ import Navbar from "../sidebar/NavBar.jsx";
 import EditarDetallesPagina from "./content/EditarDetallesPagina.jsx";
 import { Container } from "reactstrap";
 const TabDetails = () => {
-
-
     return (
         <div className="contenedor-pantalla-productos">
             <Navbar/>

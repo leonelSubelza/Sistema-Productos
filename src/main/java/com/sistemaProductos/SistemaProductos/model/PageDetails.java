@@ -17,7 +17,9 @@ public class PageDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
-    private String description;
+    private String descriptionTitle;
+    private String pageLogo;
     private String frontPageImage;
     private String nroWhatsapp;
+    private String pageDescription;
 }

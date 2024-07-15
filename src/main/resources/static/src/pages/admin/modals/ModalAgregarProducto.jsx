@@ -78,11 +78,6 @@ export default function ModalAgregarProducto({
     return Object.values(errores).length === 0;
   };
 
-
-
-
-
-
   const handleImagenAgregada = (event) => {
     //Cargamos el archivo img
 

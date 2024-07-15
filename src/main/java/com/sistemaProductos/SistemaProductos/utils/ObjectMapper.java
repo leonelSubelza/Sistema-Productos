@@ -35,8 +35,11 @@ public class ObjectMapper {
     public static PageDetails mapPageDetailsDTOTOPageDetails(PageDetailsDTO pageDetailsDTO){
         return PageDetails.builder()
                 .title(pageDetailsDTO.getTitle())
-                .description(pageDetailsDTO.getDescription())
+                .descriptionTitle(pageDetailsDTO.getDescriptionTitle())
+                .pageLogo(pageDetailsDTO.getPageLogo())
                 .frontPageImage(pageDetailsDTO.getFrontPageImage())
+                .nroWhatsapp(pageDetailsDTO.getNroWhatsapp())
+                .pageDescription(pageDetailsDTO.getPageDescription())
                 .build();
     }
 }

@@ -48,6 +48,13 @@
     font-size: 16px;
 }
 
+.td-img-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin: auto;
+}
+
 .contenedor-button {
     display: flex;
     width: 100%;
@@ -141,9 +148,9 @@ tbody td{
     margin:auto 0;
     height: auto;
 }
-.contenedor-tabla .container{
+/*.contenedor-tabla .container{
          height: auto;
-     }
+     }*/
 
 @media screen and (max-width: 1000px){
     .contenedor-tabla .container{
@@ -205,7 +212,7 @@ tbody td{
     cursor: not-allowed; /* Cursor no permitido */
 }
 
-.boton-agregar {
+/*.boton-agregar {
     width: auto;
     min-height: 31px;
     border-radius: 25px;
@@ -216,16 +223,16 @@ tbody td{
     font-size: 12px;
     display: flex;
     align-items: center;
-}
+}*/
 
 .boton-agregar svg {
     margin-right: 5px;
 }
 
-.boton-agregar:hover {
+/*.boton-agregar:hover {
     background-color: #218838;
     border: 1px solid #28a745;
-}
+}*/
 
 /* Botón de borrar más notable */
 .boton-borrar {

@@ -7,7 +7,7 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [inputValue, setInputValue] = useState(value);
     const [imageFile, setImageFile] = useState(null); // Estado para almacenar el archivo de imagen
-    const [URL, setURL] = useState();
+    const [URL, setURL] = useState('');
     const pageDetails = useSelector((store) => store.pageDetails);
 
     const handleEditClick = () => {
@@ -35,7 +35,7 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
                 reader.onloadend = () => {
                     setInputValue(file.name); // Establecer la vista previa de la imagen
                     setURL(reader.result);
-                    onSave(file.name, file); // Guardar directamente al elegir la imagen
+                    // onSave(file.name, file); // Guardar directamente al elegir la imagen
                 };
                 reader.readAsDataURL(file);
             }
@@ -55,7 +55,7 @@ const EditableField = ({ label, value, onSave, inputType = "text" }) => {
                 {inputType === "file" && inputValue ? (
                     <div>
                     <img
-                        src={`${IMAGES_URL_PAGEDETAILS}${inputValue}?timestamp=${new Date().getTime()}`}
+                        src={URL}
                         alt="Preview"
                         onClick={() => document.getElementById(`fileInput-${label}`).click()}
                         style={{ cursor: "pointer", width: "200px", height: "auto" }}

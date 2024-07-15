@@ -101,6 +101,9 @@ public class ProductService implements IProductService {
 	public void delete(Long id) {
 		Product productToDelete = this.productRepo.findById(id)
 				.orElseThrow(() -> new ModelNotFoundException("El producto a borrar no existe"));
+		if(!productToDelete.getImagen().isEmpty()){
+			ImageUtils.deleteImageSaved(productToDelete.getImagen(),productsFileName);
+		}
 		this.productRepo.delete(productToDelete);
 	}
 

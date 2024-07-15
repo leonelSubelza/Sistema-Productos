@@ -24,21 +24,37 @@ public class PageDetailsService implements IPageDetailsService{
     private IPageDetailsRepository pageDetailsRepository;
 
     @Override
-    public PageDetails create(PageDetailsDTO pageDetailsDTO, Optional<MultipartFile> frontPageImageObj) {
-        frontPageImageObj.ifPresent(multipartFile -> {
+    public PageDetails create(
+            PageDetailsDTO pageDetailsDTO,
+            Optional<MultipartFile> pageLogoImageMF,
+            Optional<MultipartFile> frontPageImageMF
+    ) {
+        pageLogoImageMF.ifPresent(multipartFile -> {
             ImageUtils.saveImage(multipartFile,pageDetailsFileName);
-            pageDetailsDTO.setFrontPageImage(frontPageImageObj.get().getOriginalFilename());
+            pageDetailsDTO.setFrontPageImage(pageLogoImageMF.get().getOriginalFilename());
+        });
+        frontPageImageMF.ifPresent(multipartFile -> {
+            ImageUtils.saveImage(multipartFile,pageDetailsFileName);
+            pageDetailsDTO.setFrontPageImage(frontPageImageMF.get().getOriginalFilename());
         });
         return this.pageDetailsRepository.save(ObjectMapper.mapPageDetailsDTOTOPageDetails(pageDetailsDTO));
     }
 
     @Override
-    public PageDetails update(PageDetails pageDetails, Optional<MultipartFile> frontPageImageObj) {
+    public PageDetails update(
+            PageDetails pageDetails,
+            Optional<MultipartFile> pageLogoImageMF,
+            Optional<MultipartFile> frontPageImageMF
+            ) {
         PageDetails pageDetailsSaved = this.pageDetailsRepository.findById(pageDetails.getId())
                 .orElseThrow(() -> new ModelNotFoundException("El obj pageDetails que se intenta actualizar no existe"));
-        frontPageImageObj.ifPresent(multipartFile -> {
+        pageLogoImageMF.ifPresent(multipartFile -> {
             ImageUtils.saveImage(multipartFile,pageDetailsFileName);
-            pageDetailsSaved.setFrontPageImage(frontPageImageObj.get().getOriginalFilename());
+            pageDetails.setFrontPageImage(pageLogoImageMF.get().getOriginalFilename());
+        });
+        frontPageImageMF.ifPresent(multipartFile -> {
+            ImageUtils.saveImage(multipartFile,pageDetailsFileName);
+            pageDetails.setFrontPageImage(frontPageImageMF.get().getOriginalFilename());
         });
         return this.pageDetailsRepository.save(pageDetails);
     }
@@ -58,6 +74,9 @@ public class PageDetailsService implements IPageDetailsService{
     public void deleteById(Long id) {
         PageDetails pageDetailsSaved = this.pageDetailsRepository.findById(id)
                 .orElseThrow(() -> new ModelNotFoundException("El obj pageDetails no existe"));
+        if(!pageDetailsSaved.getFrontPageImage().isEmpty()){
+            ImageUtils.deleteImageSaved(pageDetailsSaved.getFrontPageImage(),pageDetailsFileName);
+        }
         this.pageDetailsRepository.deleteById(pageDetailsSaved.getId());
     }
 }

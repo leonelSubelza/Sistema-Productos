@@ -67,6 +67,9 @@ public class ProductTypeService implements IProductTypeService {
   public void deleteById(Long id) {
     ProductType productTypeFounded = this.productTypeRepository.findById(id)
             .orElseThrow(() -> new ModelNotFoundException("El tipo de producto a borrar no existe"));
+    if(!productTypeFounded.getImagen().isEmpty()){
+      ImageUtils.deleteImageSaved(productTypeFounded.getImagen(),productsTypeFileName);
+    }
     this.productTypeRepository.delete(productTypeFounded);
   }
 }

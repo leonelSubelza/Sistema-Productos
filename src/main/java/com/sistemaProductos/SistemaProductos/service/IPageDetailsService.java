@@ -8,12 +8,18 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IPageDetailsService {
-    public PageDetails create(PageDetailsDTO pageDetailsDTO, Optional<MultipartFile> frontPageImageObj);
+    PageDetails create(PageDetailsDTO pageDetailsDTO,
+                              Optional<MultipartFile> pageLogoImageMF,
+                              Optional<MultipartFile> frontPageImageMF
+    );
 
-    public PageDetails update(PageDetails pageDetails,Optional<MultipartFile> frontPageImageObj);
+    PageDetails update(PageDetails pageDetails,
+                              Optional<MultipartFile> pageLogoImageMF,
+                              Optional<MultipartFile> frontPageImageMF
+    );
 
-    public PageDetails findById(Long id);
+    PageDetails findById(Long id);
 
-    public List<PageDetails> readAll();
-    public void deleteById(Long id);
+    List<PageDetails> readAll();
+    void deleteById(Long id);
 }

@@ -24,9 +24,10 @@ public class PageDetailsController {
     @PostMapping
     public ResponseEntity<PageDetails> create(
             @Valid @ModelAttribute PageDetailsDTO pageDetailsDTO,
-            @RequestParam("imagenObj") Optional<MultipartFile> imageObj
+            @RequestParam("pageLogoImageParam") Optional<MultipartFile> pageLogoImageMF,
+            @RequestParam("frontPageImageParam") Optional<MultipartFile> frontPageImageMF
     ){
-        PageDetails pageDetailsSaved = this.pageDetailsService.create(pageDetailsDTO,imageObj);
+        PageDetails pageDetailsSaved = this.pageDetailsService.create(pageDetailsDTO,pageLogoImageMF,frontPageImageMF);
         //Se guarda la ubicacion en la que se guarda el nuevo producto, ej: http://localhost:8080/123
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(pageDetailsSaved.getId()).toUri();
@@ -38,9 +39,10 @@ public class PageDetailsController {
     @PutMapping
     public ResponseEntity<Object> update(
             @Valid @ModelAttribute PageDetails pageDetails,
-            @RequestParam("imagenObj") Optional<MultipartFile> imageObj
+            @RequestParam("pageLogoImageParam") Optional<MultipartFile> pageLogoImageMF,
+            @RequestParam("frontPageImageParam") Optional<MultipartFile> frontPageImageMF
     ) {
-        this.pageDetailsService.update(pageDetails, imageObj);
+        this.pageDetailsService.update(pageDetails,pageLogoImageMF,frontPageImageMF);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
