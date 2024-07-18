@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { funcionesContext } from "../../../context/FuncionesTablaContext.jsx";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -12,8 +11,7 @@ import {
 import Alert from "react-bootstrap/Alert";
 import {IMAGES_URL} from "../../../service/Configuracion.js";
 import {toast} from "sonner";
-
-// import {agregarProductoGenerico} from '../../../context/FuncionesTabla.js'
+import {crearObjeto} from "../../../service/GestionProductos.js";
 
 const product_initialValue = {
   id: 0,
@@ -40,7 +38,6 @@ export default function ModalAgregarProducto({
   const [urlImg, setUrlImg] = useState('');
 
   const [errors, setErrors] = useState({});
-  const { agregarProductoGenerico } = useContext(funcionesContext);
 
   const vaciarCampos = () => {
       setProductoAGuardar({ ...product_initialValue });
@@ -51,9 +48,9 @@ export default function ModalAgregarProducto({
   };
 
   //Devolverá un booleano que indicará si debe actualizar la tabla o no
-  const cerrarModal = () => {
+  const cerrarModal = (updateValues) => {
     vaciarCampos();
-    return cerrarVentana();
+    return cerrarVentana(updateValues);
   };
 
   const sonValoresValidos = () => {
@@ -61,7 +58,8 @@ export default function ModalAgregarProducto({
     if(!/^[a-zA-Z\s]{1,140}$/.test(productoAGuardar.nombre) && productoAGuardar.nombre.length<=50){
       errores.nombre = 'El nombre es incorrecto'
     }
-    if(!/^[0-9]{1,220}$/.test(parseInt(productoAGuardar.precio)) && productoAGuardar.precio.toString().length>100){
+    if(!/^[0-9]{1,220}$/.test(parseInt(productoAGuardar.precio)) && productoAGuardar.precio.toString().length>100
+    && parseInt(productoAGuardar.precio)){
       errores.precio = 'El valor de precio es incorrecto';
     }
     if(productoAGuardar.productTypeId === 'Sin seleccionar'){
@@ -80,11 +78,7 @@ export default function ModalAgregarProducto({
 
   const handleImagenAgregada = (event) => {
     //Cargamos el archivo img
-
     setImagenArchivo(event.target.files[0])
-    console.log("--------------------------")
-    console.log(event.target.files[0])
-    console.log("--------------------")
     const archivo = event.target.files[0];
     if (archivo) {
       const lector = new FileReader();
@@ -112,7 +106,6 @@ export default function ModalAgregarProducto({
       return;
 
     }*/
-    console.log("se guarda valor "+value)
     setProductoAGuardar(prevState => ({
       ...prevState,
       [name]: value
@@ -135,13 +128,13 @@ export default function ModalAgregarProducto({
     try {
       console.log("producto a guardar")
       console.log(productoAGuardar)
-      const promise = agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method);
+       // agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method);
+      const promise = crearObjeto("productos",productoAGuardar, imagenArchivo,method);
       toast.promise(promise, {
         loading: "Guardando nuevo producto",
         success: () => {
           setSendBtnIsDisabled(false);
-          console.log("se recibio una respuesta")
-          cerrarModal()
+          cerrarModal(true)
           return `Producto ${productoAGuardar.nombre} guardado con éxito`;
         },
         error: 'Error al guardar producto ' + productoAGuardar.nombre,
@@ -150,22 +143,6 @@ export default function ModalAgregarProducto({
       // toast.error('Error al guardar producto ' + productoAGuardar.nombre);
       console.log("error en agregar prod");
     }
-
-/*    const toastId = toast.loading("Guardando nuevo producto");
-    agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method)
-      .then(() => {
-        setSendBtnIsDisabled(false);
-        console.log("se recibio una respuesta")
-        toast.success(`Producto ${productoAGuardar.nombre} guardado con éxito`);
-        cerrarModal()
-        toast.dismiss(toastId)
-      })
-      .catch((e) => {
-        console.log(e);
-        toast.dismiss(toastId);
-        toast.error('Error al guardar producto ' + productoAGuardar.nombre);
-        cerrarModal();
-      });*/
   };
 
 
@@ -317,7 +294,7 @@ export default function ModalAgregarProducto({
           </ModalBody>
 
         <ModalFooter>
-          <Button onClick={() => cerrarModal()}>Cancelar</Button>
+          <Button onClick={() => cerrarModal(false)}>Cancelar</Button>
           <Button
             color="primary"
             disabled={sendBtnIsDisabled}

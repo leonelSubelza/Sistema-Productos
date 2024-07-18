@@ -8,16 +8,15 @@ import Nosotros from "./nosotros/Nosotros.jsx";
 
 function VentanaCliente() {
   return (
-    <ElementosCarritoContext>
-      {/*<Navigate to={`/`} />*/}
-      <div style={{display: 'flex', flexDirection: 'column' }}>
-        <Inicio/>
-        <Contenido />
-        <Nosotros/>
-        <Footer />
-        <Carrito />
-      </div>
-    </ElementosCarritoContext>
+      <ElementosCarritoContext>
+        <div style={{display: 'flex', flexDirection: 'column'}}>
+          <Inicio/>
+          <Contenido/>
+          <Nosotros/>
+          <Footer/>
+          <Carrito/>
+        </div>
+      </ElementosCarritoContext>
   );
 }
 

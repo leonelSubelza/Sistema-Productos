@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { funcionesContext } from "../../../context/FuncionesTablaContext.jsx";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Modal,
@@ -11,6 +10,7 @@ import {
 import {toast} from "sonner";
 import Alert from "react-bootstrap/Alert";
 import {IMAGES_URL_PRODUCT_TYPE} from "../../../service/Configuracion.js";
+import {crearObjeto} from "../../../service/GestionProductos.js";
 
 const ModalAgregarTipoProducto = ({
   mostrarVentana,
@@ -18,7 +18,7 @@ const ModalAgregarTipoProducto = ({
   tipoProd,
   esAgregar }
 ) => {
-  const { agregarProductoGenerico } = useContext(funcionesContext);
+  // const { agregarProductoGenerico } = useContext(funcionesContext);
   const [errors, setErrors] = useState({});
   const [nombre, setNombre] = useState("");
   const [imageProdType, setImageProdType] = useState('')
@@ -28,19 +28,19 @@ const ModalAgregarTipoProducto = ({
   const [imgArchivo, setImgArchivo] = useState()
 
   const vaciarCampos = () => {
-    if (esAgregar) {
+    // if (esAgregar) {
       setNombre("");
       setImageProdType('')
       setErrors({})
       setUrlImg('');
       setImgArchivo(undefined)
-    }
+    // }
     setSendBtnIsDisabled(false)
   };
 
-  const cerrarModal = () => {
+  const cerrarModal = (updateValues) => {
     vaciarCampos();
-    return cerrarVentana();
+    return cerrarVentana(updateValues);
   };
 
   const valoresValidos = () => {
@@ -88,28 +88,21 @@ const ModalAgregarTipoProducto = ({
     setSendBtnIsDisabled(true);
 
     try{
-      const promise = agregarProductoGenerico("tiposProductos", tipoProducto, imgArchivo, method);
+      // const promise = agregarProductoGenerico("tiposProductos", tipoProducto, imgArchivo, method);
+      const promise = crearObjeto("tiposProductos", tipoProducto, imgArchivo, method);
       toast.promise(promise, {
         loading: "Guardando nuevo Tipo de Producto",
         success: () => {
           setSendBtnIsDisabled(false);
-          cerrarModal()
+          cerrarModal(true)
           return `Tipo producto ${tipoProducto.nombre} guardado con éxito`;
         },
         error: `Error al guardar el tipo producto ${tipoProducto.nombre}`,
       });
     }catch (e) {
-      // toast.error(`Error al guardar el tipo producto ${tipoProducto.nombre}`);
       console.log("error en agregar prod");
     }
-/*    agregarProductoGenerico("tiposProductos", tipoProducto, null, method).then(() => {
-        setSendBtnIsDisabled(false);
-        cerrarModal(true)
-      }
-    ).catch(e => {
-      cerrarModal(true);
-      console.log(e)
-    });*/
+
   };
 
   useEffect(() => {
@@ -120,6 +113,7 @@ const ModalAgregarTipoProducto = ({
       setUrlImg('');
     } else {
       setNombre(tipoProd.nombre);
+      setImageProdType(tipoProd.imagen)
       if(tipoProd.imagen!==null && tipoProd.imagen!=='') {
         setUrlImg(`${IMAGES_URL_PRODUCT_TYPE}${tipoProd.imagen}?timestamp=${new Date().getTime()}`)
       }
@@ -175,7 +169,7 @@ const ModalAgregarTipoProducto = ({
           </FormGroup>
         </ModalBody>
         <ModalFooter>
-          <Button onClick={cerrarModal}>Cancelar</Button>
+          <Button onClick={()=>cerrarModal(false)}>Cancelar</Button>
           <Button
             color="primary"
             disabled={sendBtnIsDisabled}

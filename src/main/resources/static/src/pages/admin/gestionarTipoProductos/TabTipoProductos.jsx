@@ -1,6 +1,5 @@
-import {useEffect, useState, useContext} from "react";
+import {useEffect, useState} from "react";
 
-import {funcionesContext} from "../../../context/FuncionesTablaContext.jsx";
 import "../Pantallas.css";
 import ModalAgregarTipoProducto from "../modals/ModalAgregarTipoProducto.jsx";
 import { toast } from 'sonner'
@@ -8,39 +7,24 @@ import "../../../components/adminTable/Tabla.css";
 
 //Iconos
 import {MdLabelImportant} from "react-icons/md";
-// import PaginadorTipoProductos from "./PaginadorTipoProductos";
-// import PaginadorProductos from "../gestionarProductos/PaginadorProductos";
 import TablaAdministrador from "../../../components/adminTable/TablaAdministrador.jsx";
 import {useSelector} from "react-redux";
 import Navbar from "../sidebar/NavBar.jsx";
-// import {useNavigate} from "react-router";
 import {usePageDetailsActions} from "../../../redux/slices/pageDetails/usePageDetailsActions.js";
-import {IMAGES_URL_PRODUCT_TYPE} from "../../../service/Configuracion.js";
+import { IMAGES_URL_PRODUCT_TYPE} from "../../../service/Configuracion.js";
+import {borrarObjeto} from "../../../service/GestionProductos.js";
+import {useProductsTypeActions} from "../../../redux/slices/productsType/useProductsTypeActions.js";
+import {useEntityLoaderFunction} from "../../../hooks/useEntityLoaderFunction.js";
+import {useProductsActions} from "../../../redux/slices/products/useProductsActions.js";
 
 const TabTipoProducto = () => {
 
-  // const tiposProductos = useSelector(store => store.productsType.value)
-  // const navigate = useNavigate();
-  const {
-    borrarProductoGenerico,
-    // tiposProductos,
-    // actualizarTipoProductos,
-    // sesionIniciada
-  } =
-    useContext(funcionesContext);
-
-  // const pageDetails = useSelector(store => store.pageDetails);
   const productsType = useSelector(store => store.productsType.value)
 
   const { updateValuePageDetail } = usePageDetailsActions();
-
-  //variables de paginacion
-  // const [totalTipoProductos, setTotalTiposProductos] = useState(tiposProductos.length);
-  // const [tipoProductosPorPagina] = useState(5);
-  // const [paginaActual, setPaginaActual] = useState(1);
-  // const ultimoIndex = paginaActual * tipoProductosPorPagina;
-  // const primerIndex = ultimoIndex - tipoProductosPorPagina;
-
+  const { resetProductsType } = useProductsTypeActions();
+  const { cargarEntidadSinPaginacion } = useEntityLoaderFunction();
+  const { resetProducts } = useProductsActions();
   //modal
   const [showModalAgregar, setShowModalAgregar] = useState(false);
 
@@ -48,9 +32,22 @@ const TabTipoProducto = () => {
   const [prodAEditar, setProdAEditar] = useState();
   const [esAgregar, setEsAgregar] = useState(false); //si es agregar se borran los valores seteados
 
-  const manejarModalAgregar = () => {
+  const manejarModalAgregar = (updateValues) => {
     setShowModalAgregar(false);
+    if(updateValues) {
+      updateProductsTypeAndProducts();
+    }
   };
+
+  const updateProductsTypeAndProducts = () => {
+    updateValuePageDetail("paginaActual", 1);
+    resetProductsType();
+    resetProducts();
+    cargarEntidadSinPaginacion("tiposProductos")
+      // .then(productsTypeAct => {
+      //   cargarEntidadConPaginacion("productos",0,ADMIN_CANT_OBJ_TO_SHOW,productsTypeAct);
+      // })
+  }
 
   const agregarProd = () => {
     setEsAgregar(true);
@@ -67,45 +64,20 @@ const TabTipoProducto = () => {
 
   const borrarProducto = (prod) => {
     try {
-      const promise = borrarProductoGenerico("tiposProductos", prod.id);
+      // const promise = borrarProductoGenerico("tiposProductos", prod.id);
+      //         const promise = borrarObjeto("productos", prod.id);
+      const promise = borrarObjeto("tiposProductos", prod.id);
       toast.promise(promise, {
         loading: "Borrando Tipo de Producto",
         success: () => {
-          updateValuePageDetail("paginaActual", 1);
+          updateProductsTypeAndProducts();
           return `Tipo de Producto ${prod.nombre} borrado`;
         },
         error: 'Error al borrar Tipo de Productos ' + prod.nombre,
       });
     } catch (e) {
       console.log(e)
-      // toast.error('Error al borrar Tipo de Productos ' + prod.nombre);
     }
-/*    borrarProductoGenerico("tiposProductos", prod.id)
-      .then(() => {
-        updateValuePageDetail("paginaActual", 1);
-        // resetProducts();
-      })
-      .catch(e => {
-        console.log(e)
-      })*/
-
-    /*
-    *       try {
-        const promise = borrarProductoGenerico("productos", prod.id, pageDetails.paginaActual, productsType);
-        toast.promise(promise, {
-          loading: "Borrando producto",
-          success: (data) => {
-            updateValuePageDetail("paginaActual", 1);
-            return `Producto ${JSON.stringify(data)} borrado`;
-          },
-          error: 'Error al cargar productos',
-        });
-      }catch (e){
-        console.log(e);
-        toast.error('Error al borrar producto ' + prod.nombre);
-    * */
-
-
   };
 
   const getTableData = (tipoProd) => {
