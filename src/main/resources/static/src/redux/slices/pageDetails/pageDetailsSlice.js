@@ -16,8 +16,6 @@ const INITIAL_STATE = {
   loadingMessage: ''
 }
 
-// HACER QUE LA LLAMADA A LA API SE HAGA POR ID Y FIJARSE QUE PASA SI  SE HACE UNA LLAMADA PARA CARGAR LOS PAGE DETAILS POR PRIMERA VEZ Y NO EXISTEN LOS DATOS
-
 export const pageDetailsSlice = createSlice({
   name: 'pageDetails',
   initialState: INITIAL_STATE,
