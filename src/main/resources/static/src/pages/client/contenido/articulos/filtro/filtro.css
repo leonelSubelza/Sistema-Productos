@@ -1,0 +1,142 @@
+.header{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 10px 0;
+}
+
+.container-fluid{
+  z-index: 1;
+  height: 100%;
+}
+
+.navbar-nav{
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.navbar-nav a {
+  font-size: 16px;
+  padding: 7px;
+  margin:auto;
+  text-align: center;
+}
+
+.cabecera {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 140px;
+  align-items: center;
+}
+
+.logo {
+  padding: 0;
+  display: flex;
+  margin: 0 auto;
+}
+
+.logo img {
+  margin: 20px;
+  margin-right: 0;
+  width: 91%;
+  height: 9rem;
+  display: flex;
+}
+
+.custom-navbar {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  gap: 600px;
+  height: 100%;
+padding:0;
+  /*height: 5vh !important;*/
+}
+
+.custom-nav-link {
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 4px;
+  font-weight: 400;
+}
+
+.custom-nav-link-item {
+  /*text-transform: lowercase;*/
+  text-transform: capitalize;
+  letter-spacing: normal;
+  text-align: center;
+}
+
+.nav-link-inicio-sesion {
+  position: absolute !important;
+  right: 0 !important;
+}
+
+.nav-link{
+  color: black;
+  border-radius: 7px;
+}
+
+.nav-link:hover:not(.remove-filter-btn) {
+  box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px;
+}
+
+.custom-nav-link.nav-link.activo {
+  /*box-shadow: #007BFF 0 1px 5px;*/
+  background-color: #007BFF;
+  color: #fff;
+}
+
+.div-a-centrar {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+
+.carrito-txt {
+  margin-bottom: 0;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.icon-carrito {
+  margin-bottom: 1px;
+  margin-right: 3px;
+}
+
+@media all and (max-width:1918px) {
+/*  .div-a-centrar {
+    position: unset;
+    transform: unset;
+    margin: 0 !important;
+  }*/
+
+  .navbar-collapse {
+    justify-content: center !important;
+  }
+}
+
+@media screen and (max-width:500px) {
+  .container-fluid{
+    margin: 0;
+    padding: 0;
+  }
+  .custom-nav-link{
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width:377px) {
+  .custom-nav-link{
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}

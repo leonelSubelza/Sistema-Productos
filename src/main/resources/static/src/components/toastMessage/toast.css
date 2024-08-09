@@ -1,0 +1,21 @@
+.toast-contenedor{
+    position: fixed;
+    top:10px;
+    right:5px;
+    width:auto;
+    z-index: 1;
+}
+
+.toast{
+    width: auto;
+}
+
+.btn-close{
+    opacity: 0;
+    color:white;
+    transition: opacity .5s;
+}
+
+.btn-close:hover{
+    opacity: 1;
+}
