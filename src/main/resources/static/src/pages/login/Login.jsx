@@ -10,8 +10,8 @@ import {PrivateRoutes} from "../../router/routes.js";
 import {IMAGES_URL_PAGEDETAILS} from "../../service/Configuracion.js";
 
 function Login() {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const pageDetails = useSelector(store => store.pageDetails);
   const navigate = useNavigate();
   const [loginLogo, setLoginLogo] = useState('')
@@ -24,7 +24,6 @@ function Login() {
           if(res){
             // setSesionIniciada(true);
             updateValuePageDetail("sessionStarted",true)
-            console.log("se debería iniciar sesion en true");
             navigate(PrivateRoutes.PRODUCTS)
           }else{
             alert("Las credenciales son incorrectas. Por favor intente nuevamente.");

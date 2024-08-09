@@ -106,7 +106,6 @@ const ModalAgregarTipoProducto = ({
   };
 
   useEffect(() => {
-    console.log(tipoProd)
     //si se recibe un obj, es porque se abrio desde editar
     if (tipoProd == null) {
       setNombre("");

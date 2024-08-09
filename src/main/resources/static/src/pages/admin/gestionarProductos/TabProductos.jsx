@@ -35,7 +35,6 @@ const TabProductos = () => {
 
   const manejarModalAgregar = (updateValues) => {
     setShowModalAgregar(false);
-    console.log("must update values: "+updateValues)
     if(updateValues) {
       resetProducts();
       updateValuePageDetail("paginaActual",1);
@@ -79,14 +78,11 @@ const TabProductos = () => {
 
   //Paginacion
   const handlePaginaNueva = async (nPagina) => {
-    console.log("nueva pag"+nPagina)
     updateValuePageDetail("paginaActual",nPagina);
     if(isPageLoaded(products.pages,nPagina-1)){
-      console.log("existe pagina cargada")
       updateValuePageDetail("paginaActual",nPagina);
       return;
     }
-    console.log("no existe pagina cargada, se hace la busqueda");
     if(nPagina>1){
       // actualizarProductos("productos",nPagina-1,administradorCantObjPorTabla, tiposProductos)
       await cargarEntidadConPaginacion("productos",nPagina-1,ADMIN_CANT_OBJ_TO_SHOW,productsType);

@@ -55,7 +55,7 @@ export default function ModalAgregarProducto({
 
   const sonValoresValidos = () => {
     let errores = {};
-    if(!/^[a-zA-Z\s]{1,140}$/.test(productoAGuardar.nombre) && productoAGuardar.nombre.length<=50){
+    if(!/^[a-zA-Z\s-]{1,140}$/.test(productoAGuardar.nombre) && productoAGuardar.nombre.length<=50){
       errores.nombre = 'El nombre es incorrecto'
     }
     if(!/^[0-9]{1,220}$/.test(parseInt(productoAGuardar.precio)) && productoAGuardar.precio.toString().length>100
@@ -126,8 +126,6 @@ export default function ModalAgregarProducto({
 
     setSendBtnIsDisabled(true);
     try {
-      console.log("producto a guardar")
-      console.log(productoAGuardar)
        // agregarProductoGenerico("productos", productoAGuardar, imagenArchivo, method);
       const promise = crearObjeto("productos",productoAGuardar, imagenArchivo,method);
       toast.promise(promise, {
@@ -147,8 +145,6 @@ export default function ModalAgregarProducto({
 
 
   useEffect(() => {
-    console.log("se abre modal agregar prod, prod:")
-    console.log(prod)
     if (prod === undefined) {
       setProductoAGuardar({ ...product_initialValue })
       setImagenArchivo(undefined);
