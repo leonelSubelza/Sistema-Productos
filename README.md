@@ -80,19 +80,40 @@ Es una página web donde poder realizar pedidos de diversos productos los cuales
 ## :video_game: Imágenes del sistema 
 `Imágenes del cliente`:
 
-- `Vista principal`
-![normal](https://user-images.githubusercontent.com/76817363/227748053-4d33e066-ac01-464f-8316-9f8476e21ba8.png)
+- ### Vista principal - Inicio
+<!--![normal](https://user-images.githubusercontent.com/76817363/227748053-4d33e066-ac01-464f-8316-9f8476e21ba8.png)-->
+![Sist-prod-inicio-ej](https://github.com/user-attachments/assets/a738b65b-8f83-4909-8fbe-7759edd6c55c)
 
-- `Vista del carrito`
-![oscuro](https://user-images.githubusercontent.com/76817363/227748068-9baa13bd-210c-4a32-8552-0ca2b12c6362.png)
+- ### Vista principal - Categorias
+![Sist-prd-filtro-categorias-ej](https://github.com/user-attachments/assets/110afb8c-294c-4293-be6f-35ed70db82df)
 
-`Imágenes del vendedor`:
+- ### Vista principal - Tienda
+![Sist-prod-inicio-tienda-ej](https://github.com/user-attachments/assets/d22669a0-a54a-46e6-b8fd-670dee895a25)
 
-- `Vista del login`
-![victoria](https://user-images.githubusercontent.com/76817363/227748069-ca23f877-7eff-475e-8d7c-0de870ecbe20.png)
+ 
+- ### Vista principal - Carrito
+<!--![oscuro](https://user-images.githubusercontent.com/76817363/227748068-9baa13bd-210c-4a32-8552-0ca2b12c6362.png)-->
+![Sist-prod-inicio-carrito-ej](https://github.com/user-attachments/assets/08f9ef1a-e01c-4743-bb5e-878f1b7e8a6a)
 
-- `Vista del gestor de productos`
-![victoria](https://user-images.githubusercontent.com/76817363/227748071-af3697e1-58ec-4d29-bf65-e7e18b3bf4e7.png)
+- ### Vista del login
+<!--![victoria](https://user-images.githubusercontent.com/76817363/227748069-ca23f877-7eff-475e-8d7c-0de870ecbe20.png)-->
+![Sist-prod-login-ej](https://github.com/user-attachments/assets/bf08d33c-086c-4779-86eb-e6800a8b3a50)
 
-- `Vista de agregar producto`
-![victoria](https://user-images.githubusercontent.com/76817363/227748070-975f1413-087c-40c5-9baf-2348d5bb530f.png)
+- ### Vista administrador - Gestionar productos
+<!--![victoria](https://user-images.githubusercontent.com/76817363/227748071-af3697e1-58ec-4d29-bf65-e7e18b3bf4e7.png)-->
+![Sist-prod-admin-prod-ej](https://github.com/user-attachments/assets/061b1697-7880-4562-848e-12c491faf657)
+
+- ### Vista administrador - Gestionar productos - Agregar/Editar
+<!--![victoria](https://user-images.githubusercontent.com/76817363/227748070-975f1413-087c-40c5-9baf-2348d5bb530f.png)-->
+![Sist-prod-admin-prod-agregar-ej](https://github.com/user-attachments/assets/5a00d76f-d17b-4aa4-8683-ef2488f72880)
+
+- ### Vista administrador - Gestionar categorias
+![Sist-prod-admin-categorias-ej](https://github.com/user-attachments/assets/f5a5394f-c77b-4b00-b850-6b44de8a67b4)
+
+- ### Vista administrador - Gestionar categorias - Agregar/Editar
+![Sist-prod-admin-prod-agregar-editar-categoria-ej](https://github.com/user-attachments/assets/68cbcc92-3f69-4e2c-8da8-c72717c4f77b)
+
+- ### Vista administrador - Gestionar detalles de página
+![Sist-prod-admin-details-ej](https://github.com/user-attachments/assets/f55fb361-f9d7-4a93-a94f-db29f2d12959)
+
+
