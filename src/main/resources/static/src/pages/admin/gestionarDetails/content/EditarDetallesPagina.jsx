@@ -5,15 +5,12 @@ import { useSelector } from "react-redux";
 import { usePageDetailsActions } from "../../../../redux/slices/pageDetails/usePageDetailsActions.js";
 import { guardarPageDetail } from "../../../../service/pageDetailsService.js";
 import EditableField from "./EditableField.jsx";
-// import {IMAGES_URL_PAGEDETAILS} from "../../../../service/Configuracion.js";
 
 const EditarDetallesPagina = () => {
     const { updateValuePageDetail } = usePageDetailsActions();
     const pageDetails = useSelector((store) => store.pageDetails);
     const navigate = useNavigate();
     const [previewDetails, setPreviewDetails] = useState(pageDetails);
-    // const [URL_IMG,setURL_IMG] = useState('');
-
 
     const handleSave = async (field, value, imgArchivo) => {
         try{
@@ -21,9 +18,7 @@ const EditarDetallesPagina = () => {
                 ...pageDetails,
                 [field]: value,
             };
-            const response = await guardarPageDetail(pageDetailsObj,field, imgArchivo);
-            console.log(response)
-
+            await guardarPageDetail(pageDetailsObj, field, imgArchivo);
             updateValuePageDetail(field, value);
             setPreviewDetails({ ...previewDetails, [field]: value });
         } catch(e) {
@@ -37,10 +32,6 @@ const EditarDetallesPagina = () => {
         }
     }, [navigate, pageDetails.sessionStarted]);
 
-/*    useEffect(() => {
-        setURL_IMG(`${IMAGES_URL_PAGEDETAILS}${pageDetails.frontPageImage}?timestamp=${new Date().getTime()}`)
-    }, [pageDetails,previewDetails]);*/
-
     return (
       <>
         <div className="contenedor-titulo-tabla">
@@ -50,6 +41,16 @@ const EditarDetallesPagina = () => {
             <p>Modifique los detalles importantes de su página desde aquí</p>
           </div>
         </div>
+          <EditableField
+            label="Nombre de la página"
+            value={pageDetails.pageName}
+            onSave={(value) => handleSave("pageName", value)}
+          />
+          <EditableField
+            label="Slogan de la página"
+            value={pageDetails.pageSlogan}
+            onSave={(value) => handleSave("pageSlogan", value)}
+          />
         <EditableField
           label="Número de WhatsApp"
           value={pageDetails.nroWhatsapp}
@@ -80,7 +81,7 @@ const EditarDetallesPagina = () => {
         <EditableField
           label="Logo de la página"
           value={pageDetails.pageLogo}
-          onSave={(value, imgArchivo) => handleSave("pageLogoImage", value, imgArchivo)}
+          onSave={(value, imgArchivo) => handleSave("pageLogo", value, imgArchivo)}
           inputType="file"
         />
       </>

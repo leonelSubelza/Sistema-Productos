@@ -45,7 +45,7 @@
 
 @media screen and (max-width: 1090px) {
   .hero-text {
-    width: 100%;
+    width: 80%;
     color: white;
     font-weight: 400;
     padding: 0;
@@ -57,15 +57,20 @@
 }
 
 @media screen and (max-width: 750px) {
-  .hero-section {
+/*  .hero-section {
     padding-left: 30px;
-  }
+  }*/
   .hero-text h1 {
     font-size: 60px;
+    text-align: center;
+    margin:0 auto;
   }
 
   .hero-text p {
     font-size: 17px;
+  }
+  .hero-text button{
+    margin: auto;
   }
 }
 
@@ -73,14 +78,16 @@
   .hero-text h1 {
     font-size: 50px;
   }
-
+  .hero-text {
+    width: 90%;
+  }
   .hero-text p {
     font-size: 13px;
   }
-  .hero-text button {
+/*  .hero-text button {
     background-color: #6ba488;
     padding: 5px 20px;
     color: white;
     border: transparent;
-  }
+  }*/
 }

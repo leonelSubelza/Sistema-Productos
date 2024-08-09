@@ -19,7 +19,7 @@ const Inicio = () => {
     if(!pageDetails.descriptionTitle || pageDetails.descriptionTitle==='') {
       setSubtitle(DEFAULT_SUBTITLE_MESSAGE);
     }else{
-      setPageTitle(pageDetails.descriptionTitle);
+      setSubtitle(pageDetails.descriptionTitle);
     }
   }, []);
 

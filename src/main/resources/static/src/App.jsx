@@ -20,6 +20,7 @@ function App() {
     let location = window.location.href;
     if (location.includes('/administrador') && !isToastActive.current && pageDetails.loadingMessage!=='') {
       toast.loading(pageDetails.loadingMessage);
+
       isToastActive.current = true
     }
     if(!pageDetails.loading){

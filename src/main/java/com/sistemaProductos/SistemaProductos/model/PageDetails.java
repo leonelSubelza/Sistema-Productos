@@ -16,6 +16,8 @@ public class PageDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String pageName;
+    private String pageSlogan;
     private String title;
     private String descriptionTitle;
     private String pageLogo;

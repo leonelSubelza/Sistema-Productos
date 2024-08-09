@@ -50,6 +50,7 @@
 
 .contenedor-seccion {
     margin-bottom: 20px;
+    border: 1px solid transparent;
 }
 .contenedor-seccion h2{
     color: white;

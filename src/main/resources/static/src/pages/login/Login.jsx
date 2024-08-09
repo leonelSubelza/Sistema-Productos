@@ -7,15 +7,14 @@ import { useNavigate } from 'react-router';
 import {usePageDetailsActions} from "../../redux/slices/pageDetails/usePageDetailsActions.js";
 import {useSelector} from "react-redux";
 import {PrivateRoutes} from "../../router/routes.js";
+import {IMAGES_URL_PAGEDETAILS} from "../../service/Configuracion.js";
 
 function Login() {
-  const [email, setEmail] = useState("admin@gmail.com");
-  const [password, setPassword] = useState("admin1234");
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const pageDetails = useSelector(store => store.pageDetails);
-
-  // const { sesionIniciada, setSesionIniciada } =
-  // useContext(funcionesContext);
   const navigate = useNavigate();
+  const [loginLogo, setLoginLogo] = useState('')
 
   const { updateValuePageDetail } = usePageDetailsActions();
   const manejarSesion = () => {
@@ -46,6 +45,11 @@ function Login() {
       // Si ya inicio sesion se le redirige a /administrador/products
       navigate(PrivateRoutes.PRODUCTS)
     }
+    if(!pageDetails.pageLogo || pageDetails.pageLogo===''){
+      setLoginLogo(logo);
+    }else{
+      setLoginLogo(IMAGES_URL_PAGEDETAILS+pageDetails.pageLogo+"?"+"timestamp="+new Date().getTime())
+    }
   }, []);
 
   return (
@@ -56,7 +60,7 @@ function Login() {
           <img src="https://random.imagecdn.app/200/400" alt="" />
         </div>
         <div className='container-login'>
-          <img src={logo} alt="" className='login-logo' />
+          <img src={loginLogo} alt="" className='login-logo' />
           <form className='form-login'>
             <div className="mb-3">
               <label htmlFor={"form-email"} className="form-label">Email</label>

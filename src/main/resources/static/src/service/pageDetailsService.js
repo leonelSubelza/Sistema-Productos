@@ -18,16 +18,17 @@ export async function loadUserDetailsValues() {
 
 export const guardarPageDetail = async (obj,fieldName,imageArchivo) => {
   try {
-    console.log(imageArchivo)
     const formData = new FormData();
     if (fieldName === 'frontPageImage' && imageArchivo !== undefined) {
       formData.append('frontPageImageParam', imageArchivo);
     }
-    if (fieldName === 'pageLogoImage' && imageArchivo !== undefined) {
+    if (fieldName === 'pageLogo' && imageArchivo !== undefined) {
       formData.append('pageLogoImageParam', imageArchivo);
     }
 
     formData.append("id", obj.id);
+    formData.append("pageName", obj.pageName);
+    formData.append("pageSlogan", obj.pageSlogan);
     formData.append("title", obj.title);
     formData.append("descriptionTitle", obj.descriptionTitle);
     formData.append("frontPageImage", obj.frontPageImage);

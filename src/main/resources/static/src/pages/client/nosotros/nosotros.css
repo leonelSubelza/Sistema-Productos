@@ -33,4 +33,11 @@ margin-top: 50px;
     background-color: var(--color-button-hover);
   }
 
-
+@media screen and (max-width: 1090px) {
+    .nosotros h1{
+        font-size: 50px;
+    }
+    .nosotros p{
+        font-size: 16px;
+    }
+}

@@ -1,6 +1,8 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const INITIAL_STATE = {
+  pageName:'',
+  pageSlogan:'',
   title: '',
   descriptionTitle: '',
   pageLogo: '',
@@ -13,6 +15,8 @@ const INITIAL_STATE = {
   loading: true,
   loadingMessage: ''
 }
+
+// HACER QUE LA LLAMADA A LA API SE HAGA POR ID Y FIJARSE QUE PASA SI  SE HACE UNA LLAMADA PARA CARGAR LOS PAGE DETAILS POR PRIMERA VEZ Y NO EXISTEN LOS DATOS
 
 export const pageDetailsSlice = createSlice({
   name: 'pageDetails',
